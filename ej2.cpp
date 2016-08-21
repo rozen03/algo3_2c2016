@@ -1,36 +1,61 @@
-#include <tuple>
 #include <cmath>
-#include "range.hpp"
-#include <utility>
-#include <string>
+#include <fstream>
 #include <iostream>
-#include "sys.h"
-#include "builtins.h"
+#include <sstream> // std::ostringstream
+#include <stdlib.h>
+#include <string>
+#include <tuple>
 #include <vector>
-#include <algorithm>
-template <typename T1>
-auto terny(T1 n) {
-auto output = std::string {""};
-std::vector<decltype(0)> balanzaA {0};
-std::vector<decltype(0)> balanzaB {0};
-auto count = 0;
-while (n > 0) {
-auto rem = n % 3;
-auto n = py14::to_int(n / 3);
-if(rem == 1) {
-balanzaA.push_back(std::pow(3, count));
-} else {
-if(rem == 2) {
-n += 1;
-balanzaB.push_back(std::pow(3, count));
+using namespace std;
+uint64_t rdtsc() {
+  unsigned int lo, hi;
+  __asm__ __volatile__("rdtsc" : "=a"(lo), "=d"(hi));
+  return ((uint64_t)hi << 32) | lo;
 }
+
+void terny(long n) {
+  // std::vector<unsigned long> balanzaA{0};
+  // std::vector<unsigned long> balanzaB{0};
+  unsigned long count = 1;
+  int countador_A = 0;
+  int countador_B = 0;
+  std::ostringstream oss_A;
+  std::ostringstream oss_B;
+  while (n > 0) {
+    int rem = n % 3;
+    n = n / 3;
+    if (rem == 1) {
+
+      oss_A << count << " ";
+      countador_A++;
+    } else {
+      if (rem == 2) {
+        countador_B++;
+        n += 1;
+        oss_B << count << " ";
+      }
+    }
+    count *= 3;
+  }
 }
-count += 1;
-}
-return std::make_tuple(balanzaA, balanzaB);
-}
-auto n = 15;
-auto tam = std::pow(n, n);
-for(auto i : rangepp::range(1, std::pow(10, 15))) {
-std::tie(balanzaA, balanzaB) = terny(i);
+int main() {
+  int n = 15;
+  unsigned long tam = std::pow(10, 15);
+  int repeticiones = 30000;
+  std::ostringstream oss;
+  for (unsigned long i = 1; i < tam; i = 1 + round(i + i / 100)) {
+    uint64_t begin, end, elapsed_secs, elapsed_final;
+    elapsed_secs = 0;
+    for (int j = 0; j < repeticiones; j++) {
+      begin = rdtsc();
+      terny(i);
+      end = rdtsc();
+      elapsed_secs += end - begin;
+    }
+    // std::cout << i << std::endl;
+    elapsed_final = elapsed_secs / repeticiones;
+    oss << i << "    " << elapsed_final << endl;
+    // std::cout << i << endl;
+  }
+  cout << oss.str() << endl;
 }
