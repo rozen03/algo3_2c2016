@@ -17,6 +17,7 @@ private:
 
 class Mochila{
 public:
+	Mochila();
 	Mochila(int p);
 	void Agregar(Tesoro o);
 	std::string Imprimir();

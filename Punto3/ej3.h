@@ -22,9 +22,7 @@ public:
 	void Agregar(Tesoro o);
 	std::string Imprimir();
 	int Capacidad();
-	int Valor();
 private:
 	int cap;
-	int valor;
-	std::list<Tesoro> tes;
+	std::vector<Tesoro> tes;
 };

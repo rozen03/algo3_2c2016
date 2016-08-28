@@ -23,30 +23,25 @@ string Tesoro::Imprimir(){
 	return s;
 }
 
-Mochila::Mochila(int p):cap(p), valor(0){	
+Mochila::Mochila(int p):cap(p){	
 }
 
-Mochila::Mochila():cap(0),valor(0){
+Mochila::Mochila():cap(0){
 }
 
 void Mochila::Agregar(Tesoro o){
 	cap = cap - o.Peso();
-	valor = valor + o.Valor();
-	tes.push_front(o);
+	tes.push_back(o);
 }
 
 int Mochila::Capacidad(){
 	return cap;
 }
 
-int Mochila::Valor(){
-	return valor;
-}
-
 string Mochila::Imprimir(){
 	cout<< tes.size()<<" ";
-	for(list<Tesoro>::iterator it = tes.begin(); it !=tes.end(); ++it){
-		cout<<(*it).Imprimir()<<" ";
+	for(int i = 0; i< tes.size(); i++){
+		cout<<tes[i].Imprimir()<<" ";
 	}
 	cout<<"\n";
 }
@@ -62,6 +57,8 @@ int Maximo(std::vector<int> obj){
 }
 //la funcón toma un hipercubo (una matriz en 4 dimensiones), un vector de tesoros, el indice del objeto, y los pesos de las mochilas.
 int CalcularOptimo(vector<vector<vector<vector<int> > > >& objetoxPesos,vector<Tesoro>& cofre, int objeto, int peso1, int peso2, int peso3){
+	int pesoObj = cofre[objeto].Peso();
+	int valorObj = cofre[objeto].Valor();
 	//esto nunca se llama en la construccion del hipercubo, pero si en la deconstrucion, para hacer mas legible el codigo.
 	if(peso1 < 0 || peso2 < 0 || peso3 < 0){
 		return -1;
@@ -72,12 +69,12 @@ int CalcularOptimo(vector<vector<vector<vector<int> > > >& objetoxPesos,vector<T
 	}
 	//caso base.
 	if(objeto == 0){
-		objetoxPesos[objeto][peso1][peso2][peso3] = cofre[objeto].Valor();
-		return cofre[objeto].Valor();
+		int val = 0;
+		if(peso1 >= pesoObj || peso2 >= pesoObj || peso3 >= pesoObj) val = valorObj;
+		objetoxPesos[objeto][peso1][peso2][peso3] = val;
+		return val;
 	}
 	else{
-		int pesoObj = cofre[objeto].Peso();
-		int valorObj = cofre[objeto].Valor();
 		//recursiones dependiendo de donde se pone el objeto
 		int sinObj = CalcularOptimo(objetoxPesos, cofre, objeto -1, peso1, peso2, peso3);
 		//vector con posibles soluciones
@@ -173,7 +170,7 @@ int main(int argc, char *argv[]){
 		input>> cant>> p>> v;
 		Tesoro t(p,i,v);
 	//(usar este cout para saber que tipos responden a que valores/peso
-	//cout<<"Hay "<<cant << " tesoros de tipo " <<i <<" de peso " << p <<" de valor " << v<<endl;
+	cout<<"Hay "<<cant << " tesoros de tipo " <<i <<" de peso " << p <<" de valor " << v<<endl;
 		if(p <= pesomax){
 			for(int j = 0;j < cant; j++){
 				cofre.push_back(t);
