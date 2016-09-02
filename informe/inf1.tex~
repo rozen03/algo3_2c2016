@@ -1,6 +1,18 @@
 \documentclass[spanish,12pt]{article}
 \usepackage[spanish]{babel}
 \usepackage[utf8]{inputenc}
+\usepackage{xspace}
+\usepackage{lmodern}
+\usepackage{indentfirst}
+\usepackage{xargs}
+\usepackage{ifthen}
+\usepackage{fancyhdr}
+\usepackage{latexsym}
+\usepackage{lastpage}
+\usepackage{textcomp}
+\usepackage{varwidth}
+\usepackage{caratula, aed2-tad,aed2-symb,aed2-itef}
+\usepackage{algorithmicx, algpseudocode, algorithm}
 \usepackage{enumerate}
 \usepackage{graphicx}
 \usepackage{caption}
@@ -12,7 +24,7 @@
 \begin{document}
 
 \title{Informe 1}
- 
+
 \author{Grupo  \\Alvarez Vico Jazm\'in\\Cortés Conde Titó Javier María\\Pedraza Marcelo \\ Rozenber Uriel Jonathan}
 
 
@@ -38,8 +50,8 @@ Cada individuo consta de la propiedad "velocidad" un numero natural que indica c
 En el problema enunciado, Nuestros exploradores se encuentran con una balanza de dos platos, y en el de la izquierda la llave que necesitan. Para que esta sea de utilidad, al tomarla deben mantener la posición de la balanza y para realizar esto cuentan con pesas de peso igual a las potencias de tres (una pesa por potencia).
 Entonces, sabiendo el peso de la llave, necesitamos saber que pesas poner en cada plato para mantener el equilibrio original.
 Podemos pensar que el lado derecho de la balanza equivale a la operación de sustracción y el izquiero a la adición. De esta forma al agregar pesas de un lado o del otro estariamos sumando o restando su peso
-Formalmente esto equivale a decir que, si tenemos un entero n queremos sumar o restar potencias de tres, sin repetirlas hasta alcanzar su valor.    
- 
+Formalmente esto equivale a decir que, si tenemos un entero n queremos sumar o restar potencias de tres, sin repetirlas hasta alcanzar su valor.
+
 
 \section{Problema 3: Guardando el tesoro}
 
@@ -49,7 +61,7 @@ En este problema, los exploradores se encuentran frente a muchos tesoros que des
 Los tesoros son de distintos tipos, y cada tipo tiene un peso y un valor determinado.
 El objetivo es encontrar la manera optima de llenar las mochilas para poder llevar el mayor valor posibe.
 
-Formalmente, tenemos un conjunto de elementos que tienen como propiedad dos naturales asociados (el peso y el valor). Entonces podemos inferir que existen dos criterios de ordenamiento asociados respectivamente a estos valores. 
+Formalmente, tenemos un conjunto de elementos que tienen como propiedad dos naturales asociados (el peso y el valor). Entonces podemos inferir que existen dos criterios de ordenamiento asociados respectivamente a estos valores.
 Al mismo tiempo tenemos otro conjunto de elementos que posee como propiedad un natural asociado (capacidad).
 Nuestro objetivo es seleccionar una combinación de los primeros objetos, restringida por las capacidades dadas,de modo de maximizar la sumatoria del valor de los mismos.
 
@@ -68,49 +80,67 @@ observación: nuestro algoritmo descarta los tesoros que tienen un peso mayor al
 
 \subsubsection{Pseudocódigo}
 
-guardandoTesoro(mochilas: vector<mochila>, cofre: vector<tesoro>)
+\begin{algorithm}[H]{\textbf{guardandoTesoro}(mochilas: vector<mochila>, cofre: vector<tesoro>)}
+	\begin{algorithmic}[1]
+		\State objXpesos $\gets$ Hipercubo() incializado en -1 (en las posiciones donde no puede haber objetos incializo en 0)
+		\State sol= ValorOptimo()
+	\end{algorithmic}
+\end{algorithm}
 
-objXpesos $\leftarrow$ Hipercubo() incializado en -1 (en las posiciones donde no puede haber objetos incializo en 0)
 
-sol= ValorOptimo()
+
+
 
 %%%%
 
-ValorOptimo(objXpeso:hipercubo, cofre:vector<tesoro>, objeto:int, peso1: int, peso2:int, peso3:int)
+\begin{algorithm}[H]{\textbf{ValorOptimo(objXpeso:hipercubo, cofre:vector<tesoro>, objeto:int, peso1: int, peso2:int, peso3:int)}}
+	\begin{algorithmic}[1]
+		\State  pesoObj $\gets$ objeto.peso
+		\State  pesoVal $\gets$ objeto.valor
 
-int pesoObj $\leftarrow$ objeto.peso
-int pesoVal $\leftarrow$ objeto.valor
-
-if(peso1 < 0 $\vee$ peso2 < 0 $\vee$ peso3 < 0)
-	return -1
-
-if(objetoxPesos[objeto][peso1][peso2][peso3] $\neq$ -1)
-	return objetoxPesos[objeto][peso1][peso2][peso3]
-
-if(objeto $=$ 0)
-	int val $\leftarrow$ 0
-	if(peso1 $\gee$ pesoObj $\vee$ peso2 $\gee$ pesoObj $\vee$ peso3 $\gee$ pesoObj) 
-		val $\leftarrow$ valorObj;
-		objetoxPesos[objeto][peso1][peso2][peso3] $\leftarrow$ val
-		return val
-else
-	PosiblesSolus $\leftarrow$ vector<int>
-	int sinObj $\leftarrow$ ValorOptimo(objetoxPesos, cofre, objeto -1, peso1, peso2, peso3)	
-	PosiblesSolus.Agregar(sinObj)
-	if(peso1-pesoObj $\gee$ 0)
-		int objen1 $=$ valorObj + ValorOptimo(objetoxPesos, cofre, objeto - 1, peso1 - pesoObj, peso2, peso3)
-		PosiblesSolus.Agrergar(objen1)
-	
-	if(peso2 - pesoObj $\gee$ 0)
-		int objen2 = valorObj + ValorOptimo(objetoxPesos, cofre, objeto - 1, peso1, peso2  - pesoObj, peso3)
-		PosiblesSolus.Agregar(objen2)	
+		\If{$peso1 < 0 $\vee$ peso2 < 0 $\vee$ peso3 < 0$}
+			\State return $-1$
 		
-	if(peso3-pesoObj $\gee$ 0)
-		int objen3 = valorObj + ValorOptimo(objetoxPesos, cofre, objeto - 1, peso1, peso2, peso3  - pesoObj)
-		PosiblesSolus.Agregar(objen3)
-	int valor=Max(PsiblesSolus)
-	objetoxPesos[objeto][peso1][peso2][peso3] = valor
-	return valor
+		\EndIf
+		
+		\If{objetoxPesos[objeto][peso1][peso2][peso3] $\neq$ -1}
+			\State return objetoxPesos[objeto][peso1][peso2][peso3]
+		\EndIf
+		\If{objeto $=$ 0}
+			\State val $\gets$ 0
+			\If{peso1 $\gee$ pesoObj $\vee$ peso2 $\gee$ pesoObj $\vee$ peso3 $\gee$ pesoObj}
+				\State val $\gets$ valorObj;
+				\State objetoxPesos[objeto][peso1][peso2][peso3] $\gets$ val
+				\State return val
+			\EndIf
+		
+		\Else
+			\State PosiblesSolus $\gets$ vector<int>
+			\State sinObj $\gets$ ValorOptimo(objetoxPesos, cofre, objeto -1, peso1, peso2, peso3)
+			\State PosiblesSolus.Agregar(sinObj)
+			\If(peso1-pesoObj $\gee$ 0){
+				\State objen1 $=$ valorObj + ValorOptimo(objetoxPesos, cofre, objeto - 1, peso1 - pesoObj, peso2, peso3)
+				\State PosiblesSolus.Agrergar(objen1)
+			\EndIf
+			\If{peso2 - pesoObj $\gee$ 0}
+				\State objen2 = valorObj + ValorOptimo(objetoxPesos, cofre, objeto - 1, peso1, peso2  - pesoObj, peso3)
+				\State PosiblesSolus.Agregar(objen2)
+			\EndIf
+			\If{peso3-pesoObj $\gee$ 0}
+				\State objen3 = valorObj + ValorOptimo(objetoxPesos, cofre, objeto - 1, peso1, peso2, peso3  - pesoObj)
+				\State PosiblesSolus.Agregar(objen3)
+			\EndIf
+			\State valor=Max(PsiblesSolus)
+			\State objetoxPesos[objeto][peso1][peso2][peso3] = valor
+			\State return valor
+		\EndIf
+	
+
+	\end{algorithmic}
+\end{algorithm}
+
+
+
 
 \subsubsection{Demostración de Correctitud}
 

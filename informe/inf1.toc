@@ -1,3 +1,4 @@
+\select@language {spanish}
 \contentsline {section}{\numberline {1}Problema 1: Cruzando el puente}{3}
 \contentsline {subsection}{\numberline {1.1}Inrtoducci\IeC {\'o}n}{3}
 \contentsline {section}{\numberline {2}Problema 2: Problemas en el camino}{3}
@@ -6,8 +7,8 @@
 \contentsline {subsection}{\numberline {3.1}Introducci\IeC {\'o}n}{3}
 \contentsline {subsection}{\numberline {3.2}Explicaci\IeC {\'o}n de la soluci\IeC {\'o}n}{3}
 \contentsline {subsubsection}{\numberline {3.2.1}Pseudoc\IeC {\'o}digo}{4}
-\contentsline {subsubsection}{\numberline {3.2.2}Demostraci\IeC {\'o}n de Correctitud}{4}
-\contentsline {subsubsection}{\numberline {3.2.3}Demostraci\IeC {\'o}n de Complejidad}{4}
-\contentsline {subsection}{\numberline {3.3}Experimentaci\IeC {\'o}n}{4}
-\contentsline {subsubsection}{\numberline {3.3.1}Resultados}{4}
-\contentsline {subsubsection}{\numberline {3.3.2}An\IeC {\'a}lisis}{4}
+\contentsline {subsubsection}{\numberline {3.2.2}Demostraci\IeC {\'o}n de Correctitud}{6}
+\contentsline {subsubsection}{\numberline {3.2.3}Demostraci\IeC {\'o}n de Complejidad}{6}
+\contentsline {subsection}{\numberline {3.3}Experimentaci\IeC {\'o}n}{6}
+\contentsline {subsubsection}{\numberline {3.3.1}Resultados}{6}
+\contentsline {subsubsection}{\numberline {3.3.2}An\IeC {\'a}lisis}{6}
