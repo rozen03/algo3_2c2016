@@ -7,17 +7,12 @@ from functools import reduce
 
 	#Aviso: le falta una vuelta a la parte de combinar resultados y calcular el minimo
 	
-canibalesAntesPuente
-canibalesDespuesPuente
-arqueologosAntesPuente
-arqueologosDespuesPuente
-t=0
-dosCanibales
-dosArqueologos
-vuelveCanibal
-vuelveArqueologo
+canibalesAntesPuente = [1,2,]
+
+arqueologosAntesPuente = [1,2,3]
 
 def recursivo(cAntes,cDespues,aAntes,aDespues):
+	resultados = []
 	if((len(cAntes)>len(aAntes) and len(aAntes)!=0) or (len(cDespues)>len(aDespues) and len(aAntes)!=0)): #es imposible.
 		return -1#devolver -1 o algo
 	if(len(cAntes+aAntes)==0):#estoy en una hoja
@@ -25,31 +20,47 @@ def recursivo(cAntes,cDespues,aAntes,aDespues):
 		
 	if(len(cAntes)>=2):#puedo llevar 2 canibales
 		if(len(cDespues)+2>len(aDespues) and len(aDespues)!=0):#genero un problema despues del puente
-			dosCanibales=-1
+			resultados= resultados + [-1]
+			print resultados
 		else:
 		
-			dosCanibales=max(cAntes)+min(cAntes) + recursivo(cAntes-max(cAntes),cDespues+max(cAntes),aAntes,aDespues)
+			resultados = resultados + max(cAntes)+min(cAntes) + recursivo(cAntes-max(cAntes),cDespues+max(cAntes),aAntes,aDespues)
 			
 	if(len(aAntes)>=2):#puedo llevar 2 arqueologos
 		if(len(cAntes)>len(aAntes)-2 and len(aAntes)!=0):
-			dosArqueologos=-1
+			resultados = resultados + [-1]
 		else:
-			dosArqueologos=max(aAntes)+min(aAntes) + recursivo(cAntes,cDespues,aAntes-max(aAntes),aDespues+max(aAntes))
+			resultados = resultados + [max(aAntes)+min(aAntes) + recursivo(cAntes,cDespues,aAntes-max(aAntes),aDespues+max(aAntes))]
 			
 	if(len(aAntes)>=1 and len(aDespues)>=1):#puedo llevar uno de cada uno
 		if(len(cDespues)+1>len(aDespues) and len(aDespues) !=0):
-			vuelveArqueologo=-1
+			resultados = resultados + [-1]
 		else:
-			vuelveArqueologo = max(cAntes)+min(aAntes) + recursivo(cAntes-max(cAntes),cDespues + max(cAntes), aAntes, aDespues) 
+			resultados = resultados + [max(cAntes)+min(aAntes) + recursivo(cAntes-max(cAntes),cDespues + max(cAntes), aAntes, aDespues)] 
 		
 		if(len(cAntes)>len(aAntes-1) and len(aAntes) !=0):
-			vuelveCanibal =-1
+			resultados = resultados + [-1]
 		else:
-			vuelveCanibal = max(aAntes) + min(cAntes) + recursivo(cAntes,cDespues, aAntes-max(cAntes), aDespues+max(cAntes))
+			resultados = resultados + [max(aAntes) + min(cAntes) + recursivo(cAntes,cDespues, aAntes-max(cAntes), aDespues+max(cAntes))]
+
+	resultados = resultados - [-1,-1,-1,-1] #elimino todas las ramas que no llevan a nada
+	if (resultados == []):
+		return -1
+	else:
+		return min(resultados)
+
+#main
+
+if((len(canibalesAntesPuente)== len(arqueologosAntesPuente)) and (len(canibalesAntesPuente) >= 3)):
+	print -1
+	
+elif( len(canibalesAntesPuente+arqueologosAntesPuente)== 1):
+	print min(canibalesAntesPuente+arqueologosAntesPuente) #si hay un solo integrante devolves la velocidad
+else:
+	print recursivo(canibalesAntesPuente,[],arqueologosAntesPuente,[])
 
 
-vuelveArqueologo
-vuelveCanibal
+
 
 #~ def puente(c,a):
 	#~ 
