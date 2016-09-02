@@ -1,18 +1,6 @@
 \documentclass[spanish,12pt]{article}
 \usepackage[spanish]{babel}
 \usepackage[utf8]{inputenc}
-\usepackage{xspace}
-\usepackage{lmodern}
-\usepackage{indentfirst}
-\usepackage{xargs}
-\usepackage{ifthen}
-\usepackage{fancyhdr}
-\usepackage{latexsym}
-\usepackage{lastpage}
-\usepackage{textcomp}
-\usepackage{varwidth}
-\usepackage{caratula, aed2-tad,aed2-symb,aed2-itef}
-\usepackage{algorithmicx, algpseudocode, algorithm}
 \usepackage{enumerate}
 \usepackage{graphicx}
 \usepackage{caption}
