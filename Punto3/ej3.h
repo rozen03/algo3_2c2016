@@ -21,7 +21,7 @@ public:
 	Mochila();
 	Mochila(int p);
 	void Agregar(Tesoro o);
-	void Imprimir(char *c[]);
+	void Imprimir();
 	int Capacidad();
 private:
 	int cap;

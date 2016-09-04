@@ -1,5 +1,5 @@
 #include "ej3.h"
-#include<iostream>
+//#include<iostream>
 #include<fstream>
 
 using namespace std;
@@ -39,15 +39,13 @@ int Mochila::Capacidad(){
 	return cap;
 }
 
-void Mochila::Imprimir(char *c[]){
-	fstream output;
-	output.open(c[1]);
-	output << tes.size() << " \n";
+void Mochila::Imprimir(){
+	cout << tes.size() << " ";
 	for(unsigned int i = 0; i< tes.size(); i++){
-		output <<tes[i].Imprimir()<<" ";
+		cout <<tes[i].Imprimir()<<" ";
 	}
-	output << "\n";
-	output.close();
+	cout << "\n";
+
 }
 
 int Maximo(vector<int> obj){
@@ -105,7 +103,7 @@ int CalcularOptimo(vector<vector<vector<vector<int> > > >& objetoxPesos,vector<T
 void MeterEnCorrecta(int valM1, int valM2, int valM3, Mochila& m1, Mochila& m2, Mochila& m3, Tesoro obj){
 	if(valM1 == 0){
 			m1.Agregar(obj);
-	}
+	}else
 	 if(valM2 == 0){
 				m2.Agregar(obj);
 		}else if(valM3== 0){
@@ -148,13 +146,11 @@ void LlenarMochilas(vector<vector<vector<vector<int> > > >& objetoxPesos,vector<
 
 }
 
-int main2(int argc, char *argv[], char *out[]){
-	fstream output;
-	output.open(out[1]);
+int main(int argc, char *argv[]){
 	int m;
 	int n;
 	int pesomax = 0;
-	int sol=0;
+	int sol;
 	fstream input;
 	input.open(argv[1]);
 	input>> m>> n;
@@ -185,9 +181,9 @@ int main2(int argc, char *argv[], char *out[]){
 	}
 	input.close();
 	if (cofre.size()==0) {
-		output<< sol<<"\n";
+		cout<< sol<<"\n";
 		for(int i = 0; i<m;i++){
-			mochilas[i].Imprimir(out);
+			mochilas[i].Imprimir();
 		}
 		return 1;
 	}
@@ -206,10 +202,10 @@ int main2(int argc, char *argv[], char *out[]){
 
 	LlenarMochilas(objXpesos, cofre, mochilas[0], mochilas[1], mochilas[2]);//O(cofre.size())
 
-	output<< sol<<"\n";
+	cout<< sol<<"\n";
 	for(int i = 0; i<m;i++){
-		mochilas[i].Imprimir(out);
+		mochilas[i].Imprimir();
 	}
-	output.close();
+
 	return 0;
 }

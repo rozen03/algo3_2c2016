@@ -1,17 +1,18 @@
-#include "ej3.h" //ver q onda
+#include "ej3.cpp" //ver q onda
 #include<iostream>
 #include<fstream>
 #include<stdio.h>
 #include<stdlib.h>
+#include<chrono>
 
+#define ya chrono::high_resolution_clock::now
 
 using namespace std;
 
-int mainn(){
+int main(){
+srand(time(NULL));
 
 std::ofstream test10obj ("test10obj.txt");
-
-srand(time(NULL));
 
 test10obj << "1 20 \n";
 test10obj << "20 \n";
@@ -27,11 +28,9 @@ for ( int i = 0; i < 20; i++) {
 }
 test10obj.close();
 
-std::ofstream sol10obj ("sol10obj.txt");
+Resolver(1,test10obj);
 
-ej3::main(1,test10obj,sol10obj);
-
-sol10obj.close();
+//sol10obj.close();
 
 
 
