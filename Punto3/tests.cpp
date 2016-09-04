@@ -9,7 +9,7 @@
 
 using namespace std;
 
-int main(){
+int crearCasos(){
 srand(time(NULL));
 
 std::ofstream test10obj ("test10obj.txt");
@@ -28,7 +28,7 @@ for ( int i = 0; i < 20; i++) {
 }
 test10obj.close();
 
-Resolver(1,test10obj);
+//main(1,"test10obj.txt");
 
 //sol10obj.close();
 
