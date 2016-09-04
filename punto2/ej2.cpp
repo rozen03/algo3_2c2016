@@ -52,7 +52,7 @@ int main() {
       end = rdtsc();
       elapsed_secs += end - begin;
     }
-    // std::cout << i << std::endl;
+    //std::cout << i << std::endl;
     elapsed_final = elapsed_secs / repeticiones;
     oss << i << "    " << elapsed_final << endl;
     // std::cout << i << endl;
