@@ -5,6 +5,7 @@
 class Tesoro{
 public:
 	Tesoro(int p, int t, int v);
+Tesoro(const Tesoro& t) : peso(t.peso), tipo(t.tipo), valor(t.valor){;}
 	std::string Imprimir();
 	int Peso();
 	int Valor();
@@ -20,7 +21,7 @@ public:
 	Mochila();
 	Mochila(int p);
 	void Agregar(Tesoro o);
-	std::string Imprimir();
+	void Imprimir();
 	int Capacidad();
 private:
 	int cap;

@@ -1,11 +1,11 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2016.9.1)  2 SEP 2016 02:02
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2016.3.25)  2 SEP 2016 19:27
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
 **inf1.tex
 (./inf1.tex
 LaTeX2e <2011/06/27>
-Babel <3.9h> and hyphenation patterns for 4 languages loaded.
+Babel <3.9h> and hyphenation patterns for 5 languages loaded.
 (/usr/share/texlive/texmf-dist/tex/latex/base/article.cls
 Document Class: article 2007/10/19 v1.4h Standard LaTeX document class
 (/usr/share/texlive/texmf-dist/tex/latex/base/size12.clo
@@ -26,32 +26,26 @@ File: size12.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
 (/usr/share/texlive/texmf-dist/tex/generic/babel/babel.sty
 Package: babel 2013/12/03 3.9h The Babel package
 
+(/usr/share/texlive/texmf-dist/tex/generic/babel-spanish/spanish.ldf
+Language: spanish.ldf 2014/01/29 v5.0m Spanish support from the babel system
 
-! Package babel Error: Unknown option `spanish'. Either you misspelled it
-(babel)                or the language definition file spanish.ldf was not foun
-d.
-
-See the babel package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.296 \ProcessOptions*
-                      
-? 
-
-! Package babel Error: You haven't specified a language option.
-
-See the babel package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.329 ...ry to proceed from here, type x to quit.}
-                                                  
-? 
-) (/usr/share/texlive/texmf-dist/tex/latex/base/inputenc.sty
+(/usr/share/texlive/texmf-dist/tex/generic/babel/babel.def
+File: babel.def 2013/12/03 3.9h Babel common definitions
+\babel@savecnt=\count87
+\U@D=\dimen103
+)
+\es@datefmt=\count88
+\es@quottoks=\toks14
+\es@quotdepth=\count89
+Package babel Info: Making " an active character on input line 496.
+Package babel Info: Making . an active character on input line 599.
+Package babel Info: Making < an active character on input line 644.
+Package babel Info: Making > an active character on input line 644.
+))
+(/usr/share/texlive/texmf-dist/tex/latex/base/inputenc.sty
 Package: inputenc 2008/03/30 v1.1d Input encoding file
-\inpenc@prehook=\toks14
-\inpenc@posthook=\toks15
+\inpenc@prehook=\toks15
+\inpenc@posthook=\toks16
 
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
 File: utf8.def 2008/04/05 v1.1m UTF-8 support for inputenc
@@ -313,15 +307,15 @@ Package: xargs 2008/03/22 v1.1  extended macro definitions  (mpg)
 Package: xkeyval 2012/10/14 v2.6b package option processing (HA)
 
 (/usr/share/texlive/texmf-dist/tex/generic/xkeyval/xkeyval.tex
-\XKV@toks=\toks16
-\XKV@tempa@toks=\toks17
-\XKV@depth=\count87
+\XKV@toks=\toks17
+\XKV@tempa@toks=\toks18
+\XKV@depth=\count90
 File: xkeyval.tex 2012/10/14 v2.6b key=value parser (HA)
 
 (/usr/share/texlive/texmf-dist/tex/generic/xkeyval/keyval.tex)))
-\xargs@max=\count88
-\xargs@toksa=\toks18
-\xargs@toksb=\toks19
+\xargs@max=\count91
+\xargs@toksa=\toks19
+\xargs@toksb=\toks20
 )
 (/usr/share/texlive/texmf-dist/tex/latex/base/ifthen.sty
 Package: ifthen 2001/05/26 v1.1c Standard LaTeX ifthen package (DPC)
@@ -504,32 +498,32 @@ Package textcomp Info: Setting ptmj sub-encoding to TS1/4 on input line 340.
 (/usr/share/texlive/texmf-dist/tex/latex/varwidth/varwidth.sty
 Package: varwidth 2009/03/30 ver 0.92;  Variable-width minipages
 \@vwid@box=\box26
-\sift@deathcycles=\count89
-\@vwid@loff=\dimen103
-\@vwid@roff=\dimen104
+\sift@deathcycles=\count92
+\@vwid@loff=\dimen104
+\@vwid@roff=\dimen105
 )
-(/home/jazz/texmf/tex/latex/caratula/caratula.sty
+(/home/jaz/texmf/tex/latex/caratula/caratula.sty
 Package: caratula 2003/4/13 v0.1 Para componer caratulas de TPs del DC
 
 Cargando package 'caratula' v0.2 (21/4/2003)
-\intlist=\toks20
-) (/home/jazz/texmf/tex/latex/aed2-tad/aed2-tad.sty
+\intlist=\toks21
+) (/home/jaz/texmf/tex/latex/aed2-tad/aed2-tad.sty
 Package: aed2-tad 2011/04/04 - Para especificar TADs en formato AED2
 
 (/usr/share/texlive/texmf-dist/tex/latex/tools/calc.sty
 Package: calc 2007/08/22 v4.3 Infix arithmetic (KKT,FJ)
-\calc@Acount=\count90
-\calc@Bcount=\count91
-\calc@Adimen=\dimen105
-\calc@Bdimen=\dimen106
+\calc@Acount=\count93
+\calc@Bcount=\count94
+\calc@Adimen=\dimen106
+\calc@Bdimen=\dimen107
 \calc@Askip=\skip52
 \calc@Bskip=\skip53
 LaTeX Info: Redefining \setlength on input line 76.
 LaTeX Info: Redefining \addtolength on input line 77.
-\calc@Ccount=\count92
+\calc@Ccount=\count95
 \calc@Cskip=\skip54
 )
-(/home/jazz/texmf/tex/latex/aed2-tokenizer/aed2-tokenizer.sty
+(/home/jaz/texmf/tex/latex/aed2-tokenizer/aed2-tokenizer.sty
 Package: aed2-tokenizer 2010/03/12
 )
 Package aed2-tad Info: Cargando package 'tad' (04/04/2011) on input line 26.
@@ -553,7 +547,7 @@ Package aed2-tad Info: Cargando package 'tad' (04/04/2011) on input line 26.
 \tadAxioma@lenEquiv=\skip71
 \tadAxioma@lenDerecha=\skip72
 )
-(/home/jazz/texmf/tex/latex/aed2-symb/aed2-symb.sty
+(/home/jaz/texmf/tex/latex/aed2-symb/aed2-symb.sty
 Package: aed2-symb 2004/04/17 - Para componer simbolitos frecuentemente usados 
 en AED2
 
@@ -568,51 +562,51 @@ Package: amstext 2000/06/29 v2.01
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsgen.sty
 File: amsgen.sty 1999/11/30 v2.0
-\@emptytoks=\toks21
-\ex@=\dimen107
+\@emptytoks=\toks22
+\ex@=\dimen108
 ))
 (/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsbsy.sty
 Package: amsbsy 1999/11/29 v1.2d
-\pmbraise@=\dimen108
+\pmbraise@=\dimen109
 )
 (/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsopn.sty
 Package: amsopn 1999/12/14 v2.01 operator names
 )
-\inf@bad=\count93
+\inf@bad=\count96
 LaTeX Info: Redefining \frac on input line 210.
-\uproot@=\count94
-\leftroot@=\count95
+\uproot@=\count97
+\leftroot@=\count98
 LaTeX Info: Redefining \overline on input line 306.
-\classnum@=\count96
-\DOTSCASE@=\count97
+\classnum@=\count99
+\DOTSCASE@=\count100
 LaTeX Info: Redefining \ldots on input line 378.
 LaTeX Info: Redefining \dots on input line 381.
 LaTeX Info: Redefining \cdots on input line 466.
 \Mathstrutbox@=\box28
 \strutbox@=\box29
-\big@size=\dimen109
+\big@size=\dimen110
 LaTeX Font Info:    Redeclaring font encoding OML on input line 566.
 LaTeX Font Info:    Redeclaring font encoding OMS on input line 567.
-\macc@depth=\count98
-\c@MaxMatrixCols=\count99
+\macc@depth=\count101
+\c@MaxMatrixCols=\count102
 \dotsspace@=\muskip10
-\c@parentequation=\count100
-\dspbrk@lvl=\count101
-\tag@help=\toks22
-\row@=\count102
-\column@=\count103
-\maxfields@=\count104
-\andhelp@=\toks23
-\eqnshift@=\dimen110
-\alignsep@=\dimen111
-\tagshift@=\dimen112
-\tagwidth@=\dimen113
-\totwidth@=\dimen114
-\lineht@=\dimen115
-\@envbody=\toks24
+\c@parentequation=\count103
+\dspbrk@lvl=\count104
+\tag@help=\toks23
+\row@=\count105
+\column@=\count106
+\maxfields@=\count107
+\andhelp@=\toks24
+\eqnshift@=\dimen111
+\alignsep@=\dimen112
+\tagshift@=\dimen113
+\tagwidth@=\dimen114
+\totwidth@=\dimen115
+\lineht@=\dimen116
+\@envbody=\toks25
 \multlinegap=\skip74
 \multlinetaggap=\skip75
-\mathdisplay@stack=\toks25
+\mathdisplay@stack=\toks26
 LaTeX Info: Redefining \[ on input line 2665.
 LaTeX Info: Redefining \] on input line 2666.
 )
@@ -626,38 +620,49 @@ Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
 LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
 (Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
 )))
-(/home/jazz/texmf/tex/latex/aed2-itef/aed2-itef.sty
+(/home/jaz/texmf/tex/latex/aed2-itef/aed2-itef.sty
 Package: aed2-itef 2010/03/16 - if-then-else-fi en lenguaje de TADs.
 
 Cargando package 'itef' (2010/03/16)
 \itefIndentacion=\skip76
 \itef@widthUnaLinea=\skip77
 \itef@linewidth=\skip78
+) (/usr/share/texlive/texmf-dist/tex/latex/algorithmicx/algorithmicx.sty
+Package: algorithmicx 2005/04/27 v1.2 Algorithmicx
+
+Document Style algorithmicx 1.2 - a greatly improved `algorithmic' style
+\c@ALG@line=\count108
+\c@ALG@rem=\count109
+\c@ALG@nested=\count110
+\ALG@tlm=\skip79
+\ALG@thistlm=\skip80
+\c@ALG@Lnr=\count111
+\c@ALG@blocknr=\count112
+\c@ALG@storecount=\count113
+\c@ALG@tmpcounter=\count114
+\ALG@tmplength=\skip81
+) (/usr/share/texlive/texmf-dist/tex/latex/algorithmicx/algpseudocode.sty
+Package: algpseudocode 
+
+Document Style - pseudocode environments for use with the `algorithmicx' style
+) (/usr/share/texlive/texmf-dist/tex/latex/algorithms/algorithm.sty
+Package: algorithm 2009/08/24 v0.1 Document Style `algorithm' - floating enviro
+nment
+
+(/usr/share/texlive/texmf-dist/tex/latex/float/float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count115
+\float@exts=\toks27
+\float@box=\box30
+\@float@everytoks=\toks28
+\@floatcapt=\box31
 )
-
-! LaTeX Error: File `algorithmicx.sty' not found.
-
-Type X to quit or <RETURN> to proceed,
-or enter new name. (Default extension: sty)
-
-Enter file name: 
-
-! LaTeX Error: File `algpseudocode.sty' not found.
-
-Type X to quit or <RETURN> to proceed,
-or enter new name. (Default extension: sty)
-
-Enter file name: 
-
-! LaTeX Error: File `algorithm.sty' not found.
-
-Type X to quit or <RETURN> to proceed,
-or enter new name. (Default extension: sty)
-
-Enter file name: 
+\@float@every@algorithm=\toks29
+\c@algorithm=\count116
+)
 (/usr/share/texlive/texmf-dist/tex/latex/tools/enumerate.sty
 Package: enumerate 1999/03/05 v3.00 enumerate extensions (DPC)
-\@enLab=\toks26
+\@enLab=\toks30
 )
 (/usr/share/texlive/texmf-dist/tex/latex/graphics/graphicx.sty
 Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
@@ -682,10 +687,10 @@ Package: infwarerr 2010/04/08 v1.3 Providing info/warning/error messages (HO)
 (/usr/share/texlive/texmf-dist/tex/generic/oberdiek/ltxcmds.sty
 Package: ltxcmds 2011/11/09 v1.22 LaTeX kernel commands for general use (HO)
 )
-\Gread@gobject=\count105
+\Gread@gobject=\count117
 ))
-\Gin@req@height=\dimen116
-\Gin@req@width=\dimen117
+\Gin@req@height=\dimen117
+\Gin@req@width=\dimen118
 )
 (/usr/share/texlive/texmf-dist/tex/latex/caption/caption.sty
 Package: caption 2013/05/02 v3.3-89 Customizing captions (AR)
@@ -693,28 +698,21 @@ Package: caption 2013/05/02 v3.3-89 Customizing captions (AR)
 (/usr/share/texlive/texmf-dist/tex/latex/caption/caption3.sty
 Package: caption3 2013/05/02 v1.6-88 caption3 kernel (AR)
 Package caption3 Info: TeX engine: e-TeX on input line 57.
-\captionmargin=\dimen118
-\captionmargin@=\dimen119
-\captionwidth=\dimen120
-\caption@tempdima=\dimen121
-\caption@indent=\dimen122
-\caption@parindent=\dimen123
-\caption@hangindent=\dimen124
+\captionmargin=\dimen119
+\captionmargin@=\dimen120
+\captionwidth=\dimen121
+\caption@tempdima=\dimen122
+\caption@indent=\dimen123
+\caption@parindent=\dimen124
+\caption@hangindent=\dimen125
 )
-\c@ContinuedFloat=\count106
+\c@ContinuedFloat=\count118
+Package caption Info: float package is loaded.
 )
 (/usr/share/texlive/texmf-dist/tex/latex/caption/subcaption.sty
 Package: subcaption 2013/02/03 v1.1-62 Sub-captions (AR)
-\c@subfigure=\count107
-\c@subtable=\count108
-)
-(/usr/share/texlive/texmf-dist/tex/latex/float/float.sty
-Package: float 2001/11/08 v1.3d Float enhancements (AL)
-\c@float@type=\count109
-\float@exts=\toks27
-\float@box=\box30
-\@float@everytoks=\toks28
-\@floatcapt=\box31
+\c@subfigure=\count119
+\c@subtable=\count120
 )
 (/usr/share/texlive/texmf-dist/tex/latex/anysize/anysize.sty
 Package: anysize 1994/08/13 setting margin sizes
@@ -722,11 +720,14 @@ Package: anysize 1994/08/13 setting margin sizes
 document style option `anysize' loaded
 Michael Salzenberg, Thomas Esser, Dirk Hillbrecht
 Version 1.0, Aug 13, 1994
-\@Leftmargin=\dimen125
-\@Rightmargin=\dimen126
-\@Topmargin=\dimen127
-\@Bottommargin=\dimen128
-) (./inf1.aux)
+\@Leftmargin=\dimen126
+\@Rightmargin=\dimen127
+\@Topmargin=\dimen128
+\@Bottommargin=\dimen129
+) (./inf1.aux
+LaTeX Info: Redefining \. on input line 6.
+LaTeX Info: Redefining \% on input line 6.
+)
 \openout1 = `inf1.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 24.
@@ -752,6 +753,8 @@ LaTeX Font Info:    Try loading font information for OT1+lmr on input line 24.
 (/usr/share/texmf/tex/latex/lm/ot1lmr.fd
 File: ot1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
+LaTeX Info: Redefining \. on input line 24.
+LaTeX Info: Redefining \% on input line 24.
 Package lastpage Info: Please have a look at the pageslts package at
 (lastpage)             http://www.ctan.org/tex-archive/ 
 (lastpage)             macros/latex/contrib/pageslts/ 
@@ -762,17 +765,17 @@ Package lastpage Info: Please have a look at the pageslts package at
 
 (/usr/share/texlive/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count110
-\scratchdimen=\dimen129
+\scratchcounter=\count121
+\scratchdimen=\dimen130
 \scratchbox=\box32
-\nofMPsegments=\count111
-\nofMParguments=\count112
-\everyMPshowfont=\toks29
-\MPscratchCnt=\count113
-\MPscratchDim=\dimen130
-\MPnumerator=\count114
-\makeMPintoPDFobject=\count115
-\everyMPtoPDFconversion=\toks30
+\nofMPsegments=\count122
+\nofMParguments=\count123
+\everyMPshowfont=\toks31
+\MPscratchCnt=\count124
+\MPscratchDim=\dimen131
+\MPnumerator=\count125
+\makeMPintoPDFobject=\count126
+\everyMPtoPDFconversion=\toks32
 ) (/usr/share/texlive/texmf-dist/tex/generic/oberdiek/pdftexcmds.sty
 Package: pdftexcmds 2011/11/29 v0.20 Utility functions of pdfTeX for LuaTeX (HO
 )
@@ -822,7 +825,6 @@ File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
 Package caption Info: Begin \AtBeginDocument code.
-Package caption Info: float package is loaded.
 Package caption Info: End \AtBeginDocument code.
 
 ! Faltan datos de la caratula! Ingresar 'h' para mas informacion..
@@ -880,7 +882,10 @@ l.31 \maketitle
 ? 
 [1
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] (./inf1.toc)
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] (./inf1.toc
+LaTeX Info: Redefining \. on input line 1.
+LaTeX Info: Redefining \% on input line 1.
+)
 \tf@toc=\write3
 \openout3 = `inf1.toc'.
 
@@ -890,82 +895,72 @@ l.31 \maketitle
 [3
 
 ]
-Overfull \hbox (3.53569pt too wide) in paragraph at lines 91--92
-[]\OT1/lmr/m/n/12 ValorOptimo(objXpeso:hipercubo, cofre:vector<tesoro>, ob-jeto
-:int, peso1: int, peso2:int, peso3:int) 
- []
-
-
-Overfull \hbox (1.58153pt too wide) in paragraph at lines 99--101
-[]\OT1/lmr/m/n/12 if(objetoxPesos[objeto][peso1][peso2][peso3] $\OMS/lmsy/m/n/1
-2 6\OT1/lmr/m/n/12 =$ -1) re-turn ob-je-tox-Pe-sos[objeto][peso1][peso2][peso3]
- 
- []
-
 ! Undefined control sequence.
 <recently read> \gee 
                      
-l.104 	if(peso1 $\gee
-                     $ pesoObj $\vee$ peso2 $\gee$ pesoObj $\vee$ peso3 $\ge...
-
+l.111 ...gee$ pesoObj $\vee$ peso3 $\gee$ pesoObj}
+                                                  
 ? 
 ! Undefined control sequence.
 <recently read> \gee 
                      
-l.104 	if(peso1 $\gee$ pesoObj $\vee$ peso2 $\gee
-                                                 $ pesoObj $\vee$ peso3 $\ge...
-
+l.111 ...gee$ pesoObj $\vee$ peso3 $\gee$ pesoObj}
+                                                  
 ? 
 ! Undefined control sequence.
 <recently read> \gee 
                      
-l.104 ...$ peso2 $\gee$ pesoObj $\vee$ peso3 $\gee
-                                                  $ pesoObj)
+l.111 ...gee$ pesoObj $\vee$ peso3 $\gee$ pesoObj}
+                                                  
 ? 
 ! Undefined control sequence.
 <recently read> \gee 
                      
-l.112 	if(peso1-pesoObj $\gee
-                             $ 0)
+l.121 			\If(peso1-pesoObj $\gee
+                                $ 0){
 ? 
 ! Undefined control sequence.
 <recently read> \gee 
                      
-l.116 	if(peso2 - pesoObj $\gee
-                               $ 0)
+l.125 			\If{peso2 - pesoObj $\gee$ 0}
+                                      
 ? 
 ! Undefined control sequence.
 <recently read> \gee 
                      
-l.120 	if(peso3-pesoObj $\gee
-                             $ 0)
+l.129 			\If{peso3-pesoObj $\gee$ 0}
+                                    
 ? 
-
-Package lastpage Warning: Rerun to get the references right on input line 137.
-
-
+! Missing } inserted.
+<inserted text> 
+                }
+l.139 	\end{algorithmic}
+                        
+? 
+[4] 
 AED: lastpage setting LastPage
-[4] (./inf1.aux)
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
- ) 
+[5] [6] (./inf1.aux
+LaTeX Info: Redefining \. on input line 6.
+LaTeX Info: Redefining \% on input line 6.
+) ) 
 Here is how much of TeX's memory you used:
- 5307 strings out of 494985
- 76931 string characters out of 6180357
- 137919 words of memory out of 5000000
- 8362 multiletter control sequences out of 15000+600000
- 37174 words of font info for 41 fonts, out of 8000000 for 9000
- 36 hyphenation exceptions out of 8191
- 53i,7n,92p,346b,172s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/share/texmf/fonts/en
-c/dvips/lm/lm-rm.enc}</usr/share/texmf/fonts/type1/public/lm/lmbx12.pfb></usr/s
-hare/texmf/fonts/type1/public/lm/lmr12.pfb></usr/share/texmf/fonts/type1/public
-/lm/lmsy10.pfb>
-Output written on inf1.pdf (4 pages, 66238 bytes).
+ 6451 strings out of 494966
+ 92229 string characters out of 6179559
+ 163032 words of memory out of 5000000
+ 9493 multiletter control sequences out of 15000+600000
+ 40117 words of font info for 42 fonts, out of 8000000 for 9000
+ 40 hyphenation exceptions out of 8191
+ 53i,7n,92p,346b,492s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/share/texmf/fonts/e
+nc/dvips/lm/lm-mathsy.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-rm.enc}</usr/
+share/texmf/fonts/type1/public/lm/lmbx12.pfb></usr/share/texmf/fonts/type1/publ
+ic/lm/lmmi12.pfb></usr/share/texmf/fonts/type1/public/lm/lmr10.pfb></usr/share/
+texmf/fonts/type1/public/lm/lmr12.pfb></usr/share/texmf/fonts/type1/public/lm/l
+msy10.pfb>
+Output written on inf1.pdf (6 pages, 97288 bytes).
 PDF statistics:
- 31 PDF objects out of 1000 (max. 8388607)
- 21 compressed objects within 1 object stream
+ 46 PDF objects out of 1000 (max. 8388607)
+ 32 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
