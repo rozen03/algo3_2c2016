@@ -1,5 +1,6 @@
 #include "ej3.h"
-#include <fstream>
+#include<iostream>
+#include<fstream>
 
 using namespace std;
 
@@ -23,7 +24,7 @@ string Tesoro::Imprimir(){
 	return s;
 }
 
-Mochila::Mochila(int p):cap(p){	
+Mochila::Mochila(int p):cap(p){
 }
 
 Mochila::Mochila():cap(0){
@@ -38,12 +39,15 @@ int Mochila::Capacidad(){
 	return cap;
 }
 
-void Mochila::Imprimir(){
-	cout<< tes.size()<<" ";
+void Mochila::Imprimir(char *c[]){
+	fstream output;
+	output.open(c[1]);
+	output << tes.size() << " \n";
 	for(unsigned int i = 0; i< tes.size(); i++){
-		cout<<tes[i].Imprimir()<<" ";
+		output <<tes[i].Imprimir()<<" ";
 	}
-	cout<<"\n";
+	output << "\n";
+	output.close();
 }
 
 int Maximo(vector<int> obj){
@@ -86,11 +90,11 @@ int CalcularOptimo(vector<vector<vector<vector<int> > > >& objetoxPesos,vector<T
 		}
 		if(peso2 - pesoObj >= 0){
 		int objen2 = valorObj + CalcularOptimo(objetoxPesos, cofre, objeto - 1, peso1, peso2  - pesoObj, peso3);
-		objetos.push_back(objen2);	
+		objetos.push_back(objen2);
 		}
 		if(peso3-pesoObj >= 0){
 		int objen3 = valorObj + CalcularOptimo(objetoxPesos, cofre, objeto - 1, peso1, peso2, peso3  - pesoObj);
-		objetos.push_back(objen3);	
+		objetos.push_back(objen3);
 		}
 		int valor = Maximo(objetos);
 		objetoxPesos[objeto][peso1][peso2][peso3] = valor;
@@ -101,8 +105,8 @@ int CalcularOptimo(vector<vector<vector<vector<int> > > >& objetoxPesos,vector<T
 void MeterEnCorrecta(int valM1, int valM2, int valM3, Mochila& m1, Mochila& m2, Mochila& m3, Tesoro obj){
 	if(valM1 == 0){
 			m1.Agregar(obj);
-	}el
-	qse if(valM2 == 0){
+	}
+	 if(valM2 == 0){
 				m2.Agregar(obj);
 		}else if(valM3== 0){
 					m3.Agregar(obj);
@@ -140,15 +144,17 @@ void LlenarMochilas(vector<vector<vector<vector<int> > > >& objetoxPesos,vector<
 		}
 		i--;
 	}
-	
-	
+
+
 }
 
-int main(int argc, char *argv[]){
+int main2(int argc, char *argv[], char *out[]){
+	fstream output;
+	output.open(out[1]);
 	int m;
 	int n;
 	int pesomax = 0;
-	int sol;
+	int sol=0;
 	fstream input;
 	input.open(argv[1]);
 	input>> m>> n;
@@ -159,7 +165,7 @@ int main(int argc, char *argv[]){
 		if(i<m)	input >> k;
 		if(k>pesomax) pesomax = k;
 		Mochila m(k);
-		mochilas[i] = m; 
+		mochilas[i] = m;
 	}
 	//Meto los tesoros en el cofre, tener en cuenta que tesoros
 	// con peso mayor que la capacidad se descartan aca.
@@ -178,23 +184,32 @@ int main(int argc, char *argv[]){
 		}
 	}
 	input.close();
+	if (cofre.size()==0) {
+		output<< sol<<"\n";
+		for(int i = 0; i<m;i++){
+			mochilas[i].Imprimir(out);
+		}
+		return 1;
+	}
 	//incializo en -1 la matriz ya que en la función recursiva, si es -1 implica que no lo calculo y tiene que hacerlo.
 	vector<int> m3(mochilas[2].Capacidad()+1, -1);
 	vector<vector<int> > m2ym3(mochilas[1].Capacidad()+ 1, m3);
-	vector<vector<vector<int> > >m1ym2ym3(mochilas[0].Capacidad()+1, m2ym3); 
+	vector<vector<vector<int> > >m1ym2ym3(mochilas[0].Capacidad()+1, m2ym3);
 	vector<vector<vector<vector<int> > > >  objXpesos(cofre.size(),m1ym2ym3);
-	
+
 	//para no complicar el algoritmo calcularOptimo, pongo todas las posiciones donde no puede haber objetos en 0, entonces piensa que ya lo calculamos.
 	for(unsigned int i = 0; i< cofre.size(); i++) objXpesos[i][0][0][0] = 0;//O(cofre.size())
 	sol = CalcularOptimo(objXpesos, cofre, cofre.size()-1, mochilas[0].Capacidad(), mochilas[1].Capacidad(), mochilas[2].Capacidad());
 	/*
-	 en el peor dde los casos tengo que calcular todos las posiciones del hipercubo, una sola vez, eso es  
+	 en el peor dde los casos tengo que calcular todos las posiciones del hipercubo, una sola vez, eso es
 	 */
 
 	LlenarMochilas(objXpesos, cofre, mochilas[0], mochilas[1], mochilas[2]);//O(cofre.size())
-	
-	cout<< sol<<"\n";
+
+	output<< sol<<"\n";
 	for(int i = 0; i<m;i++){
-		mochilas[i].Imprimir();
+		mochilas[i].Imprimir(out);
 	}
+	output.close();
+	return 0;
 }
