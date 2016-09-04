@@ -13,7 +13,7 @@ arqueologosAntesPuente = [1,2,3]
 t=0
 def recursivo(cAntes,cDespues,aAntes,aDespues):
 	resultados = []
-	if((len(cAntes)>len(aAntes) and len(aAntes)!=0) or (len(cDespues)>len(aDespues) and len(aAntes)!=0)): #es imposible.
+	if((len(cAntes)>len(aAntes) and len(aAntes)!=0) or (len(cDespues)>len(aDespues) and len(aDespues)!=0)): #es imposible.
 		return -1#devolver -1 o algo
 	if(len(cAntes+aAntes)==0):#estoy en una hoja
 		return 0
@@ -21,10 +21,10 @@ def recursivo(cAntes,cDespues,aAntes,aDespues):
 	if(len(cAntes)>=2):#puedo llevar 2 canibales
 		if(len(cDespues)+2>len(aDespues) and len(aDespues)!=0):#genero un problema despues del puente
 			resultados= resultados + [-1]
-		else: #esto aca salta error porque si
+		else:
 			resultados + [(max(cAntes)+min(cAntes) + recursivo(cAntes.remove(max(cAntes)),cDespues+[max(cAntes)],aAntes,aDespues))]
 	if(len(aAntes)>=2):#puedo llevar 2 arqueologos
-		if(len(cAntes)>len(aAntes)-2 and len(aAntes)!=0):
+		if(len(cAntes)>len(aAntes)-2 and len(aAntes)-2!=0):
 			resultados = resultados + [-1]
 		else:
 			resultados + [max(aAntes)+min(aAntes) + recursivo(cAntes,cDespues,aAntes.remove(max(aAntes)),aDespues+[max(aAntes)])]
