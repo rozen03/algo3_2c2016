@@ -25,7 +25,7 @@
 
 \title{Informe 1}
 
-\author{Grupo  \\Alvarez Vico Jazm\'in\\Cortés Conde Titó Javier María\\Pedraza Marcelo \\ Rozenber Uriel Jonathan}
+\author{Grupo  \\Alvarez Vico Jazm\'in\\Cortés Conde Titó Javier María\\Pedraza Marcelo \\ Rozenberg Uriel Jonathan}
 
 
 \maketitle
@@ -100,9 +100,9 @@ observación: nuestro algoritmo descarta los tesoros que tienen un peso mayor al
 
 		\If{$peso1 < 0 \vee peso2 < 0 \vee peso3 < 0$}
 			\State return $-1$
-		
+
 		\EndIf
-		
+
 		\If{objetoxPesos[objeto][peso1][peso2][peso3] $\neq$ -1}
 			\State return objetoxPesos[objeto][peso1][peso2][peso3]
 		\EndIf
@@ -113,7 +113,7 @@ observación: nuestro algoritmo descarta los tesoros que tienen un peso mayor al
 				\State objetoxPesos[objeto][peso1][peso2][peso3] $\gets$ val
 				\State return val
 			\EndIf
-		
+
 		\Else
 			\State PosiblesSolus $\gets$ vector<int>
 			\State sinObj $\gets$ ValorOptimo(objetoxPesos, cofre, objeto -1, peso1, peso2, peso3)
@@ -134,7 +134,7 @@ observación: nuestro algoritmo descarta los tesoros que tienen un peso mayor al
 			\State objetoxPesos[objeto][peso1][peso2][peso3] = valor
 			\State return valor
 		\EndIf
-	
+
 
 	\end{algorithmic}
 \end{algorithm}
