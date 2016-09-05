@@ -110,7 +110,7 @@ Luego, se puede probar que Log(P) es O(\sqrt(P))
 
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%555
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Problema 3: Guardando el tesoro}
 
@@ -127,10 +127,10 @@ Nuestro objetivo es seleccionar una combinación de los primeros objetos, restri
 
 \subsection{Explicación de la solución}
 
-   Inicialmente creimos que este problema podría resolverme mediante un algoritmo de BackTracking, sin embargo observamos que nunca lograríamos conseguir la complejidad pedida puesto que este tipo de algoritmos conlleva una complejidad exponencial.
+   Inicialmente creimos que este problema podría resolverme mediante un algoritmo de BackTracking, sin embargo observamos que nunca lograríamos conseguir la complejidad pedida puesto que este tipo de algoritmos conlleva una complejidad exponencial sperior a la pedida.
    Finalmente pudimos resolverlo mediante programación dinámica. Nuestro algoritmo principal llama a dos funciones que utilizan la recursividad para podes obtener en un caso el valor óptimo, y en el otro "las mochilas llenas."
    Para facilitar el entendimiento del algoritmo vamos a introducir el concepto de "hipercubo"...%explicar el hipercubo%
- %capaz para explicar esto podriamos poner unos dibujitos%
+ %capaz para explicar esto podriamos poner unos dibujitos :D %
 
 
 
@@ -151,9 +151,11 @@ observación: nuestro algoritmo descarta los tesoros que tienen un peso mayor al
 
 %%%
 
-\begin{algorithm}[H]{\textbf{LlenarMochilas}(hipercubo)}
+\begin{algorithm}[H]{\textbf{LlenarMochilas}(objetoXpeso: hipercubo, cofre:vector<tesoro>, m1,m2,m3:mochilas)}
 	\begin{algorithmic}[1]
-	
+		\State i $\gets$ cofre.size-1
+		\State mientras i $\geq 0$
+
 	\begin{algorithmic}
 \end{algortihm}
 
@@ -230,10 +232,10 @@ Ahora queremos ver que $f(n,p_{1},p_{2},p_{3})$ da el valor óptimo para n objet
 \\
 \\
 $f(n,p_{1},p_{2},p_{3}) = Max(V_{n}+Max(f(n-1,p_{1}-p_{n},p_{2},p_{3}), f(n-1,p_{1},p_{2}-p_{n},p_{3}), f(n-1,p_{1},p_{2},p_{3}-p_{n})),f(n-1,p_{1},p_{2},p_{3})) $ \\
-por hipótesis inductiva (como $n-1 < k$) sabemos que $f(n-1,p_{1}-p_{n},p_{2},p_{3}), f(n-1,p_{1},p_{2}-p_{n},p_{3}), f(n-1,p_{1},p_{2},p_{3}-p_{n}) y f(n-1,p_{1},p_{2},p_{3})$ son los valores optimos que se pueden conseguir con n-1 objetos restando (o no) el peso del objeto n de modo de luego poder guardarlo en alguna mochila (o no). utilizaremos los renombres $V_{01},V_{02},V_{03},V_{00}$ respectivamente.
+por hipótesis inductiva (como $n-1 < k$ para algun k) sabemos que $f(n-1,p_{1}-p_{n},p_{2},p_{3}), f(n-1,p_{1},p_{2}-p_{n},p_{3}), f(n-1,p_{1},p_{2},p_{3}-p_{n}) y f(n-1,p_{1},p_{2},p_{3})$ son los valores optimos que se pueden conseguir con n-1 objetos restando (o no) el peso del objeto n de modo de luego poder guardarlo en alguna mochila (o no). utilizaremos los renombres $V_{01},V_{02},V_{03},V_{00}$ respectivamente.
 Entonces tenemos: \\
 $f(n,p_{1},p_{2},p_{3})= Max(V_{n}+Max(V_{01},V_{0,2},V_{03}),V_{00})$\\
-Podemos ver que esta función  compara el valor optimo de llenar las mochilas con n-1 tesotos y el tesoro n, con el valor optimo de llenar las mochilas con n-1 tesoros sin el tesoro n (de esta forma se tiene cuenta el caso en el que el mejor valor se obtuviene de poner algun objeto  de los n-1 anteriores que impide luego meter el tesoro n).\\
+Podemos ver que esta función  compara el valor optimo de llenar las mochilas con n-1 tesoros y el tesoro n, con el valor optimo de llenar las mochilas con n-1 tesoros sin el tesoro n (de esta forma se tiene cuenta el caso en el que el mejor valor se obtuviene de poner algun objeto  de los n-1 anteriores que impide luego meter el tesoro n).\\
 Como la función Max devuelve el mayor valor, el resultado sera el óptimo.
 \\
 Como valen P(0)..p(k) $\forall k<n$ y vale p(n) $\Rigtharrow$ vale p(n) $\forall n \in N \cup {0} $
