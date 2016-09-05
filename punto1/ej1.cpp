@@ -15,10 +15,11 @@ using namespace std;
 std::list<int> canibalesAntesPuente;
 std::list<int> arqueologosAntesPuente;
 
-
 int backtracking(std::list<int> cAntes, int cDespues, std::list<int> aAntes, int aDespues){
-    std::list<int> resultado = [];
 
+    std::list<int> resultado = [];
+	int aux;
+	int masLento;
     if((cAntes.size()>aAntes.size() && aAntes.size()!=0) || ((cDespues > aDespues) && aDespues!=0 )){//Hay mas canibales que arqueologos en algun lado del puente
         return -1;
     }
@@ -33,7 +34,11 @@ int backtracking(std::list<int> cAntes, int cDespues, std::list<int> aAntes, int
             resultado.push_front(-1);
         }
         else{
-            resultado.push_front( cAntes.back() + cAntes.front() + backtracking(cAntes.pop_back(), cDespues+1, aAntes , aDespues));
+        	aux = cAntes.back() + cAntes.front();
+        	masLento = cAntes.back();
+        	cAntes.pop_back();
+            resultado.push_front( aux  + backtracking(cAntes, cDespues+1, aAntes , aDespues));
+            cAntes.push_back(masLento);
         }
     }
 
@@ -43,7 +48,11 @@ int backtracking(std::list<int> cAntes, int cDespues, std::list<int> aAntes, int
             resultado.push_front(-1);
         }
         else{
-            resultado.push_front( aAntes.back() + aAntes.front() + backtracking(cAntes,cDespues,aAntes.pop_back() , aDespues + 1));
+        	aux = aAntes.back() + aAntes.front();
+        	masLento = aAntes.back();
+        	aAntes.pop_back();
+            resultado.push_front( aux  + backtracking(cAntes,cDespues,aAntes , aDespues + 1));
+        	aAntes.push_back(masLento);
         }
     }
 
@@ -54,7 +63,11 @@ int backtracking(std::list<int> cAntes, int cDespues, std::list<int> aAntes, int
         }
 
         else{
-            resultado.push_front( cAntes.back() + aAntes.front() + backtracking( cAntes.pop_back(),cDespues+1,aAntes,aDespues));
+        	aux = cAntes.back() + aAntes.front();
+        	masLento = cAntes.back();
+        	cAntes.pop_back();
+            resultado.push_front(  aux + backtracking( cAntes,cDespues+1,aAntes,aDespues));
+        	cAntes.push_back(masLento);
         }
 
         if(cAntes.size()>aAntes.size()-1 && aAntes.size()-1!=0){//vuelve el canibal
@@ -62,7 +75,11 @@ int backtracking(std::list<int> cAntes, int cDespues, std::list<int> aAntes, int
         }
 
         else{
-            resultado.push_front( aAntes.back() + cAntes.front() + backtracking(cAntes,cDespues,aAntes.pop_back() ,aDespues+1);
+        	aux = aAntes.back() + cAntes.front();
+        	masLento = aAntes.back();
+        	aAntes.pop_back();
+            resultado.push_front( aux + backtracking(cAntes,cDespues,aAntes,aDespues+1));
+        	aAntes.push_back(masLento);
         }
     }
 
@@ -72,7 +89,8 @@ int backtracking(std::list<int> cAntes, int cDespues, std::list<int> aAntes, int
         return -1;
     }
     else{
-        return resultado.min();
+    	resultado.sort();
+    	return resultado.front();
     }
 
 
