@@ -33,7 +33,7 @@ int backtracking(std::list<int> cAntes, int cDespues, std::list<int> aAntes, int
             resultado.push_front(-1);
         }
         else{
-            resultado.push_front( cAntes.max() + cAntes.min() + backtracking( (cAntes.remove(cAntes.max())), cDespues+1, aAntes , aDespues));
+            resultado.push_front( cAntes.back() + cAntes.front() + backtracking(cAntes.pop_back(), cDespues+1, aAntes , aDespues));
         }
     }
 
@@ -43,7 +43,7 @@ int backtracking(std::list<int> cAntes, int cDespues, std::list<int> aAntes, int
             resultado.push_front(-1);
         }
         else{
-            resultado.push_front( aAntes.max() + aAntes.min() + backtracking(cAntes,cDespues,aAntes.remove(aAntes.max()) , aDespues + 1)));
+            resultado.push_front( aAntes.back() + aAntes.front() + backtracking(cAntes,cDespues,aAntes.pop_back() , aDespues + 1));
         }
     }
 
@@ -54,7 +54,7 @@ int backtracking(std::list<int> cAntes, int cDespues, std::list<int> aAntes, int
         }
 
         else{
-            resultado.push_front( cAntes.max() + aAntes.min() + backtracking( cAntes.remove(cAntes.max()),cDespues+1,aAntes,aDespues));
+            resultado.push_front( cAntes.back() + aAntes.front() + backtracking( cAntes.pop_back(),cDespues+1,aAntes,aDespues));
         }
 
         if(cAntes.size()>aAntes.size()-1 && aAntes.size()-1!=0){//vuelve el canibal
@@ -62,14 +62,11 @@ int backtracking(std::list<int> cAntes, int cDespues, std::list<int> aAntes, int
         }
 
         else{
-            resultado.push_front( aAntes.max() + cAntes.min() + backtracking(cAntes,cDespues,aAntes.remove( aAntes.max() ),aDespues+1));
+            resultado.push_front( aAntes.back() + cAntes.front() + backtracking(cAntes,cDespues,aAntes.pop_back() ,aDespues+1);
         }
     }
 
-    /*
-        FALTA ELIMINAR TODAS LOS ELEMENTOS DE RESULTADO QUE SON -1
-    */
-    resultado.remove(-1);
+    resultado.remove(-1);//elimina todos los resultados invalidos
 
     if(resultado.size()==0){
         return -1;
@@ -85,14 +82,23 @@ int backtracking(std::list<int> cAntes, int cDespues, std::list<int> aAntes, int
 
 
 int main(){
+		canibalesAntesPuente.sort();
+		arqueologosAntesPuente.sort();
+
 		if(canibalesAntesPuente.size()==arqueologosAntesPuente.size() && arqueologosAntesPuente.size()>=3){
 			printf("%d\n", -1 );
 		} 
 		else if(canibalesAntesPuente.size()+ arqueologosAntesPuente.size() == 1){
+			if(canibalesAntesPuente.size()==1){
+				printf("%d\n",canibalesAntesPuente.front());
+			}
+			else{
+				printf("%d\n",arqueologosAntesPuente.front());
+			}
 			//imprimir el unico elemento de las dos listas
 		}  
 		else{
-			printf("%d/n", backtracking(canibalesAntesPuente,0,arqueologosAntesPuente,0)); 
+			printf("%d\n", backtracking(canibalesAntesPuente,0,arqueologosAntesPuente,0)); 
 		}
 
 		return 0;
