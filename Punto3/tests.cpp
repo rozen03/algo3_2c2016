@@ -108,22 +108,22 @@ void testPesoMoch(int rep){
 	string t ="PesoMoch2-5-5.txt";
 	std:: ofstream ts(t);
 	ts<< "3 50 \n";
-	ts<<"2 5 5\n";	
+	ts<<"2 5 5\n";
 
 	string a="PesoMoch10-5.txt";
-	std::ofstream as(a);	
+	std::ofstream as(a);
 	as<< "2 50 \n";
 	as<<"10 5\n";
 
 	string b="PesoMoch2-25.txt";
 	std::ofstream bs(b);
 	bs<< "2 50 \n";
-	bs<<"2 25\n";			
-	
+	bs<<"2 25\n";
+
 	string c="PesoMoch50.txt";
 	std::ofstream cs(c);
 	cs<< "1 50 \n";
-	cs<<"50 \n"; 
+	cs<<"50 \n";
 
 	srand(time(NULL));
 	for(int j=0; j<50;j++){
@@ -133,7 +133,7 @@ void testPesoMoch(int rep){
 		ts<< c <<" "<< p<< " "<< v <<endl;
 		as<< c <<" "<< p<< " "<< v <<endl;
 		bs<< c <<" "<< p<< " "<< v <<endl;
-		cs<< c <<" "<< p<< " "<< v <<endl;	
+		cs<< c <<" "<< p<< " "<< v <<endl;
 	}
 	ts.close();
 	as.close();
@@ -188,13 +188,89 @@ void testPesoMoch(int rep){
 	res<<sol<<" & \n";
 	cs.close();
 	res.close();
-	
+
 }
 
+void testCantMoch(int rep){
+	ofstream res("resultadoCantMoch.txt");
+	for(int j = 1; j < 4; j++) {
+		string js = to_string(j);
+		srand(time(NULL));
+		string ts = "test"+ js+"CantMoch.txt";
+		std::ofstream test(ts);
+		test << j <<" "<< 50<<" \n";
+		if (j==1) {
+			test<<"50 \n";
+		}
+		else{
+			if (j==2) {
+				test<<"50 50 \n";
+			}
+				else{
+					test<<"50 50 50 \n";
+				}
+			}
+		for ( int i = 0; i < 50; i++) {
+			int C= 1;
+			int p=rand()%100+1;
+			int v=rand()%10000000+1;
+			test<< C<< " "<< p<< " "<<v << endl;
+		}
+		test.close();
+		res<< j <<' ';
+		int sol= 0;
+		for(int i = 0; i <= rep; i++){
+			int solpar;
+			auto start = ya();
+			solucion(ts);
+			auto end = ya();
+			solpar = chrono::duration_cast<std::chrono::nanoseconds>(end-start).count() / rep;
+			sol = sol +solpar;
+		}
+		res<<sol<<" & \n";
+	}
+res.close();
+}
+
+void testMochDistPeso(int rep){
+	ofstream res("soluMochDistPeso.txt");
+	for(int j = 10; j<51; j+= 10){
+		string js = to_string(j);
+		srand(time(NULL));
+		string ts = "test"+ js+"MochDistPeso.txt";
+		std::ofstream test(ts);
+		test << "1 "<< 50<<" \n";
+		test << j<< " \n";
+		for ( int i = 0; i < 50; i++) {
+			int C= 1;
+			int p=rand()%100+1;
+			int v=rand()%10000000+1;
+			test<< C<< " "<< p<< " "<<v << endl;
+		}
+		test.close();
+		res<< j <<' ';
+		int sol= 0;
+		for(int i = 0; i <= rep; i++){
+			int solpar;
+			auto start = ya();
+			solucion(ts);
+			auto end = ya();
+			solpar = chrono::duration_cast<std::chrono::nanoseconds>(end-start).count() / rep;
+			sol = sol +solpar;
+		}
+		res<<sol<<" & \n";
+	}
+	res.close();
+
+}
+
+
 int main(){
-	testObjAleatorios(1000);
-	testObjPesoRango(1000);
-	testObjMejorCaso(1000);
-	testPesoMoch(1000);
+	//testObjAleatorios(1000);
+//	testObjPesoRango(1000);
+//	testObjMejorCaso(1000);
+//	testPesoMoch(1000);
+//	testCantMoch(1000);
+	testMochDistPeso(1000);
 return 0;
 }
