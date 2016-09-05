@@ -43,6 +43,9 @@ En este problema, un Grupo formado por arqueologos y caníbales debe cruzar un p
 Cada individuo consta de la propiedad "velocidad" un numero natural que indica cuanto tarda en atravezar el puente. Sí dos personas atraviezan el puente juntas, lo hacen a la velocidad minima de los dos.
 %terminar%
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \section{Problema 2: Problemas en el camino}
 
 \subsection{Introducción}
@@ -60,18 +63,20 @@ Ahora, para cada elemento a_i de T, en orden, si a_i es 0, no hacemos nada, si a
 
 \subsubsection{Pseudocódigo}
 
-\begin{algorithm}[H]{\textbf{guardandoTesoro}(mochilas: vector<mochila>, cofre: vector<tesoro>)}
-	\begin{algorithmic}[1]
-		\State Mientras P sea mayor a 0
-		  %\State rem <- r_r(P)
-    	%\State P <- parte entera(P/3)
-    		\If{rem = 0}
-    			La pesa va para la balanza con la llave
-    		\ElseIf{ rem = 2}
-    			P<-P+1
-    			La pesa va para  la otra  balanza
-	\end{algorithmic}
-\end{algorithm}
+Nota: Para la implementacion, en vez de crear el conjunto T, vamos tomando el resto de P y diviendolo por 3 entonces, el valor de la variable "rem" seria el equivalente al a_i (siendo i la iteracion)
+
+\begin{algorithm}[H]{\textbf{Pesas}(Natural: P)}
++	\begin{algorithmic}[1]
++		\State Mientras P sea mayor a 0
++		  %\State rem <- r_r(P)
++    	%\State P <- parte entera(P/3)
++    		\If{rem = 0}
++    			La pesa va para la balanza con la llave
++    		\ElseIf{ rem = 2}
++    			P<-P+1
++    			La pesa va para  la otra  balanza
++	\end{algorithmic}
++\end{algorithm}
 
 
 
@@ -105,7 +110,7 @@ Luego, se puede probar que Log(P) es O(\sqrt(P))
 
 
 
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%555
 
 \section{Problema 3: Guardando el tesoro}
 
@@ -119,16 +124,6 @@ Formalmente, tenemos un conjunto de elementos que tienen como propiedad dos natu
 Al mismo tiempo tenemos otro conjunto de elementos que posee como propiedad un natural asociado (capacidad).
 Nuestro objetivo es seleccionar una combinación de los primeros objetos, restringida por las capacidades dadas,de modo de maximizar la sumatoria del valor de los mismos.
 
-\subsubsection{Pseudocódigo}
-Nota: Para la implementacion, en vez de crear el conjunto T, vamos tomando el resto de P y diviendolo por 3 entonces, el valor de la variable "rem" seria el equivalente al a_i (siendo i la iteracion)
-
-\begin{algorithm}[H]{\textbf{Pesas}(Natural: P)}
-	\begin{algorithmic}[1]
-		\State objXpesos $\gets$ Hipercubo() incializado en -1 (en las posiciones donde no puede haber objetos incializo en 0)
-		\State sol= ValorOptimo()
-	\end{algorithmic}
-\end{algorithm}
-
 
 \subsection{Explicación de la solución}
 
@@ -141,60 +136,54 @@ Nota: Para la implementacion, en vez de crear el conjunto T, vamos tomando el re
 
 observación: nuestro algoritmo descarta los tesoros que tienen un peso mayor al maximo de capacidad entre las mochilas. Asumimos en el pseusocodigo que nuestra entrada cumple esa propiedad.
 
+
 \subsubsection{Pseudocódigo}
 
 \begin{algorithm}[H]{\textbf{guardandoTesoro}(mochilas: vector<mochila>, cofre: vector<tesoro>)}
 	\begin{algorithmic}[1]
-		\State Mientras P sea mayor a 0
-		  %\State rem <- r_r(P)
-    	%\State P <- parte entera(P/3)
-    		\If{rem = 0}
-    			La pesa va para la balanza con la llave
-    		\ElseIf{ rem = 2}
-    			P<-P+1
-    			La pesa va para  la otra  balanza
+		\State objXpesos $\gets$ Hipercubo() incializado en -1 \Comment (en las posiciones donde no puede haber objetos incializo en 0)
+		\State sol= ValorOptimo(objXpesos,cofre,cofre.size-1,capacidades de las mochilas)
+		\State LlenarMochilas(objXpesos, cofre, mochila1, mochila2, mochila3)
+		\State return (sol, mochilas)
 	\end{algorithmic}
 \end{algorithm}
 
 
+%%%
 
-\subsubsection{Demostración de Correctitud}
-
-
-\subsubsection{Demostración de Complejidad}
-
-\subsection{Experimentación}
-
-\subsubsection{Resultados}
-
-\subsubsection{Análisis}
+\begin{algorithm}[H]{\textbf{LlenarMochilas}(hipercubo)}
+	\begin{algorithmic}[1]
+	
+	\begin{algorithmic}
+\end{algortihm}
 
 
-%%%%
+
+%%%
 
 \begin{algorithm}[H]{\textbf{ValorOptimo(objXpeso:hipercubo, cofre:vector<tesoro>, objeto:int, peso1: int, peso2:int, peso3:int)}}
 	\begin{algorithmic}[1]
-		\State  pesoObj $\gets$ objeto.pes
-		\State  pesoVal $\gets$ objeto.valor
+		\State  pesoObj $\gets$ objeto.peso \Comment \Ogr(1)
+		\State  pesoVal $\gets$ objeto.valor \Comment \Ogr(1)
 
-		\If{$peso1 < 0 \vee peso2 < 0 \vee peso3 < 0$}
-			\State return $-1$
+		\If{$peso1 < 0 \vee peso2 < 0 \vee peso3 < 0$} 
+			\State return $-1$ \Comment \Ogr(1)
 
 		\EndIf
 
 		\If{objetoxPesos[objeto][peso1][peso2][peso3] $\neq$ -1}
-			\State return objetoxPesos[objeto][peso1][peso2][peso3]
+			\State return objetoxPesos[objeto][peso1][peso2][peso3] \Comment \Ogr(1)
 		\EndIf
 		\If{objeto $=$ 0}
-			\State val $\gets$ 0
+			\State val $\gets$ 0 \Comment \Ogr(1)
 			\If{peso1 $\gee$ pesoObj $\vee$ peso2 $\gee$ pesoObj $\vee$ peso3 $\gee$ pesoObj}
-				\State val $\gets$ valorObj;
-				\State objetoxPesos[objeto][peso1][peso2][peso3] $\gets$ val
-				\State return val
+				\State val $\gets$ valorObj \Comment \Ogr(1)
+				\State objetoxPesos[objeto][peso1][peso2][peso3] $\gets$ val \Comment \Ogr(1)
+				\State return val \Comment \Ogr(1)
 			\EndIf
 
 		\Else
-			\State PosiblesSolus $\gets$ vector<int>
+			\State PosiblesSolus $\gets$ vector<int> \Comment \Ogr(1)
 			\State sinObj $\gets$ ValorOptimo(objetoxPesos, cofre, objeto -1, peso1, peso2, peso3)
 			\State PosiblesSolus.Agregar(sinObj)
 			\If(peso1-pesoObj $\gee$ 0){
@@ -219,9 +208,35 @@ observación: nuestro algoritmo descarta los tesoros que tienen un peso mayor al
 \end{algorithm}
 
 
-
-
 \subsubsection{Demostración de Correctitud}
+Presentaremos la función matemática que modela nuestro problema:\\
+
+$f(o,p_{1},p_{2},p_{3})=0 \\
+f(n,p_{1},p_{2},p_{3}) = Max(V_{n}+Max(f(n-1,p_{1}-p_{n},p_{2},p_{3}), f(n-1,p_{1},p_{2}-p_{n},p_{3}), f(n-1,p_{1},p_{2},p_{3}-p_{n})),f(n-1,p_{1},p_{2},p_{3})) $
+\\
+Donde n representa el numero de tesoro, $V_{n}$ y $P_{n}$ su valor y su peso respectivamente. $p_{1},p_{2}\ y \ p_{3}$ son las capacidades de cada mochila. 
+
+Para la demostración utilizaremos inducción global en n.
+\\
+\\
+Caso base: queremos ver que $f(0,p_{1},p{2},p_{3})$ resulta ser el valor máximo que se puede obtener con 0 objetos:
+$f(0,p_{1},p_{2},p_{3}) = 0$ al tener 0 objetos el valor de los mismos es 0 de modo que es el máximo valos posible. 
+\\
+\\
+Hipotesis Inductiva: $\forall k<n$ vale que $f(k,p_{1},p_{2},p_{3})$ da el valor máximo que se puede obtener con k objetos.
+\\
+\\
+Ahora queremos ver que $f(n,p_{1},p_{2},p_{3})$ da el valor óptimo para n objetos.
+\\
+\\
+$f(n,p_{1},p_{2},p_{3}) = Max(V_{n}+Max(f(n-1,p_{1}-p_{n},p_{2},p_{3}), f(n-1,p_{1},p_{2}-p_{n},p_{3}), f(n-1,p_{1},p_{2},p_{3}-p_{n})),f(n-1,p_{1},p_{2},p_{3})) $ \\
+por hipótesis inductiva (como $n-1 < k$) sabemos que $f(n-1,p_{1}-p_{n},p_{2},p_{3}), f(n-1,p_{1},p_{2}-p_{n},p_{3}), f(n-1,p_{1},p_{2},p_{3}-p_{n}) y f(n-1,p_{1},p_{2},p_{3})$ son los valores optimos que se pueden conseguir con n-1 objetos restando (o no) el peso del objeto n de modo de luego poder guardarlo en alguna mochila (o no). utilizaremos los renombres $V_{01},V_{02},V_{03},V_{00}$ respectivamente.
+Entonces tenemos: \\
+$f(n,p_{1},p_{2},p_{3})= Max(V_{n}+Max(V_{01},V_{0,2},V_{03}),V_{00})$\\
+Podemos ver que esta función  compara el valor optimo de llenar las mochilas con n-1 tesotos y el tesoro n, con el valor optimo de llenar las mochilas con n-1 tesoros sin el tesoro n (de esta forma se tiene cuenta el caso en el que el mejor valor se obtuviene de poner algun objeto  de los n-1 anteriores que impide luego meter el tesoro n).\\
+Como la función Max devuelve el mayor valor, el resultado sera el óptimo.
+\\
+Como valen P(0)..p(k) $\forall k<n$ y vale p(n) $\Rigtharrow$ vale p(n) $\forall n \in N \cup {0} $
 
 \subsubsection{Demostración de Complejidad}
 
