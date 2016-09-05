@@ -146,13 +146,13 @@ void LlenarMochilas(vector<vector<vector<vector<int> > > >& objetoxPesos,vector<
 
 }
 
-int main(int argc, char *argv[]){
+int solucion(string test){
 	int m;
 	int n;
 	int pesomax = 0;
-	int sol;
+	int sol = 0;
 	fstream input;
-	input.open(argv[1]);
+	input.open(test);
 	input>> m>> n;
 	vector<Mochila> mochilas(3);
 	//Creo las mochilas y las pongo en un vector
@@ -209,3 +209,10 @@ int main(int argc, char *argv[]){
 
 	return 0;
 }
+/*
+int main(int argc, char *argv[]){
+	string test = argv[1];
+	solucion(test);
+	return 0;
+}*/
+

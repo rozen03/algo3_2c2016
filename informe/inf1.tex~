@@ -25,7 +25,7 @@
 
 \title{Informe 1}
 
-\author{Grupo  \\Alvarez Vico Jazm\'in\\Cortés Conde Titó Javier María\\Pedraza Marcelo \\ Rozenber Uriel Jonathan}
+\author{Grupo  \\Alvarez Vico Jazm\'in\\Cortés Conde Titó Javier María\\Pedraza Marcelo \\ Rozenberg Uriel Jonathan}
 
 
 \maketitle
@@ -43,6 +43,9 @@ En este problema, un Grupo formado por arqueologos y caníbales debe cruzar un p
 Cada individuo consta de la propiedad "velocidad" un numero natural que indica cuanto tarda en atravezar el puente. Sí dos personas atraviezan el puente juntas, lo hacen a la velocidad minima de los dos.
 %terminar%
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \section{Problema 2: Problemas en el camino}
 
 \subsection{Introducción}
@@ -52,6 +55,62 @@ Entonces, sabiendo el peso de la llave, necesitamos saber que pesas poner en cad
 Podemos pensar que el lado derecho de la balanza equivale a la operación de sustracción y el izquiero a la adición. De esta forma al agregar pesas de un lado o del otro estariamos sumando o restando su peso
 Formalmente esto equivale a decir que, si tenemos un entero n queremos sumar o restar potencias de tres, sin repetirlas hasta alcanzar su valor.
 
+\subsection{Explicación de la solución}
+Siendo el peso de la llave al que denominaremos P, el problema pide basicamente construir el numero P sumando (balanza con la llave) y restando(balanza sin la llave) numeros que son potencia de 3.
+Para resolver esto, totamos T, que seria el valor de P en la base Ternaria, es decir, escribir cada numero como P = \sum_{i=0}^{n} a_i3^i  con 0 \leq a_i \leq 2
+y n = log_{3}{P}  y entonces T ={a_1,a_2,...,a_n}.
+Ahora, para cada elemento a_i de T, en orden, si a_i es 0, no hacemos nada, si a_i es 1, en la balanza con la llave ponemos el peso de 3^i y si a_i =2, ponemos una pesa de 3^i en la balanza sin la llave y ademas sumamos 1 a a_(i+1) (y consecuentemente, se cambian los valores posteriores de T para que sigan en base ternaria)
+
+\subsubsection{Pseudocódigo}
+
+Nota: Para la implementacion, en vez de crear el conjunto T, vamos tomando el resto de P y diviendolo por 3 entonces, el valor de la variable "rem" seria el equivalente al a_i (siendo i la iteracion)
+
+\begin{algorithm}[H]{\textbf{Pesas}(Natural: P)}
++	\begin{algorithmic}[1]
++		\State Mientras P sea mayor a 0
++		  %\State rem <- r_r(P)
++    	%\State P <- parte entera(P/3)
++    		\If{rem = 0}
++    			La pesa va para la balanza con la llave
++    		\ElseIf{ rem = 2}
++    			P<-P+1
++    			La pesa va para  la otra  balanza
++	\end{algorithmic}
++\end{algorithm}
+
+
+
+\subsubsection{Demostración de Correctitud}
+
+
+\subsubsection{Demostración de Complejidad}
+El algoritmo consta de una sola iteracion, dentro de la iteracion, calcular el resto, y las comparaciones son operaciones que se hacen en O(1), mientras que enviar la pesa a cada balanza
+es agregar un numero al final de una lista, cosa que en la implementacion toma O(1).
+Entonces, dentro de la iteracion se hacen solamente operaciones en O(1). Quedandonos asi que la complejidad depende de la cantidad de iteraciones que se hagan.
+
+La iteracion tiene como condicion que P>0, siendo P inicialmente el valor de entrada. Ahora, P es editado en cada iteracion: independientemente del if que hay adentro,
+a P se lo divide por 3. Si siguiesemos sin contar lo que pasa en el if,sabemos que se harian log_3(P) veces dividir P por 3 para q P sea menor a 0.
+Ahora, tomando en cuenta el if hay un caso en el cual le sumamos 1 a P, lo cual afecta un poco la cuenta, si volvemos a la explicacion del algoritmo y tomamos el conjunto T = {a_1,...,a_n}
+donde  P = \sum_{i=0}^{n} a_i3^i  con 0 \leq a_i \leq 2 y n = log_{3}{P}, siendo el valor de rem el valor de a_i en la iesima iteracion.
+Cuando hacemos que P<- P+1 nos queda que en la proxima iteracion rem valdria uno mas, es decir a_(i+1) pasaria a valer uno mas de lo q valdria en T. Ahora,  siendo estos que para todo a_k
+valen entre 0 y 2, si a_(i+1) en vez de valer 3, valdria 0 y a_(i+2) valdria uno mas tambien, y si  a_(i+2) valia 2, pasaria a valer 0 y  a_(i+3) valdria uno mas y asi sucesivamente hasta llegar a a_n.
+y si resulta que tambien a_n valia 2, entonces tendriamos un a_(n+1) que entraria a valer 1 y a_n valdria 0.
+Luego no habria mas casos donde a_j (para i<j<=n) donde a_j sea 2, entonces no hay mas casos donde puedan volver a ocurrir este tipo de cosas, quedandonos asi, un maximo de Log_3(P)+1 iteraciones
+
+Entonces, la complejidad del algoritmo es de O(Log_3(P)).
+Luego, se puede probar que Log(P) es O(\sqrt(P))
+
+
+\subsection{Experimentación}
+
+\subsubsection{Resultados}
+
+\subsubsection{Análisis}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%555
 
 \section{Problema 3: Guardando el tesoro}
 
@@ -66,7 +125,6 @@ Al mismo tiempo tenemos otro conjunto de elementos que posee como propiedad un n
 Nuestro objetivo es seleccionar una combinación de los primeros objetos, restringida por las capacidades dadas,de modo de maximizar la sumatoria del valor de los mismos.
 
 
-
 \subsection{Explicación de la solución}
 
    Inicialmente creimos que este problema podría resolverme mediante un algoritmo de BackTracking, sin embargo observamos que nunca lograríamos conseguir la complejidad pedida puesto que este tipo de algoritmos conlleva una complejidad exponencial.
@@ -78,44 +136,54 @@ Nuestro objetivo es seleccionar una combinación de los primeros objetos, restri
 
 observación: nuestro algoritmo descarta los tesoros que tienen un peso mayor al maximo de capacidad entre las mochilas. Asumimos en el pseusocodigo que nuestra entrada cumple esa propiedad.
 
+
 \subsubsection{Pseudocódigo}
 
 \begin{algorithm}[H]{\textbf{guardandoTesoro}(mochilas: vector<mochila>, cofre: vector<tesoro>)}
 	\begin{algorithmic}[1]
-		\State objXpesos $\gets$ Hipercubo() incializado en -1 (en las posiciones donde no puede haber objetos incializo en 0)
-		\State sol= ValorOptimo()
+		\State objXpesos $\gets$ Hipercubo() incializado en -1 \Comment (en las posiciones donde no puede haber objetos incializo en 0)
+		\State sol= ValorOptimo(objXpesos,cofre,cofre.size-1,capacidades de las mochilas)
+		\State LlenarMochilas(objXpesos, cofre, mochila1, mochila2, mochila3)
+		\State return (sol, mochilas)
 	\end{algorithmic}
 \end{algorithm}
 
 
+%%%
+
+\begin{algorithm}[H]{\textbf{LlenarMochilas}(hipercubo)}
+	\begin{algorithmic}[1]
+	
+	\begin{algorithmic}
+\end{algortihm}
 
 
 
-%%%%
+%%%
 
 \begin{algorithm}[H]{\textbf{ValorOptimo(objXpeso:hipercubo, cofre:vector<tesoro>, objeto:int, peso1: int, peso2:int, peso3:int)}}
 	\begin{algorithmic}[1]
-		\State  pesoObj $\gets$ objeto.peso
-		\State  pesoVal $\gets$ objeto.valor
+		\State  pesoObj $\gets$ objeto.peso \Comment \Ogr(1)
+		\State  pesoVal $\gets$ objeto.valor \Comment \Ogr(1)
 
-		\If{$peso1 < 0 $\vee$ peso2 < 0 $\vee$ peso3 < 0$}
-			\State return $-1$
-		
+		\If{$peso1 < 0 \vee peso2 < 0 \vee peso3 < 0$} 
+			\State return $-1$ \Comment \Ogr(1)
+
 		\EndIf
-		
+
 		\If{objetoxPesos[objeto][peso1][peso2][peso3] $\neq$ -1}
-			\State return objetoxPesos[objeto][peso1][peso2][peso3]
+			\State return objetoxPesos[objeto][peso1][peso2][peso3] \Comment \Ogr(1)
 		\EndIf
 		\If{objeto $=$ 0}
-			\State val $\gets$ 0
+			\State val $\gets$ 0 \Comment \Ogr(1)
 			\If{peso1 $\gee$ pesoObj $\vee$ peso2 $\gee$ pesoObj $\vee$ peso3 $\gee$ pesoObj}
-				\State val $\gets$ valorObj;
-				\State objetoxPesos[objeto][peso1][peso2][peso3] $\gets$ val
-				\State return val
+				\State val $\gets$ valorObj \Comment \Ogr(1)
+				\State objetoxPesos[objeto][peso1][peso2][peso3] $\gets$ val \Comment \Ogr(1)
+				\State return val \Comment \Ogr(1)
 			\EndIf
-		
+
 		\Else
-			\State PosiblesSolus $\gets$ vector<int>
+			\State PosiblesSolus $\gets$ vector<int> \Comment \Ogr(1)
 			\State sinObj $\gets$ ValorOptimo(objetoxPesos, cofre, objeto -1, peso1, peso2, peso3)
 			\State PosiblesSolus.Agregar(sinObj)
 			\If(peso1-pesoObj $\gee$ 0){
@@ -134,14 +202,14 @@ observación: nuestro algoritmo descarta los tesoros que tienen un peso mayor al
 			\State objetoxPesos[objeto][peso1][peso2][peso3] = valor
 			\State return valor
 		\EndIf
-	
+
 
 	\end{algorithmic}
 \end{algorithm}
 
 
 
-
+\
 \subsubsection{Demostración de Correctitud}
 
 \subsubsection{Demostración de Complejidad}
