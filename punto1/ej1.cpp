@@ -12,12 +12,13 @@ using namespace std;
 
 
 
-std::list<int> canibalesAntesPuente;
-std::list<int> arqueologosAntesPuente;
+std::list<int> canibalesAntesPuente ;
+std::list<int> arqueologosAntesPuente = {1,7,9};
+
 
 int backtracking(std::list<int> cAntes, int cDespues, std::list<int> aAntes, int aDespues){
 
-    std::list<int> resultado = [];
+    std::list<int> resultado;
 	int aux;
 	int masLento;
     if((cAntes.size()>aAntes.size() && aAntes.size()!=0) || ((cDespues > aDespues) && aDespues!=0 )){//Hay mas canibales que arqueologos en algun lado del puente
@@ -104,19 +105,19 @@ int main(){
 		arqueologosAntesPuente.sort();
 
 		if(canibalesAntesPuente.size()==arqueologosAntesPuente.size() && arqueologosAntesPuente.size()>=3){
-			printf("%d\n", -1 );
+			cout<< -1<< endl;
 		} 
 		else if(canibalesAntesPuente.size()+ arqueologosAntesPuente.size() == 1){
 			if(canibalesAntesPuente.size()==1){
-				printf("%d\n",canibalesAntesPuente.front());
+				cout << canibalesAntesPuente.front() << endl;
 			}
 			else{
-				printf("%d\n",arqueologosAntesPuente.front());
+				cout << arqueologosAntesPuente.front()<< endl;
 			}
 			//imprimir el unico elemento de las dos listas
 		}  
 		else{
-			printf("%d\n", backtracking(canibalesAntesPuente,0,arqueologosAntesPuente,0)); 
+			cout << backtracking(canibalesAntesPuente,0,arqueologosAntesPuente,0) << endl; 
 		}
 
 		return 0;
