@@ -61,9 +61,10 @@ Formalmente esto equivale a decir que, si tenemos un entero n queremos sumar o r
 
 \subsection{Explicación de la solución}
 Siendo el peso de la llave al que denominaremos P, el problema pide basicamente construir el numero P sumando (balanza con la llave) y restando(balanza sin la llave) numeros que son potencia de 3.
-Para resolver esto, totamos T, que seria el valor de P en la base Ternaria, es decir, escribir cada numero como $P = \sum_{i=0}^{n} a_i3^i$  con $0 \leq a_i \leq 2$
+Para resolver esto, tomamos T, que seria el valor de P en la base Ternaria, es decir, escribir cada numero como $P = \sum_{i=0}^{n} a_i3^i$  con $0 \leq a_i \leq 2$
 y $n = log_{3}{P}$  y entonces $T ={a_1,a_2,...,a_n}$.
 Ahora, para cada elemento $a_i$ de T, en orden, si $a_i$ es 0, no hacemos nada, si $a_i$ es 1, en la balanza con la llave ponemos el peso de $3^i$ y si $a_i =2$, ponemos una pesa de $3^i$ en la balanza sin la llave y ademas sumamos 1 a $a_{(i+1)}$ (y consecuentemente, se cambian los valores posteriores de T para que sigan en base ternaria)
+
 
 \subsubsection{Pseudocódigo}
 
@@ -182,7 +183,7 @@ observación: nuestro algoritmo descarta los tesoros que tienen un peso mayor al
 		\State  pesoObj $\gets$ cofre[objeto].peso \Comment $\Ogr$(1)
 		\State  pesoVal $\gets$ cofre[objeto].valor \Comment $\Ogr$(1)
 
-		\If{$peso1 < 0 \vee peso2 < 0 \vee peso3 < 0$} 
+		\If{$peso1 < 0 \vee peso2 < 0 \vee peso3 < 0$}
 			\State return $-1$ \Comment \Ogr(1)
 
 		\EndIf
@@ -231,13 +232,13 @@ Presentaremos la función matemática que modela nuestro problema:\\
 $f(o,p_{1},p_{2},p_{3})=0 \\
 f(n,p_{1},p_{2},p_{3}) = Max(V_{n}+Max(f(n-1,p_{1}-p_{n},p_{2},p_{3}), f(n-1,p_{1},p_{2}-p_{n},p_{3}), f(n-1,p_{1},p_{2},p_{3}-p_{n})),f(n-1,p_{1},p_{2},p_{3})) $
 \\
-Donde n representa el numero de tesoro, $V_{n}$ y $P_{n}$ su valor y su peso respectivamente. $p_{1},p_{2}\ y \ p_{3}$ son las capacidades de cada mochila. 
+Donde n representa el numero de tesoro, $V_{n}$ y $P_{n}$ su valor y su peso respectivamente. $p_{1},p_{2}\ y \ p_{3}$ son las capacidades de cada mochila.
 
 Para la demostración utilizaremos inducción global en n.
 \\
 \\
 Caso base: queremos ver que $f(0,p_{1},p{2},p_{3})$ resulta ser el valor máximo que se puede obtener con 0 objetos:
-$f(0,p_{1},p_{2},p_{3}) = 0$ al tener 0 objetos el valor de los mismos es 0 de modo que es el máximo valos posible. 
+$f(0,p_{1},p_{2},p_{3}) = 0$ al tener 0 objetos el valor de los mismos es 0 de modo que es el máximo valos posible.
 \\
 \\
 Hipotesis Inductiva: $\forall k<n$ vale que $f(k,p_{1},p_{2},p_{3})$ da el valor máximo que se puede obtener con k objetos.
