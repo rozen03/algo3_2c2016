@@ -12,19 +12,15 @@ using namespace std;
 
 
 
-std::list<int> canibalesAntesPuente ;
-std::list<int> arqueologosAntesPuente = {1,7,9};
+std::list<int> canibalesAntesPuente = {1,4,4};
+std::list<int> arqueologosAntesPuente = {3,5,2};
 
 
 int backtracking(std::list<int> cAntes, int cDespues, std::list<int> aAntes, int aDespues){
 
     std::list<int> resultado;
-	int aux;
-	int masLento;
-    if((cAntes.size()>aAntes.size() && aAntes.size()!=0) || ((cDespues > aDespues) && aDespues!=0 )){//Hay mas canibales que arqueologos en algun lado del puente
-        return -1;
-    }
-
+    int aux;
+    int masLento;
     if(cAntes.size()+aAntes.size()==0){//pasaron todas las personas
         return 0;
     }
@@ -35,9 +31,9 @@ int backtracking(std::list<int> cAntes, int cDespues, std::list<int> aAntes, int
             resultado.push_front(-1);
         }
         else{
-        	aux = cAntes.back() + cAntes.front();
-        	masLento = cAntes.back();
-        	cAntes.pop_back();
+            aux = cAntes.back() + cAntes.front();
+            masLento = cAntes.back();
+            cAntes.pop_back();
             resultado.push_front( aux  + backtracking(cAntes, cDespues+1, aAntes , aDespues));
             cAntes.push_back(masLento);
         }
@@ -45,15 +41,15 @@ int backtracking(std::list<int> cAntes, int cDespues, std::list<int> aAntes, int
 
     if( aAntes.size() >= 2 ){//es posible pasar dos arqueologos
 
-        if(cAntes.size()>aAntes.size()-2 || aAntes.size()-2 != 0){
+        if(cAntes.size()>aAntes.size()-2 && aAntes.size()-2 != 0){
             resultado.push_front(-1);
         }
         else{
-        	aux = aAntes.back() + aAntes.front();
-        	masLento = aAntes.back();
-        	aAntes.pop_back();
+            aux = aAntes.back() + aAntes.front();
+            masLento = aAntes.back();
+            aAntes.pop_back();
             resultado.push_front( aux  + backtracking(cAntes,cDespues,aAntes , aDespues + 1));
-        	aAntes.push_back(masLento);
+            aAntes.push_back(masLento);
         }
     }
 
@@ -64,11 +60,11 @@ int backtracking(std::list<int> cAntes, int cDespues, std::list<int> aAntes, int
         }
 
         else{
-        	aux = cAntes.back() + aAntes.front();
-        	masLento = cAntes.back();
-        	cAntes.pop_back();
+            aux = cAntes.back() + aAntes.front();
+            masLento = cAntes.back();
+            cAntes.pop_back();
             resultado.push_front(  aux + backtracking( cAntes,cDespues+1,aAntes,aDespues));
-        	cAntes.push_back(masLento);
+            cAntes.push_back(masLento);
         }
 
         if(cAntes.size()>aAntes.size()-1 && aAntes.size()-1!=0){//vuelve el canibal
@@ -76,11 +72,11 @@ int backtracking(std::list<int> cAntes, int cDespues, std::list<int> aAntes, int
         }
 
         else{
-        	aux = aAntes.back() + cAntes.front();
-        	masLento = aAntes.back();
-        	aAntes.pop_back();
+            aux = aAntes.back() + cAntes.front();
+            masLento = aAntes.back();
+            aAntes.pop_back();
             resultado.push_front( aux + backtracking(cAntes,cDespues,aAntes,aDespues+1));
-        	aAntes.push_back(masLento);
+            aAntes.push_back(masLento);
         }
     }
 
@@ -90,8 +86,9 @@ int backtracking(std::list<int> cAntes, int cDespues, std::list<int> aAntes, int
         return -1;
     }
     else{
-    	resultado.sort();
-    	return resultado.front();
+        resultado.sort();
+        return resultado.front();
+
     }
 
 
@@ -101,25 +98,25 @@ int backtracking(std::list<int> cAntes, int cDespues, std::list<int> aAntes, int
 
 
 int main(){
-		canibalesAntesPuente.sort();
-		arqueologosAntesPuente.sort();
+        canibalesAntesPuente.sort();
+        arqueologosAntesPuente.sort();
 
-		if(canibalesAntesPuente.size()==arqueologosAntesPuente.size() && arqueologosAntesPuente.size()>=3){
-			cout<< -1<< endl;
-		} 
-		else if(canibalesAntesPuente.size()+ arqueologosAntesPuente.size() == 1){
-			if(canibalesAntesPuente.size()==1){
-				cout << canibalesAntesPuente.front() << endl;
-			}
-			else{
-				cout << arqueologosAntesPuente.front()<< endl;
-			}
-			//imprimir el unico elemento de las dos listas
-		}  
-		else{
-			cout << backtracking(canibalesAntesPuente,0,arqueologosAntesPuente,0) << endl; 
-		}
+        if(canibalesAntesPuente.size()==arqueologosAntesPuente.size() && arqueologosAntesPuente.size()>=3){
+            cout<< -1<< endl;
+        } 
+        else if(canibalesAntesPuente.size()+ arqueologosAntesPuente.size() == 1){
+            if(canibalesAntesPuente.size()==1){
+                cout << canibalesAntesPuente.front() << endl;
+            }
+            else{
+                cout << arqueologosAntesPuente.front()<< endl;
+            }
+            //imprimir el unico elemento de las dos listas
+        }  
+        else{
+            cout << backtracking(canibalesAntesPuente,0,arqueologosAntesPuente,0) << endl; 
+        }
 
-		return 0;
+        return 0;
 
 }
