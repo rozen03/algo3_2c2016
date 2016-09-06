@@ -23,12 +23,14 @@
 
 \begin{document}
 
-\title{Informe 1}
-
+\titulo{Informe 1}
+\materia{Algoritmos y Estructuras de Datos III}
 \author{Grupo  \\Alvarez Vico Jazm\'in\\Cortés Conde Titó Javier María\\Pedraza Marcelo \\ Rozenberg Uriel Jonathan}
 
+\integrante {Jazmin}{333}{arreglandoerroresdelatex@gmail.com}
 
 \maketitle
+
 
 \clearpage
 
@@ -59,26 +61,26 @@ Formalmente esto equivale a decir que, si tenemos un entero n queremos sumar o r
 
 \subsection{Explicación de la solución}
 Siendo el peso de la llave al que denominaremos P, el problema pide basicamente construir el numero P sumando (balanza con la llave) y restando(balanza sin la llave) numeros que son potencia de 3.
-Para resolver esto, totamos T, que seria el valor de P en la base Ternaria, es decir, escribir cada numero como P = \sum_{i=0}^{n} a_i3^i  con 0 \leq a_i \leq 2
-y n = log_{3}{P}  y entonces T ={a_1,a_2,...,a_n}.
-Ahora, para cada elemento a_i de T, en orden, si a_i es 0, no hacemos nada, si a_i es 1, en la balanza con la llave ponemos el peso de 3^i y si a_i =2, ponemos una pesa de 3^i en la balanza sin la llave y ademas sumamos 1 a a_(i+1) (y consecuentemente, se cambian los valores posteriores de T para que sigan en base ternaria)
+Para resolver esto, totamos T, que seria el valor de P en la base Ternaria, es decir, escribir cada numero como $P = \sum_{i=0}^{n} a_i3^i$  con $0 \leq a_i \leq 2$
+y $n = log_{3}{P}$  y entonces $T ={a_1,a_2,...,a_n}$.
+Ahora, para cada elemento $a_i$ de T, en orden, si $a_i$ es 0, no hacemos nada, si $a_i$ es 1, en la balanza con la llave ponemos el peso de $3^i$ y si $a_i =2$, ponemos una pesa de $3^i$ en la balanza sin la llave y ademas sumamos 1 a $a_{(i+1)}$ (y consecuentemente, se cambian los valores posteriores de T para que sigan en base ternaria)
 
 \subsubsection{Pseudocódigo}
 
-Nota: Para la implementacion, en vez de crear el conjunto T, vamos tomando el resto de P y diviendolo por 3 entonces, el valor de la variable "rem" seria el equivalente al a_i (siendo i la iteracion)
+Nota: Para la implementacion, en vez de crear el conjunto T, vamos tomando el resto de P y diviendolo por 3 entonces, el valor de la variable "rem" seria el equivalente al $a_i$ (siendo i la iteracion)
 
 \begin{algorithm}[H]{\textbf{Pesas}(Natural: P)}
-+	\begin{algorithmic}[1]
-+		\State Mientras P sea mayor a 0
-+		  %\State rem <- r_r(P)
-+    	%\State P <- parte entera(P/3)
-+    		\If{rem = 0}
-+    			La pesa va para la balanza con la llave
-+    		\ElseIf{ rem = 2}
-+    			P<-P+1
-+    			La pesa va para  la otra  balanza
-+	\end{algorithmic}
-+\end{algorithm}
+	\begin{algorithmic}[1]
+		\State Mientras P sea mayor a 0
+		  %\State rem <- r_r(P)
+    	%\State P <- parte entera(P/3)
+    		\If{rem = 0}
+    			\State La pesa va para la balanza con la llave
+    		\ElseIf{ rem = 2}
+    			\State P<-P+1
+    			\State La pesa va para  la otra  balanza
+	\end{algorithmic}
+\end{algorithm}
 
 
 
@@ -93,14 +95,14 @@ Entonces, dentro de la iteracion se hacen solamente operaciones en O(1). Quedand
 La iteracion tiene como condicion que P>0, siendo P inicialmente el valor de entrada. Ahora, P es editado en cada iteracion: independientemente del if que hay adentro,
 a P se lo divide por 3. Si siguiesemos sin contar lo que pasa en el if,sabemos que se harian log_3(P) veces dividir P por 3 para q P sea menor a 0.
 Ahora, tomando en cuenta el if hay un caso en el cual le sumamos 1 a P, lo cual afecta un poco la cuenta, si volvemos a la explicacion del algoritmo y tomamos el conjunto T = {a_1,...,a_n}
-donde  P = \sum_{i=0}^{n} a_i3^i  con 0 \leq a_i \leq 2 y n = log_{3}{P}, siendo el valor de rem el valor de a_i en la iesima iteracion.
+donde  $P = \sum_{i=0}^{n} a_i3^i$  con $0 \leq a_i \leq 2$ y $n = log_{3}{P}$, siendo el valor de rem el valor de a_i en la iesima iteracion.
 Cuando hacemos que P<- P+1 nos queda que en la proxima iteracion rem valdria uno mas, es decir a_(i+1) pasaria a valer uno mas de lo q valdria en T. Ahora,  siendo estos que para todo a_k
 valen entre 0 y 2, si a_(i+1) en vez de valer 3, valdria 0 y a_(i+2) valdria uno mas tambien, y si  a_(i+2) valia 2, pasaria a valer 0 y  a_(i+3) valdria uno mas y asi sucesivamente hasta llegar a a_n.
 y si resulta que tambien a_n valia 2, entonces tendriamos un a_(n+1) que entraria a valer 1 y a_n valdria 0.
 Luego no habria mas casos donde a_j (para i<j<=n) donde a_j sea 2, entonces no hay mas casos donde puedan volver a ocurrir este tipo de cosas, quedandonos asi, un maximo de Log_3(P)+1 iteraciones
 
-Entonces, la complejidad del algoritmo es de O(Log_3(P)).
-Luego, se puede probar que Log(P) es O(\sqrt(P))
+Entonces, la complejidad del algoritmo es de $\Ogr(Log_{3}(P))$.
+Luego, se puede probar que Log(P) es $\Ogr(\sqrt(P))$
 
 
 \subsection{Experimentación}
@@ -130,7 +132,7 @@ Nuestro objetivo es seleccionar una combinación de los primeros objetos, restri
 \subsection{Explicación de la solución}
 
    Inicialmente creimos que este problema podría resolverme mediante un algoritmo de BackTracking, sin embargo observamos que nunca lograríamos conseguir la complejidad pedida puesto que este tipo de algoritmos conlleva una complejidad exponencial sperior a la pedida.
-   Finalmente pudimos resolverlo mediante programación dinámica. Nuestro algoritmo principal llama a dos funciones que utilizan la recursividad para podes obtener en un caso el valor óptimo, y en el otro "las mochilas llenas."
+   Finalmente pudimos resolverlo mediante prOgramación dinámica. Nuestro algoritmo principal llama a dos funciones que utilizan la recursividad para podes obtener en un caso el valor óptimo, y en el otro "las mochilas llenas."
    Para facilitar el entendimiento del algoritmo vamos a introducir el concepto de "hipercubo"...%explicar el hipercubo%
  %capaz para explicar esto podriamos poner unos dibujitos :D %
 
@@ -141,9 +143,9 @@ observación: nuestro algoritmo descarta los tesoros que tienen un peso mayor al
 
 \subsubsection{Pseudocódigo}
 
-\begin{algorithm}[H]{\textbf{guardandoTesoro}(mochilas: vector<mochila>, cofre: vector<tesoro>)}
+\begin{algorithm}[H]{\textbf{guardandoTesoro}(mochilas: vector$<$mochila$>$, cofre: vector$<$tesoro$>$)}
 	\begin{algorithmic}[1]
-		\State objXpesos $\gets$ Hipercubo() incializado en -1 \Comment (en las posiciones donde no puede haber objetos incializo en 0)
+		\State objXpesos $\gets$ Hipercubo() incializado en -1 \Comment (en las posiciones donde no puede haber objetos incializo en 0) $\Ogr$()
 		\State sol= ValorOptimo(objXpesos,cofre,cofre.size-1,capacidades de las mochilas)
 		\State LlenarMochilas(objXpesos, cofre, mochila1, mochila2, mochila3)
 		\State return (sol, mochilas)
@@ -151,24 +153,34 @@ observación: nuestro algoritmo descarta los tesoros que tienen un peso mayor al
 \end{algorithm}
 
 
+
+\begin{algorithm}[H]{\textbf{LlenarMochilas}(objetoXpeso: hipercubo, cofre:vector$<$tesoro$>$, m1,m2,m3:mochilas)}
+	\begin{algorithmic}[1]
+		\State desde i= cofre.size-1 hasta i=0
+			\State obj $\gets$ cofre[i]
+			\State cap1 $\gets$ m1.Capacidad
+			\State cap2 $\gets$ m2.Capacidad
+			\State cap3 $\gets$ m3.Capacidad
+			\If{$i=0$}
+				\State Agregar obj en cualquier mochila en la que entre.
+			\Else
+				\State valM1 $\gets$ obj.valor + ValorOptimo(objetoXPeso, cofre, i,cap1-obj.peso,cap2,cap3 )
+				\State valM2 $\gets$ obj.valor + ValorOptimo(objetoXPeso, cofre,i,cap1,cap2-obj.peso,cap3 )
+				\State valM3 $\gets$ obj.valor + ValorOptimo(objetoXPeso, cofre,i, cap1, cap2,cap3-obj.peso )	
+				\State MeterEnCorrecta(valM1,valM2,valM3,m1,m2,m3,obj)
+			\EndIf
+
+	\end{algorithmic}
+\end{algorithm}
+
+
+
 %%%
 
-\begin{algorithm}[H]{\textbf{LlenarMochilas}(objetoXpeso: hipercubo, cofre:vector<tesoro>, m1,m2,m3:mochilas)}
+\begin{algorithm}[H]{\textbf{ValorOptimo(objXpeso:hipercubo, cofre:vector$<$tesoro$>$, objeto:int, peso1: int, peso2:int, peso3:int)}}
 	\begin{algorithmic}[1]
-		\State i $\gets$ cofre.size-1
-		\State mientras i $\geq 0$
-
-	\begin{algorithmic}
-\end{algortihm}
-
-
-
-%%%
-
-\begin{algorithm}[H]{\textbf{ValorOptimo(objXpeso:hipercubo, cofre:vector<tesoro>, objeto:int, peso1: int, peso2:int, peso3:int)}}
-	\begin{algorithmic}[1]
-		\State  pesoObj $\gets$ objeto.peso \Comment \Ogr(1)
-		\State  pesoVal $\gets$ objeto.valor \Comment \Ogr(1)
+		\State  pesoObj $\gets$ cofre[objeto].peso \Comment $\Ogr$(1)
+		\State  pesoVal $\gets$ cofre[objeto].valor \Comment $\Ogr$(1)
 
 		\If{$peso1 < 0 \vee peso2 < 0 \vee peso3 < 0$} 
 			\State return $-1$ \Comment \Ogr(1)
@@ -176,29 +188,29 @@ observación: nuestro algoritmo descarta los tesoros que tienen un peso mayor al
 		\EndIf
 
 		\If{objetoxPesos[objeto][peso1][peso2][peso3] $\neq$ -1}
-			\State return objetoxPesos[objeto][peso1][peso2][peso3] \Comment \Ogr(1)
+			\State return objetoxPesos[objeto][peso1][peso2][peso3] \Comment $\Ogr$(1)
 		\EndIf
 		\If{objeto $=$ 0}
 			\State val $\gets$ 0 \Comment \Ogr(1)
-			\If{peso1 $\gee$ pesoObj $\vee$ peso2 $\gee$ pesoObj $\vee$ peso3 $\gee$ pesoObj}
+			\If{peso1 $\ge$ pesoObj $\vee$ peso2 $\ge$ pesoObj $\vee$ peso3 $\ge$ pesoObj}
 				\State val $\gets$ valorObj \Comment \Ogr(1)
-				\State objetoxPesos[objeto][peso1][peso2][peso3] $\gets$ val \Comment \Ogr(1)
-				\State return val \Comment \Ogr(1)
+				\State objetoxPesos[objeto][peso1][peso2][peso3] $\gets$ val \Comment $\Ogr$(1)
+				\State return val \Comment $\Ogr$(1)
 			\EndIf
 
 		\Else
-			\State PosiblesSolus $\gets$ vector<int> \Comment \Ogr(1)
+			\State PosiblesSolus $\gets$ vector$<$int$>$ \Comment $\Ogr$(1)
 			\State sinObj $\gets$ ValorOptimo(objetoxPesos, cofre, objeto -1, peso1, peso2, peso3)
 			\State PosiblesSolus.Agregar(sinObj)
-			\If(peso1-pesoObj $\gee$ 0){
+			\If{peso1-pesoObj $\ge$ 0}
 				\State objen1 $=$ valorObj + ValorOptimo(objetoxPesos, cofre, objeto - 1, peso1 - pesoObj, peso2, peso3)
 				\State PosiblesSolus.Agrergar(objen1)
 			\EndIf
-			\If{peso2 - pesoObj $\gee$ 0}
+			\If{peso2 - pesoObj $\ge$ 0}
 				\State objen2 = valorObj + ValorOptimo(objetoxPesos, cofre, objeto - 1, peso1, peso2  - pesoObj, peso3)
 				\State PosiblesSolus.Agregar(objen2)
 			\EndIf
-			\If{peso3-pesoObj $\gee$ 0}
+			\If{peso3-pesoObj $\ge$ 0}
 				\State objen3 = valorObj + ValorOptimo(objetoxPesos, cofre, objeto - 1, peso1, peso2, peso3  - pesoObj)
 				\State PosiblesSolus.Agregar(objen3)
 			\EndIf
@@ -211,6 +223,7 @@ observación: nuestro algoritmo descarta los tesoros que tienen un peso mayor al
 	\end{algorithmic}
 \end{algorithm}
 
+\newpage
 
 \subsubsection{Demostración de Correctitud}
 Presentaremos la función matemática que modela nuestro problema:\\
