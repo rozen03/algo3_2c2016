@@ -3,42 +3,35 @@
 
 using namespace std;
 
-bool esPrimo(int n){
-	bool primo = true;
-	//cout<<"el n es " << n<<" la raiz es "<<ceil(sqrt(n))<<endl;
-	for(int i = 2; i < ceil(sqrt(n)); i++){
-		if(n % i == 0) primo = false;
-	}
-	return primo;
-}
 
 vector<vector<int> > listaAdyDiv(int n){
-	cout<<"hola ady? n es "<<n<<endl;
-	vector<int> ps( 1, -1);
-	vector<vector<int> > list(n, ps);
-	for(unsigned int i = 1; i <= n; i++){
-		cout<<"entro for? con i = "<<i<<endl;
-		if(esPrimo(i)){
-			cout<<"es primo?"<<endl;
-			list[i][0] = i;
-			list[i].push_back(1);
-			}
-		else{
-			cout<<"no es primo"<<endl;
-			list[i][0]= i;
-			for(unsigned int j = i-1; j > 0; j--){
-				if(i % j == 0)list[i].push_back(j);
-			}
+	//vector<int> ps;
+	vector<vector<int> > list(n+1);
+	for(int i = 1; i <= n; i++){
+		for(int j = i; j > 0; j--){
+			
+			if(i % j == 0)list[i].push_back(j);
+			
 		}
+
 	}
-}
+	for(unsigned int i= 0 ; i<list.size(); i++){
+		
+		for(unsigned int l = 0; l < list[i].size(); l++){ 
+		cout<<list[i][l]<<", ";
+		cout<<endl;
+	}
+}}	
+
 
 vector<int> Compuestox2(int n, vector<int>& list){//pasas solo los divisores de n por que es compuesto por 2
 	vector<vector<int> > todasres;
 	for(unsigned int i = 0; i <= list.size() / 2 + 1; i++){
 		vector<int> res(2);
+		cout<<"list en i tiene "<<list[i]<<endl;
 		res[0] =list[i];
 		res[1] = n / res[0];
+		cout<<"Res parcial tiene ("<<res[0]<<", "<<res[1]<<")"<<endl;
 		todasres.push_back(res);
 	}
 	vector<int> sol = todasres[0];
@@ -78,13 +71,18 @@ vector<int> Compuestox3(int n, vector<vector<int> >& list){
 }
 
 int main(int argc, char const *argv[]){
-	vector<vector<int> > list = listaAdyDiv( 20);
-	cout<<"termino lista"<<endl;
+	vector<vector<int> > list;
+	list = listaAdyDiv( 20);
+	cout<<"termino lista, la lista en la posicion 19 tiene"<<endl;
+	for(unsigned int i = 0; i< list[19].size(); i++){
+		cout<<list[19][i]<<", ";
+	}cout<<endl;
 	vector<int> s = Compuestox2(20, list[19]);
 	
-	cout<<"termino compuesto"<<endl;
+	
+	cout<<"termino compuesto, el tamaño es "<<s.size()<<endl;
 	for(unsigned int i = 0; i< s.size(); i++){
-		cout<< s[i];
+		cout<< s[i]<< ", ";
 	}
 	cout<<endl;
 }

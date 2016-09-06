@@ -9,9 +9,40 @@
 
 using namespace std;
 
+void testPesoMejorCaso(int rep){
+	ofstream res("resultadosoPesoMejorCaso.txt");
+	for(int j = 2; j<51; j+= 2){
+		string js = to_string(j);
+		srand(time(NULL));
+		string ts = "test"+ js+"PesoMca.txt";
+		std::ofstream test10obj(ts);
+		test10obj << "1 50 \n";
+		test10obj << j<< "\n";
+		for ( int i = 0; i < 50; i++) {
+			int C= 1;
+			int p=51;
+			int v=rand()%10000000+1;
+			test10obj<< C<< " "<< p<< " "<<v << endl;
+		}
+		test10obj.close();
+		res<< j <<' ';
+		int sol= 0;
+		for(int i = 0; i <= rep; i++){
+			int solpar;
+			auto start = ya();
+			solucion(ts);
+			auto end = ya();
+			solpar = chrono::duration_cast<std::chrono::nanoseconds>(end-start).count() / rep;
+			sol = sol +solpar;
+		}
+		res<<sol<<" & \n";
+	}
+	res.close();
+}
+
 void testObjAleatorios(int rep){
 	ofstream res("resultadoObjAl.txt");
-	for(int j = 10; j<51; j+= 10){
+	for(int j = 2; j<51; j+= 2){
 		string js = to_string(j);
 		srand(time(NULL));
 		string ts = "test"+ js+"objAl.txt";
@@ -42,7 +73,7 @@ void testObjAleatorios(int rep){
 
 void testObjPesoRango(int rep){
 	ofstream res("resultadosObjPesoRango.txt");
-	for(int j = 10; j<51; j+= 10){
+	for(int j = 2; j<51; j+= 2){
 		string js = to_string(j);
 		srand(time(NULL));
 		string ts = "test"+ js+"objPr.txt";
@@ -73,7 +104,7 @@ void testObjPesoRango(int rep){
 
 void testObjMejorCaso(int rep){
 	ofstream res("resultadosoObjMejorCaso.txt");
-	for(int j = 10; j<51; j+= 10){
+	for(int j = 2; j<51; j+= 2){
 		string js = to_string(j);
 		srand(time(NULL));
 		string ts = "test"+ js+"objPr.txt";
@@ -266,11 +297,12 @@ void testMochDistPeso(int rep){
 
 
 int main(){
-	//testObjAleatorios(1000);
-//	testObjPesoRango(1000);
-//	testObjMejorCaso(1000);
-//	testPesoMoch(1000);
-//	testCantMoch(1000);
-	testMochDistPeso(1000);
+	testObjAleatorios(1000);
+	testObjPesoRango(1000);
+	testObjMejorCaso(1000);
+	testPesoMoch(1000);
+	testCantMoch(1000);
+	testPesoMejorCaso(1000);
+//	testMochDistPeso(1000);
 return 0;
 }
