@@ -4,8 +4,7 @@
 #include <sstream> // std::ostringstream
 #include <stdlib.h>
 #include <string>
-#include <tuple>
-#include <vector>
+#include <list>
 using namespace std;
 uint64_t rdtsc() {
   unsigned int lo, hi;
@@ -13,30 +12,36 @@ uint64_t rdtsc() {
   return ((uint64_t)hi << 32) | lo;
 }
 
+void imprimirBalanza(list<unsigned long> balanza){
+  while (!balanza.empty()) {
+   //std::cout << ' ' << balanza.front();
+   balanza.pop_front();
+ }
+ //cout<<endl;
+}
+
 void terny(long n) {
-  // std::vector<unsigned long> balanzaA{0};
-  // std::vector<unsigned long> balanzaB{0};
   unsigned long count = 1;
   int countador_A = 0;
   int countador_B = 0;
-  std::ostringstream oss_A;
-  std::ostringstream oss_B;
+  list<unsigned long> balanzaA, balanzaB;
   while (n > 0) {
     int rem = n % 3;
     n = n / 3;
     if (rem == 1) {
-
-      oss_A << count << " ";
+      balanzaA.push_back(count);
       countador_A++;
     } else {
       if (rem == 2) {
         countador_B++;
         n += 1;
-        oss_B << count << " ";
+        balanzaB.push_back(count);
       }
     }
     count *= 3;
   }
+  imprimirBalanza(balanzaA);
+  imprimirBalanza(balanzaB);
 }
 int main() {
   int n = 15;
