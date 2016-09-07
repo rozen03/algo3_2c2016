@@ -48,7 +48,7 @@ void testObjAleatorios(int rep){
 		string ts = "test"+ js+"objAl.txt";
 		std::ofstream test10obj(ts);
 		test10obj << "1 "<< j<<" \n";
-		test10obj << "20 \n";
+		test10obj << "50 \n";
 		for ( int i = 0; i < j; i++) {
 			int C= 1;
 			int p=rand()%100+1;
@@ -265,7 +265,7 @@ res.close();
 
 void testMochDistPeso(int rep){
 	ofstream res("soluMochDistPeso.txt");
-	for(int j = 10; j<51; j+= 10){
+	for(int j = 2; j<51; j+= 2){
 		string js = to_string(j);
 		srand(time(NULL));
 		string ts = "test"+ js+"MochDistPeso.txt";
@@ -297,12 +297,12 @@ void testMochDistPeso(int rep){
 
 
 int main(){
-	testObjAleatorios(1000);
-	testObjPesoRango(1000);
-	testObjMejorCaso(1000);
-	testPesoMoch(1000);
-	testCantMoch(1000);
-	testPesoMejorCaso(1000);
-//	testMochDistPeso(1000);
+	//testObjAleatorios(1000);
+	//testObjPesoRango(1000);
+	//testObjMejorCaso(1000);
+	//testPesoMoch(1000);
+	//testCantMoch(1000);
+	//testPesoMejorCaso(1000);
+	testMochDistPeso(1000);
 return 0;
 }

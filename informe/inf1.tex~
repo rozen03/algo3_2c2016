@@ -23,12 +23,17 @@
 
 \begin{document}
 
-\title{Informe 1}
-
+\titulo{Informe 1}
+\materia{Algoritmos y Estructuras de Datos III}
 \author{Grupo  \\Alvarez Vico Jazm\'in\\Cortés Conde Titó Javier María\\Pedraza Marcelo \\ Rozenberg Uriel Jonathan}
 
+\integrante {Jazmín Alvazer Vico}{75/15}{jazminalvarezvico@gmail.com}
+\integrante {Marcelo Pedraza}{393/14}{marcelopedraza314@gmail.com}
+\integrante {Uriel Jonathan Rozenberg}{838/12}{rozenberguriel@gmail.com}
+\integrante {Javier María Cortés Conde Titó}{252/15}{javiercortescondetito@gmail.com}
 
 \maketitle
+
 
 \clearpage
 
@@ -59,9 +64,10 @@ Formalmente esto equivale a decir que, si tenemos un entero n queremos sumar o r
 
 \subsection{Explicación de la solución}
 Siendo el peso de la llave al que denominaremos P, el problema pide basicamente construir el numero P sumando (balanza con la llave) y restando(balanza sin la llave) numeros que son potencia de 3.
-Para resolver esto, totamos T, que seria el valor de P en la base Ternaria, es decir, escribir cada numero como $P = \sum_{i=0}^{n} a_i3^i$  con $0 \leq a_i \leq 2$
+Para resolver esto, tomamos T, que seria el valor de P en la base Ternaria, es decir, escribir cada numero como $P = \sum_{i=0}^{n} a_i3^i$  con $0 \leq a_i \leq 2$
 y $n = log_{3}{P}$  y entonces $T ={a_1,a_2,...,a_n}$.
 Ahora, para cada elemento $a_i$ de T, en orden, si $a_i$ es 0, no hacemos nada, si $a_i$ es 1, en la balanza con la llave ponemos el peso de $3^i$ y si $a_i =2$, ponemos una pesa de $3^i$ en la balanza sin la llave y ademas sumamos 1 a $a_{(i+1)}$ (y consecuentemente, se cambian los valores posteriores de T para que sigan en base ternaria)
+
 
 \subsubsection{Pseudocódigo}
 
@@ -130,7 +136,7 @@ Nuestro objetivo es seleccionar una combinación de los primeros objetos, restri
 \subsection{Explicación de la solución}
 
    Inicialmente creimos que este problema podría resolverme mediante un algoritmo de BackTracking, sin embargo observamos que nunca lograríamos conseguir la complejidad pedida puesto que este tipo de algoritmos conlleva una complejidad exponencial sperior a la pedida.
-   Finalmente pudimos resolverlo mediante programación dinámica. Nuestro algoritmo principal llama a dos funciones que utilizan la recursividad para podes obtener en un caso el valor óptimo, y en el otro "las mochilas llenas."
+   Finalmente pudimos resolverlo mediante prOgramación dinámica. Nuestro algoritmo principal llama a dos funciones que utilizan la recursividad para podes obtener en un caso el valor óptimo, y en el otro "las mochilas llenas."
    Para facilitar el entendimiento del algoritmo vamos a introducir el concepto de "hipercubo"...%explicar el hipercubo%
  %capaz para explicar esto podriamos poner unos dibujitos :D %
 
@@ -143,14 +149,12 @@ observación: nuestro algoritmo descarta los tesoros que tienen un peso mayor al
 
 \begin{algorithm}[H]{\textbf{guardandoTesoro}(mochilas: vector$<$mochila$>$, cofre: vector$<$tesoro$>$)}
 	\begin{algorithmic}[1]
-		\State objXpesos $\gets$ Hipercubo() incializado en -1 \Comment (en las posiciones donde no puede haber objetos incializo en 0)
+		\State objXpesos $\gets$ Hipercubo() incializado en -1 \Comment (en las posiciones donde no puede haber objetos incializo en 0) $\Ogr$()
 		\State sol= ValorOptimo(objXpesos,cofre,cofre.size-1,capacidades de las mochilas)
 		\State LlenarMochilas(objXpesos, cofre, mochila1, mochila2, mochila3)
 		\State return (sol, mochilas)
 	\end{algorithmic}
 \end{algorithm}
-
-
 
 
 
@@ -164,14 +168,14 @@ observación: nuestro algoritmo descarta los tesoros que tienen un peso mayor al
 			\If{$i=0$}
 				\State Agregar obj en cualquier mochila en la que entre.
 			\Else
-				valM1 $\gets$ obj.valor + ValorOptimo(objetoXPeso, cofre, i,cap1-obj.peso,cap2,cap3 )
-				valM2 $\gets$ obj.valor + ValorOptimo(objetoXPeso, cofre,i,cap1,cap2-obj.peso,cap3 )
-				valM3 $\gets$ obj.valor + ValorOptimo(objetoXPeso, cofre,i, cap1, cap2,cap3-obj.peso )	
+				\State valM1 $\gets$ obj.valor + ValorOptimo(objetoXPeso, cofre, i,cap1-obj.peso,cap2,cap3 )
+				\State valM2 $\gets$ obj.valor + ValorOptimo(objetoXPeso, cofre,i,cap1,cap2-obj.peso,cap3 )
+				\State valM3 $\gets$ obj.valor + ValorOptimo(objetoXPeso, cofre,i, cap1, cap2,cap3-obj.peso )	
 				\State MeterEnCorrecta(valM1,valM2,valM3,m1,m2,m3,obj)
 			\EndIf
 
 	\end{algorithmic}
-\end{algortihm}
+\end{algorithm}
 
 
 
@@ -179,38 +183,38 @@ observación: nuestro algoritmo descarta los tesoros que tienen un peso mayor al
 
 \begin{algorithm}[H]{\textbf{ValorOptimo(objXpeso:hipercubo, cofre:vector$<$tesoro$>$, objeto:int, peso1: int, peso2:int, peso3:int)}}
 	\begin{algorithmic}[1]
-		\State  pesoObj $\gets$ objeto.peso \Comment \Ogr(1)
-		\State  pesoVal $\gets$ objeto.valor \Comment \Ogr(1)
+		\State  pesoObj $\gets$ cofre[objeto].peso \Comment $\Ogr$(1)
+		\State  pesoVal $\gets$ cofre[objeto].valor \Comment $\Ogr$(1)
 
-		\If{$peso1 < 0 \vee peso2 < 0 \vee peso3 < 0$} 
+		\If{$peso1 < 0 \vee peso2 < 0 \vee peso3 < 0$}
 			\State return $-1$ \Comment \Ogr(1)
 
 		\EndIf
 
 		\If{objetoxPesos[objeto][peso1][peso2][peso3] $\neq$ -1}
-			\State return objetoxPesos[objeto][peso1][peso2][peso3] \Comment \Ogr(1)
+			\State return objetoxPesos[objeto][peso1][peso2][peso3] \Comment $\Ogr$(1)
 		\EndIf
 		\If{objeto $=$ 0}
 			\State val $\gets$ 0 \Comment \Ogr(1)
-			\If{peso1 $\gee$ pesoObj $\vee$ peso2 $\gee$ pesoObj $\vee$ peso3 $\gee$ pesoObj}
+			\If{peso1 $\ge$ pesoObj $\vee$ peso2 $\ge$ pesoObj $\vee$ peso3 $\ge$ pesoObj}
 				\State val $\gets$ valorObj \Comment \Ogr(1)
-				\State objetoxPesos[objeto][peso1][peso2][peso3] $\gets$ val \Comment \Ogr(1)
-				\State return val \Comment \Ogr(1)
+				\State objetoxPesos[objeto][peso1][peso2][peso3] $\gets$ val \Comment $\Ogr$(1)
+				\State return val \Comment $\Ogr$(1)
 			\EndIf
 
 		\Else
-			\State PosiblesSolus $\gets$ vector<int> \Comment \Ogr(1)
+			\State PosiblesSolus $\gets$ vector$<$int$>$ \Comment $\Ogr$(1)
 			\State sinObj $\gets$ ValorOptimo(objetoxPesos, cofre, objeto -1, peso1, peso2, peso3)
 			\State PosiblesSolus.Agregar(sinObj)
-			\If(peso1-pesoObj $\gee$ 0){
+			\If{peso1-pesoObj $\ge$ 0}
 				\State objen1 $=$ valorObj + ValorOptimo(objetoxPesos, cofre, objeto - 1, peso1 - pesoObj, peso2, peso3)
 				\State PosiblesSolus.Agrergar(objen1)
 			\EndIf
-			\If{peso2 - pesoObj $\gee$ 0}
+			\If{peso2 - pesoObj $\ge$ 0}
 				\State objen2 = valorObj + ValorOptimo(objetoxPesos, cofre, objeto - 1, peso1, peso2  - pesoObj, peso3)
 				\State PosiblesSolus.Agregar(objen2)
 			\EndIf
-			\If{peso3-pesoObj $\gee$ 0}
+			\If{peso3-pesoObj $\ge$ 0}
 				\State objen3 = valorObj + ValorOptimo(objetoxPesos, cofre, objeto - 1, peso1, peso2, peso3  - pesoObj)
 				\State PosiblesSolus.Agregar(objen3)
 			\EndIf
@@ -231,13 +235,13 @@ Presentaremos la función matemática que modela nuestro problema:\\
 $f(o,p_{1},p_{2},p_{3})=0 \\
 f(n,p_{1},p_{2},p_{3}) = Max(V_{n}+Max(f(n-1,p_{1}-p_{n},p_{2},p_{3}), f(n-1,p_{1},p_{2}-p_{n},p_{3}), f(n-1,p_{1},p_{2},p_{3}-p_{n})),f(n-1,p_{1},p_{2},p_{3})) $
 \\
-Donde n representa el numero de tesoro, $V_{n}$ y $P_{n}$ su valor y su peso respectivamente. $p_{1},p_{2}\ y \ p_{3}$ son las capacidades de cada mochila. 
+Donde n representa el numero de tesoro, $V_{n}$ y $P_{n}$ su valor y su peso respectivamente. $p_{1},p_{2}\ y \ p_{3}$ son las capacidades de cada mochila.
 
 Para la demostración utilizaremos inducción global en n.
 \\
 \\
 Caso base: queremos ver que $f(0,p_{1},p{2},p_{3})$ resulta ser el valor máximo que se puede obtener con 0 objetos:
-$f(0,p_{1},p_{2},p_{3}) = 0$ al tener 0 objetos el valor de los mismos es 0 de modo que es el máximo valos posible. 
+$f(0,p_{1},p_{2},p_{3}) = 0$ al tener 0 objetos el valor de los mismos es 0 de modo que es el máximo valos posible.
 \\
 \\
 Hipotesis Inductiva: $\forall k<n$ vale que $f(k,p_{1},p_{2},p_{3})$ da el valor máximo que se puede obtener con k objetos.
@@ -256,6 +260,24 @@ Como la función Max devuelve el mayor valor, el resultado sera el óptimo.
 Como valen P(0)..p(k) $\forall k<n$ y vale p(n) $\Rigtharrow$ vale p(n) $\forall n \in N \cup {0} $
 
 \subsubsection{Demostración de Complejidad}
+
+Como se observa en el inciso () la complejidad del algoritmo GuardarTesoro es $\Ogr(\prod_{i=1}^{3}K_{i} * T)$ donde $K_i$ representa la capacidad de cada mochila y T la cantidad de tesoros. Ademas esta complejidad es aportada por el algoritmo ValorOptimo, entonces basaremos nuestra demosrtación en el mismo.
+
+Primero haremo unas observaciones preliminares:
+\begin{itemize}
+
+	\item El volumen de un cubo es es $\prod_{i=1}^{3}A_{i}$ donde cada $A_i$ es una arista que representa el eje de la altura, el ancho o el largo. Como explicamos en la introducción gracias a nuestro modelado, sabemos que llenar una posición del cubo nos cuesta $\Theta(1)$ entonces llenarlo entero nos costará el equivalente al volumen del mismo. Podriamos visualizarlo como subdividir un cubo en cubos pequeños de dimension 1X1X1.
+	\item Llenar un hipercubo con un valor determinado (como ocurre en la linea 1 de guardandoTesoro) cuesta $\Ogr(\prod_{i=1}^{3}K_{i} * T)$ ya que hay T cubos para llenar.
+	\item Cuando de llama a LlenarMochilas desde GuardarTesoro cuesta $\Ogr(T)$ ya que en en las lineas 9,10,11 cuando se llama a ValorOptimo, el hipercubo objetoXpeso cuenta con todos lo valores ya calculados entrando en el if (linea 6) que devuelve en $\Ogr(1)$ el valor.
+\end{itemize}
+
+Volviendo a la demostración, tanto en el pseudocodigo como en la función matemática podemos ver que la recursión se realiza tantas veces como la cantidad total de tesoros. Para llenar un cubo, siempre debemos recurrir al cubo anterior, uno pensaria que esto aportaria complejidad, sin embargo, al guardar estos valores solo construimos estos cubos una vez, y la complejidad por acceso es $\Theta(1)$.
+
+Otra manera de verlo, es analoga a la explicacion de la complejidad de llenar un cubo. Al estar llenando un hipercubo la complejidad sera quivalente al hipervolumen del mismo, es decir, multiplicariamos las tres aristas anteriores por una que sería la cuarta dimensión(en este caso los tesoros).
+
+De cualquier manera podemos concluir que la complejidad es $\Ogr(\prod_{i=1}^{3}K_{i} * T)$
+
+
 
 \subsection{Experimentación}
 
