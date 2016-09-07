@@ -63,10 +63,9 @@ Podemos pensar que el lado derecho de la balanza equivale a la operación de sus
 Formalmente esto equivale a decir que, si tenemos un entero n queremos sumar o restar potencias de tres, sin repetirlas hasta alcanzar su valor.
 
 \subsection{Explicación de la solución}
-Siendo el peso de la llave al que denominaremos P, el problema pide basicamente construir el numero P sumando (balanza con la llave) y restando(balanza sin la llave) numeros que son potencia de 3.
-Para resolver esto, tomamos T, que seria el valor de P en la base Ternaria, es decir, escribir cada numero como $P = \sum_{i=0}^{n} a_i3^i$  con $0 \leq a_i \leq 2$
-y $n = log_{3}{P}$  y entonces $T ={a_1,a_2,...,a_n}$.
-Ahora, para cada elemento $a_i$ de T, en orden, si $a_i$ es 0, no hacemos nada, si $a_i$ es 1, en la balanza con la llave ponemos el peso de $3^i$ y si $a_i =2$, ponemos una pesa de $3^i$ en la balanza sin la llave y ademas sumamos 1 a $a_{(i+1)}$ (y consecuentemente, se cambian los valores posteriores de T para que sigan en base ternaria)
+
+Para resolver este problema, Reescribimos P en la base ternaria, es decir, a este valor los notaremos T. Entonces tenemos $P = \sum_{i=0}^{n} a_i3^i$  con $0 \leq a_i \leq 2$ y $n = log_{3}{P}$  entonces $T ={a_1,a_2,...,a_n}$.
+Luego, se toman en orden uno a uno los elementos de T. si $a_i$ es 0, no hacemos nada. Si $a_i$ es 1, en la balanza izquierda ponemos la pesa que corresponde a $3^i$. si $a_i =2$, ponemos una pesa de $3^i$ en la balanza derecha y sumamos 1 a $a_{(i+1)}$ (y consecuentemente, se cambian los valores posteriores de T para que sigan en base ternaria)
 
 
 \subsubsection{Pseudocódigo}
@@ -80,9 +79,12 @@ Nota: Para la implementacion, en vez de crear el conjunto T, vamos tomando el re
     	%\State P <- parte entera(P/3)
     		\If{rem = 0}
     			\State La pesa va para la balanza con la llave
-    		\ElseIf{ rem = 2}
-    			\State P<-P+1
-    			\State La pesa va para  la otra  balanza
+    		\Else
+			\If{ rem = 2}
+    				\State p$\gets$-P+1
+    				\State La pesa va para  la otra  balanza
+			\EndIf
+		\EndIf
 	\end{algorithmic}
 \end{algorithm}
 
@@ -277,11 +279,32 @@ Otra manera de verlo, es analoga a la explicacion de la complejidad de llenar un
 
 De cualquier manera podemos concluir que la complejidad es $\Ogr(\prod_{i=1}^{3}K_{i} * T)$
 
+Ahora probemos que esta complejidad es menor a la pedida ($\Ogr((\sum_{i=1}^{3}K_{i})^{3} * T)$)
+
+$\prod_{i=1}^{3}K_{i}  = K_1*K_2*K_3$   sea $K_max = Max(K_1,K_2,K_3)$ y $K_o= \sum {K_1^3,K_2^3,K_3^3}-{K_max^3}$ entonces $K_1*K_2*K_3 < K_m^3 < K_m^3 + K_o = K_1^3+K_2^3+K_3^3$ entonces $\prod_{i=1}^{3}K_{i}* T < \sum_{i=1}^{3}K_{i})^{3} * T $
 
 
 \subsection{Experimentación}
 
 \subsubsection{Resultados}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.4\textwidth]{comparacionObjetos}
+\caption{}
+\end{figure}
+  
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.4\textwidth]{pesoMCvsObjAl}
+\caption{}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.4\textwidth]{variacionPesoMoch}
+\caption{}
+\end{figure}
 
 \subsubsection{Análisis}
 
