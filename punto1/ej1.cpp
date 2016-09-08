@@ -12,26 +12,26 @@ using namespace std;
 
 
 
-std::list<int> canibalesAntesPuente ;
-std::list<int> arqueologosAntesPuente ;
+//std::list<int> canibalesAntesPuente ;
+//std::list<int> arqueologosAntesPuente ;
 
 
 
 int backtracking(std::list<int> cAntes, int cDespues, std::list<int> aAntes, int aDespues){
-
     std::list<int> resultado;
     int aux;
     int masLento;
     if(cAntes.size()+aAntes.size()==2){//tiene que pasar la última parjea
         int res;
-        if(canibalesAntesPuente.size()==2){
-             res = canibalesAntesPuente.back();
+        if(cAntes.size()==2){
+             res = cAntes.back();
+             cout<< res<<endl;
         }
-        else if(arqueologosAntesPuente.size()==2){
-            res = arqueologosAntesPuente.back();
+        else if(aAntes.size()==2){
+            res = aAntes.back();
         }
         else{
-            res = max(arqueologosAntesPuente.back(), canibalesAntesPuente.back());
+            res = max(aAntes.back(), cAntes.back());
         }
         return res;
     }
@@ -118,13 +118,17 @@ int max(int a,int b){
     }
 }
 
-int solucion(list<int>& arq, list<int>& can){
+int solucion(list<int>& arqueologosAntesPuente, list<int>& canibalesAntesPuente){
+	canibalesAntesPuente.sort();
+    arqueologosAntesPuente.sort();
 	int res;
-	if(canibalesAntesPuente.size()=> 3 && arqueologosAntesPuente.size()>=1){
+	int can =canibalesAntesPuente.size();
+	int arq = arqueologosAntesPuente.size();
+	if((can >=3  && arq>=1)|| (can>arq && arq != 0)){//2 =2 es un caso que tiene solucion pero 3 3 no, asi que tenemos dos partes de la guarda
         res = -1;
     } 
-    else if(canibalesAntesPuente.size()+ arqueologosAntesPuente.size() == 1){
-        if(canibalesAntesPuente.size()==1){
+    else if(can+ arq == 1){
+        if(can==1){
             res = canibalesAntesPuente.front();
         }
         else{
@@ -135,31 +139,37 @@ int solucion(list<int>& arq, list<int>& can){
     else{
         res = backtracking(canibalesAntesPuente,0,arqueologosAntesPuente,0); 
     }
+    return res;
 }
 
-int main(){
-    int n;
+void lecturaDatos(string input, list<int>& arq, list<int>& can){
+	fstream ip;
+	ip.open(input);
+	int n;
     int m;
-    cin >> n >> m;
+    ip >> n >> m;
 
     int aux;
-
+	cout<< input<<endl;
     for (int i = 0; i < n; ++i){
-        cin >> aux;
-        arqueologosAntesPuente.push_back(aux);
+        ip >> aux;
+        arq.push_back(aux);
         }
     for (int i = 0; i < m; ++i){
-        cin >> aux;
-        canibalesAntesPuente.push_back(aux);
+        ip >> aux;
+        can.push_back(aux);
         }
-        
-    canibalesAntesPuente = {4};
-    arqueologosAntesPuente = {5};
-    canibalesAntesPuente.sort();
-    arqueologosAntesPuente.sort();
+}
 
-	cout<< solucion(arqueologosAntesPuente, canibalesAntesPuente);
+int main(int argc, char *argv[]){
+    
+    list<int> arq;
+    list<int> can;
+    string input = argv[1];    
+    lecturaDatos(input, arq,can);
+	cout<< solucion(arq, can)<<endl;
 
     return 0;
 
 }
+
