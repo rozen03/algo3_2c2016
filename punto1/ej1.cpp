@@ -22,9 +22,21 @@ int backtracking(std::list<int> cAntes, int cDespues, std::list<int> aAntes, int
     std::list<int> resultado;
     int aux;
     int masLento;
-    if(cAntes.size()+aAntes.size()==0){//pasaron todas las personas
-        return 0;
+    if(cAntes.size()+aAntes.size()==2){//tiene que pasar la última parjea
+        int res;
+        if(canibalesAntesPuente.size()==2){
+             res = canibalesAntesPuente.back();
+        }
+        else if(arqueologosAntesPuente.size()==2){
+            res = arqueologosAntesPuente.back();
+        }
+        else{
+            res = max(arqueologosAntesPuente.back(), canibalesAntesPuente.back());
+        }
+        return res;
     }
+    
+    
 
     if (cAntes.size()>=2){ //es posible pasar dos canibales
            
@@ -95,6 +107,8 @@ int backtracking(std::list<int> cAntes, int cDespues, std::list<int> aAntes, int
 
 }
 
+
+
 int max(int a,int b){
     if (a>=b){
         return a;
@@ -104,6 +118,24 @@ int max(int a,int b){
     }
 }
 
+int solucion(list<int>& arq, list<int>& can){
+	int res;
+	if(canibalesAntesPuente.size()=> 3 && arqueologosAntesPuente.size()>=1){
+        res = -1;
+    } 
+    else if(canibalesAntesPuente.size()+ arqueologosAntesPuente.size() == 1){
+        if(canibalesAntesPuente.size()==1){
+            res = canibalesAntesPuente.front();
+        }
+        else{
+            res = arqueologosAntesPuente.front();
+        }
+
+    }
+    else{
+        res = backtracking(canibalesAntesPuente,0,arqueologosAntesPuente,0); 
+    }
+}
 
 int main(){
     int n;
@@ -126,32 +158,7 @@ int main(){
     canibalesAntesPuente.sort();
     arqueologosAntesPuente.sort();
 
-    if(canibalesAntesPuente.size()==arqueologosAntesPuente.size() && arqueologosAntesPuente.size()>=3){
-        cout<< -1<< endl;
-    } 
-    else if(canibalesAntesPuente.size()+ arqueologosAntesPuente.size() == 1){
-        if(canibalesAntesPuente.size()==1){
-            cout << canibalesAntesPuente.front() << endl;
-        }
-        else{
-            cout << arqueologosAntesPuente.front()<< endl;
-        }
-
-    }  
-    else if(canibalesAntesPuente.size()+ arqueologosAntesPuente.size() == 2){
-        if(canibalesAntesPuente.size()==2){
-            cout << canibalesAntesPuente.back() << endl;
-        }
-        else if(arqueologosAntesPuente.size()==2){
-            cout << arqueologosAntesPuente.back() << endl;
-        }
-        else{
-            cout << max(arqueologosAntesPuente.back(), canibalesAntesPuente.back()) << endl;
-        }
-    }
-    else{
-        cout << backtracking(canibalesAntesPuente,0,arqueologosAntesPuente,0) << endl; 
-    }
+	cout<< solucion(arqueologosAntesPuente, canibalesAntesPuente);
 
     return 0;
 
