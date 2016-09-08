@@ -276,7 +276,7 @@ Nuestro objetivo es seleccionar una combinación de los primeros objetos, restri
 
 \subsection{Explicación de la solución}
 
-   Inicialmente creimos que este problema podría resolverme mediante un algoritmo de BackTracking, sin embargo observamos que nunca lograríamos conseguir la complejidad pedida puesto que este tipo de algoritmos conlleva una complejidad exponencial sperior a la pedida.
+   Inicialmente creimos que este problema podría resolverse mediante un algoritmo de BackTracking, sin embargo observamos que nunca lograríamos conseguir la complejidad pedida puesto que este tipo de algoritmos conlleva una complejidad exponencial sperior a la pedida.
    Finalmente pudimos resolverlo mediante prmathcal{O}amación dinámica. Nuestro algoritmo principal llama a dos funciones que utilizan la recursividad para podes obtener en un caso el valor óptimo, y en el otro "las mochilas llenas."
    Para facilitar el entendimiento del algoritmo introduciremos el concepto de "Hipercubo". Un hipercubo es el analogo n-dimensional de un cuadrado (n=2) o un cubo (n=3). En particular en nuestro problema tenemos un hipercubo de dimension cuatro, estaa figura se denomina "teseracto" sin embargo por comodidad seguiremos llamandole hipercubo en el resto del informe.
 Para poder imaginar este concepto, podriamos visualizarlo en nuestro mundo tridimencional como un vector con cubos adentro. la cantidad de cubos dependera del largo de nustro cuarta "arista".
