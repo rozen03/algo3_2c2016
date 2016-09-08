@@ -1,10 +1,10 @@
 #include <cmath>
 #include <fstream>
 #include <iostream>
+#include <list>
 #include <sstream> // std::ostringstream
 #include <stdlib.h>
 #include <string>
-#include <list>
 using namespace std;
 uint64_t rdtsc() {
   unsigned int lo, hi;
@@ -12,12 +12,12 @@ uint64_t rdtsc() {
   return ((uint64_t)hi << 32) | lo;
 }
 
-void imprimirBalanza(list<unsigned long> balanza){
+void imprimirBalanza(list<unsigned long> balanza) {
   while (!balanza.empty()) {
-   //std::cout << ' ' << balanza.front();
-   balanza.pop_front();
- }
- //cout<<endl;
+    // std::cout << ' ' << balanza.front();
+    balanza.pop_front();
+  }
+  // cout<<endl;
 }
 
 void terny(long n) {
@@ -46,9 +46,11 @@ void terny(long n) {
 int main() {
   int n = 15;
   unsigned long tam = std::pow(10, 15);
-  int repeticiones = 30000;
+  int repeticiones = 50000;
   std::ostringstream oss;
   for (unsigned long i = 1; i < tam; i = 1 + round(i + i / 100)) {
+    // unsigned long j = 1;
+    // for (unsigned long i = 1; i < tam; i = j - 1) {
     uint64_t begin, end, elapsed_secs, elapsed_final;
     elapsed_secs = 0;
     for (int j = 0; j < repeticiones; j++) {
@@ -57,10 +59,11 @@ int main() {
       end = rdtsc();
       elapsed_secs += end - begin;
     }
-    //std::cout << i << std::endl;
+    // std::cout << i << std::endl;
     elapsed_final = elapsed_secs / repeticiones;
-    oss << i << "    " << elapsed_final << endl;
+    oss << i << "      \t " << elapsed_final << endl;
     // std::cout << i << endl;
+    //  j *= 3;
   }
   cout << oss.str() << endl;
 }
