@@ -46,11 +46,31 @@
 
 En este problema, un grupo formado por arquéologos y caníbales debe cruzar un puente. El mismo sólo puede ser atravezado por dos personas a la vez, y tiene que ser cruzado con una linterna. Como el grupo sólo dispone de una linterna, siempre debe regresar alguno al lado del puente original. Además, en ningún lado del puente puede haber más caníbales que arquéologos.
 Cada individuo consta de la propiedad "velocidad", un número natural que indica cuánto tiempo tarda en atravezar el puente. Si dos personas atraviezan el puente juntas, lo hacen en el tiempo más grande entre los dos.
-
-%terminar%
+ 
+%terminar?%
 
 \subsection{Explicación de la solución}
+Para resolver este problema, usamos la técnica de backtracking: vamos probando todos los caminos posibles que no generen situaciones en las cuales hay mas caníbales que arqueólogos en algún lado del puente, recortando esos caminos, y tomando  el mínimo de los subcaminos recorridos.
 
+Para empezar, todos los casos donde ya se comienze de un lado del puente con más caníbales que arqueólogos deben devolver -1. Además, todo caso en el cual #arqueólogos = #caníbales y #arqueólogos>=3 , es irresoluble:
+Supongamos que el problema es: el puente sólo aguanta a una persona, entonces deben pasar de a uno. Podemos ver que el conjunto de estados de este problema es un subconjunto del problema original. Es decir, si encuentramos una solución al problema original, esta solución va a contener todos los estados de mi subproblema. En resumen, si el subproblema no tiene solución, tampoco lo tiene el problema original.
+Comenzamos entonces con tres caníbales y tres arqueólogos de un lado del puente
+%DIBUJITO DE TRES CANIBALES Y TRES ARQUEOLOGOS
+No podemos pasar un arqueólogo, porque generaría un enchastre del lado izquierdo del puente, entonces hacemos cruzar un canibal.
+%DIBUJITO DE 3 ARQUEOLOGOS Y DOS CANIBALES, UN CANIBAL DEL OTRO LADO.
+Podríamos pasar cualquiera de los dos grupos ahora, pero pasar un caníbal nos lleva a un inminente fracaso; con dos caníbales de un lado, nunca podremos hacer cruzar un arqueólogo sin generar problemas. Por eso, sólo podemos hacer pasar a un arqueólogo
+%DIBUJITO DE 2 ARQUEOLOGOS Y DOS CANIBALES DE UN LADO, UNO Y UNO DEL OTRO.
+Si pasamos un arqueólogo, quedan mas caníbales del lado original del puente; lo mismo pasa del otro lado si pasamos un caníbal. Llegamos a un callejón sin salida.
+Es fácil ver que con cantidades iguales mayores a 3 el problema se mantiene. Basta ver que independientemente de la cantidad de caníbales y arqueólogos del lado original del puente, podemos recorrer los pasos anteriores y llegar al mismo problema.
+
+Una vez que decidimos si es posible pasar a todos o no, existen cuatro "movimientos"  válidos: Pasar dos caníbales, volviendo un caníbal; pasar dos arqueólogos, y que vuelva un arqueólogo, y pasar un arqueólogo y un caníbal(esto es dos movimientos distintos, ya que puede volver o el arqueólogo o el caníbal). Un movimiento es óptimo si la persona que vuelve es la más rapida de su tipo, ya que de esta manera uno minimiza la cantidad de tiempo usado en llevar de regreso la linterna, siendo que cualquier otra combinación consume más tiempo.
+%creeeo que le falta% 
+
+
+
+\subsection{Pseudocódico}
+
+ 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Problema 2: Problemas en el camino}
