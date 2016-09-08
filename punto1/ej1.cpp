@@ -107,6 +107,16 @@ int backtracking(std::list<int> cAntes, int cDespues, std::list<int> aAntes, int
 
 }
 
+int excepcionLoca(list<int> aAntes, list<int> cAntes){
+    list<int> aDespues;
+    list<int> aAntes;
+
+
+
+
+
+
+}
 
 
 int max(int a,int b){
@@ -124,7 +134,7 @@ int solucion(list<int>& arqueologosAntesPuente, list<int>& canibalesAntesPuente)
 	int res;
 	int can =canibalesAntesPuente.size();
 	int arq = arqueologosAntesPuente.size();
-	if((can >=3  && arq>=1)|| (can>arq && arq != 0)){//2 =2 es un caso que tiene solucion pero 3 3 no, asi que tenemos dos partes de la guarda
+	if((can >=4  && arq==can)|| (can>arq && arq != 0)){//2 =2 es un caso que tiene solucion pero 3 3 no, asi que tenemos dos partes de la guarda
         res = -1;
     } 
     else if(can+ arq == 1){
@@ -135,6 +145,9 @@ int solucion(list<int>& arqueologosAntesPuente, list<int>& canibalesAntesPuente)
             res = arqueologosAntesPuente.front();
         }
 
+    }
+    else if(can==3 && arq==3){
+        res = excepcionLoca(canibalesAntesPuente,arqueologosAntesPuente);
     }
     else{
         res = backtracking(canibalesAntesPuente,0,arqueologosAntesPuente,0); 
