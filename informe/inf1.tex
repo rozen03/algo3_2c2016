@@ -365,8 +365,8 @@ Observación: nuestro algoritmo descarta los tesoros que tienen un peso mayor al
 				\State objen3 = valorObj + ValorOptimo(objetoxPesos, cofre, objeto - 1, peso1, peso2, peso3  - pesoObj)
 				\State PosiblesSolus.Agregar(objen3)
 			\EndIf
-			\State valor=Max(PsiblesSolus)
-			\State objetoxPesos[objeto][peso1][peso2][peso3] = valor
+			\State valor$\gets$Max(PsiblesSolus)
+			\State objetoxPesos[objeto][peso1][peso2][peso3] $\gets$ valor
 			\State return valor
 		\EndIf
 
