@@ -46,7 +46,7 @@
 
 En este problema, un grupo formado por arquéologos y caníbales debe cruzar un puente. El mismo sólo puede ser atravezado por dos personas a la vez, y tiene que ser cruzado con una linterna. Como el grupo sólo dispone de una linterna, siempre debe regresar alguno al lado del puente original. Además, en ningún lado del puente puede haber más caníbales que arquéologos.
 Cada individuo consta de la propiedad "velocidad", un número natural que indica cuánto tiempo tarda en atravezar el puente. Si dos personas atraviezan el puente juntas, lo hacen en el tiempo más grande entre los dos.
- 
+
 %terminar?%
 
 \subsection{Explicación de la solución}
@@ -64,62 +64,13 @@ Si pasamos un arqueólogo, quedan mas caníbales del lado original del puente; l
 Es fácil ver que con cantidades iguales mayores a 3 el problema se mantiene. Basta ver que independientemente de la cantidad de caníbales y arqueólogos del lado original del puente, podemos recorrer los pasos anteriores y llegar al mismo problema.
 
 Una vez que decidimos si es posible pasar a todos o no, existen cuatro "movimientos"  válidos: Pasar dos caníbales, volviendo un caníbal; pasar dos arqueólogos, y que vuelva un arqueólogo, y pasar un arqueólogo y un caníbal(esto es dos movimientos distintos, ya que puede volver o el arqueólogo o el caníbal). Un movimiento es óptimo si la persona que vuelve es la más rapida de su tipo, ya que de esta manera uno minimiza la cantidad de tiempo usado en llevar de regreso la linterna, siendo que cualquier otra combinación consume más tiempo.
-%creeeo que le falta% 
+%creeeo que le falta%
 
 
 
 \subsection{Pseudocódico}
 
-\begin{algorithm}[H]{\textbf{Recursivo}(cAntes: Lista$<$int$>$, cDespues: $int$, aAntes: Lista$<$int$>$, aDespues: $int$ )}
-	\begin{algorithmic}[1]
-		\State resultados $\gets$ []
-		\if ($long(cAntes)+long(aAntes = 2$)		
-			\State Devuelve el max de los dos elementos
-		\else
-			\if($long(cAntes)>=2$) \Comment (Existen dos caníbales para cruzar)		
-				\if($cDespues+2>aDespues and aDespues \neq 0$) \Comment (Me fijo si pasar dos canibales genera problemas del otro lado del puente)
-					\State $resultados$ $\gets$ -1
-				\else
-					\State $resultados$ $\gets$ (max(cAntes) + min(cAntes) + recursivo(cAntes-max(cAntes), CDespues+1, aAntes, aDespues) )
-				\endif
-			\endif			
-			
-			\if($long(aAntes)>=2$) \Comment (Existen dos arquéologos para cruzar)
-				\if($long(aAntes)-2<long(cAntes) and long(aAntes)-2 \neq 0$) \Comment (Me fijo si pasar dos arqueólogos genera problemas del lado original del puente)
-					$resultados$ $\gets$ -1
-				\else
-					$resultados$ $\gets$ (max(aAntes) + min(aAntes) + recursivo(cAntes, CDespues, aAntes-max(aAntes), aDespues+1) )
-				\endif
-			\if($long(aAntes)>=1 and long(cAntes)>=1$) \Comment (Puedo cruzar uno de cada uno)			
-				\if($cDespues+1>aDespues and aDespues \neq 0$)
-					\State $resultados$ $\gets$ -1
-				\else
-					\State $resultados$ $\gets$ (max(cAntes) + min(aAntes) + recursivo(cAntes-max(cAntes), CDespues+1, aAntes, aDespues) )
-				\endif
 
-				\if($long(aAntes)-1<long(cAntes) and long(aAntes)-2 \neq 0$)
-					\State $resultados$ $\gets$ -1
-				\else
-					\State $resultados$ $\gets$ (max(aAntes) + min(cAntes) + recursivo(cAntes, CDespues, aAntes-max(aAntes), aDespues+1) )
-				\endif
-
-			\endif
-			
-			Filtrar(Resultado,-1)
-			\if(Resultado es vacio)
-				\State devolver -1
-			\else
-				\State devolver min(Resultado)
-
-			\endif
-			
-		\endif
-		
-			
-			
-	\end{algorithmic}
-\end{algorithm}
- 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Problema 2: Problemas en el camino}
@@ -163,31 +114,31 @@ Nota: Para la implementación, en vez de crear el conjunto T, vamos tomando el r
 
 \subsubsection{Demostración de Correctitud}
 
-Primero probaremos un lema inductivamente: 
+Primero probaremos un lema inductivamente:
 $\forall n \in N$ vale que  $2*3^{n} = 3^{n+1}-3^{n}$.
 
-Caso base: 
+Caso base:
 queremos ver que $2*3^{0} = 3^{1}-3^{0}$
 $2*3^0 = 2*1=2$ y $3^1-3^0= 3-1=2$ entonces $2*3^{0} = 3^{1}-3^{0}$
 \\
 \\
-Hipótesis Inductiva: 
+Hipótesis Inductiva:
 $\forall n \in N$ vale que  $2*3^{n} = 3^{n+1}-3^{n}$
 \\
 \\
-Paso Inductivo: 
+Paso Inductivo:
 queremos ver que $\forall n \in N$ vale que  $2*3^{n+1} = 3^{n+2}-3^{n+1}$
 
 $2*3^{n+1} = 2*3^{n}*3 $
 \\
  por hipotesis inductiva: $2*3^{n}*3 = (3^{n+1}-3^{n})*3 = 3^{n+1}*3 - 3^{n}*3= 3^{n+2}-3^{n+1} $
 \\
-luego, como valen el caso base y el paso inductivo, entonces vale $2*3^{n} = 3^{n+1}-3^{n} \forall n \in N $ 
+luego, como valen el caso base y el paso inductivo, entonces vale $2*3^{n} = 3^{n+1}-3^{n} \forall n \in N $
 
 \\
 Ahora para probar la correctitud del algoritmo, desarrollaremos algunos conceptos algebraicos.
 Por el algoritmo de división de Euclides sabemos que podemos escribir \\  $P= q*3+ r_{3}(P)$ con $0\leq r_{3}(P) \leq 2 $ luego, podemos escribir $q= z*3 + r_{3}(q)$ entonces $P= (z*3 + r_{3}(q))*3 +r_{3}(P)$ y así recursivamente y aplicando la distributividad de la suma podemos descomponer p en las potencias de 3. finalmente obtendriamos $p= \sum_{i=0}^{n}{a_i 3^{i}} $ con $0 \leq a_i \leq 2$.
-Ahora nuestro problema es la aparición de $a_i=2$ en la descomposición puesto que solo tenemos una pesa por potencia de tres. Pero por lo visto en el lema anterior, $2*3^{i}= 3^{i+1}-3^{i}$ esto equivale a poner la pesa $3^{i+1}$ en la balaza izquierda y la $3^{i}$ en la derecha obteniendo el equivalente a 2 pesas $3^{1}$ en la izquierda. aplicando este proceso recursivamente, obtenemos  una descomposición de P sumando y restando sus potencias de tres sin repeticiones. 
+Ahora nuestro problema es la aparición de $a_i=2$ en la descomposición puesto que solo tenemos una pesa por potencia de tres. Pero por lo visto en el lema anterior, $2*3^{i}= 3^{i+1}-3^{i}$ esto equivale a poner la pesa $3^{i+1}$ en la balaza izquierda y la $3^{i}$ en la derecha obteniendo el equivalente a 2 pesas $3^{1}$ en la izquierda. aplicando este proceso recursivamente, obtenemos  una descomposición de P sumando y restando sus potencias de tres sin repeticiones.
 
 
 \subsubsection{Demostración de Complejidad}
@@ -209,10 +160,52 @@ Luego, se puede probar que Log(P) es $\mathcal{O}(\sqrt(P))$
 
 
 \subsection{Experimentación}
+ Al momento de la experimentacion inicialmente teniamos la idea de que, al no tener mejores ni peores casos a nivel de complejidad teorica no importaba mucho que valores de P se les pusiese, iba a ser siempre creciente.
 
-\subsubsection{Resultados}
+\subsubsection{\'Analisis complejidad te\'orica}
+ Para el \'analisis complejidad te\'orica decidimos simplemente medir los tiempos del algoritmo aumentando el valor de entrada desde 1 hasta la cota puesta por el enunciado.
+  Luego despues de probar un poco, logramos poner una funcion O(Log(n)) que se asemeje un poco a los resultados de las mediciones del algoritmo para poder compararlo.
+  Terminamos usando la funcion $500*log_3(x)$.
+  Ademas, notamos que no quedaba muy claro como es que las mediciones se asemejaban a $log_3(x)$ y entonces decidimos cambiar la escala:
+  En vez de presentar un grafico que muestre los ejes (X,Y) = (peso de la llave, mediciones) lo vamos a mostrar como (X,Y) = (Log(peso de la llave),Log(mediciones))
+
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.4\textwidth]{punto2-mediciones}
+	\caption{Mediciones de la implementaci\'on comparado con $500*log_{3}{n}$ en escala logaritmica en X e Y}
+	\end{figure}
+
+
 
 \subsubsection{Análisis}
+Luego realizado el grafico notamos que a pesar de de que las mediones simulaban cumplir las condiciones de la complejidad, esperabamos un comportamiento mas cercano a que se vaya subiendo en rectas horizontales
+es decir, que como se hacia la misma cantidad de iteraciones para cada valor del logaritmo en base 3 pero en vez de eso  estas tenian un tipo de patron ligeramente diferente
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.4\textwidth]{punto2-zoom}
+\caption{Mediciones de la implementaci\'on comparado con $500*log_{3}{n}$ zoom en escala logaritmica en X e Y }
+\end{figure}
+Si bien se organizaban como lineas rectas (a pesar de la escala) no se acomodaba su "orden" respecto al logaritmo en base 3.
+Como conclusion terminamos pensando que esto se debia a la operacion de "meter la pesa en una balanza" que en la implentacion del problema se traducia a introducir un entero al final de una lista, lo cual terminaba costando $O(1)$
+
+Para ver si esto era cierto, hicimos nuevas mediciones, tomando para los pesos  solo 3 casos:
+-Potencias de 3: Que en la representacion ternaria, contaria solo con un 1 y puros ceros
+-Potencias de 3 menos 1:Que en la representacion ternaria, contaria con todos 2
+-Suma de potencias de 3:Que en la representacion ternaria, contaria con todos 1
+
+y como resultado del experimento nos quedo este grafico
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.4\textwidth]{punto2-comparacion}
+\caption{Comparaciones de la implementaci\'on comparando los casos en escala logaritmica en X e Y }
+\end{figure}
+
+En la imagen se puede notar que el caso de suma de potencias de 3 toma mucho mas que los otros dos casos, concluimos que esto se debe incialmente a que, en el caso de solo potencias de 3, se hace un solo acceso a la listar mientras q el caso de potencias de 3 menos 1
+tal como seria el resultado al problema, se pone una pesa de la potencia de 3 del lado de la llave y una pesa de 1 en el otro, teniendo asi solo 2 accesos a la lista, cosa que en la implementacion esto se representa sumandole 1 luego de cada division por 3 al peso de la llave en cada iteracion.
+
+Como conclusion final, a tomar en cuenta, consideramos que los mejores casos son los de potencias de 3 y los peores son los de sumas de potencias de 3.
+
 
 
 
@@ -236,7 +229,7 @@ Nuestro objetivo es seleccionar una combinación de los primeros objetos, restri
 
    Inicialmente creimos que este problema podría resolverme mediante un algoritmo de BackTracking, sin embargo observamos que nunca lograríamos conseguir la complejidad pedida puesto que este tipo de algoritmos conlleva una complejidad exponencial sperior a la pedida.
    Finalmente pudimos resolverlo mediante prmathcal{O}amación dinámica. Nuestro algoritmo principal llama a dos funciones que utilizan la recursividad para podes obtener en un caso el valor óptimo, y en el otro "las mochilas llenas."
-   Para facilitar el entendimiento del algoritmo introduciremos el concepto de "Hipercubo". Un hipercubo es el analogo n-dimensional de un cuadrado (n=2) o un cubo (n=3). En particular en nuestro problema tenemos un hipercubo de dimension cuatro, estaa figura se denomina "teseracto" sin embargo por comodidad seguiremos llamandole hipercubo en el resto del informe. 
+   Para facilitar el entendimiento del algoritmo introduciremos el concepto de "Hipercubo". Un hipercubo es el analogo n-dimensional de un cuadrado (n=2) o un cubo (n=3). En particular en nuestro problema tenemos un hipercubo de dimension cuatro, estaa figura se denomina "teseracto" sin embargo por comodidad seguiremos llamandole hipercubo en el resto del informe.
 Para poder imaginar este concepto, podriamos visualizarlo en nuestro mundo tridimencional como un vector con cubos adentro. la cantidad de cubos dependera del largo de nustro cuarta "arista".
 
 \begin{figure}[H]
@@ -274,7 +267,7 @@ observación: nuestro algoritmo descarta los tesoros que tienen un peso mayor al
 			\Else
 				\State valM1 $\gets$ obj.valor + ValorOptimo(objetoXPeso, cofre, i,cap1-obj.peso,cap2,cap3 )
 				\State valM2 $\gets$ obj.valor + ValorOptimo(objetoXPeso, cofre,i,cap1,cap2-obj.peso,cap3 )
-				\State valM3 $\gets$ obj.valor + ValorOptimo(objetoXPeso, cofre,i, cap1, cap2,cap3-obj.peso )	
+				\State valM3 $\gets$ obj.valor + ValorOptimo(objetoXPeso, cofre,i, cap1, cap2,cap3-obj.peso )
 				\State MeterEnCorrecta(valM1,valM2,valM3,m1,m2,m3,obj)
 			\EndIf
 
@@ -397,8 +390,8 @@ $\prod_{i=1}^{3}K_{i}  = K_1*K_2*K_3$   sea $K_max = Max(K_1,K_2,K_3)$ y $K_o= K
 \end{figure}
 
 En esta figura podemos observar no solo la tendencia lineal de la complejidad del algoritmo sino también la variación de las pendientes en cada caso. Notemos que a mayor pendiente, la ejecución toma más tiempo, es decir	 es "más lenta".
-En particular podemos destacar que en el caso de que los objetos tengan todos peso mayor a la capacidad de las mochilas, la recta tiende a ser constante. 
-  
+En particular podemos destacar que en el caso de que los objetos tengan todos peso mayor a la capacidad de las mochilas, la recta tiende a ser constante.
+
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.4\textwidth]{pesoMCvsObjAl}
