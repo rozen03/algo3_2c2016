@@ -284,18 +284,18 @@ Para poder imaginar este concepto, podriamos visualizarlo en nuestro mundo tridi
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.4\textwidth]{hipercubo}
-\caption{imagen explicativa del concepto de hipercubo}
+\caption{Imagen explicativa del concepto de hipercubo}
 \end{figure}
 
 
-observación: nuestro algoritmo descarta los tesoros que tienen un peso mayor al maximo de capacidad entre las mochilas. Asumimos en el pseusocodigo que nuestra entrada cumple esa propiedad.
+Observación: nuestro algoritmo descarta los tesoros que tienen un peso mayor al maximo de capacidad entre las mochilas. Asumimos en el pseusocodigo que nuestra entrada cumple esa propiedad.
 
 
 \subsubsection{Pseudocódigo}
 
 \begin{algorithm}[H]{\textbf{guardandoTesoro}(mochilas: vector$<$mochila$>$, cofre: vector$<$tesoro$>$)}
 	\begin{algorithmic}[1]
-		\State objXpesos $\gets$ Hipercubo() incializado en -1 \Comment (en las posiciones donde no puede haber objetos incializo en 0) $\mathcal{O}$()
+		\State objXpesos $\gets$ Hipercubo() incializado en -1 \Comment (en las posiciones donde no puede haber objetos incializo en 0) %$\mathcal{O}$()
 		\State sol= ValorOptimo(objXpesos,cofre,cofre.size-1,capacidades de las mochilas)
 		\State LlenarMochilas(objXpesos, cofre, mochila1, mochila2, mochila3)
 		\State return (sol, mochilas)
