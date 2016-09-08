@@ -70,6 +70,55 @@ Una vez que decidimos si es posible pasar a todos o no, existen cuatro "movimien
 
 \subsection{Pseudocódico}
 
+\begin{algorithm}[H]{\textbf{Recursivo}(cAntes: Lista$<$int$>$, cDespues: $int$, aAntes: Lista$<$int$>$, aDespues: $int$ )}
+	\begin{algorithmic}[1]
+		\State resultados $\gets$ []
+		\if ($long(cAntes)+long(aAntes = 2$)		
+			\State Devuelve el max de los dos elementos
+		\else
+			\if($long(cAntes)>=2$) \Comment (Existen dos caníbales para cruzar)		
+				\if($cDespues+2>aDespues and aDespues \neq 0$) \Comment (Me fijo si pasar dos canibales genera problemas del otro lado del puente)
+					\State $resultados$ $\gets$ -1
+				\else
+					\State $resultados$ $\gets$ (max(cAntes) + min(cAntes) + recursivo(cAntes-max(cAntes), CDespues+1, aAntes, aDespues) )
+				\endif
+			\endif			
+			
+			\if($long(aAntes)>=2$) \Comment (Existen dos arquéologos para cruzar)
+				\if($long(aAntes)-2<long(cAntes) and long(aAntes)-2 \neq 0$) \Comment (Me fijo si pasar dos arqueólogos genera problemas del lado original del puente)
+					$resultados$ $\gets$ -1
+				\else
+					$resultados$ $\gets$ (max(aAntes) + min(aAntes) + recursivo(cAntes, CDespues, aAntes-max(aAntes), aDespues+1) )
+				\endif
+			\if($long(aAntes)>=1 and long(cAntes)>=1$) \Comment (Puedo cruzar uno de cada uno)			
+				\if($cDespues+1>aDespues and aDespues \neq 0$)
+					\State $resultados$ $\gets$ -1
+				\else
+					\State $resultados$ $\gets$ (max(cAntes) + min(aAntes) + recursivo(cAntes-max(cAntes), CDespues+1, aAntes, aDespues) )
+				\endif
+
+				\if($long(aAntes)-1<long(cAntes) and long(aAntes)-2 \neq 0$)
+					\State $resultados$ $\gets$ -1
+				\else
+					\State $resultados$ $\gets$ (max(aAntes) + min(cAntes) + recursivo(cAntes, CDespues, aAntes-max(aAntes), aDespues+1) )
+				\endif
+
+			\endif
+			
+			Filtrar(Resultado,-1)
+			\if(Resultado es vacio)
+				\State devolver -1
+			\else
+				\State devolver min(Resultado)
+
+			\endif
+			
+		\endif
+		
+			
+			
+	\end{algorithmic}
+\end{algorithm}
  
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
