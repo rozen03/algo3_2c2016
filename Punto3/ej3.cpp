@@ -146,11 +146,9 @@ void LlenarMochilas(vector<vector<vector<vector<int> > > >& objetoxPesos,vector<
 
 }
 
-int solucion(string test){
+void lecturaDatos(string input, vector<Mochila>& mochilas, vector<Tesoro>& cofre){
 	int m;
 	int n;
-	int pesomax = 0;
-	int sol = 0;
 	fstream input;
 	input.open(test);
 	input>> m>> n;
@@ -173,20 +171,26 @@ int solucion(string test){
 		input>> cant>> p>> v;
 	//(usar este cout para saber que tipos responden a que valores/peso
 	//.cout<<"Hay "<<cant << " tesoros de tipo " <<i <<" de peso " << p <<" de valor " << v<<endl;
-		if(p <= pesomax){
-			for(int j = 0;j < cant; j++){
-				cofre.push_back(Tesoro(p,i,v));
-			}
+		for(int j = 0;j < cant; j++){
+			cofre.push_back(Tesoro(p,i,v));
 		}
 	}
 	input.close();
-	if (cofre.size()==0) {
-		cout<< sol<<"\n";
-		for(int i = 0; i<m;i++){
-			mochilas[i].Imprimir();
-		}
-		return 1;
+}
+
+int solucion(vector<Mochila>& Mochilas,const vector<Tesoro>& precofre){
+	int pesomax = 0;
+	int sol = 0;
+	for(unsigned int i = 0; i<Mochilas.size(); i++){
+		if(pesomax < Mochilas[i].Capacidad()) pesomax = Mochilas[i].Capacidad();
 	}
+	
+	vector<Tesoro> cofre;
+	for(unsigned int i = 0; i<precofre.size(); i++){
+		if(pesomax >= precofre[i].Peso()) cofre.push_back(precofre[i]);
+	}
+	
+	if (cofre.size()==0) return sol;
 	//incializo en -1 la matriz ya que en la función recursiva, si es -1 implica que no lo calculo y tiene que hacerlo.
 	vector<int> m3(mochilas[2].Capacidad()+1, -1);
 	vector<vector<int> > m2ym3(mochilas[1].Capacidad()+ 1, m3);
@@ -195,6 +199,7 @@ int solucion(string test){
 
 	//para no complicar el algoritmo calcularOptimo, pongo todas las posiciones donde no puede haber objetos en 0, entonces piensa que ya lo calculamos.
 	for(unsigned int i = 0; i< cofre.size(); i++) objXpesos[i][0][0][0] = 0;//O(cofre.size())
+	
 	sol = CalcularOptimo(objXpesos, cofre, cofre.size()-1, mochilas[0].Capacidad(), mochilas[1].Capacidad(), mochilas[2].Capacidad());
 	/*
 	 en el peor dde los casos tengo que calcular todos las posiciones del hipercubo, una sola vez, eso es
@@ -207,12 +212,20 @@ int solucion(string test){
 		mochilas[i].Imprimir();
 	}
 
-	return 0;
+	return sol;
 }
 /*
 int main(int argc, char *argv[]){
 	string test = argv[1];
-	solucion(test);
+	vector<Mochila> mochilas;
+	vecctor<Tesoro> cofre;
+	lecturaDatos(test, mochilas,cofre)
+	int sol = solucion(mochilas, cofre);
+	
+	cout<< sol<<"\n";
+	for(int i = 0; i<m;i++){
+		mochilas[i].Imprimir();
+	}
 	return 0;
 }*/
 

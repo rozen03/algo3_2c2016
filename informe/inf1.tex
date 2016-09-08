@@ -52,7 +52,7 @@ Cada individuo consta de la propiedad "velocidad", un número natural que indica
 \subsection{Explicación de la solución}
 Para resolver este problema, usamos la técnica de backtracking: vamos probando todos los caminos posibles que no generen situaciones en las cuales hay mas caníbales que arqueólogos en algún lado del puente, recortando esos caminos, y tomando  el mínimo de los subcaminos recorridos.
 
-Para empezar, todos los casos donde ya se comienze de un lado del puente con más caníbales que arqueólogos deben devolver -1. Además, todo caso en el cual #arqueólogos = #caníbales y #arqueólogos>=3 , es irresoluble:
+Para empezar, todos los casos donde ya se comienze de un lado del puente con más caníbales que arqueólogos deben devolver -1. Además, todo caso en el cual $\#$arqueólogos =$\#$caníbales y $\#$arqueólogos>=3 , es irresoluble:
 Supongamos que el problema es: el puente sólo aguanta a una persona, entonces deben pasar de a uno. Podemos ver que el conjunto de estados de este problema es un subconjunto del problema original. Es decir, si encuentramos una solución al problema original, esta solución va a contener todos los estados de mi subproblema. En resumen, si el subproblema no tiene solución, tampoco lo tiene el problema original.
 Comenzamos entonces con tres caníbales y tres arqueólogos de un lado del puente
 %DIBUJITO DE TRES CANIBALES Y TRES ARQUEOLOGOS
@@ -69,6 +69,55 @@ Una vez que decidimos si es posible pasar a todos o no, existen cuatro "movimien
 
 
 \subsection{Pseudocódico}
+\begin{algorithm}[H]{\textbf{Recursivo}(cAntes: Lista$<$int$>$, cDespues: $int$, aAntes: Lista$<$int$>$, aDespues: $int$ )}
+	\begin{algorithmic}[1]
+		\State resultados $\gets$ []
+		\If{$long(cAntes)+long(aAntes = 2$}
+			\State Devuelve el max de los dos elementos
+		\Else
+			\If{$long(cAntes)>=2$} \Comment (Existen dos caníbales para cruzar)
+				\If{$cDespues+2>aDespues and aDespues \neq 0$} \Comment (Me fijo si pasar dos canibales genera problemas del otro lado del puente)
+					\State $resultados$ $\gets$ -1
+				\Else
+					\State $resultados$ $\gets$ (max(cAntes) + min(cAntes) + recursivo(cAntes-max(cAntes), CDespues+1, aAntes, aDespues) )
+				\EndIf
+			\EndIf
+
+			\If($long(aAntes)>=2$) \Comment (Existen dos arquéologos para cruzar)
+				\If($long(aAntes)-2<long(cAntes) and long(aAntes)-2 \neq 0$) \Comment (Me fijo si pasar dos arqueólogos genera problemas del lado original del puente)
+					\State $resultados$ $\gets$ -1
+				\Else
+					\State$resultados$ $\gets$ (max(aAntes) + min(aAntes) + recursivo(cAntes, CDespues, aAntes-max(aAntes), aDespues+1) )
+				\EndIf
+			\If{$long(aAntes)>=1 and long(cAntes)>=1$} \Comment (Puedo cruzar uno de cada uno)
+				\If{$cDespues+1>aDespues and aDespues \neq 0$}
+					\State $resultados$ $\gets$ -1
+				\Else
+					\State $resultados$ $\gets$ (max(cAntes) + min(aAntes) + recursivo(cAntes-max(cAntes), CDespues+1, aAntes, aDespues) )
+				\EndIf
+
+				\If{$long(aAntes)-1<long(cAntes) and long(aAntes)-2 \neq 0$}
+					\State $resultados$ $\gets$ -1
+				\Else
+					\State $resultados$ $\gets$ (max(aAntes) + min(cAntes) + recursivo(cAntes, CDespues, aAntes-max(aAntes), aDespues+1) )
+				\EndIf
+
+			\EndIf
+
+			Filtrar(Resultado,-1)
+			\If{Resultado es vacio}
+				\State devolver -1
+			\Else
+				\State devolver min(Resultado)
+
+			\EndIf
+
+		\EndIf
+
+
+
+	\end{algorithmic}
+\end{algorithm}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
