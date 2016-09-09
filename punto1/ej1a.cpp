@@ -16,12 +16,6 @@ using namespace std;
  la oruga funciona, osea hace bien el calculo, pero no funciona como deberia, basicamente la idea era que cuando esl algoritmo corte por que no
  encontraba la forma de avanzar sin que se lo coman los canibales ponga un valor negativo para filtrarlo despues.
  
- otra cosa que me di cuenta es que no se por que en meterIda y probablemente en meter vuelta, no reasigna los valores despues de haber sacado un
- elemento, lo cual para mi a esta hora es bizarro y por eso dejo de experimentar por que seguro es una pavada.
- 
- la funcion sacar funciona bien, si el cout sigue existiendo en meterIda con el caso 1-1 te muestra que pre salir de meterIda esa mochila esta vacia
- y despues no.(no use la que tiene list por que esa saca todos los elementos de ese valor y yo solo quiero sacar uno.
- 
  errores por todos lados es la conclusion y mañana va dentro de un par de horas con una cabeza mas sana probablemente pueda arreglar cosas.
  hasta ese momento se los dejo a ustedes.
  
@@ -30,9 +24,11 @@ using namespace std;
 
 //se asegura que al enviar a cantA y cantC no haya una muerte sangrienta de algun lado
 bool puedensalir(int cantA, int cantC, int arcMismoLado, int canMismoLado, int arcOtroLado, int canOtroLado){
+	//cerr<<"entro a pueden salir"<<endl;
 	bool p =arcMismoLado - cantA >= canMismoLado - cantC;
 	bool q = arcOtroLado +cantA >= canOtroLado + cantC || arcOtroLado +cantA == 0;
 	bool s = arcMismoLado - cantA >= 0 && canMismoLado - cantC >= 0;
+	//cerr<<"salgo de pueden salir y el valor es "<<p && q && s;
 	return p && q && s;
 }
 
@@ -219,7 +215,7 @@ long meterIda(int i, int j, list<long>& ArqA,list<long>& CanA, list<long>& ArqB,
 			CanB.push_front(a);
 			CanA =sacar(CanA, a);
 			
-			list<long> canAm(CanA);
+			/*list<long> canAm(CanA);
 				
 				cerr<<"\ncanAux tiene\n";
 				while(!canAm.empty()){
@@ -227,7 +223,7 @@ long meterIda(int i, int j, list<long>& ArqA,list<long>& CanA, list<long>& ArqB,
 					canAm.pop_front();
 					cerr<<aux<<" ";
 				}cerr<<endl;
-			res=a;
+			*/res=a;
 			
       cerr<<"estoy en meter ida j = 1 el mas rapido es canibal y el valor es " <<res <<endl;
 		}
@@ -273,9 +269,9 @@ long suma(list<long> ls){
 long backtracking(list<long> arqA, list<long> canA, list<long> arqB, list<long> canB, vector<vector<int> > matriz){
 	int acantA = arqA.size();
 	int ccantA = canA.size();
+	if(acantA== 0 && ccantA == 0) return 0;
 	if(!canA.empty() && arqA.empty() && canB.empty() && arqB.empty()){
-		if(canA.size() == 1) return canA.front(); 
-		cerr<<"no entra aca"<<endl;
+		if(canA.size() == 1) return canA.front();
 		long rapido = minimo(canA);
 		long solpar = suma(sacar(canA, rapido));//cada elemento tiene que pasar, y siempre va acompañado del mas rapido.
 		long sol = solpar + (ccantA-2)*rapido;//ccantA-2 es la cantidad de veces que vuelve el mas rapido.
@@ -290,20 +286,21 @@ long backtracking(list<long> arqA, list<long> canA, list<long> arqB, list<long> 
 	for(int i = 0; i < 3; i++){//arquelogos
 		for(int j = 0;j + i < 3; j++){//canibales Esta combinacion ij hace 5 iteraciones
 			long velIda = -1;
+			//cerr<<"Quiero ver quienes pueden ir a B "<< i <<" arqueologos y "<< j <<" canibales"<<endl;
 			if( i == 0 && j == 0) continue;
 		if(puedensalir(i, j, acantA, ccantA,arqB.size(), canB.size())){
-				cerr<<"Pueden ir a B " <<i << "arqueologos y " << j <<" canibales"<<endl;
+				//cerr<<"Pueden ir a B " <<i << "arqueologos y " << j <<" canibales"<<endl;
 				list<long> arqAux(arqA);
 				list<long> canAux(canA);
 				list<long> arqBaux(arqB);
 				list<long> canBaux(canB);
 
-  			    /*list<long> arqAm(arqA);
+  			    list<long> arqAm(arqA);
 				list<long> canAm(canA);
 				list<long> arqBm(arqB);
 				list<long> canBm(canB);
 				
-				cerr<<"arqAux tiene\n";
+				/*cerr<<"arqAux tiene\n";
 				while(!arqAm.empty()){
 					long aux = arqAm.front();
 					arqAm.pop_front();
@@ -329,11 +326,11 @@ long backtracking(list<long> arqA, list<long> canA, list<long> arqB, list<long> 
 				
 				velIda = meterIda(i, j, arqAux,canAux,arqBaux, canBaux);
 				
-				list<long> arqAm(arqA);
-				list<long> canAm(canA);
-				list<long> arqBm(arqB);
-				list<long> canBm(canB);
-				
+				/*arqAm =arqAux;
+				canAm =canAux;
+				arqBm =arqBaux;
+				canBm =canBaux;
+				cerr<<"Post meterIda"<<endl;
 				cerr<<"arqAux tiene\n";
 				while(!arqAm.empty()){
 					long aux = arqAm.front();
@@ -355,36 +352,68 @@ long backtracking(list<long> arqA, list<long> canA, list<long> arqB, list<long> 
 					long aux = canBm.front();
 					canBm.pop_front();
 					cerr<<aux<<" ";
-				}cerr<<endl;
+				}cerr<<endl<<endl;*/
 				
 				for(int k = 0; k<3;k++){//arqueologos
 					for(int l = 0; l+k<3; l++){//canibales es 5 veces
-						long velVuelta = -1;
+						//cerr<<"Entro en el for para ver quienes pueden volver Arc "<< k<<" can "<<l<<" Velocidad Ida " <<velIda<<endl;
+						//cerr<<"estan vacias las listas? "<<arqAux.empty()<< " esa es arc, la proxima es can "<<canAux.empty()<<endl;
+						long velVuelta = - oruga;
+						long solbc = 0;
 						int acant = arqAux.size();
 						int ccant = canAux.size();
 						if(l == 0 && k == 0) continue;
-						if(arqAux.empty() && canAux.empty())cerr<<"llegue al caso base"; return velIda;//caso base
-						if(puedensalir(k, l, acant, ccant, arqBaux.size(), canBaux.size()) && matriz[acant+k][ccant+l] == 0){
+						if(arqAux.empty() && canAux.empty()) velVuelta =0;//caso base
+						if(puedensalir(k, l, arqBaux.size(), canBaux.size(),acant, ccant) && matriz[acant+k][ccant+l] == 0){
+							//cerr<<"Pueden ir a A " <<k << "arqueologos y " << l <<" canibales"<<endl;
 							list<long> arqAbis(arqAux);
 							list<long> canAbis(canAux);
 							list<long> arqBbis(arqBaux);
 							list<long> canBbis(canBaux);
 							velVuelta = meterVuelta(k, l, arqAbis, canAbis, arqBbis, canBbis);
-							soluciones.push_back(velIda + velVuelta + backtracking(arqAbis, canAbis, arqBbis, canBbis, matriz));
+							/*
+							arqAm =arqAbis;
+							canAm =canAbis;
+							arqBm =arqBbis;
+							canBm =canBbis;
+							cerr<<"Post meterVuelta"<<endl;
+							cerr<<"arqAux tiene\n";
+							while(!arqAm.empty()){
+								long aux = arqAm.front();
+								arqAm.pop_front();
+								cerr<< aux<<" ";
+							}
+							cerr<<"\ncanAux tiene\n";
+							while(!canAm.empty()){
+								long aux = canAm.front();
+								canAm.pop_front();
+								cerr<<aux<<" ";
+							}cerr<<"\narqBaux tiene\n";
+							while(!arqBm.empty()){
+								long aux = arqBm.front();
+								arqBm.pop_front();
+								cerr<<aux<<" ";
+							}cerr<<"\ncanBaux tiene\n";
+							while(!canBm.empty()){
+								long aux = canBm.front();
+								canBm.pop_front();
+								cerr<<aux<<" ";
+							}cerr<<endl<<endl;
+							*/
+							
+							solbc = backtracking(arqAbis, canAbis, arqBbis, canBbis, matriz);
 						}
-						else{
-							return -oruga;
-						}
+						//cerr<<"estoy metiendo esto en soluciones " <<velIda+velVuelta+solbc<<" Desglozado seria velIda "<<velIda<<" velVuelta "<<velVuelta<<" solbc "<<solbc<<" y oruga "<<oruga<< endl;
+						soluciones.push_back(velIda + velVuelta + solbc);
 					}
 				}
 			}
-			else{//siempre va a ser -1 por que no entro en el if
-				return -oruga;
-			}
 		}
 	}
+	//cerr<<"hola?"<<endl;
 	vector<long> solrec;
 	for(unsigned int i = 0; i<soluciones.size(); i++){
+		//cerr<<soluciones[i]<<" ";
 		if(soluciones[i] >= 0) solrec.push_back(soluciones[i]);  
 	}
 	if(solrec.empty()) return -1;
@@ -404,7 +433,7 @@ long solucion(const list<long>& arq,const list<long>& can){
 	//la matriz chequea que esa combinacion de arqueologos/canibales no hayan esperado del lado A antes.
 	return backtracking(arq, can, arqB, canB, matriz);
 }
-
+/*
 int main(int argc, char *argv[]){
     
     list<long> arqA;
@@ -420,3 +449,4 @@ int main(int argc, char *argv[]){
     return 0;
 
 }
+*/
