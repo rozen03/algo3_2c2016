@@ -122,7 +122,9 @@ Nuestro algoritmo no admite ciclos puesto que tiene una condición booleana sobr
 
 
 \subsection{Demostración de Complejidad}
-
+	Si pensamos todas nuestras posibilidades como un árbol de estados, haciendo que la función "ida" y "vuelta" genera 3 hijos y 4 hijos respectivamente(la función "vuelta" genera 5 hijos, pero uno de ellos es siempre un estado por el que ya pasamos).
+	 Además, la altura nunca va a ser mayor que $n*m/2$, ya que tenemos una matriz para verificar que no pasemos dos veces por el mismo estado.
+	 En resumen, la cantidad máxima de resultados es altura del árbol por la "amplitud": Podemos ver que la complejidad es $12^{n*m/2}$
 \subsection{Experimentación}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
