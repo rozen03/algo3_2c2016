@@ -126,15 +126,15 @@ Una vez que decidimos si es posible pasar a todos o no, existen cuatro "movimien
 
 \subsection{Introducción}
 
-En el problema enunciado, Nuestros exploradores se encuentran con una balanza de dos platos, y en el de la izquierda la llave que necesitan. Para que esta sea de utilidad, al tomarla deben mantener la posición de la balanza y para realizar esto cuentan con pesas de peso igual a las potencias de tres (una pesa por potencia).
-Entonces, sabiendo el peso de la llave, necesitamos saber que pesas poner en cada plato para mantener el equilibrio original.
-Podemos pensar que el lado derecho de la balanza equivale a la operación de sustracción y el izquiero a la adición. De esta forma al agregar pesas de un lado o del otro estariamos sumando o restando su peso.
-Formalmente esto equivale a decir que, si tenemos un entero n queremos sumar o restar potencias de tres, sin repetirlas hasta alcanzar su valor.
+En el problema enunciado, Nuestros exploradores se encuentran con una balanza de dos platos, y en el de la izquierda la llave que necesitan. Para que esta sea de utilidad, al tomarla deben mantener la posición de la balanza, y para realizar esto cuentan con pesas de peso igual a las potencias de tres (una pesa por potencia).
+Sabiendo el peso de la llave, necesitamos saber qué pesas poner en cada plato para mantener el equilibrio original.
+Podemos pensar que el lado derecho de la balanza equivale a la operación de sustracción y el izquiero a la adición. De esta forma, al agregar pesas de un lado o del otro estariamos sumando o restando su peso.
+Esto equivale a decir que dado un entero P queremos sumar o restar potencias de tres distintas hasta alcanzar su valor.
 
 \subsection{Explicación de la solución}
 
-Para resolver este problema, Reescribimos P en la base ternaria, es decir, a este valor los notaremos T. Entonces tenemos $P = \sum_{i=0}^{n} a_i3^i$  con $0 \leq a_i \leq 2$ y $n = log_{3}{(P)}$  entonces $T ={a_1,a_2,...,a_n}$.
-Luego, se toman en orden uno a uno los elementos de T. si $a_i$ es 0, no hacemos nada. Si $a_i$ es 1, en la balanza izquierda ponemos la pesa que corresponde a $3^i$. si $a_i =2$, ponemos una pesa de $3^i$ en la balanza derecha y sumamos 1 a $a_{(i+1)}$ (y consecuentemente, se cambian los valores posteriores de T para que sigan en base ternaria)
+Para resolver este problema, Reescribimos P en la base ternaria, y a esta secuencia la notaremos T. Entonces tenemos $P = \sum_{i=0}^{n} a_i3^i$  con $0 \leq a_i \leq 2$ y $n = log_{3}{(P)}$  entonces $T ={a_1,a_2,...,a_n}$.
+Luego, tomamos en orden creciente los elementos de T. Si $a_i$ es 0, no hacemos nada. Si $a_i$ es 1, en la balanza izquierda colocamos la pesa que corresponde a $3^i$. Si $a_i =2$, colocamos una pesa de $3^i$ en la balanza derecha y sumamos 1 a $a_{(i+1)}$ (y consecuentemente, se cambian los valores posteriores de T para que sigan en base ternaria)
 
 
 \subsubsection{Pseudocódigo}
@@ -186,23 +186,23 @@ luego, como valen el caso base y el paso inductivo, entonces vale $2*3^{n} = 3^{
 
 \\
 Ahora para probar la correctitud del algoritmo, desarrollaremos algunos conceptos algebraicos.
-Por el algoritmo de división de Euclides sabemos que podemos escribir \\  $P= q*3+ r_{3}(P)$ con $0\leq r_{3}(P) \leq 2 $ luego, podemos escribir $q= z*3 + r_{3}(q)$ entonces $P= (z*3 + r_{3}(q))*3 +r_{3}(P)$ y así recursivamente y aplicando la distributividad de la suma podemos descomponer p en las potencias de 3. finalmente obtendriamos $p= \sum_{i=0}^{n}{a_i 3^{i}} $ con $0 \leq a_i \leq 2$.
-Ahora nuestro problema es la aparición de $a_i=2$ en la descomposición puesto que solo tenemos una pesa por potencia de tres. Pero por lo visto en el lema anterior, $2*3^{i}= 3^{i+1}-3^{i}$ esto equivale a poner la pesa $3^{i+1}$ en la balaza izquierda y la $3^{i}$ en la derecha obteniendo el equivalente a 2 pesas $3^{1}$ en la izquierda. aplicando este proceso recursivamente, obtenemos  una descomposición de P sumando y restando sus potencias de tres sin repeticiones.
+Por el algoritmo de división de Euclides sabemos que podemos escribir \\  $P= q*3+ r_{3}(P)$ con $0\leq r_{3}(P) \leq 2 $ luego, podemos escribir $q= z*3 + r_{3}(q)$ entonces $P= (z*3 + r_{3}(q))*3 +r_{3}(P)$ y así recursivamente y aplicando la distributividad de la suma podemos descomponer p en las potencias de 3. Finalmente obtendríamos $p= \sum_{i=0}^{n}{a_i 3^{i}} $ con $0 \leq a_i \leq 2$.
+Ahora nuestro problema es la aparición de $a_i=2$ en la descomposición puesto que sólo tenemos una pesa por potencia de tres. Pero por lo visto en el lema anterior, $2*3^{i}= 3^{i+1}-3^{i}$. Esto equivale a colocar la pesa $3^{i+1}$ en la balaza izquierda y la $3^{i}$ en la derecha, obteniendo el equivalente a 2 pesas $3^{1}$ en la izquierda. aplicando este proceso recursivamente, obtenemos  una descomposición de P sumando y restando sus potencias de tres sin repeticiones.
 
 
 \subsubsection{Demostración de Complejidad}
 
-El algoritmo consta de un ciclo, dentro de cada iteración, se calcula el resto y hace dos comparaciones todas estas operaciones se ejecutan en O(1), mientras que enviar la pesa a cada balanza
-es agregar un número al final de una lista, ya que el modelo de lista que usamos es "METERMODELO", esto se realiza en O(1).
+El algoritmo consta de un ciclo, dentro de cada iteración, se calcula el resto y hace dos comparaciones; todas estas operaciones se ejecutan en O(1), mientras que colocar la pesa en cada balanza
+es agregar un número al final de una lista. Ya que el modelo de lista que usamos es "METERMODELO", esto se realiza en O(1).
 Entonces, dentro de cada iteración solo se hacen operaciones en O(1). Esto hace que la complejidad sea la cantidad de iteraciones que hace el ciclo.
 
-Si nos abstraemos del if, el ciclo tiene como condición que P>0, siendo P el valor de entrada. Como podemos observar P es modificado dividiendose por 3 por cada iteración. Por algebra básica sabemos que se necesesitaran como mucho log_3(P) + 1 iteraciones para q P sea menor a 0.
-Ahora, tomando en cuenta el if hay un caso en el cual le sumamos 1 a P, lo cual afecta un poco la cuenta, si volvemos a la explicacion del algoritmo y tomamos el conjunto T = {a_1,...,a_n}
-donde  $P = \sum_{i=0}^{n} a_i3^i$  con $0 \leq a_i \leq 2$ y $n = log_{3}{P}$, siendo el valor de rem el valor de a_i en la iesima iteracion.
-Cuando hacemos que P<- P+1 nos queda que en la proxima iteracion rem valdria uno mas, es decir a_(i+1) pasaria a valer uno mas de lo q valdria en T. Ahora,  siendo estos que para todo a_k
-valen entre 0 y 2, si a_(i+1) en vez de valer 3, valdria 0 y a_(i+2) valdria uno mas tambien, y si  a_(i+2) valia 2, pasaria a valer 0 y  a_(i+3) valdria uno mas y asi sucesivamente hasta llegar a a_n.
-y si resulta que tambien a_n valia 2, entonces tendriamos un a_(n+1) que entraria a valer 1 y a_n valdria 0.
-Luego no habria mas casos donde a_j (para i<j<=n) donde a_j sea 2, entonces no hay mas casos donde puedan volver a ocurrir este tipo de cosas, quedandonos asi, un maximo de Log_3(P)+1 iteraciones
+Si nos abstraemos del if, el ciclo tiene como condición que P>0, siendo P el valor de entrada. Como podemos observar, P es modificado dividiéndose por 3 cada iteración. Por álgebra básica sabemos que se necesesitaran como mucho log_3(P) + 1 iteraciones para que P sea menor a 0.
+Ahora, tomando en cuenta el if hay un caso en el cual le sumamos 1 a P, lo cual afecta un poco la cuenta; volvemos a la explicación del algoritmo y tomamos el conjunto T = {a_1,...,a_n}
+donde  $P = \sum_{i=0}^{n} a_i3^i$  con $0 \leq a_i \leq 2$ y $n = log_{3}{P}$, siendo el valor de rem el valor de a_i en la iésima iteración.
+Cuando hacemos que P<- P+1 nos queda que en la próxima iteración rem valdría uno más, es decir a_(i+1) pasaria a valer uno más de lo que valdría en T. Ahora,  siendo estos que para todo a_k
+valen entre 0 y 2, si a_(i+1) en vez de valer 3, valdría 0 y a_(i+2) valdria uno más también, y si  a_(i+2) valia 2, pasaria a valer 0 y  a_(i+3) valdria uno más, y así sucesivamente hasta llegar a a_n.
+Y si resulta que también a_n valía 2, entonces tendríamos un a_(n+1) que pasaría a valer 1 y a_n valdría 0.
+Luego no hay mas casos donde a_j (para i<j<=n) sea 2, entonces no hay más casos donde puedan volver a ocurrir este tipo de cosas, quedándonos asi, un máximo de Log_3(P)+1 iteraciones.
 
 Entonces, la complejidad del algoritmo es de $\mathcal{O}(Log_{3}(P))$.
 Luego, se puede probar que Log(P) es $\mathcal{O}(\sqrt(P))$
