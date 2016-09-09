@@ -1,4 +1,4 @@
-#include "ej1.cpp"
+#include "ej1a.cpp"
 #include <iostream>
 #include <fstream>
 #include <stdio.h>
@@ -37,8 +37,8 @@ void test(int rep){
 			int valor = -2;
 			for(int x = 0; x<=rep; x++){
 				long solpar;
-				list<int> arq;
-				list<int> can;
+				list<long> arq;
+				list<long> can;
 				lecturaDatos(ts, arq, can);
 				auto start = ya();
 				valor = solucion(arq, can);
@@ -55,7 +55,7 @@ void test(int rep){
 
 
 int main(){
-	test(100000);
+	test(1);
 	
 return 0;	
 	}
