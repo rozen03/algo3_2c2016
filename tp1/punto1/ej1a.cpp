@@ -8,17 +8,17 @@ using namespace std;
 
 /*
  Comentarios de  una mente tormentada(?:
- 
+
  Bueno basicamente se rompe en todos lados, puedensalir es el peor funcion de cuatro lineas que escribi en mi vida...
  basicamente se fija si esa cantidad de arqueologos y canibales pueden salir, pero le dice que no a casos re obvio 1-1 y otros.
- 
+
  otro lugar donde se rompe, esta devolviendo como valor optimo los minimos de cada archivo, lo cual esta mal, puede estar en un millon de lados,
  la oruga funciona, osea hace bien el calculo, pero no funciona como deberia, basicamente la idea era que cuando esl algoritmo corte por que no
  encontraba la forma de avanzar sin que se lo coman los canibales ponga un valor negativo para filtrarlo despues.
- 
+
  errores por todos lados es la conclusion y mañana va dentro de un par de horas con una cabeza mas sana probablemente pueda arreglar cosas.
  hasta ese momento se los dejo a ustedes.
- 
+
  sigo escribiendo por que justo salio alta cancion y bue algo tengo que hacer, no?
  */
 
@@ -63,7 +63,7 @@ list<long> sacar(list<long> ls, long elem){
 					cerr<< aux<<" ";
 				}cerr<<endl;
 */
-	
+
 	bool noencontre = true;
 	while(!ls.empty()){
 		long aux = ls.front();
@@ -157,7 +157,7 @@ if (i==1 && j==1) {
 		res=a;
 	}
 return res;
-  
+
 }
 
 long meterIda(int i, int j, list<long>& ArqA,list<long>& CanA, list<long>& ArqB, list<long>& CanB ){
@@ -180,7 +180,7 @@ long meterIda(int i, int j, list<long>& ArqA,list<long>& CanA, list<long>& ArqB,
     CanA = sacar(CanA, b);
     res=a;
   }
-  if (i==1 && j==1){    
+  if (i==1 && j==1){
     long a=minimo(ArqA);
     long b=minimo(CanA);
     if(a >= b){
@@ -190,7 +190,7 @@ long meterIda(int i, int j, list<long>& ArqA,list<long>& CanA, list<long>& ArqB,
       ArqB.push_front(c);
       ArqA = sacar(ArqA, c);
       res=c;
-      
+
       cerr<<"estoy en meter ida ij = 1 el mas rapido es canibal y el valor es " <<res <<endl;
     }
      else{
@@ -200,7 +200,7 @@ long meterIda(int i, int j, list<long>& ArqA,list<long>& CanA, list<long>& ArqB,
       CanB.push_front(c);
       CanA = sacar(CanA, c);
       res=c;
-      
+
       cerr<<"estoy en meter ida ij = 1 el mas rapido es arq y el valor es " <<res <<endl;
     }
   }else if (i==1) {
@@ -208,15 +208,15 @@ long meterIda(int i, int j, list<long>& ArqA,list<long>& CanA, list<long>& ArqB,
 		ArqB.push_front(a);
 		ArqA = sacar(ArqA, a);
 		res=a;
-		
+
       cerr<<"estoy en meter ida i = 1 el mas rapido es canibal y el valor es " <<res <<endl;
 	}else if (j==1) {
 			long a= minimo(CanA);
 			CanB.push_front(a);
 			CanA =sacar(CanA, a);
-			
+
 			/*list<long> canAm(CanA);
-				
+
 				cerr<<"\ncanAux tiene\n";
 				while(!canAm.empty()){
 					long aux = canAm.front();
@@ -224,12 +224,12 @@ long meterIda(int i, int j, list<long>& ArqA,list<long>& CanA, list<long>& ArqB,
 					cerr<<aux<<" ";
 				}cerr<<endl;
 			*/res=a;
-			
+
       cerr<<"estoy en meter ida j = 1 el mas rapido es canibal y el valor es " <<res <<endl;
 		}
 
 return res;
-  
+
 }
 
 //devuelve el integrante mas lento duh si no hay integrantes lo cual es medio tonto devueve -1
@@ -257,7 +257,7 @@ long suma(list<long> ls){
 					arqAm.pop_front();
 					cerr<< aux<<" ";
 				}*/
-	
+
 	while(!ls.empty()){
 		long aux = ls.front();
 		ls.pop_front();
@@ -276,7 +276,7 @@ long backtracking(list<long> arqA, list<long> canA, list<long> arqB, list<long> 
 		long solpar = suma(sacar(canA, rapido));//cada elemento tiene que pasar, y siempre va acompañado del mas rapido.
 		long sol = solpar + (ccantA-2)*rapido;//ccantA-2 es la cantidad de veces que vuelve el mas rapido.
 		return sol;
-	} 
+	}
 	long lento = integranteLento(arqA, canA, arqB, canB);
 	int cantot = acantA+ccantA +arqB.size()+canB.size();
 	long oruga = (lento*cantot*2) + 1;//esto es mas lento que cualquier forma de ir y volver(que seria ir y volver con el mas lento
@@ -299,7 +299,7 @@ long backtracking(list<long> arqA, list<long> canA, list<long> arqB, list<long> 
 				list<long> canAm(canA);
 				list<long> arqBm(arqB);
 				list<long> canBm(canB);
-				
+
 				/*cerr<<"arqAux tiene\n";
 				while(!arqAm.empty()){
 					long aux = arqAm.front();
@@ -323,9 +323,9 @@ long backtracking(list<long> arqA, list<long> canA, list<long> arqB, list<long> 
 					cerr<<aux<<" ";
 				}cerr<<endl;
 				*/
-				
+
 				velIda = meterIda(i, j, arqAux,canAux,arqBaux, canBaux);
-				
+
 				/*arqAm =arqAux;
 				canAm =canAux;
 				arqBm =arqBaux;
@@ -353,7 +353,7 @@ long backtracking(list<long> arqA, list<long> canA, list<long> arqB, list<long> 
 					canBm.pop_front();
 					cerr<<aux<<" ";
 				}cerr<<endl<<endl;*/
-				
+
 				for(int k = 0; k<3;k++){//arqueologos
 					for(int l = 0; l+k<3; l++){//canibales es 5 veces
 						//cerr<<"Entro en el for para ver quienes pueden volver Arc "<< k<<" can "<<l<<" Velocidad Ida " <<velIda<<endl;
@@ -400,7 +400,7 @@ long backtracking(list<long> arqA, list<long> canA, list<long> arqB, list<long> 
 								cerr<<aux<<" ";
 							}cerr<<endl<<endl;
 							*/
-							
+
 							solbc = backtracking(arqAbis, canAbis, arqBbis, canBbis, matriz);
 						}
 						//cerr<<"estoy metiendo esto en soluciones " <<velIda+velVuelta+solbc<<" Desglozado seria velIda "<<velIda<<" velVuelta "<<velVuelta<<" solbc "<<solbc<<" y oruga "<<oruga<< endl;
@@ -414,12 +414,12 @@ long backtracking(list<long> arqA, list<long> canA, list<long> arqB, list<long> 
 	vector<long> solrec;
 	for(unsigned int i = 0; i<soluciones.size(); i++){
 		//cerr<<soluciones[i]<<" ";
-		if(soluciones[i] >= 0) solrec.push_back(soluciones[i]);  
+		if(soluciones[i] >= 0) solrec.push_back(soluciones[i]);
 	}
 	if(solrec.empty()) return -1;
 	long sol = solrec[0];
 	for(unsigned int i = 0; i<solrec.size(); i++){
-		if(solrec[i] < sol) sol = solrec[i]; 
+		if(solrec[i] < sol) sol = solrec[i];
 	}
 	return sol;
 }
@@ -429,21 +429,21 @@ long solucion(const list<long>& arq,const list<long>& can){
 	list<long> canB;
 	vector<int> n(can.size() +1, 0);
 	vector< vector<int> > matriz(arq.size()+1, n);
-	
+
 	//la matriz chequea que esa combinacion de arqueologos/canibales no hayan esperado del lado A antes.
 	return backtracking(arq, can, arqB, canB, matriz);
 }
 /*
 int main(int argc, char *argv[]){
-    
+
     list<long> arqA;
     list<long> canA;
-    
-    
-    
-    string input = argv[1];    
+
+
+
+    string input = argv[1];
     lecturaDatos(input, arqA,canA);
- 
+
 	cout<< solucion(arqA, canA)<<endl;
 
     return 0;
