@@ -47,7 +47,7 @@ void test(int rep){
 				sol = sol +solpar;
 			}
 			res<<" " << sol/rep<<" & " <<valor<<"\n";
-			cout<< "termine " << ts<<endl;
+			//cout<< "termine " << ts<<endl;
 		}
 	}	
 }
@@ -55,7 +55,7 @@ void test(int rep){
 
 
 int main(){
-	test(1);
+	test(1000);
 	
 return 0;	
 	}
