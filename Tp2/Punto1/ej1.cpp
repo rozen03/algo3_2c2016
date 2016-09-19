@@ -73,15 +73,14 @@ void parsearInput() { // string input) {
   unsigned int count = 0;
   unsigned int countEjes = 0;
   Nodo *nodos[(f - 2) * (c - 2)];
+  for (size_t i = 0; i < (f - 2) * (c - 2); i++) {
+    nodos[i] = NULL;
+  }
   for (size_t i = 0; i < c - 2; i++) {
     for (size_t j = 0; j < f - 2; j++) {
       // cout << "i:" << i << " j:" << j << endl;
-      cout << matriz[i][j] << endl;
       aux = matriz[i][j];
-      cout << matriz[i][j] << endl;
       if (aux == '.') {
-
-        cout << "entre al punto" << endl;
         int index;
         int derecha, abajo;
         // Tomo/inicializo el nodo
@@ -93,7 +92,6 @@ void parsearInput() { // string input) {
           index = count;
           count++;
         }
-        cout << "alawan" << endl;
         // A la derecha
         if (j < f - 3) {
           aux = matriz[i][j + 1];
@@ -107,6 +105,8 @@ void parsearInput() { // string input) {
               count++;
             }
             Eje *e = new Eje(countEjes, 0, nodos[index], nodos[derecha]);
+            nodos[index]->ejes.push(e);
+            nodos[derecha]->ejes.push(e);
             countEjes++;
           }
         }
@@ -123,16 +123,118 @@ void parsearInput() { // string input) {
               count++;
             }
             Eje *e = new Eje(countEjes, 0, nodos[index], nodos[abajo]);
+            nodos[index]->ejes.push(e);
+            nodos[abajo]->ejes.push(e);
             countEjes++;
           }
         }
+      } else if ((aux - '0' > -1) && (aux - '0' < 10)) {
+        int arriba, abajo, izquierda, derecha;
+        arriba = -1;
+        abajo = -1;
+        izquierda = -1;
+        derecha = -1;
+        // A la derecha
+        if (j < f - 3) {
+          aux = matriz[i][j + 1];
+          if (aux == '.') {
+            if (indices[i][j + 1] >= 0) {
+              derecha = indices[i][j + 1];
+            } else {
+              nodos[count] = new Nodo(count);
+              indices[i][j + 1] = count;
+              derecha = count;
+              count++;
+            }
+          }
+        }
+        // Abajo
+        if (i < c - 3) {
+          aux = matriz[i + 1][j];
+          if (aux == '.') {
+            if (indices[i + 1][j] >= 0) {
+              abajo = indices[i + 1][j];
+            } else {
+              nodos[count] = new Nodo(count);
+              indices[i + 1][j] = count;
+              abajo = count;
+              count++;
+            }
+          }
+        }
+        // A la izquierda
+        if (0 < j) {
+          aux = matriz[i][j - 1];
+          if (aux == '.') {
+            if (indices[i][j - 1] >= 0) {
+              izquierda = indices[i][j + 1];
+            } else {
+              nodos[count] = new Nodo(count);
+              indices[i][j - 1] = count;
+              izquierda = count;
+              count++;
+            }
+          }
+        }
+        // arriba
+        if (0 < i) {
+          aux = matriz[i - 1][j];
+          if (aux == '.') {
+            if (indices[i - 1][j] >= 0) {
+              arriba = indices[i - 1][j];
+            } else {
+              nodos[count] = new Nodo(count);
+              indices[i - 1][j] = count;
+              arriba = count;
+              count++;
+            }
+          }
+        }
+        // conecto los dos nodos
+        int a, b;
+        a = max(arriba, max(abajo, max(izquierda, derecha)));
+        if (a == arriba) {
+          b = max(abajo, max(izquierda, derecha));
+        } else if (a == abajo) {
+          b = max(arriba, max(izquierda, derecha));
+        } else if (a == izquierda) {
+          b = max(abajo, max(arriba, derecha));
+        } else {
+          b = max(abajo, max(izquierda, arriba));
+        }
+        Eje *e = new Eje(countEjes, aux - '0', nodos[a], nodos[b]);
+        nodos[a]->ejes.push(e);
+        nodos[b]->ejes.push(e);
+        countEjes++;
+        cout << "eje numericowowow" << endl;
       }
     }
   }
 
+  int matrizDeAdyacencia[f - 2][c - 2];
+  for (size_t i = 0; i < c - 2; i++) {
+    for (size_t j = 0; j < f - 2; j++) {
+      matrizDeAdyacencia[i][j] = -1;
+    }
+  }
+  cout << "exodia" << endl;
   for (size_t i = 0; i < (f - 2) * (c - 2); i++) {
-    // cout << nodos[3] << " ";
-    // cout << nodos[i]->indice << " ";
+    if (nodos[i] != NULL) {
+      // cout << nodos[i]->indice << " ";
+      while (!nodos[i]->ejes.empty()) {
+        Eje *e = nodos[i]->ejes.top();
+        matrizDeAdyacencia[i][e->dameElOtroNodoPorfa(nodos[i])->indice] =
+            e->peso;
+        nodos[i]->ejes.pop();
+      }
+    }
+  }
+  cout << endl;
+  for (size_t i = 0; i < c - 2; i++) {
+    for (size_t j = 0; j < f - 2; j++) {
+      cout << matrizDeAdyacencia[i][j] << " ";
+    }
+    cout << endl;
   }
   cout << endl;
   cout << "imalaiv you bitch!" << endl;

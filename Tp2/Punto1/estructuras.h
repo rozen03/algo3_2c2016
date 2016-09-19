@@ -7,7 +7,7 @@ class Eje;
 class Nodo {
 public:
   unsigned int indice;
-  priority_queue<Eje> ejes;
+  priority_queue<Eje *> ejes;
   Nodo(unsigned int indice) : indice(indice){};
 
 private:
