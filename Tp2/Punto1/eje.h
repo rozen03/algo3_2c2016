@@ -15,7 +15,13 @@ public:
   int damePeso();
   bool esPared();
   bool esta(Nodo *);
-  Nodo *dameElOtroNodoPorfa(Nodo *);
+  Nodo *dameElOtroNodoPorfa(Nodo *n) {
+    if (n == n1) {
+      return this->n2;
+    } else {
+      return this->n1;
+    }
+  };
   bool operator<(const Eje e2) const { return this->peso < e2.peso; }
 
 private:
