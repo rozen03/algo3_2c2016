@@ -7,7 +7,7 @@ using namespace std;
 Tesoro::Tesoro(int p, int t, int v):peso(p), tipo(t), valor(v){
 }
 
-int Tesoro::Peso(){
+int Tesoro::Peso() const{
 	return peso;
 }
 
@@ -40,12 +40,13 @@ int Mochila::Capacidad(){
 }
 
 void Mochila::Imprimir(){
-	cout << tes.size() << " ";
-	for(unsigned int i = 0; i< tes.size(); i++){
-		cout <<tes[i].Imprimir()<<" ";
+	if(tes.size()!= 0){
+		cout << tes.size() << " ";
+		for(unsigned int i = 0; i< tes.size(); i++){
+			cout <<tes[i].Imprimir()<<" ";
+		}
+		cout << "\n";
 	}
-	cout << "\n";
-
 }
 
 int Maximo(vector<int> obj){
@@ -146,35 +147,38 @@ void LlenarMochilas(vector<vector<vector<vector<int> > > >& objetoxPesos,vector<
 
 }
 
-void lecturaDatos(string input, vector<Mochila>& mochilas, vector<Tesoro>& cofre){
+void lecturaDatos(string test, vector<Mochila>& mochilas, vector<Tesoro>& cofre){
 	int m;
 	int n;
 	fstream input;
 	input.open(test);
 	input>> m>> n;
-	vector<Mochila> mochilas(3);
+	vector<Mochila> mochilasAux(3);
+	int pesomax = 0;
 	//Creo las mochilas y las pongo en un vector
 	for(int i = 0; i<3; i++){
 		int k = 0;
 		if(i<m)	input >> k;
 		if(k>pesomax) pesomax = k;
 		Mochila m(k);
-		mochilas[i] = m;
+		mochilasAux[i] = m;
 	}
 	//Meto los tesoros en el cofre, tener en cuenta que tesoros
 	// con peso mayor que la capacidad se descartan aca.
-	vector<Tesoro> cofre;
+	vector<Tesoro> cofreAux;
 	for(int i = 0; i <n; i++){
 		int cant;
 		int p;
 		int v;
 		input>> cant>> p>> v;
 	//(usar este cout para saber que tipos responden a que valores/peso
-	//.cout<<"Hay "<<cant << " tesoros de tipo " <<i <<" de peso " << p <<" de valor " << v<<endl;
+	//Los tipos empiezan en 1.
 		for(int j = 0;j < cant; j++){
-			cofre.push_back(Tesoro(p,i,v));
+			cofreAux.push_back(Tesoro(p,i + 1,v));
 		}
 	}
+	cofre = cofreAux;
+	mochilas = mochilasAux;
 	input.close();
 }
 
@@ -187,45 +191,47 @@ int solucion(vector<Mochila>& Mochilas,const vector<Tesoro>& precofre){
 	
 	vector<Tesoro> cofre;
 	for(unsigned int i = 0; i<precofre.size(); i++){
-		if(pesomax >= precofre[i].Peso()) cofre.push_back(precofre[i]);
+		int pesoAux = precofre[i].Peso();
+		if(pesomax >= pesoAux) cofre.push_back(precofre[i]);
 	}
 	
 	if (cofre.size()==0) return sol;
 	//incializo en -1 la matriz ya que en la función recursiva, si es -1 implica que no lo calculo y tiene que hacerlo.
-	vector<int> m3(mochilas[2].Capacidad()+1, -1);
-	vector<vector<int> > m2ym3(mochilas[1].Capacidad()+ 1, m3);
-	vector<vector<vector<int> > >m1ym2ym3(mochilas[0].Capacidad()+1, m2ym3);
+	vector<int> m3(Mochilas[2].Capacidad()+1, -1);
+	vector<vector<int> > m2ym3(Mochilas[1].Capacidad()+ 1, m3);
+	vector<vector<vector<int> > >m1ym2ym3(Mochilas[0].Capacidad()+1, m2ym3);
 	vector<vector<vector<vector<int> > > >  objXpesos(cofre.size(),m1ym2ym3);
 
 	//para no complicar el algoritmo calcularOptimo, pongo todas las posiciones donde no puede haber objetos en 0, entonces piensa que ya lo calculamos.
 	for(unsigned int i = 0; i< cofre.size(); i++) objXpesos[i][0][0][0] = 0;//O(cofre.size())
 	
-	sol = CalcularOptimo(objXpesos, cofre, cofre.size()-1, mochilas[0].Capacidad(), mochilas[1].Capacidad(), mochilas[2].Capacidad());
+	sol = CalcularOptimo(objXpesos, cofre, cofre.size()-1, Mochilas[0].Capacidad(), Mochilas[1].Capacidad(), Mochilas[2].Capacidad());
 	/*
 	 en el peor dde los casos tengo que calcular todos las posiciones del hipercubo, una sola vez, eso es
 	 */
 
-	LlenarMochilas(objXpesos, cofre, mochilas[0], mochilas[1], mochilas[2]);//O(cofre.size())
+	LlenarMochilas(objXpesos, cofre, Mochilas[0], Mochilas[1], Mochilas[2]);//O(cofre.size())
 
-	cout<< sol<<"\n";
+	/*cout<< sol<<"\n";
 	for(int i = 0; i<m;i++){
 		mochilas[i].Imprimir();
-	}
+	}*/
 
 	return sol;
 }
-/*
+
 int main(int argc, char *argv[]){
 	string test = argv[1];
 	vector<Mochila> mochilas;
-	vecctor<Tesoro> cofre;
-	lecturaDatos(test, mochilas,cofre)
+	vector<Tesoro> cofre;
+	lecturaDatos(test, mochilas,cofre);
 	int sol = solucion(mochilas, cofre);
 	
 	cout<< sol<<"\n";
-	for(int i = 0; i<m;i++){
+	for(unsigned int i = 0; i<mochilas.size();i++){
 		mochilas[i].Imprimir();
 	}
 	return 0;
-}*/
+}
+
 

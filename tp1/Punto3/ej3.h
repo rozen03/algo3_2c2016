@@ -7,7 +7,7 @@ public:
 	Tesoro(int p, int t, int v);
 Tesoro(const Tesoro& t) : peso(t.peso), tipo(t.tipo), valor(t.valor){;}
 	std::string Imprimir();
-	int Peso();
+	int Peso() const;
 	int Valor();
 	int Tipo();
 private:

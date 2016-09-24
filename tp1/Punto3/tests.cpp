@@ -8,7 +8,7 @@
 #define ya chrono::high_resolution_clock::now
 
 using namespace std;
-
+/*
 void testPesoMejorCaso(int rep){
 	ofstream res("resultadosoPesoMejorCaso.txt");
 	for(int j = 2; j<51; j+= 2){
@@ -27,19 +27,23 @@ void testPesoMejorCaso(int rep){
 		test10obj.close();
 		res<< j <<' ';
 		int sol= 0;
+		int valorar;
 		for(int i = 0; i <= rep; i++){
 			int solpar;
+			vector<Mochila> mochilas;
+			vector<Tesoro> cofre;
+			lecturaDatos(ts, mochilas,cofre);
 			auto start = ya();
-			solucion(ts);
+			valorar = solucion(mochilas, cofre);
 			auto end = ya();
 			solpar = chrono::duration_cast<std::chrono::nanoseconds>(end-start).count() / rep;
 			sol = sol +solpar;
 		}
-		res<<sol<<" & \n";
+		res<<sol<<" & "<<valorar<<"\n";
 	}
 	res.close();
 }
-
+*/
 void testObjAleatorios(int rep){
 	ofstream res("resultadoObjAl.txt");
 	for(int j = 2; j<51; j+= 2){
@@ -58,10 +62,14 @@ void testObjAleatorios(int rep){
 		test10obj.close();
 		res<< j <<' ';
 		int sol= 0;
+		int valorar = -1;
 		for(int i = 0; i <= rep; i++){
 			int solpar;
+			vector<Mochila> mochilas;
+			vector<Tesoro> cofre;
+			lecturaDatos(ts, mochilas,cofre);
 			auto start = ya();
-			solucion(ts);
+			valorar = solucion(mochilas, cofre);
 			auto end = ya();
 			solpar = chrono::duration_cast<std::chrono::nanoseconds>(end-start).count() / rep;
 			sol = sol +solpar;
@@ -70,7 +78,7 @@ void testObjAleatorios(int rep){
 	}
 	res.close();
 }
-
+/*
 void testObjPesoRango(int rep){
 	ofstream res("resultadosObjPesoRango.txt");
 	for(int j = 2; j<51; j+= 2){
@@ -294,15 +302,15 @@ void testMochDistPeso(int rep){
 	res.close();
 
 }
-
+*/
 
 int main(){
-	//testObjAleatorios(1000);
+	testObjAleatorios(1);
 	//testObjPesoRango(1000);
 	//testObjMejorCaso(1000);
 	//testPesoMoch(1000);
 	//testCantMoch(1000);
-	//testPesoMejorCaso(1000);
-	testMochDistPeso(1000);
+	//testPesoMejorCaso(1);
+	//testMochDistPeso(1000);
 return 0;
 }

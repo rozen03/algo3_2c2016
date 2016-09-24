@@ -122,7 +122,9 @@ Nuestro algoritmo no admite ciclos puesto que tiene una condición booleana sobr
 
 
 \subsection{Demostración de Complejidad}
-
+	Si pensamos todas nuestras posibilidades como un árbol de estados, haciendo que la función "ida" y "vuelta" genera 3 hijos y 4 hijos respectivamente(la función "vuelta" genera 5 hijos, pero uno de ellos es siempre un estado por el que ya pasamos).
+	 Además, la altura nunca va a ser mayor que $n*m/2$, ya que tenemos una matriz para verificar que no pasemos dos veces por el mismo estado.
+	 En resumen, la cantidad máxima de resultados es altura del árbol por la "amplitud": Podemos ver que la complejidad es $12^{n*m/2}$
 \subsection{Experimentación}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -275,7 +277,7 @@ El objetivo es encontrar la manera óptima de llenar las mochilas para poder lle
 
 Formalmente, tenemos un conjunto de elementos que tienen como propiedad dos naturales asociados (el peso y el valor). Entonces podemos inferir que existen dos criterios de ordenamiento asociados respectivamente a estos valores.
 Al mismo tiempo tenemos otro conjunto de elementos que posee como propiedad un natural asociado (capacidad).
-Nuestro objetivo es seleccionar una combinación de los primeros objetos, restringida por las capacidades dadas,de modo de maximizar la sumatoria del valor de los mismos.
+Nuestro objetivo es seleccionar una combinación de los primeros objetos, restringida por las capacidades dadas, de modo de maximizar la sumatoria del valor de los mismos.
 
 
 \subsection{Explicación de la solución}
@@ -284,7 +286,13 @@ Nuestro objetivo es seleccionar una combinación de los primeros objetos, restri
    Finalmente, pudimos resolverlo mediante programación dinámica. Nuestro algoritmo principal llama a dos funciones que utilizan la recursividad para poder obtener en un caso el valor óptimo, y en el otro "las mochilas llenas."
    Para facilitar el entendimiento del algoritmo introduciremos el concepto de "Hipercubo". Un hipercubo es el análogo n-dimensional de un cuadrado (n=2) o un cubo (n=3). En particular en nuestro problema tenemos un hipercubo de dimension cuatro, esta figura se denomina "teseracto", sin embargo por comodidad seguiremos llamándole hipercubo en el resto del informe.
 Para poder imaginar este concepto, podríamos visualizarlo en nuestro mundo tridimencional como un vector con cubos adentro. la cantidad de cubos dependera del largo de nustra cuarta "arista".
-
+\\
+%%%%%%%%% MODIFICACION%%%%
+(Por ahí nos combiene sacar lo del hipercubo, o decir que esto nos va a ayudar en la demostracion de ccomplejidad, me costo mucho explicar que representaba el hipercubo y lo pase a la versión para bobos)FIJARSE!!!!
+\\
+	El algoritmo se encarga de llenar un arreglo de cuatro dimensiones, donde el tamaño del arreglo principal es la cantidad de objetos y los tamaños de los otros tres arreglos anidados son las capacidades de las tres mochilas.
+	Lo que representa cada posición, (x,y,z,w), de este arreglo es el valor óptimo que pueden lograr los primeros x objetos con una combinación de mochilas de peso y, z, w. En el caso que el problema a resolver responda a dos mochilas, una de las variables y, z, w seran 0 para cualquier posción y un caso similar si solo hay que llenar una mochila.
+%%%%%%%TERMINA MODIFICACION%%%%
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.4\textwidth]{hipercubo}
@@ -415,7 +423,7 @@ Como valen P(0)..p(k) $\forall k<n$ y vale p(n) $\Rigtharrow$ vale p(n) $\forall
 
 \subsubsection{Demostración de Complejidad}
 
-Como se observa en el inciso () la complejidad del algoritmo GuardarTesoro es $\mathcal{O}(\prod_{i=1}^{3}K_{i} * T)$ donde $K_i$ representa la capacidad de cada mochila y T la cantidad de tesoros. Además esta complejidad es aportada por el algoritmo ValorOptimo, entonces basaremos nuestra demostración en el mismo.
+La complejidad del algoritmo GuardarTesoro es $\mathcal{O}(\prod_{i=1}^{3}K_{i} * T)$ donde $K_i$ representa la capacidad de cada mochila y T la cantidad de tesoros. Además, esta complejidad es aportada por el algoritmo ValorOptimo, entonces basaremos nuestra demostración en el mismo.
 
 Primero haremos unas observaciones preliminares:
 \begin{itemize}
@@ -440,21 +448,20 @@ $\prod_{i=1}^{3}K_{i}  = K_1*K_2*K_3$   sea $K_max = Max(K_1,K_2,K_3)$ y $K_o= K
 
 La cota de complejidad de nuestro algoritmo es $\prod_{i=1}^{3}K_{i}* T$. Es decir que depende de la capacidad y cantidad de mochilas y la cantidad de tesoros.
 En esta sección trataremos de respaldar esta cota mediante el análisis de los datos empíricos que obtuvimos a traves del testeo de nuestro algoritmo.
-Con este objetivo a lo largo de los tests modificamos los inputs para observar de a una variable por vez dejando las otras constantes y así poder analizar el tiempo de ejecución en cada caso.
-
+Con este objetivo a lo largo de los tests modificamos los inputs para observar de a una variable por vez dejando las otras constantes y así poder analizar el tiempo de ejecución en cada caso. En cada test los valores se logran al promediar un millón de iteraciones sobre el mismo input, sobre que forma tiene el input se va a hablar más adelante.
+%%%%MODIFICACION "EN cada test... hablar mas adelante."
 
 \subsubsection{Resultados y análisis}
 
 En nuestro primer experimento fijamos una mochila con capacidad constante (50) y fuimos aumentando la cantidad de tesoros de a dos.
 Así mismo, analizamos tres subcasos pertinentes: cuando los objetos están dados aleatoriamente (sin ninguna restricción sobre su peso), cuando el peso de los objetos se encuentra restringido a la capacidad de la mochila y cuando el peso de objetos es superior a la capacidad de la mochila.
-
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.6\textwidth]{comparacionObjetos}
 \caption{gráfico comparativo de los tres subcasos al varias T.}
 \end{figure}
 
-<<<<<<< HEAD
+
 En esta figura podemos observar no solo la tendencia lineal en la complejidad del algoritmo sino también la variación del crecimiento del tiempo para los distintos casos.
 El hecho de que los gráficos sean lineales respaldan nuestra cota de complejidad ya que estaríamos variando el parámetro T mientras $K_1$ (la capacidad de la mochila) se mantiene constante. Estaríamos bajo la presencia de una función de tipo $Y=c*X$ con c constante.
 En particular podemos destacar que en el caso de que los objetos tengan todos peso mayor a la capacidad de las mochilas, la recta tiende a ser constante y el tiempo de ejecución es casi nulo.
@@ -463,11 +470,10 @@ Observemos que en general lleva más tiempo obtener un resultado cuando los obje
 
 \\
 \\
-Luego realizamos tests para poder ver el comportamiento del algoritmo al ir aumentando el peso de la mochila. Utilizamos un test para evaluar el comportamiento cuando los objetos son aleatorios y otro para cuando todos los tesoros tienen el peso mayor a la capacidad de la mochila.
-=======
+\\
+Luego realizamos tests para poder ver el comportamiento del algoritmo al ir aumentando el peso de la mochila. Utilizamos un test para evaluar el comportamiento cuando los objetos son aleatorios y otro para cuando todos los tesoros tienen un peso mayor a la capacidad de la mochila, en ambos casos la cantidad de objetos es constante en 50 elementos.
 En esta figura podemos observar no solo la tendencia lineal de la complejidad del algoritmo sino también la variación de las pendientes en cada caso. Notemos que a mayor pendiente, la ejecución toma más tiempo, es decir es "más lenta".
 En particular podemos destacar que en el caso de que los objetos tengan todos peso mayor a la capacidad de las mochilas, la recta tiende a ser constante.
->>>>>>> 076250449dc8b6cd7dc8911b109e73f7ced755e9
 
 \begin{figure}[H]
 \centering
@@ -478,7 +484,7 @@ En particular podemos destacar que en el caso de que los objetos tengan todos pe
 Podemos observar que al tener los tesoros con peso fuera del rango de la capacidad de la mochila el tiempo se mantiene constante, prácticamente nulo igual que en el experimento anterior. Con los objetos aleatorios vemos que tiene cierta tendencia lineal como es de esperarse (ya que este caso es similar al analizando en la figura()) sin embargo algunos valores quedan distorcionados. Creemos que esto se debe a que los objetos son aleatorios.
 \\
 \\
-Finalmente corrimos tests variando la cantidad de mochilas (todas con capacidad 50) manteniendo constantes los tesoros.
+Finalmente corrimos tests variando la cantidad de mochilas (todas con capacidad 50) manteniendo constantes los tesoros, estos siendo 50.
 
 \begin{figure}[H]
 \centering
