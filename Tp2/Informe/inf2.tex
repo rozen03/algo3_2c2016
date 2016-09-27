@@ -23,7 +23,7 @@
 
 \begin{document}
 
-\titulo{Informe 1}
+\titulo{Informe 2}
 \materia{Algoritmos y Estructuras de Datos III}
 \author{Grupo  \\Alvarez Vico Jazm\'in\\Cortés Conde Titó Javier María\\Pedraza Marcelo \\ Rozenberg Uriel Jonathan}
 
@@ -40,25 +40,14 @@
 \tableofcontents
 \cleardoublepage
 
-\section{Problema 1: Cruzando el puente}
+\section{Problema 1: }
 
-\subsection{Inrtoducción}
+\subsection{Introducción}
 
-En este problema, un grupo formado por arquéologos y caníbales debe cruzar un puente. El mismo sólo puede ser atravezado por dos personas a la vez, y tiene que ser cruzado con una linterna. Como el grupo sólo dispone de una linterna, siempre debe regresar alguno al lado del puente original. Además, en ningún lado del puente puede haber más caníbales que arquéologos.
-Cada individuo consta de la propiedad "velocidad", un número natural que indica cuánto tiempo tarda en atravezar el puente. Si dos personas atraviezan el puente juntas, lo hacen en el tiempo más grande entre los dos.
 
 %terminar?%
 
 \subsection{Explicación de la solución}
-Para resolver este problema, usamos la técnica de backtracking: utilizamos una función recursiva para poder probar todos los caminos posibles que no generen situaciones en las cuales hay mas caníbales que arqueólogos en algún lado del puente. Finalmente elegímos el mínimo de los subcaminos recorridos.
-
-Para empezar, todos los casos donde ya se comienze de un lado del puente con más caníbales que arqueólogos deben devolver -1.
-El caso en el cual no haya arqueologos usamos una instancia aparte que conlleva muchas condiciones booleanes. Este caso se resuelve simplemente utilizando al canibal más rápido para llevar a los demás.
- 
-
-Para los demás casos hay que analizar los cinco "movimientos"  válidos existentes para atravezar el puente: Pasar dos caníbales, pasar dos arqueólogos,pasar sólo un arqueólogo, pasar sólo un canibal o pasar un arqueólogo y un caníbal. Un movimiento es óptimo si la persona que vuelve es la más rapida de su tipo, ya que de esta manera uno minimiza la cantidad de tiempo usado en llevar de regreso la linterna, siendo que cualquier otra combinación consume más tiempo.
-Para guardar la información de posiciones utilizamos una matriz de dimensión N+1xM+1 incializada en 0 y cuatro listas($N_A$ y $M_A$ para indicar quienes estan en el punto de partida y $N_B$ y$ M_B$ para el punto de llegada). cada vez que modifiquemos $N_A$ y $M_B$ se entrará en la recursión copiando M y marcando con un 1 la posicón que corresponde a ($|N_A|,|M_A|$).
-Todos los resultados se guardan en una lista para poder finalmente devolver el valor minimo de la misma el cual será nuestra solución.
 
 
 %creeeo que le falta%
@@ -66,218 +55,54 @@ Todos los resultados se guardan en una lista para poder finalmente devolver el v
 
 
 \subsection{Pseudocódico}
-\begin{algorithm}[H]{\textbf{BT}(M: Matriz nula de dim($|N_A|$+1 x $|M_A|$+1), $N_A, M_A, N_{B}, M_{B}$: Listas) }
-	\begin{algorithmic}
-		\If{$N_A$ == []}
-			\State min $\gets$ $M_A$.min()
-			\State devolver min*($|M_B|-1$)+ Sumatoria($M_B$.Sacar(min))
-		\EndIf
-		\State M[$|N_A$|+1][$|M_A|$+1] $\gets$1
-		\State T $\gets$ []
-		
-		\While{i=0; i$\leq$2; i++}
-			\While{j=0; j+i$\leq$2, j++}
-				\If{PuedenSalir(i,j,$|N_A|,|M_A|,|N_{B}|,|M_{B}|$)}
-					\State se le quitan i elementos a $N_A$ y se le agregan a $N_B$
-					\State se le quitan j elementos a $M_A$ y se le agregan a $M_B$
-					\State (si i,j=1 se quita el más rápido, si i,j=2 se quitan el más rápido y el más lento)
-					\State t $\gets$ Max(de los elementos transferidos)
-					\While{k=0; k$\leq$2; k++}
-						\While{l=0; k+l$\leq$2; l++}
-							\If{PuedenSalir(k,l,$|N_A|,|M_A|,|N_{B}|,|M_{B}|$) $\land$ M[$N_A$+k][$M_A$+l]=0} %verificar esto
-								\State se le quitan k elementos a $N_B$ y se le agregan a $N_A$
-								\State se le quitan l elementos a $M_B$ y se le agregan a $M_A$
-								\State (se quitan los dos más rápidos)
-								\State t=t+Max(de los elementos transferidos)+ BT(M,$N_A,M_A,N_B,M_B$)
-								\State T.Agrergar(t)
-							\EndIf
-						\EndWhile
-					\EndWhile
-				\endIf
-			\EndWhile
-		\EndWhile
-		\State devolver Min(T)
-
-	\end{algorithmic}
-\end{algorithm}
 
 
 \subsection{Demostración de Correctitud}
 
-Para mostrar la correctitud de nuestro algoritmo queremos ver dos cosas:
-\begin{itemize}
-
-	\item Recorre todos los casos: \\
-Si planteamos nuestras posibilidades como una matríz, vemos que todo lo pertinente al triángulo superior entra en las podas del inicio del algoritmo. Entonces nos concentraremos en el triángulo inferior.
-Al ser nuestro algoritmo una función recursiva solo terminará al llegar al caso base. Podemos ver que nuestro caso base se alcanza al obtener las dos listas inciales($N_A$, $M_A$) vacias.
-Como vemos en el primer conjunto de for, creamos  tuplas (i,j) tal que generan todas las posibles formas de pasar el puente, si esa tupla puede realmente pasar por el puente, se crea una copia de las listas $N_A$, $M_A$, $N_B$, $M_B$ donde, dependiendo del i, se sacan esa cantidad de elementos la lista $N_A$ y se ponen en $N_B$ caso análogo con j y $M$'s.
-Al generar todas las instancias del cruce del puente, ahora tenemos que saber todas las formas de volver el puente. De una forma similar a la explicada antes los últimos dos whiles funcionan tal que generan todas las formas de volver del puente.
-
-	\item No hace ciclos: \\
-Nuestro algoritmo no admite ciclos puesto que tiene una condición booleana sobre la matriz, la cual no permite volver a una instancia anterior en las que este el mismo conjunto de canibales y arqueologos que en los casos anteriores. La misma consiste en que solo pueden regrsar los individuos si y solo si en la posición (i,j) (donde $i= N_A$+(los arqueolos que regresn) y $j=M_A$ + (los canibales que regresan) ) hay un cero. Cada vez que se llama a la función recursivamente la posición inicial en el punto A es marcada con un 1. De esta forma es imposible realizar ciclos.
-
-\end{itemize}
-
-
 
 
 \subsection{Demostración de Complejidad}
-	Si pensamos todas nuestras posibilidades como un árbol de estados, haciendo que la función "ida" y "vuelta" genera 3 hijos y 4 hijos respectivamente(la función "vuelta" genera 5 hijos, pero uno de ellos es siempre un estado por el que ya pasamos).
-	 Además, la altura nunca va a ser mayor que $n*m/2$, ya que tenemos una matriz para verificar que no pasemos dos veces por el mismo estado.
-	 En resumen, la cantidad máxima de resultados es altura del árbol por la "amplitud": Podemos ver que la complejidad es $12^{n*m/2}$
+
+
 \subsection{Experimentación}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Problema 2: Problemas en el camino}
+\section{Problema 2: }
 
 \subsection{Introducción}
 
-En el problema enunciado, Nuestros exploradores se encuentran con una balanza de dos platos; en el de la izquierda la llave que necesitan. Para que esta sea de utilidad, al tomarla deben mantener el equilibrio de la balanza, y para realizar esto cuentan con pesas de peso igual a las potencias de tres (una pesa por potencia).
-Sabiendo el peso de la llave, necesitamos saber qué pesas poner en cada plato para mantener el equilibrio original.
-Podemos pensar que el lado derecho de la balanza equivale a la operación de sustracción y el izquiero a la adición. De esta forma, al agregar pesas de un lado o del otro estaríamos sumando o restando su peso.
-Esto equivale a decir que, dado un entero P queremos componerlo en sumas y restas de potencias de tres distintas.
 
 \subsection{Explicación de la solución}
 
-Para resolver este problema, Reescribimos P en la base ternaria, y a esta secuencia la notaremos T. Entonces tenemos $P = \sum_{i=0}^{n} a_i3^i$  con $0 \leq a_i \leq 2$ y $n = log_{3}{(P)}$  entonces $T ={a_1,a_2,...,a_n}$.
-Luego, tomamos en orden creciente los elementos de T. Si $a_i$ es 0, no hacemos nada. Si $a_i$ es 1, en la balanza izquierda colocamos la pesa que corresponde a $3^i$. Si $a_i =2$, colocamos una pesa de $3^i$ en la balanza derecha y sumamos 1 a $a_{(i+1)}$ (y consecuentemente, se cambian los valores posteriores de T para que continúe en base ternaria)
 
 
 \subsubsection{Pseudocódigo}
 
-Nota: Para la implementación, en vez de crear el conjunto T, vamos tomando el resto de P y dividiéndolo por 3. Entonces, el valor de la variable "rem" sería el equivalente al $a_i$ (i responde al número de iteraciones ya hechas)
-
-\begin{algorithm}[H]{\textbf{Pesas}(Natural: P)}
-	\begin{algorithmic}[1]
-		\State pesa $\gets$ 1
-		\While{ P $>$ 0}
-		 	\State rem $\gets$ $r_3 (P)$
-	    		\State P $\gets $ parte entera(P/3)
-	    		\If{rem = 1}
-	    			\State pesa va para la balanza izquierda    			\Else
-				\If{ rem = 2}
-	    				\State p$\gets$ P+1
-	    				\State pesa va para la balanza derecha
-				\EndIf
-			\EndIf
-			\State pesa $\gets$ pesa*3
-		\EndWhile
-	\end{algorithmic}
-\end{algorithm}
-
-
 
 \subsubsection{Demostración de Correctitud}
-
-Primero probaremos un lema inductivamente:
-$\forall n \in N$ vale que  $2*3^{n} = 3^{n+1}-3^{n}$.
-
-Caso base:
-queremos ver que $2*3^{0} = 3^{1}-3^{0}$
-$2*3^0 = 2*1=2$ y $3^1-3^0= 3-1=2$ entonces $2*3^{0} = 3^{1}-3^{0}$
-\\
-\\
-Hipótesis Inductiva:
-$\forall n \in N$ vale que  $2*3^{n} = 3^{n+1}-3^{n}$
-\\
-\\
-Paso Inductivo:
-queremos ver que $\forall n \in N$ vale que  $2*3^{n+1} = 3^{n+2}-3^{n+1}$
-
-$2*3^{n+1} = 2*3^{n}*3 $
-\\
- por hipotesis inductiva: $2*3^{n}*3 = (3^{n+1}-3^{n})*3 = 3^{n+1}*3 - 3^{n}*3= 3^{n+2}-3^{n+1} $
-\\
-luego, como valen el caso base y el paso inductivo, entonces vale $2*3^{n} = 3^{n+1}-3^{n} \forall n \in N $
-
-\\
-Ahora para probar la correctitud del algoritmo, desarrollaremos algunos conceptos algebraicos.
-Por el algoritmo de división de Euclides sabemos que podemos escribir \\  $P= q*3+ r_{3}(P)$ con $0\leq r_{3}(P) \leq 2 $. Luego, podemos escribir $q= z*3 + r_{3}(q)$, entonces $P= (z*3 + r_{3}(q))*3 +r_{3}(P)$ y así recursivamente y aplicando la distributividad de la suma podemos descomponer p en las potencias de 3. Finalmente obtendríamos $p= \sum_{i=0}^{n}{a_i 3^{i}} $ con $0 \leq a_i \leq 2$.
-Ahora nuestro problema es la aparición de $a_i=2$ en la descomposición, puesto que sólo tenemos una pesa por potencia de tres. Pero por lo visto en el lema anterior, $2*3^{i}= 3^{i+1}-3^{i}$. Esto equivale a colocar la pesa $3^{i+1}$ en la balaza izquierda y la $3^{i}$ en la derecha, obteniendo el equivalente a 2 pesas $3^{1}$ en la izquierda. aplicando este proceso recursivamente, obtenemos  una descomposición de P sumando y restando sus potencias de tres sin repeticiones.
 
 
 \subsubsection{Demostración de Complejidad}
 
-El algoritmo consta de un ciclo, dentro de cada iteración, se calcula el resto y hace dos comparaciones; todas estas operaciones se ejecutan en O(1), mientras que colocar la pesa en cada balanza
-es agregar un número al final de una lista. Como el modelo de lista que usamos es "List", esto se realiza en O(1).
-Entonces, dentro de cada iteración solo se hacen operaciones en O(1). Esto hace que la complejidad sea la cantidad de iteraciones que hace el ciclo.
-
-Si nos abstraemos del if, el ciclo tiene como condición que P$>$0, siendo P el valor de entrada. Como podemos observar, P es modificado dividiéndose por 3 cada iteración. Por álgebra básica sabemos que se necesesitarán como mucho $log_3(P) + 1$ iteraciones para que P sea menor a 0.
-Ahora, tomando en cuenta el if hay un caso en el cual le sumamos 1 a P, lo cual afecta un poco la cuenta; volvemos a la explicación del algoritmo y tomamos el conjunto $T = {a_1,...,a_n}$ 
-donde  $P = \sum_{i=0}^{n} a_i3^i$ con $0 \leq a_i \leq 2$ y $n = log_{3}{P}$, siendo el valor de rem el valor de $a_i$ en la iésima iteración.
-Cuando hacemos que $P<-P+1$ nos queda que en la próxima iteración rem valdría uno más, es decir $a_{i+1}$ pasaría a valer uno más de lo que valdría en T. Ahora,  siendo estos que para todo $a_k$
-valen entre 0 y 2, si $a_{i+1}$ en vez de valer 3, valdría 0 y $a_{i+2}$ valdría uno más también, y si  $a_{i+2}$ valía 2, pasaría a valer 0 y  $a_{i+3}$ valdría uno más, y así sucesivamente hasta llegar a $a_n$.
-Y si resulta que también $a_n$ valía 2, entonces tendríamos un $a_{n+1}$ que pasaría a valer 1 y $a_n$ valdría 0.
-Luego no hay mas casos donde $a_j$ (para $i<j<=n$) sea 2, entonces no hay más casos donde puedan volver a ocurrir este tipo de cosas, quedándonos asi, un máximo de $Log_3(P)+1$ iteraciones.
-
-Entonces, la complejidad del algoritmo es de $\mathcal{O}(Log_{3}(P))$.
-Luego, se puede probar que Log(P) es $\mathcal{O}(\sqrt(P))$
-
 
 \subsection{Experimentación}
- Al momento de la experimentación inicialmente teníamos la idea de que, al no tener mejores ni peores casos a nivel de complejidad teórica, no importaba mucho que valores de P que se ingresaban, e iba a ser siempre creciente.
+
 
 \subsubsection{Análisis complejidad te\'orica}
- Para el análisis de la complejidad te\'orica decidimos simplemente medir los tiempos del algoritmo aumentando el valor de entrada desde 1 hasta la cota puesta por el enunciado.
-  Después de observar los resultados, encontramos una función O(Log(n)) que se asemeje aproximadamente a los resultados de las mediciones del algoritmo para poder compararlo.
-  Terminamos usando la funcion $500*log_3(x)$.
-  Notamos que no quedaba muy claro cómo es que las mediciones se asemejaban a $log_3(x)$. Entonces decidimos cambiar la escala:
-  En vez de presentar un gráfico que muestre los ejes (X,Y) = (peso de la llave, mediciones) lo vamos a mostrar como (X,Y) = (Log(peso de la llave),Log(mediciones))
-
-	\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.8\textwidth]{punto2-mediciones}
-	\caption{Mediciones de la implementaci\'on comparado con $500*log_{3}{n}$ en escala logaritmica en X e Y}
-	\end{figure}
-
 
 
 \subsubsection{Análisis}
-Luego realizado el gráfico notamos que, a pesar de de que las mediciones simulaban cumplir las condiciones de la complejidad, esperábamos un comportamiento más cercano a que vaya aumentando en rectas horizontales, ya que se hacía la misma cantidad de iteraciones para cada valor del logaritmo en base 3. Pero en vez de eso éstas tenían un tipo de patrón ligeramente distinto.
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.8\textwidth]{punto2-zoom}
-\caption{Mediciones de la implementaci\'on comparado con $500*log_{3}{n}$ zoom en escala logaritmica en X e Y }
-\end{figure}
-Si bien se organizaban como líneas rectas (a pesar de la escala), no se acomodaba su $"orden"$ respecto al logaritmo en base 3.
-Concluímos que esto se debe a la operación "meter la pesa en una balanza", que en la implentación del problema se traduce a introducir un entero al final de una lista, lo cual termina costando $O(1)$
-
-Para ver si esto era cierto, hicimos nuevas mediciones, tomando para los pesos  solo 3 casos: \\
--Potencias de 3: Que en la representacion ternaria, contaría solo con un 1 y puros ceros \\
--Potencias de 3 menos 1:Que en la representacion ternaria, contaría con todos 2\\
--Suma de potencias de 3:Que en la representacion ternaria, contaría con todos 1\\
-
-y como resultado del experimento nos quedó este gráfico
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.4\textwidth]{punto2-comparaciones}
-\caption{Comparaciones de la implementaci\'on comparando los casos en escala logarítmica en X e Y }
-\end{figure}
-
-En la imagen se puede notar que el caso de suma de potencias de 3 toma mucho más que los otros dos casos. Concluímos que esto se debe incialmente a que, en el caso de sólo potencias de 3, se hace un sólo acceso a la listar, mientras que el caso de potencias de 3 menos 1
-tal como sería el resultado al problema, se pone una pesa de la potencia de 3 del lado de la llave y una pesa de tamaño 1 en el otro, teniendo así sólo 2 accesos a la lista, cosa que en la implementación esto se representa sumándole 1 luego de cada división por 3 al peso de la llave en cada iteración.
-
-Como conclusión final a tomar en cuenta, consideramos que los mejores casos son los de potencias de 3 y los peores son los de sumas de potencias de 3.
 
 
 
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\section{Problema 3: Guardando el tesoro}
+\section{Problema 3: Escapando}
 
 \subsection{Introducción}
 
-En este problema, los exploradores se encuentran frente a muchos tesoros que desearían poder llevarse. Para esto, cuentan con varias mochilas, cada una con una determinada capacidad de peso que puede cargar.
-Los tesoros son de distintos tipos, y cada tipo tiene un peso y un valor determinado.
-El objetivo es encontrar la manera óptima de llenar las mochilas para poder llevar el mayor valor posibe.
+En este problema, los exploradores se encuentran en un dilema, luego de romper varias paredes la fortaleza se esta derrumbando. Por suerte ellos se encuentran en una habitación que tiene varios carritos y un mapa que les indica que estaciones estan conectadas y cuanto tardan en llegar de estación a estación. Lo que quieren es la forma más rápida de llegar desde el lugar en donde estan hasta la salida, que seria la ultima estación.
 
-Formalmente, tenemos un conjunto de elementos que tienen como propiedad dos naturales asociados (el peso y el valor). Entonces podemos inferir que existen dos criterios de ordenamiento asociados respectivamente a estos valores.
-Al mismo tiempo tenemos otro conjunto de elementos que posee como propiedad un natural asociado (capacidad).
-Nuestro objetivo es seleccionar una combinación de los primeros objetos, restringida por las capacidades dadas, de modo de maximizar la sumatoria del valor de los mismos.
+Formalmente, tenemos un digrafo rotulado, con peso en los ejes, y cada nodo esta identificado por un número desde el uno hasta la cantidad de nodos. Nuestro objetivo es encontrar el camino mínimo, dando el tiempo y su conjunto de ejes.
 
 
 \subsection{Explicación de la solución}
