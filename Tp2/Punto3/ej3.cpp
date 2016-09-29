@@ -54,7 +54,8 @@ int caminoMinimo(vector<vector<tuple<int,int> > >& matAdy, vector<int>& estacion
 		int nodomin;
 		nodomin = buscarMin(nodos, matAdy[1]);//O(nodos.size())  **1**
 		//que la estacion 1 no este conectada a ninguna, de las que todavia no calculo el minimo
-		if(nodomin == -1) break;
+		//si es n entonces ya no tengo por que actualizar otros nodos, ya que n estaria en la zona segura.
+		if(nodomin == -1 || nodomin = n) break;
 		vertrec.push_back(nodomin);
 		sacar(nodos, nodomin);//O(nodos.size())**2**
 		for(unsigned int i = 0; i<nodos.size();i++){//O(nodos.size())**3**

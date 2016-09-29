@@ -107,110 +107,22 @@ Formalmente, tenemos un digrafo rotulado, con peso en los ejes, y cada nodo esta
 
 \subsection{Explicación de la solución}
 
-   Inicialmente creímos que este problema podría resolverse mediante un algoritmo de BackTracking, sin embargo observamos que nunca lograríamos conseguir la complejidad pedida, puesto que este tipo de algoritmos conlleva una complejidad exponencial superior.
-   Finalmente, pudimos resolverlo mediante programación dinámica. Nuestro algoritmo principal llama a dos funciones que utilizan la recursividad para poder obtener en un caso el valor óptimo, y en el otro "las mochilas llenas."
-   Para facilitar el entendimiento del algoritmo introduciremos el concepto de "Hipercubo". Un hipercubo es el análogo n-dimensional de un cuadrado (n=2) o un cubo (n=3). En particular en nuestro problema tenemos un hipercubo de dimension cuatro, esta figura se denomina "teseracto", sin embargo por comodidad seguiremos llamándole hipercubo en el resto del informe.
-Para poder imaginar este concepto, podríamos visualizarlo en nuestro mundo tridimencional como un vector con cubos adentro. la cantidad de cubos dependera del largo de nustra cuarta "arista".
-\\
-%%%%%%%%% MODIFICACION%%%%
-(Por ahí nos combiene sacar lo del hipercubo, o decir que esto nos va a ayudar en la demostracion de ccomplejidad, me costo mucho explicar que representaba el hipercubo y lo pase a la versión para bobos)FIJARSE!!!!
-\\
-	El algoritmo se encarga de llenar un arreglo de cuatro dimensiones, donde el tamaño del arreglo principal es la cantidad de objetos y los tamaños de los otros tres arreglos anidados son las capacidades de las tres mochilas.
-	Lo que representa cada posición, (x,y,z,w), de este arreglo es el valor óptimo que pueden lograr los primeros x objetos con una combinación de mochilas de peso y, z, w. En el caso que el problema a resolver responda a dos mochilas, una de las variables y, z, w seran 0 para cualquier posción y un caso similar si solo hay que llenar una mochila.
-%%%%%%%TERMINA MODIFICACION%%%%
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.4\textwidth]{hipercubo}
-\caption{Imagen explicativa del concepto de hipercubo}
-\end{figure}
-
-
-Observación: nuestro algoritmo descarta los tesoros que tienen un peso mayor al máximo de capacidad entre las mochilas. Asumimos en el pseusocódigo que nuestra entrada cumple esa propiedad.
-
+   En esta sección explicaremos por que el problema dado se puede adapatar al algoritmo de camino mínimo de Dijkstra.
+ Las precondiciones que el algoritmo de Dijkstra pide es que no tenga ejes negativos. Como el peso de los ejes esta definido como el tiempo que se tarda de llegar del nodo de origen al nodo de llegada podemos asegurarnos que nunca vamos a tener una entrada, que nos importe, tal que exista un eje con peso negativo. 
 
 \subsubsection{Pseudocódigo}
 
-\begin{algorithm}[H]{\textbf{guardandoTesoro}(mochilas: vector$<$mochila$>$, cofre: vector$<$tesoro$>$)}
+\begin{algorithm}[H]{\textbf{CaminoMinimo}(mochilas: vector$<$mochila$>$, cofre: vector$<$tesoro$>$)}
 	\begin{algorithmic}[1]
-		%\State objXpesos $\gets$ Hipercubo() incializado en -1 \Comment (en las posiciones donde no puede haber objetos incializo en 0) %$\mathcal{O}$()
-		\State objXpesos $\gets$ Hipercubo donde con todos los valores son -1 excepto en las posiciones donde no puede haber objetos que valen  0 %$\mathcal{O}$()
-		\State sol$\gets$ ValorOptimo(objXpesos,cofre,cofre.size-1,capacidades de las mochilas)
-		\State LlenarMochilas(objXpesos, cofre, mochila1, mochila2, mochila3)
-		\State return (sol, mochilas)
+		
+		\State sol$\gets$ ValorOptim
 	\end{algorithmic}
 \end{algorithm}
 
-
-
-\begin{algorithm}[H]{\textbf{LlenarMochilas}(objetoXpeso: hipercubo, cofre:vector$<$tesoro$>$, m1,m2,m3:mochilas)}
+\begin{algorithm}[H]{\textbf{CaminoMinimo}(mochilas: vector$<$mochila$>$, cofre: vector$<$tesoro$>$)}
 	\begin{algorithmic}[1]
-		\State desde i= cofre.size-1 hasta i=0
-			\State obj $\gets$ cofre[i]
-			\State cap1 $\gets$ m1.Capacidad
-			\State cap2 $\gets$ m2.Capacidad
-			\State cap3 $\gets$ m3.Capacidad
-			\If{$i=0$}
-				\State Agregar obj en cualquier mochila en la que entre.
-			\Else
-				\State valM1 $\gets$ obj.valor + ValorOptimo(objetoXPeso, cofre, i,cap1-obj.peso,cap2,cap3 )
-				\State valM2 $\gets$ obj.valor + ValorOptimo(objetoXPeso, cofre,i,cap1,cap2-obj.peso,cap3 )
-				\State valM3 $\gets$ obj.valor + ValorOptimo(objetoXPeso, cofre,i, cap1, cap2,cap3-obj.peso )
-				\State MeterEnCorrecta(valM1,valM2,valM3,m1,m2,m3,obj)
-			\EndIf
-
-	\end{algorithmic}
-\end{algorithm}
-
-
-
-%%%
-
-\begin{algorithm}[H]{\textbf{ValorOptimo(objXpeso:hipercubo, cofre:vector$<$tesoro$>$, objeto:int, peso1: int, peso2:int, peso3:int)}}
-	\begin{algorithmic}[1]
-		\State  pesoObj $\gets$ cofre[objeto].peso 
-		\State  pesoVal $\gets$ cofre[objeto].valor 
-
-		\If{$peso1 < 0 \vee peso2 < 0 \vee peso3 < 0$}
-			\State return $-1$ 
-
-		\EndIf
-
-		\If{objetoxPesos[objeto][peso1][peso2][peso3] $\neq$ -1}
-			\State return objetoxPesos[objeto][peso1][peso2][peso3] 
-		\EndIf
-		\If{objeto $=$ 0}
-			\State val $\gets$ 0 
-
-			\If{peso1 $\ge$ pesoObj $\vee$ peso2 $\ge$ pesoObj $\vee$ peso3 $\ge$ pesoObj}
-				\State val $\gets$ valorObj 
-
-				\State objetoxPesos[objeto][peso1][peso2][peso3] $\gets$ val 
-				\State return val 
-
-			\EndIf
-
-		\Else
-			\State PosiblesSolus $\gets$ vector$<$int$>$ 
-			\State sinObj $\gets$ ValorOptimo(objetoxPesos, cofre, objeto -1, peso1, peso2, peso3)
-			\State PosiblesSolus.Agregar(sinObj)
-			\If{peso1-pesoObj $\ge$ 0}
-				\State objen1 $=$ valorObj + ValorOptimo(objetoxPesos, cofre, objeto - 1, peso1 - pesoObj, peso2, peso3)
-				\State PosiblesSolus.Agrergar(objen1)
-			\EndIf
-			\If{peso2 - pesoObj $\ge$ 0}
-				\State objen2 = valorObj + ValorOptimo(objetoxPesos, cofre, objeto - 1, peso1, peso2  - pesoObj, peso3)
-				\State PosiblesSolus.Agregar(objen2)
-			\EndIf
-			\If{peso3-pesoObj $\ge$ 0}
-				\State objen3 = valorObj + ValorOptimo(objetoxPesos, cofre, objeto - 1, peso1, peso2, peso3  - pesoObj)
-				\State PosiblesSolus.Agregar(objen3)
-			\EndIf
-			\State valor$\gets$Max(PsiblesSolus)
-			\State objetoxPesos[objeto][peso1][peso2][peso3] $\gets$ valor
-			\State return valor
-		\EndIf
-
-
+		
+		\State sol$\gets$ ValorOptim
 	\end{algorithmic}
 \end{algorithm}
 
