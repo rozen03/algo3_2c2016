@@ -1,4 +1,5 @@
 #include "ej3.cpp" //ver q onda
+#include "digrafos.cpp"
 #include<iostream>
 #include<fstream>
 #include<stdio.h>
@@ -112,7 +113,7 @@ void testConexoVariosCaminos(int rep){
     vector<vector<tuple<int,int> > > matriz;
   	vector<int> estaciones;
   	lecturaDatos(ts, matriz);
-		for(int i = 0; i <= rep; i++){
+		for(int l = 0; l <= rep; l++){
 			int solpar;
 			auto start = ya();
 			valor = caminoMinimo(matriz,estaciones);
@@ -125,8 +126,54 @@ void testConexoVariosCaminos(int rep){
 	res.close();
 }
 
+int test200ejes(int rep){
+	int kn = (199*198)/2;
+	ofstream res("Conexo200ejes.txt");
+	for(int i = 22; i< 199; i += 6){
+		vector<vector<tuple<int,int> > > matriz;
+		vector<int> estaciones;
+		matriz = CrearConexo(i, 200);
+		long sol = 0;
+		int valor = -3;
+		for(int j = 0; j<=rep; j++){
+			long solpar = 0;
+			auto start = ya();
+			valor = caminoMinimo(matriz, estaciones);
+			auto end= ya();
+			solpar = chrono::duration_cast<chrono::nanoseconds>(end-start).count()/rep;
+			sol += solpar;
+		}
+		res<<sol<<" & "<< valor<<" 200 ejes y "<<i<<" nodos \n";
+	}
+	res.close();
+}
+
+int testCompConexas(int rep){
+	//ver como modifica la velocidad que tan cerca de la estacion origen se rompe el grafo
+	ofstream res("CompConexa.txt");
+	for(int i = 1; i<100; i += 4){
+		vector<vector<tuple<int, int> > > matriz;
+		vector<int> estaciones;
+		matriz = compConexa( 100, i);
+		long sol= 0;
+		int valor = -3;
+		for(int j= 0; j<=rep; j++){
+			long solpar = 0;
+			auto start = ya();
+			valor = caminoMinimo(matriz, estaciones);
+			auto end= ya();
+			solpar = chrono::duration_cast<chrono::nanoseconds>(end-start).count()/rep;
+			sol += solpar;
+		}
+		res<<sol<<" & "<<valor<<" compConexa tenia hasta el "<<i<<"_esimo nodo"<<" \n";
+	}
+	res.close();
+}
+
 int main(){
  //testConexo1camino(1);
  //testNoConexo(1);
-	testConexoVariosCaminos(1);
+ //testConexoVariosCaminos(1);
+   testCompConexas(1);
+   test200ejes(1);
 }

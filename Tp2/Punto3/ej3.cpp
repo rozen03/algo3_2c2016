@@ -1,6 +1,5 @@
 #include <iostream>
 #include <fstream>
-#include <chrono>
 #include <vector>
 #include <tuple>
 #include <algorithm>//reverse
@@ -46,38 +45,35 @@ void sacar(vector<int>& ls, int valor){//O(ls.size())
 
 int caminoMinimo(vector<vector<tuple<int,int> > >& matAdy, vector<int>& estaciones){
 	unsigned int n = matAdy.size() -  1;
-	vector<int> vertrec;
-	vertrec.push_back(1);
+	vector<int> nodosSeguros;
+	nodosSeguros.push_back(1);
 	vector<int> nodos;
 	for(unsigned int i = 2;i<= n;i++) nodos.push_back(i);//O(n)
-	while(vertrec.size() != n){//while se hace n veces
+	while(nodosSeguros.size() != n){//while se hace n veces
 		int nodomin;
 		nodomin = buscarMin(nodos, matAdy[1]);//O(nodos.size())  **1**
 		//que la estacion 1 no este conectada a ninguna, de las que todavia no calculo el minimo
 		//si es n entonces ya no tengo por que actualizar otros nodos, ya que n estaria en la zona segura.
-		if(nodomin == -1 || nodomin = n) break;
-		vertrec.push_back(nodomin);
+		if(nodomin == -1 || nodomin == n) break;
+		nodosSeguros.push_back(nodomin);
 		sacar(nodos, nodomin);//O(nodos.size())**2**
 		for(unsigned int i = 0; i<nodos.size();i++){//O(nodos.size())**3**
 			int pos = nodos[i];
-			int longppali = get<0>(matAdy[1][pos]);
-			int longppalmin = get<0>(matAdy[1][nodomin]);
+			int longi = get<0>(matAdy[1][pos]);
+			int longmin = get<0>(matAdy[1][nodomin]);
 			int longimin = get<0>(matAdy[nodomin][pos]);
 			if(longimin != -1){
-				tuple<int, int> aux(longppalmin+longimin, nodomin);
-				if(longppali > longppalmin + longimin || longppali == -1) matAdy[1][pos] = aux;
+				tuple<int, int> aux(longmin+longimin, nodomin);
+				if(longi > longmin + longimin || longi == -1) matAdy[1][pos] = aux;
 			}
 		}
 	}
 	
 	int tiempo = get<0>(matAdy[1][n]);
-	int pred = get<1>(matAdy[1][n]);
-	unsigned int i = 0;
-	estaciones.push_back(n);
+	int pred = n;
 	while(pred != 1 && pred != 0){//O(n) como mucho tiene que ir a n estaciones
 		estaciones.push_back(pred);
 		pred = get<1>(matAdy[1][pred]);
-		i++;
 	}
 	estaciones.push_back(pred);
 	std::reverse(estaciones.begin(), estaciones.end());

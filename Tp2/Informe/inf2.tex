@@ -112,11 +112,34 @@ Formalmente, tenemos un digrafo rotulado, con peso en los ejes, y cada nodo esta
 
 \subsubsection{Pseudocódigo}
 
-\begin{algorithm}[H]{\textbf{CaminoMinimo}(mochilas: vector$<$mochila$>$, cofre: vector$<$tesoro$>$)}
+\begin{algorithm}[H]{\textbf{CaminoMinimo}(MatrizAdy: Matriz(int, int) , estaciones: vector$<$Nat$>$)}
 	\begin{algorithmic}[1]
 		
-		\State sol$\gets$ ValorOptim
-	\end{algorithmic}
+		\State n $\gets$ tamaño(MatrizAdy)
+		\State NodosSeguros $\gets$ 1
+		\State nodos $\comment$ conjunto $\{$2, ..., n$\}$
+		\State mientras NodosSeguros $\neq$ G
+		\State \quad nodomin $\gets$ buscarMin(nodos, MatAdy[1])
+		\State \quad nodos - $\{$nodomin$\}$
+		\State \quad NodosSeguros $\cup$ $\{$nodomin$\}$
+		\State \quad \forall \ e \ $\in$ nodos $\land$ [nodomin, e] $\in$ X
+		\State \qquad longi $\gets$ $\pi_{1}$(matAdy[1][e])
+		\State \qquad longmin $\gets$ $\pi_{1}$(matAdy[1][nodomin])
+		\State \qquad longimin $\gets$ $\pi_{1}$(matAdy[nodomin][pos])
+\\
+		\qquad \textbf{if} longi $\geq$ longmin +longimin
+			\State \qquad \quad matAdy[1][e] $\gets$ (longpmin + longimin, nodomin)
+\\		 
+ \qquad \textbf{endif}
+
+		\State tiempo $\gets$ $\pi_{1}$(MatAdy[1][n])
+		\State pred $\gets$ n
+		\State mientras pred $\neq$ 1 \ $\land$ \ pred $\neq$ 0 (cuando no existe camino)
+		\State \quad estaciones $\cup$ $\{$pred$\}$
+		\State \quad pred $\gets$ $\pi_{2}$(matAdy[1][pred])
+
+		\State res $\gets$ tiempo
+ 	\end{algorithmic}
 \end{algorithm}
 
 \begin{algorithm}[H]{\textbf{CaminoMinimo}(mochilas: vector$<$mochila$>$, cofre: vector$<$tesoro$>$)}
