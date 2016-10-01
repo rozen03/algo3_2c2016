@@ -26,24 +26,33 @@ void testConexo1camino(int rep){
 		}
 		test10obj.close();
 		res<< j <<' ';
-		int sol= 0;
-    int valor = -3;
-    vector<vector<tuple<int,int> > > matriz;
-  	vector<int> estaciones;
-  	lecturaDatos(ts, matriz);
-		for(int i = 0; i <= rep; i++){
-			int solpar;
+		vector<vector<tuple<int,int> > > matriz;
+		vector<int> estaciones;
+		lecturaDatos(ts, matriz);
+		vector<vector<tuple<int, int> > > matrizopt(matriz);
+		long sol= 0;
+		int valor = -3;
+		long solopt = 0;
+		int valoropt = -3;
+		for(int j= 0; j<=rep; j++){
+			long solpar = 0;
+			long solparop = 0;
 			auto start = ya();
-			valor = caminoMinimo(matriz,estaciones);
-			auto end = ya();
-			solpar = chrono::duration_cast<std::chrono::nanoseconds>(end-start).count() / rep;
-			sol = sol +solpar;
+			valor = caminoMinimo(matriz, estaciones);
+			auto end= ya();
+			auto startop = ya();
+			valoropt = caminoMinimo(matrizopt, estaciones);
+			auto endop = ya();
+			solparop = chrono::duration_cast<chrono::nanoseconds>(endop-startop).count()/rep;
+			solpar = chrono::duration_cast<chrono::nanoseconds>(end-start).count()/rep;
+			solopt += solparop;
+			sol += solpar;
 		}
-		res<<sol<<" & "<< valor <<" \n";
+		res<<"Sin optimizar| "<<sol<<" & "<< valor<<" |oprimizado| "<<solopt<<" & "<<valoropt <<" \n";
 	}
 	res.close();
 }
-
+/*
 void testNoConexo(int rep){
 	ofstream res("NoConexo.txt");
 	for(int j = 10; j<251; j+= 10){
@@ -109,22 +118,34 @@ void testConexoVariosCaminos(int rep){
 		test10obj.close();
 		res<< j <<' ';
 		int sol= 0;
-    int valor = -3;
-    vector<vector<tuple<int,int> > > matriz;
-  	vector<int> estaciones;
-  	lecturaDatos(ts, matriz);
-		for(int l = 0; l <= rep; l++){
-			int solpar;
+		int valor = -3;
+		vector<vector<tuple<int,int> > > matriz;
+		lecturaDatos(ts, matriz);
+		vector<vector<tuple<int, int> > > matrizopt;
+		lecturaDatos(ts, matrizopt);
+		long sol= 0;
+		int valor = -3;
+		long solopt = 0;
+		int valoropt = -3;
+		for(int j= 0; j<=rep; j++){
+			long solpar = 0;
+			long solparop = 0;
 			auto start = ya();
-			valor = caminoMinimo(matriz,estaciones);
-			auto end = ya();
-			solpar = chrono::duration_cast<std::chrono::nanoseconds>(end-start).count() / rep;
-			sol = sol +solpar;
+			valor = caminoMinimo(matriz, estaciones);
+			auto end= ya();
+			auto startop = ya();
+			valoropt = caminoMinimo(mmatrizopt, estaciones);
+			auto endop = ya();
+			solparop = chrono::duration_cast<chrono::nanoseconds>(endop-startop).count()/rep;
+			solpar = chrono::duration_cast<chrono::nanoseconds>(end-start).count()/rep;
+			solop += solparop;
+			sol += solpar;
 		}
 		res<<sol<<" & "<< valor <<" \n";
 	}
 	res.close();
 }
+*/
 
 int test200ejes(int rep){
 	int kn = (199*198)/2;
@@ -133,17 +154,26 @@ int test200ejes(int rep){
 		vector<vector<tuple<int,int> > > matriz;
 		vector<int> estaciones;
 		matriz = CrearConexo(i, 200);
-		long sol = 0;
+		vector<vector<tuple<int, int> > > matrizopt(matriz);
+		long sol= 0;
 		int valor = -3;
-		for(int j = 0; j<=rep; j++){
+		long solopt = 0;
+		int valoropt = -3;
+		for(int j= 0; j<=rep; j++){
 			long solpar = 0;
+			long solparop = 0;
 			auto start = ya();
 			valor = caminoMinimo(matriz, estaciones);
 			auto end= ya();
+			auto startop = ya();
+			valoropt = caminoMinimo(matrizopt, estaciones);
+			auto endop = ya();
+			solparop = chrono::duration_cast<chrono::nanoseconds>(endop-startop).count()/rep;
 			solpar = chrono::duration_cast<chrono::nanoseconds>(end-start).count()/rep;
+			solopt += solparop;
 			sol += solpar;
 		}
-		res<<sol<<" & "<< valor<<" 200 ejes y "<<i<<" nodos \n";
+		res<<" 200 ejes y "<<i<<" nodos, sin optimizar| "<<sol<<" & "<< valor<<" |optimizado| "<<solopt<<" & "<<valoropt<<" \n";
 	}
 	res.close();
 }
@@ -155,25 +185,65 @@ int testCompConexas(int rep){
 		vector<vector<tuple<int, int> > > matriz;
 		vector<int> estaciones;
 		matriz = compConexa( 100, i);
+		vector<vector<tuple<int, int> > > matrizopt(matriz);
 		long sol= 0;
 		int valor = -3;
+		long solopt = 0;
+		int valoropt = -3;
 		for(int j= 0; j<=rep; j++){
 			long solpar = 0;
+			long solparop = 0;
 			auto start = ya();
 			valor = caminoMinimo(matriz, estaciones);
 			auto end= ya();
+			auto startop = ya();
+			valoropt = caminoMinimo(matrizopt, estaciones);
+			auto endop = ya();
+			solparop = chrono::duration_cast<chrono::nanoseconds>(endop-startop).count()/rep;
 			solpar = chrono::duration_cast<chrono::nanoseconds>(end-start).count()/rep;
+			solopt += solparop;
 			sol += solpar;
 		}
-		res<<sol<<" & "<<valor<<" compConexa tenia hasta el "<<i<<"_esimo nodo"<<" \n";
+		res<<"CompConexa tenia hasta el "<<i<<"_esimo nodo, sin optimizar| "<<sol<<" & "<<valor<<" |optimizado| "<<solopt<<" & "<<valoropt<<" \n";
+	}
+	res.close();
+}
+
+void testKn(int rep){
+	ofstream res("Kn.txt");
+	for(int i = 10; i<251; i += 10){
+		vector<vector<tuple<int, int> > > matriz;
+		vector<int> estaciones;
+		matriz = CrearConexo(i, (i*i)-i);
+		vector<vector<tuple<int, int> > > matrizopt(matriz);
+		long sol= 0;
+		int valor = -3;
+		long solopt = 0;
+		int valoropt = -3;
+		for(int j= 0; j<=rep; j++){
+			long solpar = 0;
+			long solparop = 0;
+			auto start = ya();
+			valor = caminoMinimo(matriz, estaciones);
+			auto end= ya();
+			auto startop = ya();
+			valoropt = caminoMinimo(matrizopt, estaciones);
+			auto endop = ya();
+			solparop = chrono::duration_cast<chrono::nanoseconds>(endop-startop).count()/rep;
+			solpar = chrono::duration_cast<chrono::nanoseconds>(end-start).count()/rep;
+			solopt += solparop;
+			sol += solpar;
+		}
+		res<<"El Kn tiene  "<<i<<" nodos sin optimizar| " <<sol<<" & "<<valor<<" |optimizado| "<<solopt<<" & "<<valoropt <<" \n";
 	}
 	res.close();
 }
 
 int main(){
- //testConexo1camino(1);
+ testConexo1camino(1);
  //testNoConexo(1);
  //testConexoVariosCaminos(1);
-   testCompConexas(1);
-   test200ejes(1);
+ testCompConexas(1);
+ test200ejes(1);
+   testKn(1);
 }
