@@ -173,7 +173,7 @@ int test200ejes(int rep){
 			solopt += solparop;
 			sol += solpar;
 		}
-		res<<" 200 ejes y "<<i<<" nodos, sin optimizar| "<<sol<<" & "<< valor<<" |optimizado| "<<solopt<<" & "<<valoropt<<" \n";
+		res<<i<<" & "<<sol<<" & "<< valor<<"sin optimizar, optimizado "<<valoropt<<" & "<<solopt<<" \n";
 	}
 	res.close();
 }
@@ -204,7 +204,7 @@ int testCompConexas(int rep){
 			solopt += solparop;
 			sol += solpar;
 		}
-		res<<"CompConexa tenia hasta el "<<i<<"_esimo nodo, sin optimizar| "<<sol<<" & "<<valor<<" |optimizado| "<<solopt<<" & "<<valoropt<<" \n";
+		res<<i<<" & "<<sol<<" & "<<valor<<" sin opt, optimizado "<<valoropt<<" & "<<solopt<<" \n";
 	}
 	res.close();
 }
@@ -235,16 +235,17 @@ void testKn(int rep){
 			solopt += solparop;
 			sol += solpar;
 		}
-		res<<"El Kn tiene  "<<i<<" nodos sin optimizar| " <<sol<<" & "<<valor<<" |optimizado| "<<solopt<<" & "<<valoropt <<" \n";
+		cout<<i<<" & " <<sol<<" & "<<valor<<" no optimizado, optimizado "<<valoropt<<" & "<<solopt <<" \n";
+		res<<i<<" & " <<sol<<" & "<<valor<<" no optimizado, optimizado "<<valoropt<<" & "<<solopt <<" \n";
 	}
 	res.close();
 }
 
 int main(){
- testConexo1camino(1);
+ //testConexo1camino(1);
  //testNoConexo(1);
  //testConexoVariosCaminos(1);
- testCompConexas(1);
- test200ejes(1);
+ //testCompConexas(1);
+ //test200ejes(1);
    testKn(1);
 }
