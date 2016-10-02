@@ -112,15 +112,15 @@ Formalmente, tenemos un digrafo rotulado, con peso en los ejes, y cada nodo esta
 
 \subsubsection{Pseudocódigo}
 
-\begin{algorithm}[H]{\textbf{CaminoMinimo}(MatrizAdy: Matriz(int, int) , estaciones: vector$<$Nat$>$)}
+\begin{algorithm}[H]{\textbf{CaminoMinimo}(MatrizAdy: Matriz(Nat, Nat) , estaciones: vector$<$Nat$>$)}
 	\begin{algorithmic}[1]
 		
 		\State n $\gets$ tamaño(MatrizAdy)
 		\State NodosSeguros $\gets$ 1
-		\State nodos $\comment$ conjunto $\{$2, ..., n$\}$
+		\State nodosNoSeguros $\comment$ conjunto $\{$2, ..., n$\}$
 		\State mientras NodosSeguros $\neq$ G
 		\State \quad nodomin $\gets$ buscarMin(nodos, MatAdy[1])
-		\State \quad nodos - $\{$nodomin$\}$
+		\State \quad nodosNoSeguros - $\{$nodomin$\}$
 		\State \quad NodosSeguros $\cup$ $\{$nodomin$\}$
 		\State \quad \forall \ e \ $\in$ nodos $\land$ [nodomin, e] $\in$ X
 		\State \qquad longi $\gets$ $\pi_{1}$(matAdy[1][e])
@@ -152,64 +152,28 @@ Formalmente, tenemos un digrafo rotulado, con peso en los ejes, y cada nodo esta
 \newpage
 
 \subsubsection{Demostración de Correctitud}
-Presentaremos la función matemática que modela nuestro problema:\\
-
-$f(o,p_{1},p_{2},p_{3})=0 \\
-f(n,p_{1},p_{2},p_{3}) = Max(V_{n}+Max(f(n-1,p_{1}-p_{n},p_{2},p_{3}), f(n-1,p_{1},p_{2}-p_{n},p_{3}), f(n-1,p_{1},p_{2},p_{3}-p_{n})),f(n-1,p_{1},p_{2},p_{3})) $
-\\
-Donde n representa el número de tesoro, $V_{n}$ y $P_{n}$ su valor y su peso respectivamente. $p_{1},p_{2}\ y \ p_{3}$ son las capacidades de cada mochila.
-
-Para la demostración utilizaremos inducción global en n.
-\\
-\\
-Caso base: queremos ver que $f(0,p_{1},p_{2},p_{3})$ resulta ser el valor máximo que se puede obtener con 0 objetos:
-$f(0,p_{1},p_{2},p_{3}) = 0$ al tener 0 objetos el valor de los mismos es 0 de modo que es el máximo valor posible.
-\\
-\\
-Hipótesis Inductiva: $\forall k<n$ vale que $f(k,p_{1},p_{2},p_{3})$ da el valor máximo que se puede obtener con k objetos.
-\\
-\\
-Ahora queremos ver que $f(n,p_{1},p_{2},p_{3})$ da el valor óptimo para n objetos.
-\\
-\\
-$f(n,p_{1},p_{2},p_{3}) = Max(V_{n}+Max(f(n-1,p_{1}-p_{n},p_{2},p_{3}), f(n-1,p_{1},p_{2}-p_{n},p_{3}), f(n-1,p_{1},p_{2},p_{3}-p_{n})),f(n-1,p_{1},p_{2},p_{3})) $ \\
-por hipótesis inductiva (como $n-1 \leq k$ para algun k) sabemos que $f(n-1,p_{1}-p_{n},p_{2},p_{3}), f(n-1,p_{1},p_{2}-p_{n},p_{3}), f(n-1,p_{1},p_{2},p_{3}-p_{n}) y f(n-1,p_{1},p_{2},p_{3})$ son los valores óptimos que se pueden conseguir con n-1 objetos restando (o no) el peso del objeto n de modo de luego poder guardarlo en alguna mochila (o no). Utilizaremos los renombres $V_{01},V_{02},V_{03},V_{00}$ respectivamente.
-Entonces tenemos: \\
-$f(n,p_{1},p_{2},p_{3})= Max(V_{n}+Max(V_{01},V_{0,2},V_{03}),V_{00})$\\
-Podemos ver que esta función  compara el valor óptimo de llenar las mochilas con n-1 tesoros y el tesoro n, con el valor óptimo de llenar las mochilas con n-1 tesoros sin el tesoro n (de esta forma se tiene cuenta el caso en el que el mejor valor se obtiene de poner algún objeto  de los n-1 anteriores que impide luego meter el tesoro n).\\
-Como la función Max devuelve el mayor valor, el resultado sera el óptimo.
-\\
-Como valen P(0)..p(k) $\forall k<n$ y vale p(n) $\Rigtharrow$ vale p(n) $\forall n \in N \cup {0} $
+Como podemos apreciar el pseudocódigo es el algoritmo Dijsktra, entonces su correctitud se desprende de la demostración de correctitud de dijkstra que se puede encontrar en varios libros de algoritmos, en nuesro caso vamos a referenciar al libro titulado "Introduction to Algorithms, Second Edition" de Thomas H Cormen, Charles E. Leiserson, entre otros. La demostracion se encientra en el capítulo 24, subsection 3 bajo el título "Theorem 24.6: (Correctness of Dijkstra's algorithm)". 
 
 \subsubsection{Demostración de Complejidad}
 
-La complejidad del algoritmo GuardarTesoro es $\mathcal{O}(\prod_{i=1}^{3}K_{i} * T)$ donde $K_i$ representa la capacidad de cada mochila y T la cantidad de tesoros. Además, esta complejidad es aportada por el algoritmo ValorOptimo, entonces basaremos nuestra demostración en el mismo.
-
-Primero haremos unas observaciones preliminares:
-\begin{itemize}
-
-	\item El volumen de un cubo es es $\prod_{i=1}^{3}A_{i}$ donde cada $A_i$ es una arista que representa el eje de la altura, el ancho o el largo. Como explicamos en la introducción gracias a nuestro modelado, sabemos que llenar una posición del cubo nos cuesta $\Theta(1)$, entonces llenarlo entero nos costará el equivalente al volumen del mismo. Podriamos visualizarlo como subdividir un cubo en cubos pequeños de dimension 1X1X1.
-	\item Llenar un hipercubo con un valor determinado (como ocurre en la linea 1 de guardandoTesoro) cuesta $\mathcal{O}(\prod_{i=1}^{3}K_{i} * T)$ ya que hay T cubos para llenar.
-	\item Cuando se llama a LlenarMochilas desde GuardarTesoro cuesta $\mathcal{O}(T)$ ya que en en las lineas 9,10,11 cuando se llama a ValorOptimo, el hipercubo objetoXpeso cuenta con todos lo valores ya calculados entrando en el if (linea 6) que devuelve en $\mathcal{O}(1)$ el valor.
-\end{itemize}
-
-Volviendo a la demostración, tanto en el pseudocódigo como en la función matemática podemos ver que la recursión se realiza tantas veces como la cantidad total de tesoros. Para llenar un cubo, siempre debemos recurrir al cubo anterior, uno puede pensar que esto aportaría complejidad, sin embargo, al guardar estos valores sólo construimos estos cubos una vez, y la complejidad por acceso es $\Theta(1)$.
-
-Otra manera de verlo, es análoga a la explicación de la complejidad de llenar un cubo. Al estar llenando un hipercubo la complejidad será quivalente al hipervolumen del mismo, es decir, multiplicariamos las tres aristas anteriores por una que sería la cuarta dimensión(en este caso los tesoros).
-
-De cualquier manera podemos concluir que la complejidad es $\mathcal{O}(\prod_{i=1}^{3}K_{i} * T)$
-
-Ahora probemos que esta complejidad es menor a la pedida ($\mathcal{O}((\sum_{i=1}^{3}K_{i})^{3} * T)$)
-
-$\prod_{i=1}^{3}K_{i}  = K_1*K_2*K_3$   sea $K_max = Max(K_1,K_2,K_3)$ y $K_o= K_1^3 + K_2^3 + K_3^3 - K_max^3$ entonces $K_1*K_2*K_3 < K_m^3 < K_m^3 + K_o = K_1^3+K_2^3+K_3^3 <(\sum_{i=1}^{3}K_{i})^{3}$ entonces $\prod_{i=1}^{3}K_{i}* T < \sum_{i=1}^{3}K_{i})^{3} * T $
-
+Si analizamos con atención el pseudocódigo, Tenemos tres secciones que se pueden analizar por separado y despues sumar sus complejidades nos dara la complejidad total del algoritmo. La primer parte y la segunda parte combinadas son Dijkstra, la primera es la creación de la matriz y la segunda son los cálculos, La tercer parte es poner la información del camino mínimo. En los próximos párrafos nos vamos a referir a la cantidad de nodos en el gráfico como N. 
+\\
+\tab {La primer parte a analizar es la creación de la matriz, al ser una matriz de adyacencia, la cantidad de filas es N y la cantidad de columnas es N, actualizar todos los valores es recorrer toda la matriz haciendo que la complejidad sea $\Theta$(N²)}
+\\
+ \tab La segunda parte son dos ciclos anidados, podemos observar que el ciclo exterior hace N iteraciones ya que termina cuando el conjunto de nodos del grafo tiene el mismo cardinal que el conjunto de ``nodosSeguros'' y este último aumenta en uno por cada iteración. Dentro de el ciclo principal tenemos dos operaciones que debemos tener en cuenta, sacar el nodo de la lista de ``nodosNoSeguros'' y el ciclo interno. Sacar un nodo de la lista, nos va a costar encontrar el nodo y luego eliminarlo. Por la estructura que utlizamos eliminarlo no nos aporta complejidad, pero encontrar el nodo es una busqueda lineal, es decir $\Ogr$(N). La última parte que nos falta analizar para poder determinar la complejidad de los ciclos anidados es el ciclo interno. Cada iteración recorre N posiciones de la matriz, aquellas que podrían ser un eje válido, aunque hace cosas dependiendo de si es un eje válido o no, el interior del cicclo aporta una complejidad constante. Reuniendo toda la informacion, el interior del ciclo externo nos aporta una complejidad $\Ogr$(N) y itera N veces, es decir que la complejidad de la segunda parte es $\Ogr$(N²).
+\\
+\tab La tercer parte es un ciclo que lee los datos de la matriz y guarda en un conjunto los nodos que tenemos que atravezar para tener el camino mínimo. La cantidad máxima de iteraciones que hace este ciclo es N, el razonamiento atras de esta afirmación es que los ejes tienen pesos negativos, si existe un camino mínimo, este no va a tener ciclos ya que pasar por un ciclo solo aumentaría el peso total del camino, y un camino sin ciclos en un grafo con n nodos tiene como mucho n-1 ejes, ya que el camino puede llegar a pasar por todos los nodos. Podemos concluir que el ciclo hace n iteraciones en el peor caso, es Decir que la tercer parte es $\Ogr$(N)
+\\
+\tab Ahora que analizamos las tres partes que podían llegar a dar complejidad al algoritmo sabemos que la complejidad algoritmica de la primer parte, la segunda parte y la tercera respectivamente son $\Theta$(N²), $\Ogr$(N²), $\Ogr$(N). Entonces la complejidad total es la suma de las complejidades dandonos $\Ogr$(N²).
 
 \subsection{Experimentación}
 
-La cota de complejidad de nuestro algoritmo es $\prod_{i=1}^{3}K_{i}* T$. Es decir que depende de la capacidad y cantidad de mochilas y la cantidad de tesoros.
-En esta sección trataremos de respaldar esta cota mediante el análisis de los datos empíricos que obtuvimos a traves del testeo de nuestro algoritmo.
+La cota de complejidad de nuestro algoritmo es $\Ogr$(N²). Es decir que depende de la cantidad de nodos en un grafo.
+En esta sección trataremos de respaldar esta cota mediante el análisis de los datos empíricos que obtuvimos a traves del testeo de nuestros algoritmos.
+\\
+Para clarificar nuestros algortimos son dos variaciones del pseudocódigo que mostramos, con la excepcion es que uno, el que decidimos usar para solucionar el problema deja de calcular en cuanto el nodo N se mete en la zona segura. Decidimos testear sobre los dos algoritmos ya que al asignar peso aleatorio a los ejes en la mayoría de los casos teníamos la intuición de que los gráficos podrían quedar bastante mal. Pensamos en hacer test donde nos asegurabamos que se recorrían todos los nodos, pero al final decidimos usar dos variaciones del mismo algoritmo para demostrar que el algoritmo que nosotros elejimos, en el peor caso tiene una complejidad igual al que realmente nos va a probar la cota N².
+\\  
 Con este objetivo a lo largo de los tests modificamos los inputs para observar de a una variable por vez dejando las otras constantes y así poder analizar el tiempo de ejecución en cada caso. En cada test los valores se logran al promediar un millón de iteraciones sobre el mismo input, sobre que forma tiene el input se va a hablar más adelante.
-%%%%MODIFICACION "EN cada test... hablar mas adelante."
 
 \subsubsection{Resultados y análisis}
 

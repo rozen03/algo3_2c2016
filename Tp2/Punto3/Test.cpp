@@ -21,7 +21,7 @@ void testConexo1camino(int rep){
 		for ( int i = 1; i < j; i++) {
 			int origen= i;
 			int destino=i+1;
-			int tiempo=rand()%10+1;
+			int tiempo=rand()%1000+1;
 			test10obj<< origen<< " "<< destino<< " "<<tiempo << endl;
 		}
 		test10obj.close();
@@ -41,7 +41,7 @@ void testConexo1camino(int rep){
 			valor = caminoMinimo(matriz, estaciones);
 			auto end= ya();
 			auto startop = ya();
-			valoropt = caminoMinimo(matrizopt, estaciones);
+			valoropt = caminoMinimoOpt(matrizopt, estaciones);
 			auto endop = ya();
 			solparop = chrono::duration_cast<chrono::nanoseconds>(endop-startop).count()/rep;
 			solpar = chrono::duration_cast<chrono::nanoseconds>(end-start).count()/rep;
@@ -166,7 +166,7 @@ int test200ejes(int rep){
 			valor = caminoMinimo(matriz, estaciones);
 			auto end= ya();
 			auto startop = ya();
-			valoropt = caminoMinimo(matrizopt, estaciones);
+			valoropt = caminoMinimoOpt(matrizopt, estaciones);
 			auto endop = ya();
 			solparop = chrono::duration_cast<chrono::nanoseconds>(endop-startop).count()/rep;
 			solpar = chrono::duration_cast<chrono::nanoseconds>(end-start).count()/rep;
@@ -197,7 +197,7 @@ int testCompConexas(int rep){
 			valor = caminoMinimo(matriz, estaciones);
 			auto end= ya();
 			auto startop = ya();
-			valoropt = caminoMinimo(matrizopt, estaciones);
+			valoropt = caminoMinimoOpt(matrizopt, estaciones);
 			auto endop = ya();
 			solparop = chrono::duration_cast<chrono::nanoseconds>(endop-startop).count()/rep;
 			solpar = chrono::duration_cast<chrono::nanoseconds>(end-start).count()/rep;
@@ -208,7 +208,8 @@ int testCompConexas(int rep){
 	}
 	res.close();
 }
-
+//Tengo que modificar digrafo para que el kkn sea mejor caso(descomentar un if)
+//Acordate que son dos, uno con camino aleatorio y otro con camino minimo de dos estaciones 1 a n.
 void testKn(int rep){
 	ofstream res("Kn.txt");
 	for(int i = 10; i<251; i += 10){
@@ -227,7 +228,7 @@ void testKn(int rep){
 			valor = caminoMinimo(matriz, estaciones);
 			auto end= ya();
 			auto startop = ya();
-			valoropt = caminoMinimo(matrizopt, estaciones);
+			valoropt = caminoMinimoOpt(matrizopt, estaciones);
 			auto endop = ya();
 			solparop = chrono::duration_cast<chrono::nanoseconds>(endop-startop).count()/rep;
 			solpar = chrono::duration_cast<chrono::nanoseconds>(end-start).count()/rep;

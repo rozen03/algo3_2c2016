@@ -1,6 +1,7 @@
 #include <vector>
 #include <tuple>
 #include <iostream>
+#include <fstream>
 
 using namespace std;
 /*
@@ -39,7 +40,7 @@ void sacarComb(vector<tuple<int, int> >& posibles, int origen, int destino){
  
  //crea una mat ady de un grafo conexo con esa cantidad de nodos y ejes
 vector<vector<tuple<int,int> > > CrearConexo(int nodos, int ejes){
-	cout<<"Entre a crear conexo con nodos y ejes respectivamente " << nodos <<" "<<ejes<<endl;
+	//cout<<"Entre a crear conexo con nodos y ejes respectivamente " << nodos <<" "<<ejes<<endl;
 	tuple<int,int> basura(-1,0);
 	vector<tuple<int,int > > fila(nodos+1, basura);
 	vector<vector<tuple<int,int> > > filaycolum(nodos+1,fila);
@@ -57,7 +58,7 @@ vector<vector<tuple<int,int> > > CrearConexo(int nodos, int ejes){
 			if(i <nodos -1){
 				origen = i+1;
 				destino = i+2;
-				tiempo = rand()%10+1;
+				tiempo = rand()%1000+1;
 				tuple <int, int> elem(tiempo, origen);
 				filaycolum[origen][destino] = elem;
 				sacarComb(posibles, origen, destino);
@@ -68,8 +69,10 @@ vector<vector<tuple<int,int> > > CrearConexo(int nodos, int ejes){
 				origen = get<0>(posibles[pos]);
 				destino = get<1>(posibles[pos]);
 				sacarComb(posibles,origen,destino);
-				tiempo = rand()%10+1;
+				tiempo = rand()%1000+1;
 				tuple<int, int> elem(tiempo, origen);
+				tuple<int, int> elem2(0, origen);
+				//if(origen == 1&& destino == nodos) elem = elem2;
 				int val = get<0>(filaycolum[origen][destino]);
 				filaycolum[origen][destino] = elem;
 				i++;
@@ -113,6 +116,27 @@ vector<vector<tuple<int,int> > > compConexa(int nodos, int part){
 	return mat;
 }
 
+void EscrituraDato(const vector<vector<tuple<int,int> > >& mat, string output){
+	ofstream op(output);
+	int n = mat.size() -1;
+	int m = 0;
+	for(unsigned int i = 0; i<mat.size(); i++){
+		for(unsigned int j = 0; j<mat.size(); j++){
+			if(get<0>(mat[i][j]) != -1) m++;
+		}
+	}
+	op << n<< " "<<m<<"\n";
+	for(unsigned int i = 0; i<mat.size(); i++){
+		for(unsigned int j = 0; j<mat.size(); j++){
+			int tiempo = get<0>(mat[i][j]); 
+			if(tiempo != -1){
+				op<<i<<" "<<j<<" "<<tiempo<<"\n";
+			}
+		}
+	}
+	op.close();
+}
+
 void Imprimir(const vector<vector<tuple<int,int> > >& mat){
 		cout<<"La matriz de " <<mat.size() -1 <<" nodos, tiene la siguiente forma \n";
 		for(unsigned int i = 0; i <mat.size();i++){
@@ -123,13 +147,14 @@ void Imprimir(const vector<vector<tuple<int,int> > >& mat){
 		}
 		cout<<endl;
 }
-/*
-void testCrearConex(){
+
+void CrearConex(){
 	for(int i = 4; i<=9; i++){
+		string is = to_string(i);
+		string ts = is+"nodos10ejes.txt";
 		vector<vector<tuple<int,int> > > prueba;
 		prueba = CrearConexo(i,10);
-		cout<<"Tiene 10 ejes"<<endl;
-		Imprimir(prueba);
+		EscrituraDato(prueba, ts);
 	}
 }
 
@@ -141,9 +166,13 @@ void testcomConex(){
 		Imprimir(prueba);
 	}
 }
-
+/*
 int main(){
-	//testCrearConex();
-	testcomConex();
+	//CrearConex();
+	string ts = "K10.txt";
+	vector<vector<tuple<int,int> > > prueba;
+	prueba = CrearConexo(10, 90);
+	EscrituraDato(prueba,ts);
+	//testcomConex();
 }
 */
