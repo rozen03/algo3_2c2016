@@ -2,8 +2,10 @@
 #define __NODO__
 #include <iostream>
 #include <queue>
+#include"eje.h"
+
 using namespace std;
-class Eje;
+//class Eje;
 class Nodo {
 public:
   unsigned int indice;
