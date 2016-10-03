@@ -27,8 +27,10 @@ void unir(int x, int y){
 	else{
 		padre[y]=x;
 	}
-	if(altura[x]=altura[y]){
+	if(altura[x]==altura[y]){
 		altura[x]+=1;
 	}
 
 }
+
+

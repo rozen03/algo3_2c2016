@@ -147,7 +147,7 @@ void testConexoVariosCaminos(int rep){
 }
 */
 
-int test200ejes(int rep){
+void test200ejes(int rep){
 	int kn = (199*198)/2;
 	ofstream res("Conexo200ejes.txt");
 	for(int i = 22; i< 199; i += 6){
@@ -235,7 +235,6 @@ void testKn(int rep){
 			solopt += solparop;
 			sol += solpar;
 		}
-		cout<<i<<" & " <<sol<<" & "<<valor<<" no optimizado, optimizado "<<valoropt<<" & "<<solopt <<" \n";
 		res<<i<<" & " <<sol<<" & "<<valor<<" no optimizado, optimizado "<<valoropt<<" & "<<solopt <<" \n";
 	}
 	res.close();
