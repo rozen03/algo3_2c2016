@@ -5,7 +5,6 @@
 using namespace std;
 
 int main(int argc, char *argv[]) {
-  //p
   std::vector<Nodo *> nodos;
   std::vector<Eje *> ejes;
   parsearInput(nodos,ejes,1);
