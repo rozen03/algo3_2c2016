@@ -172,19 +172,20 @@ Si analizamos con atención el pseudocódigo, Tenemos tres secciones que se pued
 La cota de complejidad de nuestro algoritmo es $\mathcal{O}$(N²). Es decir que depende de la cantidad de nodos en un grafo.
 En esta sección trataremos de respaldar esta cota mediante el análisis de los datos empíricos que obtuvimos a traves del testeo de nuestros algoritmos.
 \\
-Para clarificar nuestros algortimos son dos variaciones del pseudocódigo que mostramos, con la excepcion es que uno, el que decidimos usar para solucionar el problema deja de calcular en cuanto el nodo N se mete en la zona segura. Decidimos testear sobre los dos algoritmos ya que al asignar peso aleatorio a los ejes en la mayoría de los casos teníamos la intuición de que los gráficos podrían quedar bastante mal. Pensamos en hacer test donde nos asegurabamos que se recorrían todos los nodos, pero al final decidimos usar dos variaciones del mismo algoritmo para demostrar que el algoritmo que nosotros elejimos, en el peor caso tiene una complejidad igual al que realmente nos va a probar la cota N².
+Tenemos dos algoritmos, los dos una variación del mismo pseudocodigo, el algoritmo sin modificaciones, A1, este busca el camino mínimo con todos los nodos y el algoritmo, A2, este se interrumpe cuando encuentra el camino mínimo que estamos buscando.  
+\\
+ Decidimos testear sobre los dos algoritmos ya que al asignar peso aleatorio a los ejes en la mayoría de los casos teníamos la intuición de que los gráficos podrían quedar bastante mal. Pensamos en hacer test donde nos asegurabamos que se recorrían todos los nodos, pero al final decidimos usar dos variaciones del mismo algoritmo. Esto nos va a ayudar a demostrar que el algoritmo que nosotros elejimos en el peor caso tiene una complejidad igual al que realmente nos va a probar la cota N² y en el mejor caso tiene una complejidad lineal.
 \\  
-Con este objetivo a lo largo de los tests modificamos los inputs para observar de a una variable por vez dejando las otras constantes y así poder analizar el tiempo de ejecución en cada caso. En cada test los valores se logran al promediar un millón de iteraciones sobre el mismo input, sobre que forma tiene el input se va a hablar más adelante.
+Con este objetivo a lo largo de los tests modificamos los grafos para observar su comportamiento y poder sacar conclusiones sobre las elecciones algoritmicas que tomamos. En cada test los valores se logran al promediar un tres mil iteraciones sobre el mismo input, sobre que forma tiene el input se va a hablar más adelante.
 
 \subsubsection{Resultados y análisis}
 
-En nuestro primer experimento fijamos una mochila con capacidad constante (50) y fuimos aumentando la cantidad de tesoros de a dos.
-Así mismo, analizamos tres subcasos pertinentes: cuando los objetos están dados aleatoriamente (sin ninguna restricción sobre su peso), cuando el peso de los objetos se encuentra restringido a la capacidad de la mochila y cuando el peso de objetos es superior a la capacidad de la mochila.
+En nuestro primer experimento queríamos ver que pasaba si tenia un grafo con cien nodos y dos componentes conexas, c1 y c2, estas dos son Kn a la vez c1 tienen los nodos desde el 1 hasta el x y c2 tiene los nodos desde el x+1 hasta el n, queríamos ver como aumentaba el tiempo de ejecución.
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.6\textwidth]{comparacionObjetos}
-\caption{gráfico comparativo de los tres subcasos al varias T.}
+\includegraphics[width=0.6\textwidth]{CompConexC150r3000}
+\caption{gráfico comparativo con dos componentes conexas.}
 \end{figure}
 
 

@@ -169,7 +169,7 @@ Si analizamos con atención el pseudocódigo, Tenemos tres secciones que se pued
 
 \subsection{Experimentación}
 
-La cota de complejidad de nuestro algoritmo es $\Ogr$(N²). Es decir que depende de la cantidad de nodos en un grafo.
+La cota de complejidad de nuestro algoritmo es $\mathcal{O}$(N²). Es decir que depende de la cantidad de nodos en un grafo.
 En esta sección trataremos de respaldar esta cota mediante el análisis de los datos empíricos que obtuvimos a traves del testeo de nuestros algoritmos.
 \\
 Para clarificar nuestros algortimos son dos variaciones del pseudocódigo que mostramos, con la excepcion es que uno, el que decidimos usar para solucionar el problema deja de calcular en cuanto el nodo N se mete en la zona segura. Decidimos testear sobre los dos algoritmos ya que al asignar peso aleatorio a los ejes en la mayoría de los casos teníamos la intuición de que los gráficos podrían quedar bastante mal. Pensamos en hacer test donde nos asegurabamos que se recorrían todos los nodos, pero al final decidimos usar dos variaciones del mismo algoritmo para demostrar que el algoritmo que nosotros elejimos, en el peor caso tiene una complejidad igual al que realmente nos va a probar la cota N².
