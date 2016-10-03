@@ -180,6 +180,19 @@ Con este objetivo a lo largo de los tests modificamos los grafos para observar s
 
 \subsubsection{Resultados y análisis}
 
+En nuestro primer experimento corrimos el algoritmo con diferentes grafos Kn, donde el n empieza en diez, se incrementa por diez y termina en 250 y los pesos de los ejes se generan de forma aleatoria. Creamos estos parametros para tener una primera impresión de como variaba dependiendo solamente de los nodos, ya que los ejes depende de la cantidad de nodos. Nuestra expectativa era que A1 tenga un comportamiento cuadrático y que A2 tenga un pseudo cuadrático, ya que no sabíamos como iban a afectar la interrupciones que metimos en el algoritmo, esperabamos mejoras en algunas iteraciones.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.6\textwidth]{KnC100r3000}
+\end{figure}
+
+Como se puede ver en el gráfico, nuestras expectativas fueron cumplidas, A1 tiene un tendencia cuadrática y A2 aunque no muestra una tendencia clara esta por debajo de A1. Como explicamos anteriormente este comportamiento errático responde a que A2 frena cuando encuentra el camino minimo para n y no sigue ejecutando para otros nodos, esto quiere decir que cuanto mas cerca esta A1 de A2 es que el camino mínimo de n es uno de los últimos en computarse y analogamente si estan lejos es que n es uno de los primeros en computarse.
+\\
+
+Al finalizar este experimento, nos dimos cuenta que modificar la cantidad de nodos y que la cantidad de ejes este en función a la cantidad de nodos nos achicaba plenamente el unvierso de posibles pruebas y dependencias en terminos de complejidad. Entonces creamos este experimento, que crea grafos conexos con 200 ejes,
+
+\\
 En nuestro primer experimento queríamos ver que pasaba si tenia un grafo con cien nodos y dos componentes conexas, c1 y c2, estas dos son Kn a la vez c1 tienen los nodos desde el 1 hasta el x y c2 tiene los nodos desde el x+1 hasta el n, queríamos ver como aumentaba el tiempo de ejecución.
 
 \begin{figure}[H]
