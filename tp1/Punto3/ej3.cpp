@@ -147,18 +147,16 @@ void LlenarMochilas(vector<vector<vector<vector<int> > > >& objetoxPesos,vector<
 
 }
 
-void lecturaDatos(string test, vector<Mochila>& mochilas, vector<Tesoro>& cofre){
+void lecturaDatos(vector<Mochila>& mochilas, vector<Tesoro>& cofre){
 	int m;
 	int n;
-	fstream input;
-	input.open(test);
-	input>> m>> n;
+	cin>> m>> n;
 	vector<Mochila> mochilasAux(3);
 	int pesomax = 0;
 	//Creo las mochilas y las pongo en un vector
 	for(int i = 0; i<3; i++){
 		int k = 0;
-		if(i<m)	input >> k;
+		if(i<m)	cin >> k;
 		if(k>pesomax) pesomax = k;
 		Mochila m(k);
 		mochilasAux[i] = m;
@@ -170,7 +168,7 @@ void lecturaDatos(string test, vector<Mochila>& mochilas, vector<Tesoro>& cofre)
 		int cant;
 		int p;
 		int v;
-		input>> cant>> p>> v;
+		cin>> cant>> p>> v;
 	//(usar este cout para saber que tipos responden a que valores/peso
 	//Los tipos empiezan en 1.
 		for(int j = 0;j < cant; j++){
@@ -179,7 +177,6 @@ void lecturaDatos(string test, vector<Mochila>& mochilas, vector<Tesoro>& cofre)
 	}
 	cofre = cofreAux;
 	mochilas = mochilasAux;
-	input.close();
 }
 
 int solucion(vector<Mochila>& Mochilas,const vector<Tesoro>& precofre){
@@ -221,10 +218,9 @@ int solucion(vector<Mochila>& Mochilas,const vector<Tesoro>& precofre){
 }
 
 int main(int argc, char *argv[]){
-	string test = argv[1];
 	vector<Mochila> mochilas;
 	vector<Tesoro> cofre;
-	lecturaDatos(test, mochilas,cofre);
+	lecturaDatos(mochilas,cofre);
 	int sol = solucion(mochilas, cofre);
 	
 	cout<< sol<<"\n";

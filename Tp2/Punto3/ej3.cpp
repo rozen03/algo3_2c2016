@@ -122,12 +122,10 @@ int caminoMinimo(vector<vector<tuple<int,int> > >& matAdy, vector<int>& estacion
 	return tiempo;
 }
 
-void lecturaDatos(string input, vector<vector<tuple<int,int> > >& matrizAdyacencia){
-	fstream ip;
-	ip.open(input);
+void lecturaDatos(vector<vector<tuple<int,int> > >& matrizAdyacencia){
 	int n;
 	int m;
-	ip>> n >>m;
+	cin>> n >>m;
 	tuple<int,int> basura(-1,0);
 	vector<tuple<int,int > > fila(n+1, basura);
 	vector<vector<tuple<int,int> > > filaycolum(n+1,fila);
@@ -135,20 +133,19 @@ void lecturaDatos(string input, vector<vector<tuple<int,int> > >& matrizAdyacenc
 		int origen;
 		int destino;
 		int tiempo;
-		ip >> origen >> destino >> tiempo;
+		cin >> origen >> destino >> tiempo;
 		int pos = get<0>(filaycolum[origen][destino]);
 		tuple<int, int> elem(tiempo, origen);
 		if(pos == -1 || pos > tiempo) filaycolum[origen][destino] = elem;
 	}
 	matrizAdyacencia = filaycolum;
 }
-/*
+
 int main(int argc, char *argv[]){
 	vector<vector<tuple<int,int> > > matriz;
-	string  input = argv[1];
 	vector<int> estaciones;
 	int sol = -1;
-	lecturaDatos(input, matriz);
+	lecturaDatos( matriz);
 
 	sol = caminoMinimo(matriz, estaciones);
 
@@ -162,4 +159,3 @@ int main(int argc, char *argv[]){
 }
 
 
-*/
