@@ -13,12 +13,14 @@ void testKn(int rep){
 	for(int i = 10; i<251; i += 10){
 		vector<vector<int> > matriz;
 		matriz = CrearConexo(i, (i-1)*(i-2))/i);
+		vector<Eje *> mat;
+		mat = conversion(matriz);
 		long sol= 0;
 		int valor = -3;
 		for(int j= 0; j<=rep; j++){
 			long solpar = 0;
 			auto start = ya();
-			valor = caminoMinimo(matriz, estaciones);
+			valor = solu(i,mat);
 			auto end= ya();
 			solpar = chrono::duration_cast<chrono::nanoseconds>(end-start).count()/rep;
 			sol += solpar;

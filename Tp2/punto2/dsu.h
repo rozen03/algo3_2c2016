@@ -1,20 +1,23 @@
 
 #include <vector>
 
+using namespace std;
+
 class dsu{
 
 public:
 
-	void init(int n);
+	void init(unsigned int n);
 
-	int find(int x);
+	int find(unsigned int x);
 
-	void unir(int x, int y);
+	void unir(unsigned int x, unsigned int y);
+
 
 
 private:
 
-	vector<int> padre;
-	vector<int> altura;
+	vector<unsigned int> padre;
+	vector<unsigned int> altura;
 
 };

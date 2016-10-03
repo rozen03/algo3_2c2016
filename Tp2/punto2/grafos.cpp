@@ -1,8 +1,14 @@
 #include <vector>
 #include <iostream>
 #include <tuple>
+#include "../eje.h"
+#include "../estructuras.h"
 
 using namespace std;
+
+vector<Eje*> conversion(vector<vector<int> > matady){
+	vector<Nodo
+}
 
  //Genera todos los posbiles destinos y origenes sin contar uno mismo ya que no seria un digrafo;
  vector<tuple<int,int> > todasComb(int nodos){
