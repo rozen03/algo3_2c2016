@@ -26,6 +26,6 @@ int solu(vector<nodo> nodos){
 			aristas.push(nod.ejes[j]);
 		}
 	}
-	inr res= kruskal(aristas,n);
+	int res= kruskal(aristas,n);
 	return res;
 }
