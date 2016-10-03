@@ -36,7 +36,7 @@ def parse(f):
 	return tiempos
 
 def main(output, show=False, labels=None):
-	labels = [u"Sin interrupciones", u"Con Interrupciones", u"200*N²"] #si no me pasaste labels, ploteo con nombre de archivo
+	labels = [u"Sin interrupciones", u"Con Interrupciones", u"N"] #si no me pasaste labels, ploteo con nombre de archivo
 	text = open("Kn.txt")
 	#para cada archivo, vamos a plotear sus datos como una serie diferente
 	Xs, Ys3, Ys2, Ys1 =[], [], [], []
@@ -47,7 +47,7 @@ def main(output, show=False, labels=None):
 	#print tiempos
 	ns, n2, ts1, ts2 =[], [], [], []
 	for (n, t1, t2) in tiempos:
-		n2.append(n*n*200)		
+		n2.append((150*n)+115000)		
 		ns.append(n)
 		ts1.append(t1)
 		ts2.append(t2)
@@ -59,9 +59,9 @@ def main(output, show=False, labels=None):
 	Ys3.append(list(n2))		
 	plot = myPlot(Xs, Ys1, Ys2, Ys3, 
 		labels=labels,
-		xlabel= u"Cantidad de Nodos", 	#rotulamos los ejes
-		ylabel=u"TIempo de ejecución (ns)", 	#empezamos los stings con u" para que use unicode y podamos poner ó, ñ...	
-		title = u"Tiempo de ejecución Para distintos Kn",		#ponemos título!
+		xlabel= u"Cantidad de nodos en el Kn", 	#rotulamos los ejes
+		ylabel=u"Tiempo de ejecución (ns)", 	#empezamos los stings con u" para que use unicode y podamos poner ó, ñ...	
+		title = u"Tiempo de ejecución para grafos Kn, con el camino mas corto es el eje (1,n).",		#ponemos título!
 		plotter = pplot, 		#usamos el pplot
 		ylog = False				
 		)
@@ -81,14 +81,14 @@ def main(output, show=False, labels=None):
 def myPlot(Xs, Ys1, Ys2, Ys3, labels, xlabel, ylabel, title, plotter, ylog=False):
 	"""Plotea una curva para cada x, y, tomándolos en orden de Xs e Ys"""
 	l2 = labels[1]
-	l1 = labels[0]
+	#l1 = labels[0]
 	l3 = labels[2]
 	for (x, y1, y2, y3) in zip(Xs, Ys1, Ys2, Ys3):
 		if ylog:
 			plotter.yscale('log')
 		plotter.plot(x, y2,label = l2, marker ='^', linestyle = '-.') 
-		plotter.plot(x, y1,label = l1, marker='o', linestyle = ':')
-		plotter.plot(x, y3,label = l3, linestyle = '-')
+		#plotter.plot(x, y1,label = l1, marker='o', linestyle = ':')
+		plotter.plot(x, y3,label = l3,color='r', linestyle = '-')
 		plotter.xlabel(xlabel)
 		plotter.ylabel(ylabel)
 		plotter.title(title)
@@ -104,7 +104,7 @@ def plotNBars(Xs, Ys, labels, xlabel, ylabel, title, plotter, ylog = False, hori
 	xlocations = na.array(range(maxData))
 	width = 0.7
 	i = 0
-	colores = ['b','g','r','c','m','y','k','w','#610b0b']
+	colores = ['b','r','g','c','m','y','k','w','#610b0b']
 	bar_width = float(width/len(Xs))
 	for (x, y, l) in zip(Xs, Ys, labels):
 		plotter.bar(map(lambda t: t+bar_width*i, x), y, bar_width, label= l, color = colores[i], log=ylog)
