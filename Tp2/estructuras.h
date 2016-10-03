@@ -29,14 +29,17 @@ void imprimirLinea(int linea){
       count++;\
     }\
 }
-
 bool esPiso(char coso){
   return coso=='.';
 }
+bool esPisoPared(char coso){
+  return coso=='#' || esPiso(coso);
+}
+
 void parsearInput(vector<Nodo *> & nodos, vector<Eje *> & ejes,int ejercicio)
 {
   int f, c, p;
-  cin >> f >> c;
+  cin >> c >> f;
   if (ejercicio==1) {
     cin >> p;
   }
@@ -154,7 +157,9 @@ void parsearInput(vector<Nodo *> & nodos, vector<Eje *> & ejes,int ejercicio)
         countEjes++;
 
       }else if(ejercicio==1 && aux=='#'){
-        int arriba, abajo, izquierda, derecha;
+        int arriba, abajo, izquierda, derecha,index;
+        // Tomo/inicializo el nodo
+        verNodo(i,j,index);
         arriba = -1;
         abajo = -1;
         izquierda = -1;
