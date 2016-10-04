@@ -67,14 +67,17 @@
 \subsection{Experimentación}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 \section{Problema 2: }
 
 \subsection{Introducción}
 
-En este problema  
+En este problema nuestros arqueologos quieren recorrer todas las salas, para ello deben romper paredes sin embargo no todas cuestan el mismo esfuerzo para romperlas. Teniendo un mapa con los esfuerzos cuatificados del 1 al 9 desean saber cual es el minimo esfuerzo que deben hacer para cumplir su objetivo.
 
+Formalmente, podemos modelas este problema con grafos. Teniendo un grafo con peso se desea encontrar el árbol generador mínimo y devolver la sumatoria del peso de todos sus ejes.
 \subsection{Explicación de la solución}
+
+Definimos una clase eje que tiene como propiedad punteros a los nodos de cada extremo y su peso correspondiente.
+Luego acomodamos nuestra entrada para obtener el conjunto de todos los ejes y utilizamos el algoritmo de Kruskal para obtener el árbol generador mínimo y retornas el valor total del mismo
 
 
 

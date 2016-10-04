@@ -44,13 +44,13 @@
 
 \subsection{Introducción}
 
+En este problema nuestros arqueologos quieren recorrer todas las salas, para ello deben romper paredes sin embargo no todas cuestan el mismo esfuerzo para romperlas. Teniendo un mapa con los esfuerzos cuatificados del 1 al 9 desean saber cual es el minimo esfuerzo que deben hacer para cumplir su objetivo.
 
-%terminar?%
-
+Formalmente, podemos modelas este problema con grafos. Teniendo un grafo con peso se desea encontrar el árbol generador mínimo y devolver la sumatoria del peso de todos sus ejes.
 \subsection{Explicación de la solución}
 
-
-%creeeo que le falta%
+Definimos una clase eje que tiene como propiedad punteros a los nodos de cada extremo y su peso correspondiente.
+Luego acomodamos nuestra entrada para obtener el conjunto de todos los ejes y utilizamos el algoritmo de Kruskal para obtener el árbol generador mínimo y retornas el valor total del mismo
 
 
 
@@ -67,16 +67,6 @@
 \subsection{Experimentación}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\section{Problema 2: }
-
-\subsection{Introducción}
-
-En este problema  
-
-\subsection{Explicación de la solución}
-
-
 
 \subsubsection{Pseudocódigo}
 
@@ -222,7 +212,7 @@ Al finalizar estos experimentos, nos dimos cuenta que modificar la cantidad de n
 
 Aunque se pueden ver unas tendencias cuadráticas en el gráfico y que esta por debajo de la cota dada, tambien podemos ver que la figura 1 tiene los datos de A1 más regulares que en la figura 2. Nuestras hipótesis es que cuanto más denso es el grafo, más regular quedan las mediciones y cuanto menos denso las mediciones tienden a ser irregulares. Entonces decidimos experimentar sobre grafos menos densos y ver como quedaban las mediciones.
 \\
-A fin de lo antes mencionado creamos una prueba, que dada una cierta cantidad de nodos, nos generaba cuatro grafos. Definimos el concepto D, como una simil densidad, donde la densidad esta definida como la cantidad de ejes en un grafo dado, cuanto más denso el grafo más ejes tiene. D funciona solo para grafos conexos, 0 es un arbol y 100 es el Kn.
+A fin de lo antes mencionado creamos una prueba, que dada una cierta cantidad de nodos, nos generaba cuatro grafos. Definimos el concepto D, como una simil densidad, donde la densidad esta definida como la cantidad de ejes en un grafo dado, cuanto más denso el grafo más ejes tiene. D funciona solo para grafos conexos, 0 es un árbol y 100 es el Kn.
 
 \begin{figure}[H]
 \centering
@@ -230,7 +220,7 @@ A fin de lo antes mencionado creamos una prueba, que dada una cierta cantidad de
 \caption{}
 \end{figure}
 
-Como se puede observar en el gráfico no respalda nuestra hipótesis, y nos genera una incertidumbre aun mayor, al encontrar la línea de Arboles muy por encima de las otras tres, que no era la idea intuitiva que nosotros teniamos donde los grafos menos densos iban a estar acotados por grafos más densos. Aun así el próximo el gráfico sin los arboles avala esta idea y podríamos pensar que el caso de los arboles es una excepción a la regla.
+Como se puede observar en el gráfico no respalda nuestra hipótesis, y nos genera una incertidumbre aún mayor, al encontrar la línea de Arboles muy por encima de las otras tres, que no era la idea intuitiva que nosotros teníamos donde los grafos menos densos iban a estar acotados por grafos más densos. Aun así el próximo el gráfico sin los arboles avala esta idea y podríamos pensar que el caso de los arboles es una excepción a la regla.
 
 \begin{figure}[H]
 \centering
