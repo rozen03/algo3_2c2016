@@ -1,4 +1,4 @@
-#include "dsu.h"
+#include "dsu.cpp"
 #include "../estructuras.h"
 #include <queue>
 #include <fstream>
@@ -7,7 +7,8 @@
 using namespace std;
 
 unsigned int kruskal(priority_queue<Eje *> Ejes, unsigned int n){
-	while(!(Ejes.empty())){
+	while(!Ejes.empty()){
+		cout<< "entre al 1er while"<<endl;
 		Eje * t= Ejes.top();
 		cout<<t->peso<< endl;
 		Ejes.pop();
@@ -19,8 +20,8 @@ unsigned int kruskal(priority_queue<Eje *> Ejes, unsigned int n){
 	cout<< "int"<<endl;
 	conj.init(n);
 	cout<<"init"<<endl;
-	while(!(Ejes.empty())){
-		cout<<"entre al while"<<endl;
+	while(!Ejes.empty()){
+		cout<<"entre al 2do while"<<endl;
 		Eje e= *Ejes.top();
 		Ejes.pop();
 		//ver como se llamas los Nodos extremos del Eje podrian ser inicio y fin?!
@@ -42,7 +43,7 @@ unsigned int kruskal(priority_queue<Eje *> Ejes, unsigned int n){
 
 
 int solu( unsigned int n, vector<Eje *> ejes){
-	cout<<"entre a la conchuda sola"<< endl;
+cout <<"entre a la solu"<< endl
 	priority_queue<Eje *> aristas;
 	for(unsigned int j=0; j< ejes.size(); j++){
 		cout<<ejes[j]->peso<<endl;
@@ -57,12 +58,10 @@ int main(int agrc, char *argv[]){
 	cout<< "entre al puto main" <<endl;
 	vector<Nodo *> nodos;
 	vector<Eje *> ejes;
+	cout<<"hola"<<endl;
 	parsearInput(nodos, ejes, 2);
 	cout<< "sali de parsear inputos"<< endl;
-	for(int i=0; i<ejes.size(); i++){
-		cout<< ejes[i]->peso << endl;
-		}
 	unsigned int n= nodos.size();
-	solu(n, ejes); 
-	return 0;	
+	solu(n, ejes);
+	return 0;
 }
