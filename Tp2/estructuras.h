@@ -201,4 +201,6 @@ void parsearInput(vector<Nodo *> & nodos, vector<Eje *> & ejes,int ejercicio)
   ejes.resize(countEjes);
 }
 
+
+
 #endif

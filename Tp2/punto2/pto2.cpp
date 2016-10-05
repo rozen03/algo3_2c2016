@@ -6,62 +6,79 @@
 
 using namespace std;
 
-unsigned int kruskal(priority_queue<Eje *> Ejes, unsigned int n){
-	while(!Ejes.empty()){
-		cout<< "entre al 1er while"<<endl;
-		Eje * t= Ejes.top();
-		cout<<t->peso<< endl;
-		Ejes.pop();
-		}
+ int kruskal(priority_queue<Eje > Ejes, unsigned int n){
 	cout<<"kruskal"<<endl;
-	unsigned int res=0;
-	cout<< "int"<<endl;
-	dsu conj;
-	cout<< "int"<<endl;
-	conj.init(n);
-	cout<<"init"<<endl;
-	while(!Ejes.empty()){
-		cout<<"entre al 2do while"<<endl;
-		Eje e= *Ejes.top();
+	 int res=0;
+	dsu conj(n);
+	while(!Ejes.empty() ){
+		cout<<"entre al while"<<endl;
+		Eje e= Ejes.top();
+		cout<< e.damePeso()<< endl;
 		Ejes.pop();
+
 		//ver como se llamas los Nodos extremos del Eje podrian ser inicio y fin?!
 		Nodo * nUno=e.dameNodo();
 		Nodo * nDos=e.dameElOtroNodoPorfa(nUno);
-		cout<<"me rompi"<<endl;
+		
 		unsigned int nu = nUno->indice;
 		unsigned int nd = nDos->indice;
 		if(conj.find(nu) != conj.find(nd)){
 			cout<<"entre al if del while"<<endl;
-			res=+e.damePeso();
+			cout<< "peso de la nueva arista es "<< e.damePeso()<< endl;
+			res= res + e.damePeso();
+			cout<< "res = "<<res <<endl;
 			conj.unir(nu, nd);
+			}
 		}
-		cout<<"sali del while"<<endl;
-	return res;
+	cout<<"sali del while"<<endl;
+	int j=1;
+	bool b=true;
+	int e=conj.find(1);
+	cout<< "padre es " << e <<endl;
+	while(j<n && b){
+		int h=conj.find(j);
+		cout<< "lo comparo con "<< h << endl;
+		if(e!=h){
+			cout<<"entre al if"<<endl;
+			b=false;
+		}
+		j++;
 	}
+	if (!b){
+		res= -1;
+	}
+	cout<< "el resultado es "<< res << endl;
+	return res;
 
 }
 
 
 int solu( unsigned int n, vector<Eje *> ejes){
-cout <<"entre a la solu"<< endl
-	priority_queue<Eje *> aristas;
+
+	priority_queue<Eje> aristas;
+	
 	for(unsigned int j=0; j< ejes.size(); j++){
-		cout<<ejes[j]->peso<<endl;
-		aristas.push(ejes[j]);
+		
+		aristas.push(*ejes[j]);
 	}
-	cout<<"sali del maldito for"<< endl;
+
+
 	int res= kruskal(aristas,n);
 	return res;
 }
 
+/*
 int main(int agrc, char *argv[]){
-	cout<< "entre al puto main" <<endl;
+
 	vector<Nodo *> nodos;
 	vector<Eje *> ejes;
-	cout<<"hola"<<endl;
+
 	parsearInput(nodos, ejes, 2);
-	cout<< "sali de parsear inputos"<< endl;
+
 	unsigned int n= nodos.size();
 	solu(n, ejes);
 	return 0;
 }
+*/
+
+

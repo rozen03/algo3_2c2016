@@ -24,10 +24,12 @@ public:
       return this->n1;
     }
   };
-  bool operator<(const Eje e2) const { return this->peso < e2.peso; }
+  bool operator<(const Eje e2) const { return this->peso > e2.peso; }
   Nodo *dameNodo(){
 	return this->n1;
   }
+
+
 private:
 };
 #endif
