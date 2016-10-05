@@ -7,7 +7,8 @@ using namespace std;
 int main(int argc, char *argv[]) {
   std::vector<Nodo *> nodos;
   std::vector<Eje *> ejes;
-  parsearInput(nodos,ejes,2);
+  parsearInput(nodos,ejes,1);
+  return 0;
   std::cout << nodos.size() << std::endl;
   std::cout << ejes.size() << std::endl;
   for (size_t i = 0; i < nodos.size(); i++) {

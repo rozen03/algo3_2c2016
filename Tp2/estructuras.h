@@ -70,15 +70,21 @@ void parsearInput(vector<Nodo *> & nodos, vector<Eje *> & ejes,int ejercicio)
         if (j == 0 || j == c - 1)
           continue;
         matriz[i - 1][j - 1] =aux;
+
       }
     }
-
+    for (size_t i = 0; i < f -2; i++) {
+      for (size_t j = 0; j <c -2; j++) {
+        cout<<matriz[i][j];
+      }
+      cout<<endl;
+    }
   for (size_t i = 0; i < f -2; i++) {
     for (size_t j = 0; j <c -2; j++) {
       aux = matriz[i][j];
       if (esPiso(aux)) {
         int index;
-        int derecha, abajo;
+          int derecha, abajo;
         // Tomo/inicializo el nodo
         verNodo(i,j,index);
         // Abajo
@@ -159,6 +165,7 @@ void parsearInput(vector<Nodo *> & nodos, vector<Eje *> & ejes,int ejercicio)
         countEjes++;
 
       }else if(ejercicio==1 && aux=='#'){
+        imprimirLinea(__LINE__);
         int arriba, abajo, izquierda, derecha,index;
         // Tomo/inicializo el nodo
         verNodo(i,j,index);
@@ -171,6 +178,11 @@ void parsearInput(vector<Nodo *> & nodos, vector<Eje *> & ejes,int ejercicio)
           aux = matriz[i][j + 1];
           if (esPiso(aux)) {
             verNodo(i,j+1,derecha);
+            Eje *e = new Eje(countEjes, 1, nodos[index], nodos[derecha]);
+            nodos[index]->ejes.push(e);
+            nodos[derecha]->ejes.push(e);
+            ejes[countEjes]=e;
+            countEjes++;
           }
         }
         // Abajo
@@ -178,20 +190,35 @@ void parsearInput(vector<Nodo *> & nodos, vector<Eje *> & ejes,int ejercicio)
           aux = matriz[i + 1][j];
           if (esPiso(aux)) {
             verNodo(i+1,j,abajo);
+            Eje *e = new Eje(countEjes, 1, nodos[index], nodos[abajo]);
+            nodos[index]->ejes.push(e);
+            nodos[abajo]->ejes.push(e);
+            ejes[countEjes]=e;
+            countEjes++;
           }
         }
         // A la izquierda
         if (0 < j) {
           aux = matriz[i][j - 1];
-          if (esPiso(aux)) {
+          if (esPisoPared(aux)) {
             verNodo(i,j-1,izquierda)
+            Eje *e = new Eje(countEjes, 1, nodos[index], nodos[izquierda]);
+            nodos[index]->ejes.push(e);
+            nodos[izquierda]->ejes.push(e);
+            ejes[countEjes]=e;
+            countEjes++;
           }
         }
         // arriba
         if (0 < i) {
           aux = matriz[i - 1][j];
-          if (esPiso(aux)) {
+          if (esPisoPared(aux)) {
             verNodo(i-1,j,arriba);
+            Eje *e = new Eje(countEjes, 1, nodos[index], nodos[arriba]);
+            nodos[index]->ejes.push(e);
+            nodos[arriba]->ejes.push(e);
+            ejes[countEjes]=e;
+            countEjes++;
           }
         }
       }
