@@ -40,12 +40,13 @@
 \tableofcontents
 \cleardoublepage
 
-\section{Problema 1: }
+\section{Problema 1: Laberinto}
 
 \subsection{Introducción}
 
+En este problema los viajeros encuentran un mapa de un laberinto señalando algún lugar con una x sin embargo no todos los puntos están conectados. Ellos quisieran llegar a ese lugar caminando lo menos posible, además pueden esforzarse para romper una cantidad determinada de paredes. Nos piden que les informemos cuanto deben caminar de ser posible.
 
-%terminar?%
+Formalmente esto equivale a modelar el problema utilzando grafos. Cuando hay paredes de por medio, los ejes que conectan esos nodos tendrán una marca.Los nodos en el cual se empieza y termina también estarán marcado. Luego se aplica un algoritmo BFS modificado para encontrar el camino mínimo. 
 
 \subsection{Explicación de la solución}
 
@@ -71,9 +72,9 @@
 
 \subsection{Introducción}
 
-En este problema nuestros arqueologos quieren recorrer todas las salas, para ello deben romper paredes sin embargo no todas cuestan el mismo esfuerzo para romperlas. Teniendo un mapa con los esfuerzos cuatificados del 1 al 9 desean saber cual es el minimo esfuerzo que deben hacer para cumplir su objetivo.
+En este problema nuestros arqueologos quieren recorrer todas las salas, para ello deben romper paredes sin embargo no todas cuestan el mismo esfuerzo para romperlas. Teniendo un mapa con los esfuerzos cuantificados del 1 al 9 desean saber cual es el mínimo esfuerzo que deben hacer para cumplir su objetivo.
 
-Formalmente, podemos modelas este problema con grafos. Teniendo un grafo con peso se desea encontrar el árbol generador mínimo y devolver la sumatoria del peso de todos sus ejes.
+Formalmente, podemos modelar este problema con grafos. Teniendo un grafo con peso se desea encontrar el árbol generador mínimo y devolver la sumatoria del peso de todos sus ejes.
 \subsection{Explicación de la solución}
 
 Definimos una clase eje que tiene como propiedad punteros a los nodos de cada extremo y su peso correspondiente.
