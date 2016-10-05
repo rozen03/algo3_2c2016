@@ -63,6 +63,7 @@ int solu( unsigned int n, vector<Eje *> ejes){
 
 
 	int res= kruskal(aristas,n);
+	//cout<<"la solu es"<<res<<endl;
 	return res;
 }
 
