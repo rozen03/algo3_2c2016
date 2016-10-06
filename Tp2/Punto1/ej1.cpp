@@ -52,16 +52,18 @@ int Bfs(vector<Nodo *>& nodos){
 			next++;
 			Nodo* nodin = nodos[nod];
 			vector<Eje *> ejesNodin = nodin -> ejes;
+			//agregamos los ejes que estan conectados
 			for(unsigned int i=0 ; i<ejesNodin.size(); i++){
 				Eje * ejeaux = ejesNodin[i];				
 				Nodo * nodoaux = ejeaux ->dameElOtroNodoPorfa(nodin);
 				int acomp = nodoaux -> indice;
-				if(orden[acomp] != -1) continue;
+				if(orden[acomp] != -1 || nodoaux->capa < nodin->capa) continue;
 				tuple<int, int, Eje*> arist(acomp, nod, ejeaux);
 				list.push(arist);				
 			}
 		}
 	}
+	/*
 	//pred tiene la informacion de los ejes, la posicion i te dice quien es el padre
 	//para crear los nodos tenes que tener una copia limpia de los nodos y buscar el eje que
 	//corresponda, fijarse que como es priority queue por ahi tenes que guardas los ejes que no eran
@@ -98,7 +100,35 @@ int Bfs(vector<Nodo *>& nodos){
 			}
 			cout<< " "<<endl;
 	}*/
+	int x= nodos.size()-1;
+	int res=0;
+	while(x!=0 && x!=-1){
+			int x= pred[x];
+			res++;
+	}
+	if(x==-1){
+			return -1;
+	}
+	else{
+			return x;
+	}
 }
+
+int Solucion(vector<Nodo *> nodos, int p){
+	int res=2*nodos.size();
+	for(int i=0; i<=p; i++){
+			vector<Nodo *> aux= NOMBREDEFUNCION(nodos,i);
+			int resPar=Bfs(aux);
+			if(respar< res && respar!=-1){
+					res=respar;
+			}
+	}
+	if(res==2*nodos.size()){
+			res=-1;
+	}
+	return res;
+}
+
 
 int main(int argc, char *argv[]) {
   std::vector<Nodo *> nodos;
