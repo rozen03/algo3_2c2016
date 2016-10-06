@@ -68,7 +68,7 @@ Formalmente esto equivale a modelar el problema utilzando grafos. Cuando hay par
 \subsection{Experimentación}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Problema 2: }
+\section{Problema 2: Juntando piezas }
 
 \subsection{Introducción}
 
@@ -78,26 +78,82 @@ Formalmente, podemos modelar este problema con grafos. Teniendo un grafo con pes
 \subsection{Explicación de la solución}
 
 Definimos una clase eje que tiene como propiedad punteros a los nodos de cada extremo y su peso correspondiente.
-Luego acomodamos nuestra entrada para obtener el conjunto de todos los ejes y utilizamos el algoritmo de Kruskal para obtener el árbol generador mínimo y retornas el valor total del mismo
+Luego acomodamos nuestra entrada para obtener el conjunto de todos los ejes y utilizamos el algoritmo de Kruskal para obtener el árbol generador mínimo y retornas el valor total del mismo. La única modificación del mismo es guardar un entero en el cual ir sumando el peso de cada arista elegida para devovler como resultado.
 
 
 
 \subsubsection{Pseudocódigo}
 
+\begin{algorithm}[H]{\textbf{solucion}(int n, vecot$<$ejes$>$ aristas)}
+	\begin{algorithmic}[1]
+		\State convertir aristas en cola de prioridad según el peso \Comment $\Ogr(m)$
+		\State int res= Kruskal(aristas,n)  \Comment $Ogr(mxlog(n))$
+		\devolver res \Comment \Ogr(1)
+	\end{algorithmic}
+\end{algorithm}
 
 \subsubsection{Demostración de Correctitud}
 
 
 \subsubsection{Demostración de Complejidad}
 
+Como podemos apreciar en el pseudocodigo nuestro algoritmo tiene complejidad $\Ogr(mxlog(n))$ donde m es la cantidad de ejes y n la cantidad de nodos de nuestro grafo. 
+La complejidad pedida para este algoritmo es $\Ogt(FCxlog(FC))$ donde F es la cantidad de filas y C la cantidad de columans del mapa.
+
+Primero probaremos que podemos acotar la cantidad de ejes por la cantidad de nodos:
+Sabémos que $1/2  \Sum[1][n]{d(v_{i})} =m $. Sin embargo podemos acotar $d(v_{i}) \leq 4$ ya que como mucho los nodos del medio del mapa pueden tener 4 ejes mientras que todos los que esten en los bordes podran tener como mucho 2. Luego $1/2  \Sum[1][n]{d(v_{i})} \leq 1/2 \Sum[1][n]{4} = 2n$. Entonces $m \leq 2n$ y $\Ogr(m) \leq \Ogr(2n) \Ogr(n)$.
+
+Ahora veremos que la complejidad de nuestro algoritmo es la pedida:
+Por lo anterior tenemos que $\Ogr(mxlog(n))= \Ogr(nxlog(n))$.
+La cantidad de nodos que tengamos depende directamente de F y C. la maxima cantidad de nodos que podemos tener es F-1*C-1 (la matriz sin paredes descartando los bordes) luego $\Ogr(nlog(n)) = \Ogr(FCxlog(FC))$ 
+
 
 \subsection{Experimentación}
 
+La complejidad requerida para este algoritmo es $\Ogr(FCxlog(FC))$ y en la sección anterior probamos que esto es equivalente a  $\Ogr(nlog(n))$.
+Realizamos una serie de experimentos para respaldar empiricamente este hecho.
+Los mismos consisten principalmente en variar las dimensiones del mapa, es decir, modificar F y C. Esperamos que estas variaciones afecten la cantidad de nodos, aumentando o disminuyendo la complejidad a corde de $\Ogr(FCxlog(FC))$ manteniendo la misma tendencia. 
+Creemos que nuestro algoritmo será un poco más rápido a la cota pedida ya que la cantidad de nodos es un poco menor a FC.
 
-\subsubsection{Análisis complejidad te\'orica}
+Nuestro algoritmo devuelve -1 cuando se tienen componenetes conexas, es decir cuando no se pueden recorrer todas las salas. Decimdimos hacer un test para ver que ocurría en estos casos. al disminuir las componentes conexas tambien disminuimos la cantidad de nodos, por esta razón suponemos que debe tardar menos. sí no las disminuyeramos creemos que el tiempo sería el mismo.
+
+\subsubsection{Resultados y análisis}
+
+En nuestro primer experimento fuimos aumentando la dimensión de nuestro mapa, con F=C. lo corrimos para F=10 hasta F=250 aumentando de diez en diez.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.6\textwidth]{sinParedes}
+\caption{Aumento en la dimensión sel grafo}
+\end{figure}
+
+Podemos observar que el algoritmo tiene la misma tendencia logaritmica que nuestra cota teórica. También podemos ver que es mejor a media que aumenta la cantidad de nodos (o filas y columnas).
 
 
-\subsubsection{Análisis}
+En este experimento mantuvimos o bien constante el número de filas para aumentar de 10 en 10 las columnas hasta 250, o bien el número de columnas para aumentar las filas.
+\begin{figure}[H]
+\centering
+	\begin{subfigure} 
+	\includegraphics[width=0.6\textwidth]{soloFilas}
+	\caption{Aumento en filas del mapa.}
+	\end{subfigure}
+	\begin{subfigure}
+	\includegraphics[width=0.6\textwidth]{soloColumnas}
+	\caption{Aumento en columnas del mapa.}
+	\end{subfigre}
+\end{figure}
+Podemos ver que estos gráficos son practicamente iguales. con esto podemos mostrar que el algoritmo no depende en realidad de la cantidad de filas o columnas sino de los nodos. La razón por la cual nuestros gáficos son iguales es que mantienen la misma cantidad de nodos. la única diferencia en nustros mapas sería que uno es vertical y otro horizontal pero eso no afecta la cantidad de nodos.
+
+En este experimentos tomamos un mapa con F=C=31 
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.6\textwidth]{CompConexas}
+\caption{Aumento de las componentes conexas del grafo}
+\end{figure}
+
+
+
+
 
 
 
@@ -243,7 +299,7 @@ Como se puede observar en el gráfico no respalda nuestra hipótesis, y nos gene
 \end{figure}
 
 \\
-Luego de demostrar que la complejidad Teórica era respaldada por la experimentacion, entramos en una series de pruebas que se generaron más por la falta de entendimiento de nuestros gráficos y la busqueda de una hipótesis que satisfaga al lector. Lamentablemente no encontramos una, solo encontramos más preguntas sin resolver, que para no agobiar al lector dejamos como meras incognitas para encarar en un futuro.¿Por qué los árboles tardan una cantidad significante más de tiempo que un grafo fuertemente conexo?¿Como se explica la variación de tiempos cuando la cantidad de ejes es lo mismo pero los nodos aumentan? Acaso fue que las 3000 iteraciones dieron unas mediciones poco estandares o hay una razon por la cual un grafo con 124 nodos tenga el mismo tiempo de ejecucion que un de 170, cuando estos tendrian que ser muy diferentes.  
+Luego de demostrar que la complejidad Teórica es respaldada por la experimentación, entramos en una series de pruebas que se generaron más por la falta de entendimiento de nuestros gráficos y la busqueda de una hipótesis que satisfaga al lector. Lamentablemente no encontramos una, solo encontramos más preguntas sin resolver, que para no agobiar al lector dejamos como meras incognitas para encarar en un futuro.¿Por qué los árboles tardan una cantidad significante más de tiempo que un grafo fuertemente conexo?¿Como se explica la variación de tiempos cuando la cantidad de ejes es lo mismo pero los nodos aumentan? Acaso fue que las 3000 iteraciones dieron unas mediciones poco estandares o hay una razon por la cual un grafo con 124 nodos tenga el mismo tiempo de ejecucion que un de 170, cuando estos tendrian que ser muy diferentes.  
 
 
 \\
@@ -252,13 +308,6 @@ Luego de demostrar que la complejidad Teórica era respaldada por la experimenta
 \\
 
 
-
-
-
-
-:-"Y todos estos tesoros van a ir para algun museo no?"
-\\
-:-"Sí,Indi... lo que digas..."
 
 
 
