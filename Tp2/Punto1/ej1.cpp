@@ -72,6 +72,7 @@ int main(int argc, char *argv[]) {
 
   std::cout << nodos.size() << std::endl;
   std::cout << ejes.size() << std::endl;
+	clonarUltimoNivel(nodos,ejes);
   for (size_t i = 0; i < nodos.size(); i++) {
     std::cout << nodos[i]->indice << std::endl;
   }
