@@ -188,7 +188,7 @@ void parsearAux(vector<Nodo *> & nodos, vector<Eje *> & ejes,int ejercicio, stri
 void testSinParedes(int rep){
 	
 	ofstream res("resSinParedes.txt");
-	for (int f = 3; f <= 1000; f=f+10){
+	for (int f = 10; f <= 250; f=f+10){
 		
 		int sol=0;
 
@@ -233,7 +233,7 @@ void testSinParedes(int rep){
 void testSoloFilas(int rep){
 	int c=4;
 	ofstream res("resSoloFilas.txt");
-	for (int f = 3; f <= 1000; f=f+10){
+	for (int f = 10; f <= 250; f=f+10){
 		
 		int sol=0;
 
@@ -278,7 +278,7 @@ void testSoloFilas(int rep){
 void testSoloColumnas(int rep){
 	int f= 4;
 	ofstream res("resSoloColumnas.txt");
-	for (int c = 3; c <= 1000; c=c+10){
+	for (int c = 10; c <= 250; c=c+10){
 		
 		int sol=0;
 
@@ -381,6 +381,64 @@ void testCompConexas(int rep){
 }
 
 
+void testAleatorio(int rep){
+	srand(time(NULL));
+	ofstream res("resAleatorio.txt");
+	for (int f = 20; f <= 20; f=f+10){
+		
+		int sol=0;
+
+		ofstream test("testAleatorio.txt");
+		test<<f <<" "<< f << " \n";
+		for (int i = 1; i <= f; ++i){
+			
+			for (int j = 1; j <= f; ++j){
+				
+				if(((i==1 && j!= f ) || i==f )|| j==1 ){
+					test<< "#";
+				}
+				else if (j==f){
+					test<< "#"<<" \n";
+				}
+				else{
+					
+					int a= rand()%5+1;
+					if (a<=3){
+						test<<".";
+					}
+					else if (a==5){
+						test<<"#";
+					}
+					else{
+						
+						int b= rand()%9+1;
+						test<< b;	
+					}
+				}
+			}
+		}
+		/*
+		test.close();
+		vector<Nodo *> nodos;
+		vector<Eje *> ejes;
+		
+		parsearAux(nodos, ejes, 2, "testAleatorio.txt");
+
+		unsigned int n= nodos.size();		
+		for (int i = 0; i <= rep; ++i){
+			int solpar;
+			auto start= ya();
+			solu(n, ejes);	
+			auto end= ya();
+			solpar = chrono::duration_cast<std::chrono::nanoseconds>(end-start).count() / rep;
+			sol = sol +solpar;
+		}
+		res<<sol<<" \n"; 
+		*/
+	}
+}
+
+
 
 int main(){
 
@@ -388,6 +446,7 @@ int main(){
 	testSoloFilas(1000);
 	testSoloColumnas(1000);
 	testCompConexas(1000);
+	//testAleatorio(1);
 	return 0;
 
 }

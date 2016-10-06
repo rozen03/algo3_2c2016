@@ -13,7 +13,7 @@ using namespace std;
 	while(!Ejes.empty() ){
 		
 		Eje e= Ejes.top();
-		cout<< e.damePeso()<< endl;
+		//cout<< e.damePeso()<< endl;
 		Ejes.pop();
 
 		//ver como se llamas los Nodos extremos del Eje podrian ser inicio y fin?!
