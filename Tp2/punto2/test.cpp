@@ -4,53 +4,17 @@
 #include <stdlib.h>
 #include <chrono>
 #include "pto2.cpp"
+#include "../estructuras.h"
 
 #define ya chrono::high_resolution_clock::now
 
 using namespace std;
 
 
-void testSinParedes(int rep){
-	ofstream res("resSinParedes.txt");
-	for (int f = 4; f <= 100000; ++f){
-		int sol=0;
-		ofstream test("testSinParedes.txt");
-		test<<f <<" "<< f << " \n";
-		for (int i = 1; i <= f; ++i){
-			for (int j = 1; j <= f; ++j){
-				if(i==1 || i==f || j==1 ){
-				test<< "#";
-			}
-			else if (j==f){
-				test<< "#"<<" \n";
-			}
-			else{
-				test<<".";
-			}
-			}
-		}
-		vector<Nodo *> nodos;
-		vector<Eje *> ejes;
-		parsearAux(nodos, ejes, 2, "testSinParedes.txt");
-		unsigned int n= nodos.size();		
-		for (int i = 0; i <= rep; ++i){
-			int solpar;
-			auto start= ya();
-			solu(n, ejes);	
-			auto end= ya();
-			solpar = chrono::duration_cast<std::chrono::nanoseconds>(end-start).count() / rep;
-			sol = sol +solpar;
-		}
-		res<<sol<<" \n";
-
-	}	
-	
-
-}
-
 
 void parsearAux(vector<Nodo *> & nodos, vector<Eje *> & ejes,int ejercicio, string s){
-  ofstream test;  
+  
+  fstream test;  
   test.open(s);
   int f, c, p;
   test >> c >> f;
@@ -59,14 +23,19 @@ void parsearAux(vector<Nodo *> & nodos, vector<Eje *> & ejes,int ejercicio, stri
   }
 
   char aux;
+
   int indices[f - 2][c - 2];
+  
   char matriz[f - 2][c - 2];
   unsigned int count = 0;
   unsigned int countEjes = 0;
+
   nodos.resize((f - 2) * (c - 2),NULL);
   ejes.resize((f - 2) * (c - 2)*4,NULL);
   unsigned int nodidex =0;
+  
   for (int i = 0; i < f-2; i++) {
+
     for (int j = 0; j < c-2; j++) {
       indices[i][j] = -1;
       nodos[nodidex] = NULL;
@@ -214,9 +183,211 @@ void parsearAux(vector<Nodo *> & nodos, vector<Eje *> & ejes,int ejercicio, stri
   test.close();
 }
 
+
+
+void testSinParedes(int rep){
+	
+	ofstream res("resSinParedes.txt");
+	for (int f = 3; f <= 1000; f=f+10){
+		
+		int sol=0;
+
+		ofstream test("testSinParedes.txt");
+		test<<f <<" "<< f << " \n";
+		for (int i = 1; i <= f; ++i){
+			
+			for (int j = 1; j <= f; ++j){
+				
+				if(((i==1 && j!= f ) || i==f )|| j==1 ){
+					test<< "#";
+				}
+				else if (j==f){
+					test<< "#"<<" \n";
+				}
+				else{
+					test<<".";
+				}
+			}
+		}
+		test.close();
+		vector<Nodo *> nodos;
+		vector<Eje *> ejes;
+		
+		parsearAux(nodos, ejes, 2, "testSinParedes.txt");
+
+		unsigned int n= nodos.size();		
+		for (int i = 0; i <= rep; ++i){
+			int solpar;
+			auto start= ya();
+			solu(n, ejes);	
+			auto end= ya();
+			solpar = chrono::duration_cast<std::chrono::nanoseconds>(end-start).count() / rep;
+			sol = sol +solpar;
+		}
+		res<<sol<<" \n"; 
+		
+	}	
+	
+}
+
+void testSoloFilas(int rep){
+	int c=4;
+	ofstream res("resSoloFilas.txt");
+	for (int f = 3; f <= 1000; f=f+10){
+		
+		int sol=0;
+
+		ofstream test("testSoloFilas.txt");
+		test<<f <<" "<< c << " \n";
+		for (int i = 1; i <= f; ++i){
+			
+			for (int j = 1; j <= c; ++j){
+				
+				if(((i==1 && j!= c ) || i==f )|| j==1 ){
+					test<< "#";
+				}
+				else if (j==c){
+					test<< "#"<<" \n";
+				}
+				else{
+					test<<".";
+				}
+			}
+		}
+		test.close();
+		vector<Nodo *> nodos;
+		vector<Eje *> ejes;
+		
+		parsearAux(nodos, ejes, 2, "testSoloFilas.txt");
+
+		unsigned int n= nodos.size();		
+		for (int i = 0; i <= rep; ++i){
+			int solpar;
+			auto start= ya();
+			solu(n, ejes);	
+			auto end= ya();
+			solpar = chrono::duration_cast<std::chrono::nanoseconds>(end-start).count() / rep;
+			sol = sol +solpar;
+		}
+		res<<sol<<" \n"; 
+		
+	}
+}
+
+
+void testSoloColumnas(int rep){
+	int f= 4;
+	ofstream res("resSoloColumnas.txt");
+	for (int c = 3; c <= 1000; c=c+10){
+		
+		int sol=0;
+
+		ofstream test("testSoloColumnas.txt");
+		test<<f <<" "<< c << " \n";
+		for (int i = 1; i <= f; ++i){
+			
+			for (int j = 1; j <= c; ++j){
+				
+				if(((i==1 && j!= c ) || i==f )|| j==1 ){
+					test<< "#";
+				}
+				else if (j==c){
+					test<< "#"<<" \n";
+				}
+				else{
+					test<<".";
+				}
+			}
+		}
+		test.close();
+		vector<Nodo *> nodos;
+		vector<Eje *> ejes;
+		
+		parsearAux(nodos, ejes, 2, "testSoloColumnas.txt");
+
+		unsigned int n= nodos.size();		
+		for (int i = 0; i <= rep; ++i){
+			int solpar;
+			auto start= ya();
+			solu(n, ejes);	
+			auto end= ya();
+			solpar = chrono::duration_cast<std::chrono::nanoseconds>(end-start).count() / rep;
+			sol = sol +solpar;
+		}
+		res<<sol<<" \n"; 
+		
+	}
+
+}
+
+void testCompConexas(int rep){
+	ofstream res("resCompConexas.txt");
+	int f=31;
+	int c=31;
+	for (int k = 1; k < 31; ++k){
+		int sol=0;
+		ofstream test("testCompConexas.txt");
+		test<<f<<" "<<c<<"\n";
+		
+		for (int i = 1; i <= f; ++i){
+
+			for (int j = 1; j <= c; ++j){
+				
+				if(((i==1 && j!= c ) || i==f )|| j==1 ){
+					test<< "#";
+				}
+				else if (j==c){
+					test<< "#"<<" \n";
+				}
+				else{
+					if(j<=k+2){
+						
+						if (j%2==0){
+							test<<".";
+						}
+						else{
+							test<<"#";
+							
+						}
+
+					}
+					else{
+						test<<".";
+					}
+						
+				}
+					
+
+			}	
+			
+		}
+		test.close();
+		vector<Nodo *> nodos;
+		vector<Eje *> ejes;
+		
+		parsearAux(nodos, ejes, 2, "testCompConexas.txt");
+
+		unsigned int n= nodos.size();		
+		for (int i = 0; i <= rep; ++i){
+			int solpar;
+			auto start= ya();
+			solu(n, ejes);	
+			auto end= ya();
+			solpar = chrono::duration_cast<std::chrono::nanoseconds>(end-start).count() / rep;
+			sol = sol +solpar;
+		}
+		res<<sol<<" \n"; 		
+	}
+}
+
+
+
 int main(){
 
-	testSinParedes(3000);
+	testSinParedes(1000);
+	testSoloFilas(1000);
+	testSoloColumnas(1000);
+	testCompConexas(1000);
 	return 0;
 
 }

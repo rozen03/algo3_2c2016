@@ -17,7 +17,7 @@ int dsu::find(unsigned int x){
 //cout<< "el padre de "<< x <<endl;
 //cout<<" es " << padre[x+1]<<endl;
 	if(padre[x]!=x){
-		cout<< "entre al if del find"<<endl;
+		
 		padre[x]=find(padre[x]);
 	}
 	return padre[x];
