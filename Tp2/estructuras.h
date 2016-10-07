@@ -2,45 +2,52 @@
 #define __NODO__
 #include <iostream>
 #include <queue>
+#include <vector>
+#include"eje.h"
 
 using namespace std;
 class Eje;
 class Nodo {
 public:
   unsigned int indice;
+
   priority_queue<Eje *> ejes;
   vector<Eje *> ejejes;
   int nivel;
-  bool pared;
+  bool esPared;
   Nodo(unsigned int indice) : indice(indice){
     ejes = priority_queue<Eje *>();
-    ejejes = vector<Eje *>(4,NULL);
+    ejejes = vector<Eje *>();
     nivel=0;
-    pared=false;
+    esPared=false;
     contadorDeEjes=0;
   };
-  Nodo(unsigned int indice,bool esPared) : indice(indice),pared(esPared){
+  Nodo(unsigned int indice,bool esPared) : indice(indice),esPared(esPared){
     ejes = priority_queue<Eje *>();
-    ejejes = vector<Eje *>(4,NULL);
+    ejejes = vector<Eje *>();
     nivel=0;
     contadorDeEjes=0;
   };
   Nodo(unsigned int indice,int cualnivel) : indice(indice),nivel(cualnivel){
     ejes = priority_queue<Eje *>();
-    ejejes = vector<Eje *>(4,NULL);
-    pared=false;
+    ejejes = vector<Eje *>();
+    esPared=false;
     contadorDeEjes=0;
   };
-  Nodo(unsigned int indice,int cualnivel,bool esPared) : indice(indice),nivel(cualnivel),pared(esPared){
+  Nodo(unsigned int indice,int cualnivel,bool esPared) : indice(indice),nivel(cualnivel),esPared(esPared){
     ejes = priority_queue<Eje *>();
-    ejejes = vector<Eje *>(4,NULL);
+    ejejes = vector<Eje *>();
     contadorDeEjes=0;
   };
-  Nodo(unsigned int indice,bool esPared,int cualnivel) : indice(indice),pared(esPared),nivel(cualnivel){
+  Nodo(unsigned int indice,bool esPared,int cualnivel) : indice(indice),esPared(esPared),nivel(cualnivel){
     ejes = priority_queue<Eje *>();
-    ejejes = vector<Eje *>(4,NULL);
+    ejejes = vector<Eje *>();
     contadorDeEjes=0;
   };
+  //vector<Eje *> ejes;
+  //Nodo(unsigned int indice) : indice(indice){
+    //ejes = vector<Eje *>();
+  //};
 
   void resizearEjes(){
     ejejes.resize(contadorDeEjes);
@@ -53,11 +60,39 @@ private:
   int contadorDeEjes;
 };
 
-void imprimirLinea(int linea){
-  std::cout << "Linea: "<<linea << std::endl;
-}
+class Eje {
+public:
+  int indice;
+  Nodo *n1;
+  Nodo *n2;
+  unsigned int peso;
+  Eje(unsigned int i, unsigned int p, Nodo *n1, Nodo *n2)
+      : indice(i), peso(p), n1(n1), n2(n2){};
+  int damePeso(){
+	   return peso;
+	};
+
+  Nodo *dameElOtroNodoPorfa(Nodo *n) {
+    if (n == n1) {
+      return this->n2;
+    } else {
+      return this->n1;
+    }
+  };
+  bool operator<(const Eje e2) const { return this->peso > e2.peso; }
+  int capa_uno() {
+    return min(this->n1->nivel,this->n2->nivel);
+  }
+  int capa_dos() {
+    return max(this->n1->nivel,this->n2->nivel);
+  }
+  Nodo *dameNodo(){
+	   return this->n1;
+  }
 
 
+private:
+};
 
 
 #define verNodo(i,j,variable,aux){\
@@ -103,7 +138,7 @@ int  parsearInput(vector<Nodo *> & nodos, vector<Eje *> & ejes,int ejercicio)
   char matriz[f - 2][c - 2];
   unsigned int count = (ejercicio==1)?1:0;
   unsigned int countEjes = 0;
-  unsigned int countParedes = 0;
+  int countParedes = 0;
   unsigned int nodidex =0;
   nodos.resize((f - 2) * (c - 2),NULL);
   ejes.resize((f - 2) * (c - 2)*4,NULL);
@@ -112,7 +147,6 @@ int  parsearInput(vector<Nodo *> & nodos, vector<Eje *> & ejes,int ejercicio)
       indices[i][j] = -1;
       nodos[nodidex] = NULL;
       nodidex++;
-        matriz[i][j]= 'a';
     }
   }
   for (int register j = 0; j < c; j++) {
@@ -122,7 +156,7 @@ int  parsearInput(vector<Nodo *> & nodos, vector<Eje *> & ejes,int ejercicio)
           continue;
         if (j == 0 || j == c - 1)
           continue;
-        matriz[i - 1][j - 1] =aux;
+        matriz[i - 1][j - 1] = aux;
 
       }
     }
@@ -160,6 +194,7 @@ int  parsearInput(vector<Nodo *> & nodos, vector<Eje *> & ejes,int ejercicio)
           if (esPiso(aux)) {
             verNodo(i+1,j,abajo,aux);
             Eje *e = new Eje(countEjes, 0, nodos[index], nodos[abajo]);
+
             nodos[index]->ejes.push(e);
             nodos[index]->pushearEje(e);
             nodos[abajo]->ejes.push(e);
@@ -216,6 +251,7 @@ int  parsearInput(vector<Nodo *> & nodos, vector<Eje *> & ejes,int ejercicio)
           b = max(abajo, max(izquierda, arriba));
         }
         Eje *e = new Eje(countEjes, peso, nodos[a], nodos[b]);
+
         nodos[a]->ejes.push(e);
         nodos[a]->pushearEje(e);
         nodos[b]->ejes.push(e);
@@ -224,7 +260,6 @@ int  parsearInput(vector<Nodo *> & nodos, vector<Eje *> & ejes,int ejercicio)
         countEjes++;
 
       }else if(ejercicio==1 && aux=='#'){
-        imprimirLinea(__LINE__);
         int arriba, abajo, izquierda, derecha,index;
         // Tomo/inicializo el nodo
         verNodo(i,j,index,aux);
@@ -293,14 +328,15 @@ int  parsearInput(vector<Nodo *> & nodos, vector<Eje *> & ejes,int ejercicio)
       }
     }
   }
+  //count--;
   nodos[count]=nodos.back();
   count++;
   nodos.resize(count);
   ejes.resize(countEjes);
   for (size_t i = 0; i < nodos.size(); i++) {
-    nodos[i].resizearEjes();
+    nodos[i]->resizearEjes();
   }
-  return min(p,countParedes)
+  return min(p,countParedes);
 }
 
 void clonarUltimoNivel(vector<Nodo *> & nodos, vector<Eje *> & ejes){
@@ -311,35 +347,53 @@ int tam = nodos.size()-1;
 int indices=nodos.size()+tamanioNivel;
 int tamanioNodos=nodos.size();
 int tamanioEjes=ejes.size();
-while (tam >-1 && nodos[i]->nivel==nivelAnterior) {
+while (tam >-1 && nodos[tam]->nivel==nivelAnterior) {
   tam--;
   tamanioNivel++;
 }
+//tamanioNivel++;
 nodos.resize(tamanioNodos+tamanioNivel,NULL);
-vector<Eje *>  nuevosEjes=vector<Eje *> (2*tamanioEjes);
+ejes.resize(2*tamanioEjes,NULL);
 
 for (int i = 0; i < tamanioNivel; i++) {
-  Nodo * n= nodos[nodos.size()-tamanioNivel+i-1];
-  nuevosNodos[tamanioNodos+n->indice]= new Nodo(tamanioNodos+n->indice,nivelNuevo,n->esPared);
+  Nodo * n= nodos[tamanioNodos-tamanioNivel+i];
+
+  nodos[tamanioNodos+n->indice]= new Nodo(tamanioNodos+n->indice,nivelNuevo,n->esPared);
 }
 
-for (int i = 0; i < ejes.size(); i++) {
+
+for (int i = 0; i <tamanioEjes; i++) {
   Eje* e = ejes[i];
   if(e->n1->nivel==e->n2->nivel && e->n1->nivel==nivelAnterior){
-    Eje *e = new Eje(tamanioEjes+i, 0, nodos[tamanioNodos+e->n1->indice ], nodos[tamanioNodos+e->n2->indice]);
-    nodos[tamanioNodos+e->n1->indice]->ejes.push(e);
-    nodos[tamanioNodos+e->n1->indice]->pushearEje(e);
-    nodos[tamanioNodos+e->n2->indice]->ejes.push(e);
-    nodos[tamanioNodos+e->n2->indice]->pushearEje(e);
-    ejes[tamanioEjes+i]=e;
+    Eje *nuevoEje = new Eje(tamanioEjes+i, e->peso, nodos[tamanioNodos+e->n1->indice ], nodos[tamanioNodos+e->n2->indice]);
+    nodos[tamanioNodos+e->n1->indice]->ejes.push(nuevoEje);
+    nodos[tamanioNodos+e->n1->indice]->pushearEje(nuevoEje);
+    nodos[tamanioNodos+e->n2->indice]->ejes.push(nuevoEje);
+    nodos[tamanioNodos+e->n2->indice]->pushearEje(nuevoEje);
+    ejes[tamanioEjes+i]=nuevoEje;
   }
 }
-/*
-for (int i = 0; i < tamanioNivel; i++) {
-  Nodo * n= nodos[nodos.size()-tamanioNivel+i-1];
+for (int i= 0; i < tamanioNivel; i++) {
+  Nodo * n= nodos[i];
+
   if(n->esPared){
+    for (int j = 0; j < n->ejejes.size(); j++) {
+      Eje* e = n->ejejes[j];
+      if(e->n1->nivel==e->n2->nivel && e->n1->nivel==nivelAnterior){
+        Nodo* otroNodo = e->dameElOtroNodoPorfa(n);
+        Eje* nuevoEje = new Eje(tamanioEjes+tamanioEjes+i, e->peso, nodos[j], nodos[tamanioNodos+otroNodo->indice]);
+        nodos[tamanioNodos+e->n1->indice]->ejes.push(nuevoEje);
+        nodos[tamanioNodos+e->n1->indice]->pushearEje(nuevoEje);
+        nodos[tamanioNodos+e->n2->indice]->ejes.push(nuevoEje);
+        nodos[tamanioNodos+e->n2->indice]->pushearEje(nuevoEje);
+        ejes.push_back(nuevoEje);
+        //cout<<ejes.size()<<endl;
+      }
+
+      }
+    }
   }
 }
-*/
-}
+
+
 #endif
