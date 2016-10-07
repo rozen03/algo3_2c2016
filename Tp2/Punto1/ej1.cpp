@@ -5,8 +5,6 @@
 #include <tuple>
 #include <vector>
 using namespace std;
-
-
 //Busqueda lineal return
 Eje * buscarEje(vector<Nodo *>& nodos, int padre, int hijo){
 	Nodo * elNod = nodos[padre];
@@ -132,21 +130,22 @@ int Solucion(vector<Nodo *> nodos, int p){
 	return res;
 }
 
-
 int main(int argc, char *argv[]) {
   std::vector<Nodo *> nodos;
   std::vector<Eje *> ejes;
   parsearInput(nodos,ejes,1);
-  /*cout<<"fin parsear"<<endl;
-  std::cout << nodos.size() << std::endl;
-  std::cout << ejes.size() << std::endl;
+
+  cout<<"fin parsear"<<endl;
+
+	clonarUltimoNivel(nodos,ejes);
+	cout<<"fin clon"<<endl;
   for (size_t i = 0; i < nodos.size(); i++) {
     std::cout << nodos[i]->indice << std::endl;
   }
   for (size_t i = 0; i < ejes.size(); i++) {
     std::cout <<ejes[i]->n1->indice<<" "<<ejes[i]->n2->indice<<" "<<ejes[i]->peso  << std::endl;
-  }*/
-  Bfs(nodos);
-  
+  }
+  //Bfs(nodos);
+
   return 0;
  }
