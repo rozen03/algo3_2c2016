@@ -101,6 +101,7 @@ int main(int argc, char *argv[]) {
   int p = 0;
   p = parsearInput(nodos,ejes,1);
   int res = Solucion(nodos, ejes, p);
+  cout<<res<<endl;
 
   return 0;
  }
