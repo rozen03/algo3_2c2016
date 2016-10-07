@@ -3,8 +3,7 @@
 #include <iostream>
 #include <queue>
 #include <vector>
-#include"eje.h"
-
+#include <time.h>       /* time */
 using namespace std;
 class Eje;
 class Nodo {
@@ -45,7 +44,6 @@ public:
     contadorDeEjes=0;
   };
 
-
   void resizearEjes(){
     ejejes.resize(contadorDeEjes);
   };
@@ -64,10 +62,10 @@ public:
   Nodo *n2;
   unsigned int peso;
   Eje(unsigned int i, unsigned int p, Nodo *n1, Nodo *n2)
-      : indice(i), peso(p), n1(n1), n2(n2){};
+  : indice(i), peso(p), n1(n1), n2(n2){};
   int damePeso(){
-	   return peso;
-	};
+    return peso;
+  };
 
   Nodo *dameElOtroNodoPorfa(Nodo *n) {
     if (n == n1) {
@@ -84,7 +82,7 @@ public:
     return max(this->n1->nivel,this->n2->nivel);
   }
   Nodo *dameNodo(){
-	   return this->n1;
+    return this->n1;
   }
 
 
@@ -93,24 +91,24 @@ private:
 
 
 #define verNodo(i,j,variable,aux){\
-    if (indices[i][j] >= 0) {\
-      variable = indices[i][j];\
-    } else {\
-      if (aux =='o'){\
-        nodos[0] = new Nodo(0);\
-        indices[i][j] = 0;\
-        variable = 0;\
-      }else if (aux =='x'){\
-        nodos[nodos.size()-1] = new Nodo(nodos.size()-1);\
-        indices[i][j] = nodos.size()-1;\
-        variable = nodos.size()-1;\
-      }else{\
-        nodos[count] = new Nodo(count);\
-        indices[i][j] = count;\
-        variable = count;\
-        count++;\
-      }\
+  if (indices[i][j] >= 0) {\
+    variable = indices[i][j];\
+  } else {\
+    if (aux =='o'){\
+      nodos[0] = new Nodo(0);\
+      indices[i][j] = 0;\
+      variable = 0;\
+    }else if (aux =='x'){\
+      nodos[nodos.size()-1] = new Nodo(nodos.size()-1);\
+      indices[i][j] = nodos.size()-1;\
+      variable = nodos.size()-1;\
+    }else{\
+      nodos[count] = new Nodo(count);\
+      indices[i][j] = count;\
+      variable = count;\
+      count++;\
     }\
+  }\
 }
 bool esPiso(char coso){
   return coso=='.' ||coso=='o' || coso=='x'  ;
@@ -120,16 +118,10 @@ bool esPisoPared(char coso){
 }
 
 
-int  parsearInput(vector<Nodo *> & nodos, vector<Eje *> & ejes,int ejercicio)
+int  parsearInput(vector<Nodo *> & nodos, vector<Eje *> & ejes,int f, int c, int p)
 {
-  int f, c, p;
-  cin >> c >> f;
-  if (ejercicio==1) {
-    cin >> p;
-  }else{
-    p=0;
-  }
-
+  srand (time(NULL));
+  int ejercicio=1;
   char aux;
   int indices[f - 2][c - 2];
   char matriz[f - 2][c - 2];
@@ -144,25 +136,57 @@ int  parsearInput(vector<Nodo *> & nodos, vector<Eje *> & ejes,int ejercicio)
       indices[i][j] = -1;
       nodos[nodidex] = NULL;
       nodidex++;
+      matriz[i][j]='.';
     }
   }
-  for (int register j = 0; j < c; j++) {
-    for (int register i = 0; i < f; i++) {
-        cin >> aux;
-        if (i == 0 || i == f - 1)
-          continue;
-        if (j == 0 || j == c - 1)
-          continue;
-        matriz[i - 1][j - 1] = aux;
 
-      }
+  int paredes =0;
+  int desde_i =rand() %(f-2);
+  int desde_j=rand() %(c-2);
+  int hasta_i=rand() %(f-2);
+  int hasta_j=rand() %(c-2);
+  matriz[desde_i][desde_j]='o';
+  int distancia = max(desde_i-hasta_i, hasta_i-desde_i)+ max(desde_j-hasta_j,hasta_j-desde_j);
+  while (matriz[hasta_i][hasta_j]=='o') {
+     hasta_i=rand() %(f-2);
+     hasta_j=rand() %(c-2);
+     distancia = max(desde_i-hasta_i, hasta_i-desde_i)+ max(desde_j-hasta_j,hasta_j-desde_j);
+  }
+  matriz[hasta_i][hasta_j]='x';
+  while(paredes<p){
+    int random_i= rand() %(f-2);
+    int random_j=rand() %(c-2);
+    if (matriz[random_i][random_j]!='.'){
+      continue;
     }
-    for (size_t i = 0; i < f -2; i++) {
-      for (size_t j = 0; j <c -2; j++) {
-        cout<<matriz[i][j];
-      }
-      cout<<endl;
-    }
+    matriz[random_i][random_j]='#';
+    paredes++;
+  }
+  //cout<<"o=("<<desde_i+1<<","<<desde_j+1<<")"<<endl;
+  //cout<<"x=("<<hasta_i+1<<","<<hasta_j+1<<")"<<endl;
+  //if(!puedeLLegar){
+  //  int dif_i=hasta_i - desde_i;
+  //  int pongoDesde = min(desde_i,hasta_i);
+  //  for (size_t i = 1 ; i <p+1 && i < dif_i && i<f-2 ; i++) {
+  //    for (size_t j = 0; j < c-2; j++) {
+  //      matriz[pongoDesde+i][j]='#';
+  //    }
+  //  }
+  //  int dif_j=hasta_j - desde_j;
+  //  pongoDesde=min(desde_j,hasta_j);
+  //  for (size_t j = 1; j < p+1 && j<p-dif_j  && j<c-2; j++) {
+  //    for (size_t i = 0; i <f-2 ; i++) {
+  //      matriz[i][pongoDesde+j]='#';
+  //    }
+  //  }
+  //}
+//  for (size_t i = 0; i < f -2; i++) {
+//    for (size_t j = 0; j <c -2; j++) {
+//      cout<<matriz[i][j];
+//    }
+//    cout<<endl;
+//  }
+  //return 0;
   for (size_t i = 0; i < f -2; i++) {
     for (size_t j = 0; j <c -2; j++) {
       aux = matriz[i][j];
@@ -335,6 +359,7 @@ int  parsearInput(vector<Nodo *> & nodos, vector<Eje *> & ejes,int ejercicio)
   }
   return min(p,countParedes);
 }
+
 void clonarUltimoNivel(vector<Nodo *> & nodos, vector<Eje *> & ejes){
   int tamanioNivel=0;
   int nivelAnterior= nodos.back()->nivel;
@@ -353,9 +378,6 @@ void clonarUltimoNivel(vector<Nodo *> & nodos, vector<Eje *> & ejes){
 
   for (int i = 0; i < tamanioNivel; i++) {
     Nodo * n= nodos[tamanioNodos-tamanioNivel+i];
-    if (n==NULL){
-      cout<<"EXODIA"<<endl;
-    }
     Nodo * nuevo =new Nodo(tamanioNodos+n->indice,nivelNuevo,n->esPared);
     //nodos[tamanioNodos+n->indice]= nuevo;
     nodos.push_back(nuevo);
