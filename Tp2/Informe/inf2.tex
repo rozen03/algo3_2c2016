@@ -44,8 +44,8 @@
 
 \subsection{Introducción}
 
-En este problema los viajeros encuentran un mapa de un laberinto señalando algún lugar con una x sin embargo no todos los puntos están conectados. Ellos quisieran llegar a ese lugar caminando lo menos posible, además pueden esforzarse para romper una cantidad determinada de paredes. Nos piden que les informemos cuánto deben caminar de ser posible.
-
+En este problema los viajeros encuentran un mapa de un laberinto señalando algún lugar con una x, sin embargo no todos los puntos están conectados. Ellos quisieran llegar a ese lugar caminando lo menos posible. Además, pueden esforzarse para romper una cantidad determinada de paredes. Nos piden que les informemos cuánto deben caminar de ser posible.
+%Agregue comas y cosas
 Formalmente esto equivale a modelar el problema utilzando un grafo que contiene nodos $"especiales"$(las paredes). Se busca la distancia entre dos nodos, pasando como mucho por p nodos especiales.
 
 \subsection{Explicación de la solución}
@@ -53,7 +53,7 @@ Podemos dividir la resolución en tres partes: la primera, donde interpretamos l
 
 %Se podrá hacer un dibujo aca? la idea es hacer como un "plano" en perspectiva del primer grafo, como si fuese una feta de queso; y varias fetas abajo. ya fue igual
 
-En la tercera parte, vamos a aplicar un bfs modificado, para calcular las distancias del nodo origen a todos los demás nodos. Entre las modificaciones se incluyen unos $"movimientos ilegales"$: estos son movimientos que el modelo solamente con  por un lado, no está permitido pasar a un nivel menor al que uno se encuentra. Además, no es correcto mover de un nodo $"habitación"$ a un nodo $"pared"$ en el mismo nivel.
+En la tercera parte, vamos a aplicar un bfs modificado, para calcular las distancias del nodo origen a todos los demás nodos. Entre las modificaciones se incluyen unos movimientos ilegales: estos son movimientos que el modelo no contempla. Por un lado, no está permitido pasar a un nivel menor al que uno se encuentra. Además, no es correcto mover de un nodo $"habitación"$ a un nodo $"pared"$ en el mismo nivel. %cambie $"movimientos ilegales"$ por movimientos ilegales. No se veia bien. Sume un par de cosas que me habia comido.
 
 Por último, se calcula la distancia mínima entre todos los nodos finales copiados. Si no existe un camino posible a ninguno de los nodos finales en todos los niveles, el algoritmo devuelve -1
 
@@ -74,7 +74,7 @@ Por último, se calcula la distancia mínima entre todos los nodos finales copia
 				\State\quad \quad \quad  res$\gets$respar
 			\State\quad \quad  finSi
 		\State \quad finDesde
-		\State \quad Si res=|nodos| hacer
+		\State \quad Si res=$|nodos|$ hacer %agregue los pesos. no se veia bien
 			\State \quad \quad devovler -1
 		\State \quad Sino
 			\State \quad \quad  devolver res
@@ -97,7 +97,7 @@ Por último, se calcula la distancia mínima entre todos los nodos finales copia
 				\State \quad \quad \quad order(i)$\gets$next
 				\State \quad \quad \quad next+1
 				\State \quad \quad \quad Para cada arista j conectada al nodo i hacer:
-					\State \quad \quad \quad \quad Si(order(j)$=-1$ y nivel(j)$geq$nivel(i)) hacer
+					\State \quad \quad \quad \quad Si(order(j)$=-1$ y nivel(j)$eq$nivel(i)) hacer %le saque una g a geq... no hacia nada
 						 \State \quad \quad \quad \quad \quad list$\cup${(j,i)}
 					\State \quad \quad \quad \quad finSi
 				\State \quad \quad \quad   finPara
@@ -124,37 +124,38 @@ Por último, se calcula la distancia mínima entre todos los nodos finales copia
 
 \begin{algorithm}[H]{\textbf{ClonarUltimoNivel}(aux,ejes)}
 	\begin{algorithmic}[1]
-		\State n <- ultimo nodo  de aux
-		\State nivel <- n->nivel
-		\State tamanioDelUltimoNivel
-		\State mientras exista n  y n->nivel = nivel 
-			\State retrocedo un nodo
-			\State tamanioDelUltimoNivel +=1
-		\State finMientras
-		\State Para i desde 0 hasta tamaioDelUltimoNivel
-		  \State nuevoNodo <-copia de n
-			\State nuevoNodo.indice<-n->indice + tamanioDelUltimoNivel
-			\State agrego nuevoNodo al final de  aux
-		\State Fin Para
+		\State \quad n $\gets$ultimo nodo  de aux
+		\State \quad nivel $\gets$ el nivel del n
+		\State \quad tamanioDelUltimoNivel
+		\State \quad mientras exista n  y el nivel de n = nivel 
+			\State \quad \quad retrocedo un nodo
+			\State \quad \quad incremento tamanioDelUltimoNivel 
+		\State \quad finMientras
+		\State \quad Para i desde 0 hasta tamanioDelUltimoNivel
+		  	\State \quad \quad nuevoNodo $\gets$copia de n
+			\State \quad \quad indice del nuevoNodo$\gets$ indice de n + tamanioDelUltimoNivel
+			\State \quad \quad agrego nuevoNodo al final de aux
+		\State \quad Fin Para
 
-		\State Para e en ejes
-		 \State Si e tiene ambos ejes en el ultimonivel
-		 	\State nuevoEje<-copia del eje pero con los nodos del nuevo nivel
-		  \State Agrego nuevoEje al final de ejes
-		 \State fin Si
-		 \State Fin Para
+		\State \quad Para e en ejes
+		 	\State \quad \quad Si e tiene ambos ejes en el ultimonivel
+		 		\State \quad \quad \quad nuevoEje$\gets$copia del eje pero con los nodos del nuevo nivel
+		  		\State \quad \quad \quad  Agrego nuevoEje al final de ejes
+		 	\State \quad \quad fin Si
+		\State \quad Fin Para
 
-		\State para n en nodos
-		  \State Si n es pared
-				\State Para e en n.ejes
-				\State nuevoEje<-copia del otro nodo q conecta con n con su clon del nuevo nivel
-				\State Agrego nuevoEje al final de ejes
-				\State Fin Para
-			\State¸Fin Si
-		\State Fin Para
+		\State \quad para n en nodos
+		  	\State \quad \quad  Si n es pared
+				\State \quad \quad \quad Para e en n.ejes
+					\State \quad \quad \quad \quad  nuevoEje$\gets$copia del otro nodo q conecta con n con su clon del nuevo nivel
+					\State \quad \quad \quad \quad Agrego nuevoEje al final de ejes
+				\State \quad \quad \quad Fin Para
+			\State \quad \quad Fin Si
+		\State \quad Fin Para
 	\end{algorithmic}
 \end{algorithm}
-
+%%%%%%%%%% Agregué todas las tabulaciones que faltaban. Espero que esten en el lugar correcto :3
+%%%%%%%%%% cambie <- por /gets. Lo puse mas en palabras
 
 
 
@@ -185,7 +186,7 @@ Formalmente, podemos modelar este problema con grafos. Teniendo un grafo con pes
 
 Definimos una clase eje que tiene como propiedad punteros a los nodos de cada extremo y su peso correspondiente.
 Luego acomodamos nuestra entrada para obtener el conjunto de todos los ejes y utilizamos el algoritmo de Kruskal para obtener el árbol generador mínimo, y retornar el valor total del mismo. La única modificación del mismo es guardar un entero en el cual ir sumando el peso de cada arista elegida para devolver como resultado.
-
+	
 
 
 \subsubsection{Pseudocódigo}
