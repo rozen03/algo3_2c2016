@@ -61,6 +61,50 @@ Por último, se calcula la distancia mínima entre todos los nodos finales copia
 
 \subsection{Pseudocódico}
 
+\subsubsection{Pseudocódigo}
+
+\begin{algorithm}[H]{\textbf{solucion}(vector<Nodo>nodos, vector<Eje> ejes, int p)}
+	\begin{algorithmic}[1]
+		\State res=|nodos|
+		\State vector<Nodos> aux=nodos
+		\State Desde i=0 hasta i=p
+			\State respar=Bfs(aux)
+			\State aux= ClonarUltimoNivel(aux,ejes)
+			\State Si respar>0 y respar<res hacer
+				\State res=respar
+			\State finSi
+		\State finDesde
+		\State Si res=|nodos| hacer
+			\State devovler -1
+		\State Sino 
+			\State devolver res
+		\State finSi
+	\end{algorithmic}
+\end{algorithm}
+
+
+\begin{algorithm}[H]{\textbf{Bfs}(vector<Nodo> nodos)}
+	\begin{algorithmic}[1]
+		\State Para todo nodo i 
+			\State pred(i)=-1, order(i)=-1
+		\State finPara
+		\State lista list={(o,0)}
+		\State Mientras 
+	  
+		TERMINAR
+		
+	\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}[H]{\textbf{ClonarUltimoNivel}(aux,ejes)}
+	\begin{algorithmic}[1]
+	
+	COMPLETAR!!!!
+	
+	\end{algorithmic}
+\end{algorithm}
+
+
 
 
 \subsection{Demostración de Correctitud}
@@ -102,11 +146,19 @@ Luego acomodamos nuestra entrada para obtener el conjunto de todos los ejes y ut
 
 \subsubsection{Demostración de Correctitud}
 
+Este problema lo modelamos con grafos de modo tal que cada habitación caminable es un nodo conectado a otros mediante sus ejes. Los mismos, de haber una pared en el medio tendrán peso igual al costo de destruirla y de no haber pared, tendrán peso cero. si entre dos nodos hay una pared indestructible esos nodos no podrán conectarse, es decir no existe una arista entre ellos.
+
+Un arbol generador mínimo de un grafo es un subgrafo que contiene todos los nodos del mismo y cumple las caracteristicas de un árbol(por ejemplo, solo existe un camino simple que conecta dos pares de nodos) y además por ser mínimo cumple que la sumatoria de los pesos de sus ejes es la menor posible.
+
+En este problema nos piden que demos el esfuerzo que nos cuesta acceder a todas las habitaciones.Por como modelamos el problema podemos ver que lo que nos están pidiendo es un AGM. Para encontrar el AGM de un grafo utilizamos el algoritmo Kruskal. La demostración de correctitud de este algoritmo puede encontrase en el paper de  
+
+J.B. Kruskal, ``On the shortest spanning subtree of a graph and the traveling salesman problem. Proceedings of the American Mathematical Society, Volume 7, pp. 48-50, 1956".
+
 
 \subsubsection{Demostración de Complejidad}
 
 Como podemos apreciar en el pseudocodigo nuestro algoritmo tiene complejidad $\Ogr(mxlog(n))$ donde m es la cantidad de ejes y n la cantidad de nodos de nuestro grafo. 
-La complejidad pedida para este algoritmo es $\Ogt(FCxlog(FC))$ donde F es la cantidad de filas y C la cantidad de columans del mapa.
+La complejidad pedida para este algoritmo es $\Ogr(FCxlog(FC))$ donde F es la cantidad de filas y C la cantidad de columans del mapa.
 
 Primero probaremos que podemos acotar la cantidad de ejes por la cantidad de nodos:
 Sabémos que $1/2  \Sum[1][n]{d(v_{i})} =m $. Sin embargo podemos acotar $d(v_{i}) \leq 4$ ya que como mucho los nodos del medio del mapa pueden tener 4 ejes mientras que todos los que esten en los bordes podran tener como mucho 2. Luego $1/2  \Sum[1][n]{d(v_{i})} \leq 1/2 \Sum[1][n]{4} = 2n$. Entonces $m \leq 2n$ y $\Ogr(m) \leq \Ogr(2n) \Ogr(n)$.
@@ -152,13 +204,25 @@ En este experimento mantuvimos o bien constante el número de filas para aumenta
 \end{figure}
 Podemos ver que estos gráficos son practicamente iguales. con esto podemos mostrar que el algoritmo no depende en realidad de la cantidad de filas o columnas sino de los nodos. La razón por la cual nuestros gáficos son iguales es que mantienen la misma cantidad de nodos. la única diferencia en nustros mapas sería que uno es vertical y otro horizontal pero eso no afecta la cantidad de nodos.
 
-En este experimentos tomamos un mapa con F=C=31 
+
+Para este experimento creamos dos matrices manteniendo en una constante C=4 (habiendo entonces dos columnas de nodos) y en la otra C=6(habiendo 4 columnas de nodos). Fuimos aumentando las filas según como correspondiera en cada caso para mantener siempre la misma cantidad de nodos en ambos grafos.
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.6\textwidth]{2columvs4colum}
+\caption{msima cantidad de nodos en mapas con distinta distribución}
+\end{figure}
+
+Podemos ver que el caso de 4 columnas tiene un tiempo de ejecución mayor. Esto se debe a que el algoritmo Kruskal tiene complejidad $\Ogr(mxlog(n))$ y aunque en nuestro algoritmo podamos acotar la cantidad de ejes por la cantidad de nodos, esta diferencia sigue siendo perceptible como podemos observar en la figura. El grafo con 4 columnas tiene más ejes que el grafo con 2 pueso que los nodos del medio contienen cuatro ejes mientras que en el de 2 columnas la máxima cantidad de ejes que se puede aspirar a tener es 3 en los nodos que no son vértices.
+
+
+En este experimentos tomamos un mapa con F=C=31 y fuimos aumentando las componentes  conexas, agregando alternadamente una columna de "#" en el mapa.
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.6\textwidth]{CompConexas}
 \caption{Aumento de las componentes conexas del grafo}
 \end{figure}
 
+Como podemos observar en esta figura el tiempo de ejecución disminuye a medida que aumentan las componentes conexas. Creemos que esto se debe a la disminusión de la cantidad de ejes por nodo, similar a como explicamos en la experimento anterior.
 
 
 
