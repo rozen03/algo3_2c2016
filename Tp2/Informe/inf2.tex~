@@ -174,12 +174,6 @@ Moverse de una pared a otro lado; este caso está siempre conectado en un mismo 
 
 \subsection{Experimentación}
 
-
-
-
-
-Indi:-``La X nunca, pero nunca marca el lugar, creeme."
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Problema 2: Juntando piezas }
 
@@ -258,7 +252,7 @@ Podemos observar que el algoritmo tiene la misma tendencia logaritmica que nuest
 
 En este experimento mantuvimos o bien constante el número de filas para aumentar de 10 en 10 las columnas hasta 250, o bien el número de columnas para aumentar las filas.
 
-
+\clearpage
 \begin{figure}[!ht]
     \centering
     \begin{subfigure}{0.45\textwidth}
@@ -284,7 +278,7 @@ Para este experimento creamos dos matrices manteniendo en una constante C=4 (hab
 \caption{msima cantidad de nodos en mapas con distinta distribución}
 \end{figure}
 
-Podemos ver que el caso de 4 columnas tiene un tiempo de ejecución mayor. Esto se debe a que el algoritmo Kruskal tiene complejidad $\mathcal{O}(mlog(n))$ y aunque en nuestro algoritmo podamos acotar la cantidad de ejes por la cantidad de nodos, esta diferencia sigue siendo perceptible como podemos observar en la figura. El grafo con 4 columnas tiene más ejes que el grafo con 2 pueso que los nodos del medio contienen cuatro ejes mientras que en el de 2 columnas la máxima cantidad de ejes que se puede aspirar a tener es 3 en los nodos que no son vértices.
+Podemos ver que el caso de 4 columnas tiene un tiempo de ejecución mayor. Esto se debe a que el algoritmo Kruskal tiene complejidad $\mathcal{O}(mxlog(n))$ y aunque en nuestro algoritmo podamos acotar la cantidad de ejes por la cantidad de nodos, esta diferencia sigue siendo perceptible como podemos observar en la figura. El grafo con 4 columnas tiene más ejes que el grafo con 2 pueso que los nodos del medio contienen cuatro ejes mientras que en el de 2 columnas la máxima cantidad de ejes que se puede aspirar a tener es 3 en los nodos que no son vértices.
 
 
 En este experimentos tomamos un mapa con F=C=31 y fuimos aumentando las componentes  conexas, agregando alternadamente una columna de "#" en el mapa.
@@ -294,7 +288,7 @@ En este experimentos tomamos un mapa con F=C=31 y fuimos aumentando las componen
 \caption{Aumento de las componentes conexas del grafo}
 \end{figure}
 
-Como podemos observar en esta figura el tiempo de ejecución disminuye a medida que aumentan las componentes conexas. Creemos que esto se debe principalmente a la disminusión de la cantidad de nodos.
+Como podemos observar en esta figura el tiempo de ejecución disminuye a medida que aumentan las componentes conexas. Creemos que esto se debe a la disminusión de la cantidad de ejes por nodo, similar a como explicamos en la experimento anterior.
 
 
 
