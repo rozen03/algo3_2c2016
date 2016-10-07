@@ -377,7 +377,7 @@ for (int i= 0; i <nodos.size(); i++) {
       Eje* e = n->ejejes[j];
       if(e->n1->nivel==e->n2->nivel && e->n1->nivel==nivelAnterior){
         Nodo* otroNodo = e->dameElOtroNodoPorfa(n);
-        Eje* nuevoEje = new Eje(tamanioEjes+tamanioEjes+i, e->peso, nodos[j], nodos[tamanioNivel+otroNodo->indice]);
+        Eje* nuevoEje = new Eje(tamanioEjes+tamanioEjes+i, e->peso, n, nodos[tamanioNivel+otroNodo->indice]);
         nuevoEje->n1->ejes.push(nuevoEje);
         nuevoEje->n1->pushearEje(nuevoEje);
         nuevoEje->n2->ejes.push(nuevoEje);
