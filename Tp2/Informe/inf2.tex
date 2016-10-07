@@ -49,13 +49,13 @@ En este problema los viajeros encuentran un mapa de un laberinto señalando alg�
 Formalmente esto equivale a modelar el problema utilzando un grafo que contiene nodos "especiales"(las paredes). Se busca la distancia entre dos nodos, pasando como mucho por p nodos especiales.
 
 \subsection{Explicación de la solución}
-Podemos dividir la resolución en tres partes: la primera, donde interpretamos la entrada y generamos un primer grafo, en el cual las habitaciones y paredes son nodos, y dos nodos son adyacentes si y sólo si sus casillas originales lo son. En la segunda parte vamos a copiar el primer grafo tantas veces como paredes se puedan romper, de manera que la acción de romper una pared esta representada por cambio de nivel en el grafo.  
+Podemos dividir la resolución en tres partes: la primera, donde interpretamos la entrada y generamos un primer grafo, en el cual las habitaciones y paredes son nodos, y dos nodos son adyacentes si y sólo si sus casillas originales lo son. En la segunda parte vamos a copiar el primer grafo tantas veces como paredes se puedan romper, de manera que la acción de romper una pared esta representada por un cambio de nivel en el grafo. Así, cada nivel muestra cuantas paredes fueron atravesadas, y los $p-1$ nodos finales, los finales con p paredes atravesadas. 
 
 %Se podrá hacer un dibujo aca? la idea es hacer como un "plano" en perspectiva del primer grafo, como si fuese una feta de queso; y varias fetas abajo.
 
-En la tercera parte, vamos a aplicar un bfs modificado, para calcular las distancias del nodo origen a todos los demás nodos. Entre las modificaciones se incluyen unos "movimientos ilegales": por un lado, no está permitido pasar a un nivel menor al que uno se encuentra. Además, no es correcto mover de un nodo "habitación" a un nodo "pared" en el mismo nivel.
+En la tercera parte, vamos a aplicar un bfs modificado, para calcular las distancias del nodo origen a todos los demás nodos. Entre las modificaciones se incluyen unos "movimientos ilegales": estos son movimientos que el modelo solamente con  por un lado, no está permitido pasar a un nivel menor al que uno se encuentra. Además, no es correcto mover de un nodo "habitación" a un nodo "pared" en el mismo nivel.
 
-Por último, se calcula la distancia mínima entre todos los nodos finales copiados.
+Por último, se calcula la distancia mínima entre todos los nodos finales copiados. Si no existe un camino posible, el algoritmo devuelve -1
 
 
 
@@ -106,9 +106,13 @@ Por último, se calcula la distancia mínima entre todos los nodos finales copia
 
 
 
+
 \subsection{Demostración de Correctitud}
-
-
+Para demostrar que este algoritmo devuelve lo pedido, podemos ver que todos los movimientos en el tablero estan representados por la posibilidad(o no) de visitar a un vecino. De esta manera, todos los caminos posibles(y sólo esos) están considerados a la hora de hacer bfs. 
+Movimientos legales:
+Moverse de una habitación a otra; corresponde a dos nodos "habitación" adyacentes. Como en todos los niveles creados esta adyacencia se mantiene, este movimiento siempre es posible.
+Romper una pared; corresponde a un "cambio de nivel". Pasas de un nodo "habitación" de nivel i a un nodo "pared" de nivel i+1. Como existen P niveles, se pueden observar todas los caminos distintos, rompiendo las paredes en distintas situaciones. Notar que el algoritmo explícitamente prohíbe estos movimientos en el mismo nivel, para evitar falsos resultados.
+Moverse de una pared a otro lado; este caso está siempre conectado en un mismo nivel, y con una guarda en el bfs para evitar la vuelta.
 
 \subsection{Demostración de Complejidad}
 
@@ -281,7 +285,7 @@ Formalmente, tenemos un digrafo rotulado, con peso en los ejes, y cada nodo esta
 \newpage
 
 \subsubsection{Demostración de Correctitud}
-Como podemos apreciar el pseudocódigo es el algoritmo Dijsktra, entonces su correctitud se desprende de la demostración de correctitud de dijkstra que se puede encontrar en varios libros de algoritmos, en nuesro caso vamos a referenciar al libro titulado ``Introduction to Algorithms, Second Edition"  de Thomas H Cormen, Charles E. Leiserson, entre otros. La demostracion se encuentra en el capítulo 24, subsección 3 bajo el título ``Theorem 24.6: (Correctness of Dijkstra's algorithm)". 
+Como podemos apreciar el pseudocódigo es el algoritmo Dijsktra, entonces su correctitud se desprende de la demostración de correctitud de dijkstra que se puede encontrar en varios libros de algoritmos, en nuestro caso vamos a referenciar al libro titulado ``Introduction to Algorithms, Second Edition"  de Thomas H Cormen, Charles E. Leiserson, entre otros. La demostracion se encuentra en el capítulo 24, subsección 3 bajo el título ``Theorem 24.6: (Correctness of Dijkstra's algorithm)". 
 
 \subsubsection{Demostración de Complejidad}
 
