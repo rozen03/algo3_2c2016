@@ -99,12 +99,16 @@ int main(int argc, char *argv[]) {
 	std::vector<Eje *> ejes;
 	int repeticiones=10;
 	uint64_t begin, end, elapsed_secs, elapsed_final;
-	for (size_t f = 5; f < 18; f++) {
-		for (size_t c = 5; c <f+1 ; c++) {
-			for (size_t i = 0; i < (f-2)*(c-2) -1; i++) {
+	//for (size_t f = 5; f < 18; f++) {
+	//	for (size_t c = 5; c <f+1 ; c++) {
+	int f,c,p;
+	f=20;
+	c=20;
+	p=50;
+			for (size_t i = p; i < (f-2)*(c-2) -1; i++) {
 				elapsed_secs = 0;
 				for (size_t k = 0; k < repeticiones; k++) {
-					int paredes= parsearInput(nodos,ejes,f,c,i);
+					int paredes= parsearInput(nodos,ejes,f,c,p,p+i);
 					begin = rdtsc();
 					Solucion(nodos,ejes,paredes);
 					end = rdtsc();
@@ -113,10 +117,10 @@ int main(int argc, char *argv[]) {
 					nodos.clear();
 				}
 				elapsed_final = elapsed_secs / repeticiones;
-				cout<<f<<'|'<<c<<'|'<<i<<'|'<<elapsed_final<<endl;
+				cout<<f<<'|'<<c<<'|'<<p+i<<'|'<<elapsed_final<<endl;
 			}
-		}
-	}
+	//	}
+	//}
 
 	//for (size_t i = 0; i < paredes; i++) {
 	/* code */

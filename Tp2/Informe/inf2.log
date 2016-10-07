@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2014.12.22)  7 OCT 2016 17:20
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2014.12.22)  7 OCT 2016 17:48
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -628,17 +628,8 @@ Version 1.0, Aug 13, 1994
 \@Rightmargin=\dimen116
 \@Topmargin=\dimen117
 \@Bottommargin=\dimen118
-) (./inf2.aux
-LaTeX Info: Redefining \. on input line 6.
-LaTeX Info: Redefining \% on input line 6.
-
-
-LaTeX Warning: Label `' multiply defined.
-
-
-LaTeX Warning: Label `sub@' multiply defined.
-
 )
+No file inf2.aux.
 \openout1 = `inf2.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 24.
@@ -655,7 +646,7 @@ LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 24.
 LaTeX Font Info:    ... okay on input line 24.
 LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 24.
 LaTeX Font Info:    Try loading font information for TS1+cmr on input line 24.
- (/usr/local/texlive/2014/texmf-dist/tex/latex/base/ts1cmr.fd
+(/usr/local/texlive/2014/texmf-dist/tex/latex/base/ts1cmr.fd
 File: ts1cmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    ... okay on input line 24.
@@ -808,41 +799,144 @@ LaTeX Font Info:    Try loading font information for U+lasy on input line 35.
 
 (/usr/local/texlive/2014/texmf-dist/tex/latex/base/ulasy.fd
 File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
-) [2] (./inf2.toc
-LaTeX Info: Redefining \. on input line 1.
-LaTeX Info: Redefining \% on input line 1.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <12> on input line 3.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 3.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 3.
-)
+) [2]
+No file inf2.toc.
 \tf@toc=\write3
 \openout3 = `inf2.toc'.
-
 
 [3
 
 ]
-Overfull \hbox (21.53308pt too wide) in paragraph at lines 49--50
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <12> on input line 49.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <8> on input line 49.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <6> on input line 49.
+
+Overfull \hbox (29.42014pt too wide) in paragraph at lines 49--50
 []\OT1/lmr/m/n/12 Formalmente es-to equi-va-le a mo-de-lar el pro-ble-ma util-z
-an-do un gra-fo que con-tie-ne no-dos .[]peciales"(las
+an-do un gra-fo que con-tie-ne no-dos $"\OML/lmm/m/it/12 especiales\OT1/lmr/m/n
+/12 "$(las
  []
 
 <pto1.jpg, id=14, 845.0772pt x 597.432pt>
 File: pto1.jpg Graphic file (type jpg)
  <use pto1.jpg>
-Package pdftex.def Info: pto1.jpg used on input line 56.
+Package pdftex.def Info: pto1.jpg used on input line 57.
 (pdftex.def)             Requested size: 307.2929pt x 217.24498pt.
- [4
+
+
+! LaTeX Error: \begin{document} ended by \end{quoting}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.62 >>
+       >>>>> ad04867e5437b82ed3fa0ecb9b4018b53ac32587
+? 
+! Extra \endgroup.
+<recently read> \endgroup 
+                          
+l.62 >>
+       >>>>> ad04867e5437b82ed3fa0ecb9b4018b53ac32587
+? 
+
+! LaTeX Error: \begin{document} ended by \end{quoting}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.62 >>>>
+         >>> ad04867e5437b82ed3fa0ecb9b4018b53ac32587
+? 
+! Extra \endgroup.
+<recently read> \endgroup 
+                          
+l.62 >>>>
+         >>> ad04867e5437b82ed3fa0ecb9b4018b53ac32587
+? 
+
+! LaTeX Error: \begin{document} ended by \end{quoting}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.62 >>>>>>
+           > ad04867e5437b82ed3fa0ecb9b4018b53ac32587
+? 
+! Extra \endgroup.
+<recently read> \endgroup 
+                          
+l.62 >>>>>>
+           > ad04867e5437b82ed3fa0ecb9b4018b53ac32587
+? 
+
+LaTeX Warning: Command \' invalid in math mode on input line 64.
+
+! Please use \mathaccent for accents in math mode.
+\add@accent ...@spacefactor \spacefactor }\accent 
+                                                  #1 #2\egroup \spacefactor ...
+l.64 ... es correcto mover de un nodo $"habitació
+                                                  n"$ a un nodo $"pared"$ en...
+
+? 
+! You can't use `\spacefactor' in math mode.
+\add@accent ...}\accent #1 #2\egroup \spacefactor 
+                                                  \accent@spacefactor 
+l.64 ... es correcto mover de un nodo $"habitació
+                                                  n"$ a un nodo $"pared"$ en...
+
+? 
+Missing character: There is no � in font lmex10!
+[4
 
  <./pto1.jpg>]
 ! Undefined control sequence.
-l.97 		\State \quad Mientras list$\neq \emtyset
-                                               $ hacer
+l.101 		\State \quad Mientras list$\neq \emtyset
+                                                $ hacer
 ? 
-[5] [6] [7]
+[5] [6]
+
+LaTeX Warning: Command \' invalid in math mode on input line 174.
+
+! Please use \mathaccent for accents in math mode.
+\add@accent ...@spacefactor \spacefactor }\accent 
+                                                  #1 #2\egroup \spacefactor ...
+l.174 ... otra; corresponde a 2 nodos $"habitació
+                                                  n"$ adyacentes. Como en to...
+
+? 
+! You can't use `\spacefactor' in math mode.
+\add@accent ...}\accent #1 #2\egroup \spacefactor 
+                                                  \accent@spacefactor 
+l.174 ... otra; corresponde a 2 nodos $"habitació
+                                                  n"$ adyacentes. Como en to...
+
+? 
+Missing character: There is no � in font lmex10!
+
+LaTeX Warning: Command \' invalid in math mode on input line 175.
+
+! Please use \mathaccent for accents in math mode.
+\add@accent ...@spacefactor \spacefactor }\accent 
+                                                  #1 #2\egroup \spacefactor ...
+l.175 ...de nivel"$. Pasas de un nodo $"habitació
+                                                  n"$ de nivel i a un nodo $...
+
+? 
+! You can't use `\spacefactor' in math mode.
+\add@accent ...}\accent #1 #2\egroup \spacefactor 
+                                                  \accent@spacefactor 
+l.175 ...de nivel"$. Pasas de un nodo $"habitació
+                                                  n"$ de nivel i a un nodo $...
+
+? 
+Missing character: There is no � in font lmex10!
+[7]
 
 ! LaTeX Error: \mathcal allowed only in math mode.
 
@@ -850,91 +944,133 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.199 ...tate \quad devolver res \Comment \mathcal
+l.213 ...tate \quad devolver res \Comment \mathcal
                                                   {O}(1)
 ? 
-[8] <sinParedes.jpg, id=35, 803.0pt x 602.25pt>
+[8] <sinParedes.jpg, id=34, 803.0pt x 602.25pt>
 File: sinParedes.jpg Graphic file (type jpg)
  <use sinParedes.jpg>
-Package pdftex.def Info: sinParedes.jpg used on input line 246.
+Package pdftex.def Info: sinParedes.jpg used on input line 261.
 (pdftex.def)             Requested size: 307.2929pt x 230.47473pt.
  [9]
-[10 <./sinParedes.jpg>] <soloFilas.jpg, id=44, 803.0pt x 602.25pt>
+<soloFilas.jpg, id=41, 803.0pt x 602.25pt>
 File: soloFilas.jpg Graphic file (type jpg)
-
-<use soloFilas.jpg>
-Package pdftex.def Info: soloFilas.jpg used on input line 259.
+ <use soloFilas.jpg>
+Package pdftex.def Info: soloFilas.jpg used on input line 274.
 (pdftex.def)             Requested size: 230.46576pt x 172.84686pt.
- <soloColumnas.jpg, id=45, 803.0pt x 602.25pt>
+
+<soloColumnas.jpg, id=42, 803.0pt x 602.25pt>
 File: soloColumnas.jpg Graphic file (type jpg)
-
-<use soloColumnas.jpg>
-Package pdftex.def Info: soloColumnas.jpg used on input line 264.
+ <use soloColumnas.jpg>
+Package pdftex.def Info: soloColumnas.jpg used on input line 279.
 (pdftex.def)             Requested size: 230.46576pt x 172.84686pt.
- <2columvs4colum.jpg, id=46, 734.9859pt x 572.1375pt>
-File: 2columvs4colum.jpg Graphic file (type jpg)
 
-<use 2columvs4colum.jpg>
-Package pdftex.def Info: 2columvs4colum.jpg used on input line 277.
+<2columvs4colum.jpg, id=43, 734.9859pt x 572.1375pt>
+File: 2columvs4colum.jpg Graphic file (type jpg)
+ <use 2columvs4colum.jpg>
+Package pdftex.def Info: 2columvs4colum.jpg used on input line 291.
 (pdftex.def)             Requested size: 307.2929pt x 239.20483pt.
 
-! You can't use `macro parameter character #' in horizontal mode.
-<argument> \csname system@active"\endcsname ##
-                                              
-l.284 ...gregando alternadamente una columna de "#
-                                                  " en el mapa.
+[10 <./sinParedes.jpg> <./soloFilas.jpg> <./soloColumnas.jpg>]
+! You can't use `macro parameter character #' in math mode.
+l.299 ...regando alternadamente una columna de $"#
+                                                  "$ en el mapa.
 ? 
 <CompConexas.jpg, id=47, 803.0pt x 602.25pt>
 File: CompConexas.jpg Graphic file (type jpg)
  <use CompConexas.jpg>
-Package pdftex.def Info: CompConexas.jpg used on input line 287.
+Package pdftex.def Info: CompConexas.jpg used on input line 302.
 (pdftex.def)             Requested size: 307.2929pt x 230.47473pt.
- [11
-
- <./soloFilas.jpg> <./soloColumnas.jpg> <./2columvs4colum.jpg>]
+ [11 <./2columvs4colum.jpg> <./CompConexas.jpg>]
 ! Undefined control sequence.
 <recently read> \comment 
                          
-l.319 		\State nodosNoSeguros $\comment
+l.332 ...te n $\gets$ tamaño(MatrizAdy) $\comment
+                                                  $ Comienzo de Parte 2
+? 
+! Undefined control sequence.
+<recently read> \comment 
+                         
+l.334 		\State nodosNoSeguros $\comment
                                        $ conjunto $\{$2, ..., n$\}$
 ? 
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.324 		\State \quad \forall
+l.339 		\State \quad \forall
                              \ e \ $\in$ nodos $\land$ [nodomin, e] $\in$ X
 ? 
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.324 		\State \quad \forall \ e \ $\in
+l.339 		\State \quad \forall \ e \ $\in
                                        $ nodos $\land$ [nodomin, e] $\in$ X
 ? 
-[12 <./CompConexas.jpg>] [13]
-LaTeX Font Info:    Try loading font information for TS1+lmr on input line 361.
+! Undefined control sequence.
+<recently read> \comment 
+                         
+l.349 ...$\gets$ $\pi_{1}$(MatAdy[1][n]) $\comment
+                                                  $ Fin de Parte 2 Comienzo ...
 
+? 
+[12]
+! Undefined control sequence.
+<recently read> \comment 
+                         
+l.376 ...ate LecturaDatos(input, matAdy) $\comment
+                                                  $ Parte 1
+? 
+! Undefined control sequence.
+<recently read> \comment 
+                         
+l.377 ...aminoMinimo(matAdy, estaciones) $\comment
+                                                  $ Parte 2 y Parte 3
+? 
+[13]
+
+! LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.394 \begin
+            {description}
+? 
+LaTeX Font Info:    Try loading font information for TS1+lmr on input line 395.
 
 (/usr/local/texlive/2014/texmf-dist/tex/latex/lm/ts1lmr.fd
 File: ts1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
+Underfull \hbox (badness 10000) in paragraph at lines 395--397
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 397--399
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 399--401
+
+ []
+
 ! Undefined control sequence.
-<recently read> \tab 
-                     
-l.367 \tab
+l.402 \tab
            Ahora que analizamos las tres partes que podían llegar a dar com...
 
 ? 
 [14] <KnC100r3000.jpg, id=62, 803.0pt x 602.25pt>
 File: KnC100r3000.jpg Graphic file (type jpg)
  <use KnC100r3000.jpg>
-Package pdftex.def Info: KnC100r3000.jpg used on input line 386.
+Package pdftex.def Info: KnC100r3000.jpg used on input line 423.
 (pdftex.def)             Requested size: 307.2929pt x 230.47473pt.
 
-[15 <./KnC100r3000.jpg>] <KnOptC150r3000.jpg, id=66, 803.0pt x 602.25pt>
+[15] <KnOptC150r3000.jpg, id=66, 803.0pt x 602.25pt>
 File: KnOptC150r3000.jpg Graphic file (type jpg)
-
-<use KnOptC150r3000.jpg>
-Package pdftex.def Info: KnOptC150r3000.jpg used on input line 396.
+ <use KnOptC150r3000.jpg>
+Package pdftex.def Info: KnOptC150r3000.jpg used on input line 433.
 (pdftex.def)             Requested size: 307.2929pt x 230.47473pt.
 
 
@@ -944,15 +1080,15 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.400 E
+l.437 E
        n este gráfico podemos ver como A1 mantiene su apariencia cuadratica...
 
 ? 
-<KnsoloOptC100r3000.jpg, id=67, 803.0pt x 602.25pt>
+[16 <./KnC100r3000.jpg>] <KnsoloOptC100r3000.jpg, id=70, 803.0pt x 602.25pt>
 File: KnsoloOptC100r3000.jpg Graphic file (type jpg)
 
 <use KnsoloOptC100r3000.jpg>
-Package pdftex.def Info: KnsoloOptC100r3000.jpg used on input line 405.
+Package pdftex.def Info: KnsoloOptC100r3000.jpg used on input line 442.
 (pdftex.def)             Requested size: 307.2929pt x 230.47473pt.
 
 
@@ -962,30 +1098,30 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.409 C
+l.446 C
        omo Podemos observar la apariencia constante de A2 era meramente una ...
 
 ? 
-[16 <./KnOptC150r3000.jpg> <./KnsoloOptC100r3000.jpg>]
-<Conexo200ejesC150r3000.jpg, id=71, 803.0pt x 602.25pt>
+[17 <./KnOptC150r3000.jpg> <./KnsoloOptC100r3000.jpg>]
+<Conexo200ejesC150r3000.jpg, id=74, 803.0pt x 602.25pt>
 File: Conexo200ejesC150r3000.jpg Graphic file (type jpg)
 
 <use Conexo200ejesC150r3000.jpg>
-Package pdftex.def Info: Conexo200ejesC150r3000.jpg used on input line 417.
+Package pdftex.def Info: Conexo200ejesC150r3000.jpg used on input line 454.
 (pdftex.def)             Requested size: 307.2929pt x 230.47473pt.
 
-<VariasDensidades.jpg, id=72, 803.0pt x 602.25pt>
+<VariasDensidades.jpg, id=75, 803.0pt x 602.25pt>
 File: VariasDensidades.jpg Graphic file (type jpg)
  <use VariasDensidades.jpg>
-Package pdftex.def Info: VariasDensidades.jpg used on input line 427.
+Package pdftex.def Info: VariasDensidades.jpg used on input line 464.
 (pdftex.def)             Requested size: 307.2929pt x 230.47473pt.
 
-[17 <./Conexo200ejesC150r3000.jpg>]
-<VariasDensidadesSinArbol.jpg, id=76, 803.0pt x 602.25pt>
+[18 <./Conexo200ejesC150r3000.jpg>]
+<VariasDensidadesSinArbol.jpg, id=79, 803.0pt x 602.25pt>
 File: VariasDensidadesSinArbol.jpg Graphic file (type jpg)
 
 <use VariasDensidadesSinArbol.jpg>
-Package pdftex.def Info: VariasDensidadesSinArbol.jpg used on input line 435.
+Package pdftex.def Info: VariasDensidadesSinArbol.jpg used on input line 472.
 (pdftex.def)             Requested size: 307.2929pt x 230.47473pt.
 
 
@@ -995,33 +1131,66 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.440 L
+l.477 L
        uego de demostrar que la complejidad Teórica es respaldada por la ex...
 
 ? 
-[18 <./VariasDensidades.jpg> <./VariasDensidadesSinArbol.jpg>]
+[19 <./VariasDensidades.jpg> <./VariasDensidadesSinArbol.jpg>]
+
+! LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.481 
+      
+? 
+
+! LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.483 \\
+        
+? 
+
+! LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.484 
+      
+? 
+
+Package lastpage Warning: Rerun to get the references right on input line 487.
+
 
 AED: lastpage setting LastPage
-[19] (./inf2.aux
+[20] (./inf2.aux
 LaTeX Info: Redefining \. on input line 6.
 LaTeX Info: Redefining \% on input line 6.
 )
 
-LaTeX Warning: There were multiply-defined labels.
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 
  ) 
 Here is how much of TeX's memory you used:
- 5551 strings out of 493109
- 83741 string characters out of 6135009
- 155494 words of memory out of 5000000
- 8866 multiletter control sequences out of 15000+600000
+ 5543 strings out of 493109
+ 83650 string characters out of 6135009
+ 155422 words of memory out of 5000000
+ 8862 multiletter control sequences out of 15000+600000
  44495 words of font info for 47 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 53i,7n,92p,1192b,510s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 53i,7n,92p,1226b,511s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2014/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc}{/usr/local
-/texlive/2014/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/local/texlive/2
-014/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc}{/usr/local/texlive/2014/texmf-
-dist/fonts/enc/dvips/lm/lm-rm.enc}{/usr/local/texlive/2014/texmf-dist/fonts/enc
+/texlive/2014/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{/usr/local/texlive/2014/
+texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/local/texlive/2014/texmf-dist
+/fonts/enc/dvips/lm/lm-mathex.enc}{/usr/local/texlive/2014/texmf-dist/fonts/enc
 /dvips/lm/lm-mathsy.enc}</usr/local/texlive/2014/texmf-dist/fonts/type1/public/
 lm/lmbx12.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/lm/lmex10.
 pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/lm/lmmi12.pfb></usr/
@@ -1030,10 +1199,10 @@ ve/2014/texmf-dist/fonts/type1/public/lm/lmr10.pfb></usr/local/texlive/2014/tex
 mf-dist/fonts/type1/public/lm/lmr12.pfb></usr/local/texlive/2014/texmf-dist/fon
 ts/type1/public/lm/lmr8.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/pub
 lic/lm/lmsy10.pfb>
-Output written on inf2.pdf (19 pages, 1836687 bytes).
+Output written on inf2.pdf (20 pages, 1839575 bytes).
 PDF statistics:
- 117 PDF objects out of 1000 (max. 8388607)
- 75 compressed objects within 1 object stream
+ 120 PDF objects out of 1000 (max. 8388607)
+ 77 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  61 words of extra memory for PDF output out of 10000 (max. 10000000)
 

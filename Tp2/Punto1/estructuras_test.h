@@ -118,7 +118,7 @@ bool esPisoPared(char coso){
 }
 
 
-int  parsearInput(vector<Nodo *> & nodos, vector<Eje *> & ejes,int f, int c, int p)
+int  parsearInput(vector<Nodo *> & nodos, vector<Eje *> & ejes,int f, int c, int p, int paparedes)
 {
   srand (time(NULL));
   int ejercicio=1;
@@ -153,7 +153,7 @@ int  parsearInput(vector<Nodo *> & nodos, vector<Eje *> & ejes,int f, int c, int
      distancia = max(desde_i-hasta_i, hasta_i-desde_i)+ max(desde_j-hasta_j,hasta_j-desde_j);
   }
   matriz[hasta_i][hasta_j]='x';
-  while(paredes<p){
+  while(paredes<paparedes){
     int random_i= rand() %(f-2);
     int random_j=rand() %(c-2);
     if (matriz[random_i][random_j]!='.'){

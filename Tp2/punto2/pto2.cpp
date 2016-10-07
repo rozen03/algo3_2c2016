@@ -1,13 +1,14 @@
 #include "dsu.cpp"
-#include "../estructuras.h"
+#include "estructurapt2.h"
 #include <queue>
 #include <fstream>
-#include "../eje.h"
+#include "ejespt2.h"
 
 using namespace std;
 
+
+
  int kruskal(priority_queue<Eje > Ejes, unsigned int n){
-	;
 	 int res=0;
 	dsu conj(n);
 	while(!Ejes.empty() ){
@@ -67,18 +68,17 @@ int solu( unsigned int n, vector<Eje *> ejes){
 	return res;
 }
 
-/*
+
 int main(int agrc, char *argv[]){
 
 	vector<Nodo *> nodos;
 	vector<Eje *> ejes;
 
 	parsearInput(nodos, ejes, 2);
-
+	
 	unsigned int n= nodos.size();
-	solu(n, ejes);
+	int sol = solu(n, ejes);
+	cout<<sol<<endl;
 	return 0;
 }
-*/
-
 
