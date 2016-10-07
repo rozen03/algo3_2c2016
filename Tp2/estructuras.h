@@ -2,6 +2,7 @@
 #define __NODO__
 #include <iostream>
 #include <queue>
+#include <vector>
 #include"eje.h"
 
 using namespace std;
@@ -9,9 +10,9 @@ using namespace std;
 class Nodo {
 public:
   unsigned int indice;
-  priority_queue<Eje *> ejes;
+  vector<Eje *> ejes;
   Nodo(unsigned int indice) : indice(indice){
-    ejes = priority_queue<Eje *>();
+    ejes = vector<Eje *>();
   };
 
 private:
@@ -87,8 +88,8 @@ void parsearInput(vector<Nodo *> & nodos, vector<Eje *> & ejes,int ejercicio)
           if (esPiso(aux)) {
             verNodo(i,j+1,derecha);
             Eje *e = new Eje(countEjes, 0, nodos[index], nodos[derecha]);
-            nodos[index]->ejes.push(e);
-            nodos[derecha]->ejes.push(e);
+            nodos[index]->ejes.push_back(e);
+            nodos[derecha]->ejes.push_back(e);
             ejes[countEjes]=e;
             countEjes++;
           }
@@ -99,8 +100,8 @@ void parsearInput(vector<Nodo *> & nodos, vector<Eje *> & ejes,int ejercicio)
           if (esPiso(aux)) {
             verNodo(i+1,j,abajo);
             Eje *e = new Eje(countEjes, 0, nodos[index], nodos[abajo]);
-            nodos[index]->ejes.push(e);
-            nodos[abajo]->ejes.push(e);
+            nodos[index]->ejes.push_back(e);
+            nodos[abajo]->ejes.push_back(e);
             ejes[countEjes]=e;
             countEjes++;
           }
@@ -153,8 +154,8 @@ void parsearInput(vector<Nodo *> & nodos, vector<Eje *> & ejes,int ejercicio)
           b = max(abajo, max(izquierda, arriba));
         }
         Eje *e = new Eje(countEjes, peso, nodos[a], nodos[b]);
-        nodos[a]->ejes.push(e);
-        nodos[b]->ejes.push(e);
+        nodos[a]->ejes.push_back(e);
+        nodos[b]->ejes.push_back(e);
         ejes[countEjes]=e;
         countEjes++;
 
