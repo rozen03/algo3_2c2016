@@ -122,6 +122,10 @@ int main(int argc, char *argv[]) {
   cout<<"fin parsear"<<endl;
 
 	clonarUltimoNivel(nodos,ejes);
+  clonarUltimoNivel(nodos,ejes);
+  clonarUltimoNivel(nodos,ejes);
+  clonarUltimoNivel(nodos,ejes);
+  clonarUltimoNivel(nodos,ejes);
 	cout<<"fin clon"<<endl;
   for (size_t i = 0; i < nodos.size(); i++) {
     std::cout << nodos[i]->indice << std::endl;
