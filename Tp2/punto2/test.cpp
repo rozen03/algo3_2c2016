@@ -231,9 +231,9 @@ void testSinParedes(int rep){
 }
 
 void testSoloFilas(int rep){
-	int c=4;
+	int c=6;
 	ofstream res("resSoloFilas.txt");
-	for (int f = 10; f <= 250; f=f+10){
+	for (int f =4; f <= 52; f=f+2){
 		
 		int sol=0;
 
@@ -438,15 +438,62 @@ void testAleatorio(int rep){
 	}
 }
 
-
+void testNod(int rep){
+	srand(time(NULL));
+	ofstream res("resNod.txt");
+	vector<int> nodines = {406, 435,464, 493, 522, 551, 580, 609, 638, 667, 696, 725,754, 783, 812};
+	for(int i = 0; i<nodines.size(); i++){
+		int nodo = nodines[i];
+		int g=1;
+		int q= nodo;
+		for(int j = 2;j < nodo;j++){
+			if(nodo % j ==0){
+				g = j;
+				q = nodo/j;
+			}
+		}
+		ofstream test("testNod.txt");
+		test<<g+2<<" "<< q+2<<endl;
+		for(int j= 0; j< g+2; j++){
+			for(int l = 0; l<q+2; l++){
+				if((j==0 ||j == g+1) || l == 0){
+					test<<"#";
+				}else if(l == q+1){
+					test<<"#\n";
+				}else{
+					test<<".";
+				}
+			}
+		}
+	
+		test.close();
+		vector<Nodo *> nodos;
+		vector<Eje *> ejes;
+		
+		parsearAux(nodos, ejes, 2, "testNod.txt");
+		long sol = 0;
+		unsigned int n= nodos.size();		
+		for (int i = 0; i <= rep; ++i){
+			long solpar;
+			auto start= ya();
+			solu(n, ejes);	
+			auto end= ya();
+			solpar = chrono::duration_cast<std::chrono::nanoseconds>(end-start).count() / rep;
+			sol = sol +solpar;
+		}
+		res<<nodo<<" & "<<sol<<" \n";
+	}
+}
 
 int main(){
 
-	testSinParedes(1000);
+//	testSinParedes(1000);
 	testSoloFilas(1000);
-	testSoloColumnas(1000);
-	testCompConexas(1000);
+//	testSoloColumnas(1000);
+//	testCompConexas(1000);
 	//testAleatorio(1);
+
+	//testNod(1000);
 	return 0;
 
 }
