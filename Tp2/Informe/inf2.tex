@@ -64,8 +64,11 @@ Por último, se calcula la distancia mínima entre todos los nodos finales copia
 
 
 \subsection{Demostración de Correctitud}
-Para demostrar que este algoritmo devuelve lo pedido, podemos ver que todos los caminos representados 
-
+Para demostrar que este algoritmo devuelve lo pedido, podemos ver que todos los movimientos en el tablero estan representados por la posibilidad(o no) de visitar a un vecino. De esta manera, todos los caminos posibles(y sólo esos) están considerados a la hora de hacer bfs. 
+Movimientos legales:
+Moverse de una habitación a otra; corresponde a dos nodos "habitación" adyacentes. Como en todos los niveles creados esta adyacencia se mantiene, este movimiento siempre es posible.
+Romper una pared; corresponde a un "cambio de nivel". Pasas de un nodo "habitación" de nivel i a un nodo "pared" de nivel i+1. Como existen P niveles, se pueden observar todas los caminos distintos, rompiendo las paredes en distintas situaciones. Notar que el algoritmo explícitamente prohíbe estos movimientos en el mismo nivel, para evitar falsos resultados.
+Moverse de una pared a otro lado; este caso está siempre conectado en un mismo nivel, y con una guarda en el bfs para evitar la vuelta.
 
 \subsection{Demostración de Complejidad}
 
