@@ -57,7 +57,10 @@ int Bfs(vector<Nodo *>& nodos){
 				Eje * ejeaux = ejesNodin[i];				
 				Nodo * nodoaux = ejeaux ->dameElOtroNodoPorfa(nodin);
 				int acomp = nodoaux -> indice;
+				//si ya lo tagee o estoy bajando a una instancia invalida, reconstruir una pared
 				if(orden[acomp] != -1 || nodoaux->capa < nodin->capa) continue;
+				// estamos en el mismo nivel pero estoy rompiendo una pared, tendria que subir de nivel
+				if(nodoaux -> capa == nodin -> capa &&  nodin -> esPared()) continue; 
 				tuple<int, int, Eje*> arist(acomp, nod, ejeaux);
 				list.push(arist);				
 			}
