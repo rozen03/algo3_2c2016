@@ -8,7 +8,7 @@ using namespace std;
 //Busqueda lineal return
 
 void Imprimir(vector<Nodo *>& nodos){
-	
+
 	for(int i=0; i<nodos.size(); i++){
 			cout<< nodos[i]->indice;
 			vector<Eje *> vectEjes = nodos[i]->ejejes;
@@ -27,7 +27,7 @@ int Bfs(vector<Nodo *>& nodos){
 	//como consumo la cola de prioridad guardo el eje, representa el eje
 	//que une a la iesima posicion del arreglo pred con el valor del nodo.
 	queue<tuple<int, int> > list;
-	tuple<int, int> prim(0, -3); 
+	tuple<int, int> prim(0, -3);
 	list.push(prim);
 	int next = 0;
 	while(!list.empty()){
@@ -44,17 +44,17 @@ int Bfs(vector<Nodo *>& nodos){
 			//agregamos los ejes que estan conectados
 			for(unsigned int i=0 ; i<ejesNodin.size(); i++){
 				cout<<"Entro a aristas que pueden o no estar en la lista \n";
-				Eje * ejeaux = ejesNodin[i];				
+				Eje * ejeaux = ejesNodin[i];
 				Nodo * nodoaux = ejeaux ->dameElOtroNodoPorfa(nodin);
 				int acomp = nodoaux -> indice;
 				cout<<"la arista puede ser "<<"("<<acomp<<", "<<nod<<")";
 				//si ya lo tagee o estoy bajando a una instancia invalida, reconstruir una pared
 				if(orden[acomp] != -1 || nodoaux->nivel < nodin->nivel) continue;
 				// estamos en el mismo nivel pero estoy rompiendo una pared, tendria que subir de nivel
-				if(nodoaux -> nivel == nodin -> nivel &&  nodoaux -> esPared) continue; 
+				if(nodoaux -> nivel == nodin -> nivel &&  nodoaux -> esPared) continue;
 				tuple<int, int> arist(acomp, nod);
 				cout<<" meti la arista"<<endl;
-				list.push(arist);				
+				list.push(arist);
 			}
 		}
 	}
@@ -69,7 +69,7 @@ int Bfs(vector<Nodo *>& nodos){
 		Nodo * aux = new Nodo(i);
 		nodosNuevos.push_back(aux);
 	}
-	
+
 	//creo un arreglo para ver si ya meti el eje que conecta dos vertices, por ejemplo el 12 lo meteria dos veces sin darme cuenta si no hago esto
 	vector<int> metido(nodos.size(), -1);
 	//son dos fors por que necesitaba inicializar el arreglo primero.
@@ -80,7 +80,7 @@ int Bfs(vector<Nodo *>& nodos){
 			metido[i] = 0;
 			metido[pad] = 0;
 			Nodo * hijo = nodosNuevos[i];
-			
+
 			Nodo * padre = nodosNuevos[pad];
 			hijo -> ejes.push_back(ejeaux);
 			padre -> ejes.push_back(ejeaux);
@@ -96,14 +96,14 @@ int Bfs(vector<Nodo *>& nodos){
 			}
 			cout<< " "<<endl;
 	}*/
-	
+
 	int x= nodos.size()-1;
 	int res=2;
 	int aux = 0;
 	for(int i = nodos.size()-1; 0<= i;i--){
-		cout<<"el predecesor de "<<i<<" es "<< pred[i]<<endl; 
+		cout<<"el predecesor de "<<i<<" es "<< pred[i]<<endl;
 	}
-	
+
 	while(aux < nodos.size()){
 		cout<<"el pred de "<<x<<" es "<<pred[x]<<" res es "<<res<<endl;
 			x= pred[x];
