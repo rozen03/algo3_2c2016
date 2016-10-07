@@ -120,19 +120,20 @@ int Bfs(vector<Nodo *>& nodos){
 }
 
 int Solucion(vector<Nodo *>& nodos, vector<Eje *>& ejes, int p){
-	int res=2*nodos*p.size();
+	int res=p*2*nodos.size();
+	int nores = res;
 	for(int i=0; i<=p; i++){
 		cout<<"entre a solucion con "<<i<<" paredes rotas y puedo romper "<<p<<endl;
 			int respar=Bfs(nodos);
 			cout<<"sali Bfs y la respar es "<<respar<<endl;
-			clonarUltimoNivel(nodos,ejes);
+			if(p != i) clonarUltimoNivel(nodos,ejes);
 			cout<<"deje de clonar"<<endl;
 			Imprimir(nodos);
 			if(respar< res && respar!=-1){
 					res=respar;
 			}
 		}
-	if(res==2*nodos.size()){
+	if(res==nores){
 			res=-1;
 	}
 	cout<<"termine todo y res es " <<res<<endl;
