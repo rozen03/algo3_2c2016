@@ -49,7 +49,7 @@ En este problema los viajeros encuentran un mapa de un laberinto señalando alg�
 Formalmente esto equivale a modelar el problema utilzando un grafo que contiene nodos "especiales"(las paredes). Se busca la distancia entre dos nodos, pasando como mucho por p nodos especiales.
 
 \subsection{Explicación de la solución}
-Podemos dividir la resolución en tres partes: la primera, donde interpretamos la entrada y generamos un primer grafo, en el cual las habitaciones y paredes son nodos, y dos nodos son adyacentes si y sólo si sus casillas originales lo son. En la segunda parte vamos a copiar el primer grafo tantas veces como paredes se puedan romper, de manera que la acción de romper una pared esta representada por un cambio de nivel en el grafo. Así, cada nivel muestra cuantas paredes fueron atravesadas, y los $p-1$ nodos finales, los finales con p paredes atravesadas. 
+Podemos dividir la resolución en tres partes: la primera, donde interpretamos la entrada y generamos un primer grafo, en el cual las habitaciones y paredes son nodos, y dos nodos son adyacentes si y sólo si sus casillas originales lo son. En la segunda parte vamos a copiar el primer grafo tantas veces como paredes se puedan romper, de manera que la acción de romper una pared esta representada por un cambio de nivel en el grafo. Así, cada nivel muestra cuantas paredes fueron atravesadas, y los $p-1$ nodos finales, los finales con p paredes atravesadas.
 
 %Se podrá hacer un dibujo aca? la idea es hacer como un "plano" en perspectiva del primer grafo, como si fuese una feta de queso; y varias fetas abajo.
 
@@ -65,42 +65,93 @@ Por último, se calcula la distancia mínima entre todos los nodos finales copia
 
 \begin{algorithm}[H]{\textbf{solucion}(vector<Nodo>nodos, vector<Eje> ejes, int p)}
 	\begin{algorithmic}[1]
-		\State res=|nodos|
-		\State vector<Nodos> aux=nodos
-		\State Desde i=0 hasta i=p
-			\State respar=Bfs(aux)
-			\State aux= ClonarUltimoNivel(aux,ejes)
-			\State Si respar>0 y respar<res hacer
-				\State res=respar
-			\State finSi
-		\State finDesde
-		\State Si res=|nodos| hacer
-			\State devovler -1
-		\State Sino 
-			\State devolver res
-		\State finSi
+		\State \quad res$\gets|nodos|$
+		\State \quad vector$<Nodos>$ aux$\gets$nodos
+		\State \quad Desde i=0 hasta i=p
+			\State\quad \quad  respar$\gets$Bfs(aux)
+			\State \quad \quad aux$\gets$ ClonarUltimoNivel(aux,ejes)
+			\State \quad \quad Si respar$>$0 y respar$<$res hacer
+				\State\quad \quad \quad  res$\gets$respar
+			\State\quad \quad  finSi
+		\State \quad finDesde
+		\State \quad Si res=|nodos| hacer
+			\State \quad \quad devovler -1
+		\State \quad Sino
+			\State \quad \quad  devolver res
+		\State \quad finSi
 	\end{algorithmic}
 \end{algorithm}
 
 
-\begin{algorithm}[H]{\textbf{Bfs}(vector<Nodo> nodos)}
+\begin{algorithm}[H]{\textbf{Bfs}(vector<Nodos> nodos)}
 	\begin{algorithmic}[1]
-		\State Para todo nodo i 
-			\State pred(i)=-1, order(i)=-1
-		\State finPara
-		\State lista list={(o,0)}
-		\State Mientras 
-	  
-		TERMINAR
-		
+		\State \quad Para todo nodo i
+			\State \quad \quad  pred(i)$\gets$-1, order(i)$\gets$-1
+		\State \quad finPara
+		\State \quad int next$\gets$ 0
+		\State \quad lista list$\gets${(o,0)}
+		\State \quad Mientras list$\neq \emtyset$ hacer
+			\State \quad \quad Sacar un elemento (i,padre)
+			\State \quad \quad pred(i,padre)=padre
+			\State \quad \quad Si order(i=-1) hacer
+				\State \quad \quad \quad order(i)$\gets$next
+				\State \quad \quad \quad next+1
+				\State \quad \quad \quad Para cada arista j conectada al nodo i hacer:
+					\State \quad \quad \quad \quad Si(order(j)$=-1$ y nivel(j)$geq$nivel(i)) hacer
+						 \State \quad \quad \quad \quad \quad list$\cup${(j,i)}
+					\State \quad \quad \quad \quad finSi
+				\State \quad \quad \quad   finPara
+			\State \quad \quad  finSi
+		\State \quad finMientras
+		\State \quad int x $\gets$|nodos|-1, int res$\gets$2, int aux$\gets$0
+		\State \quad Mientras $< |nodos|$ hacer
+			\State \quad \quad  x$\gets$pred(x)
+			\State \quad \quad Si x$\gets0 \ o \ x\gets-1$ cortar finSi
+			\State \quad \quad res$\gets$res+1
+			\State \quad \quad aux$\gets$aux+1
+		\State \quad finMientras
+		\State \quad Si x=-1
+			\State \quad \quad devolver -1
+		\State \quad Sino
+			\State \quad \quad  devolver res
+		\State \quad finSi
+
+
+
+
 	\end{algorithmic}
 \end{algorithm}
 
 \begin{algorithm}[H]{\textbf{ClonarUltimoNivel}(aux,ejes)}
 	\begin{algorithmic}[1]
-	
-	\State COMPLETAR!!!!
-	
+		\State n <- ultimo nodo  de aux
+		\State nivel <- n->nivel
+		\State tamanioDelUltimoNivel
+		\State mientras exista n  y n->nivel = nivel
+			\State retrocedo un nodo
+			\State tamanioDelUltimoNivel +=1
+		\State finMientras
+		\State Para i desde 0 hasta tamaioDelUltimoNivel
+		  \State nuevoNodo <-copia de n
+			\State nuevoNodo.indice<-n->indice + tamanioDelUltimoNivel
+			\State agrego nuevoNodo al final de  aux
+		\State Fin Para
+
+		\State Para e en ejes
+		 \State Si e tiene ambos ejes en el ultimonivel
+		 	\State nuevoEje<-copia del eje pero con los nodos del nuevo nivel
+		  \State Agrego nuevoEje al final de ejes
+		 \State fin Si
+		 \State Fin Para
+
+		\State para n en nodos
+		  \State Si n es pared
+				\State Para e en n.ejes
+				\State nuevoEje<-copia del otro nodo q conecta con n con su clon del nuevo nivel
+				\State Agrego nuevoEje al final de ejes
+				\State Fin Para
+			\State¸Fin Si
+		\State Fin Para
 	\end{algorithmic}
 \end{algorithm}
 
@@ -108,7 +159,7 @@ Por último, se calcula la distancia mínima entre todos los nodos finales copia
 
 
 \subsection{Demostración de Correctitud}
-Para demostrar que este algoritmo devuelve lo pedido, podemos ver que todos los movimientos en el tablero estan representados por la posibilidad(o no) de visitar a un vecino. De esta manera, todos los caminos posibles(y sólo esos) están considerados a la hora de hacer bfs. 
+Para demostrar que este algoritmo devuelve lo pedido, podemos ver que todos los movimientos en el tablero estan representados por la posibilidad(o no) de visitar a un vecino. De esta manera, todos los caminos posibles(y sólo esos) están considerados a la hora de hacer bfs.
 Movimientos legales:
 Moverse de una habitación a otra; corresponde a dos nodos "habitación" adyacentes. Como en todos los niveles creados esta adyacencia se mantiene, este movimiento siempre es posible.
 Romper una pared; corresponde a un "cambio de nivel". Pasas de un nodo "habitación" de nivel i a un nodo "pared" de nivel i+1. Como existen P niveles, se pueden observar todas los caminos distintos, rompiendo las paredes en distintas situaciones. Notar que el algoritmo explícitamente prohíbe estos movimientos en el mismo nivel, para evitar falsos resultados.
@@ -124,23 +175,24 @@ Moverse de una pared a otro lado; este caso está siempre conectado en un mismo 
 
 \subsection{Introducción}
 
-En este problema nuestros arqueologos quieren recorrer todas las salas, para ello deben romper paredes sin embargo no todas cuestan el mismo esfuerzo para romperlas. Teniendo un mapa con los esfuerzos cuantificados del 1 al 9 desean saber cual es el mínimo esfuerzo que deben hacer para cumplir su objetivo.
+En este problema nuestros arqueologos quieren recorrer todas las salas, para ello pueden romper paredes sin embargo, romperlas no cuesta el mismo esfuerzo para todas. Teniendo un mapa con los esfuerzos cuantificados del 1 al 9 desean saber cual es el mínimo esfuerzo que deben hacer para cumplir su objetivo.
 
 Formalmente, podemos modelar este problema con grafos. Teniendo un grafo con peso se desea encontrar el árbol generador mínimo y devolver la sumatoria del peso de todos sus ejes.
+
 \subsection{Explicación de la solución}
 
 Definimos una clase eje que tiene como propiedad punteros a los nodos de cada extremo y su peso correspondiente.
-Luego acomodamos nuestra entrada para obtener el conjunto de todos los ejes y utilizamos el algoritmo de Kruskal para obtener el árbol generador mínimo y retornas el valor total del mismo. La única modificación del mismo es guardar un entero en el cual ir sumando el peso de cada arista elegida para devovler como resultado.
+Luego acomodamos nuestra entrada para obtener el conjunto de todos los ejes y utilizamos el algoritmo de Kruskal para obtener el árbol generador mínimo y retornar el valor total del mismo. La única modificación del mismo es guardar un entero en el cual ir sumando el peso de cada arista elegida para devovler como resultado.
 
 
 
 \subsubsection{Pseudocódigo}
 
-\begin{algorithm}[H]{\textbf{solucion}(int n, vecot$<$ejes$>$ aristas)}
+\begin{algorithm}[H]{\textbf{solucion}(int n, vecor$<$ejes$>$ aristas)}
 	\begin{algorithmic}[1]
-		\State convertir aristas en cola de prioridad según el peso \Comment $\Ogr(m)$
-		\State int res= Kruskal(aristas,n)  \Comment $Ogr(mxlog(n))$
-		\devolver res \Comment \Ogr(1)
+		\State \quad convertir aristas en cola de prioridad según el peso \Comment $\mathcal(m)$
+		\State \quad int res= Kruskal(aristas,n)  \Comment $\mathcal{O}(mxlog(n))$
+		\State \quad devolver res \Comment \mathcal{O}(1)
 	\end{algorithmic}
 \end{algorithm}
 
@@ -150,29 +202,33 @@ Este problema lo modelamos con grafos de modo tal que cada habitación caminable
 
 Un arbol generador mínimo de un grafo es un subgrafo que contiene todos los nodos del mismo y cumple las caracteristicas de un árbol(por ejemplo, solo existe un camino simple que conecta dos pares de nodos) y además por ser mínimo cumple que la sumatoria de los pesos de sus ejes es la menor posible.
 
-En este problema nos piden que demos el esfuerzo que nos cuesta acceder a todas las habitaciones.Por como modelamos el problema podemos ver que lo que nos están pidiendo es un AGM. Para encontrar el AGM de un grafo utilizamos el algoritmo Kruskal. La demostración de correctitud de este algoritmo puede encontrase en el paper de  
+En este problema nos piden que demos el esfuerzo que nos cuesta acceder a todas las habitaciones.Por como modelamos el problema podemos ver que lo que nos están pidiendo es un AGM. Para encontrar el AGM de un grafo utilizamos el algoritmo Kruskal. La demostración de correctitud de este algoritmo puede encontrase en el paper de  J.B. Kruskal, ``On the shortest spanning subtree of a graph and the traveling salesman problem. Proceedings of the American Mathematical Society, Volume 7, pp. 48-50, 1956".
 
-J.B. Kruskal, ``On the shortest spanning subtree of a graph and the traveling salesman problem. Proceedings of the American Mathematical Society, Volume 7, pp. 48-50, 1956".
 
 
 \subsubsection{Demostración de Complejidad}
 
-Como podemos apreciar en el pseudocodigo nuestro algoritmo tiene complejidad $\Ogr(mxlog(n))$ donde m es la cantidad de ejes y n la cantidad de nodos de nuestro grafo. 
-La complejidad pedida para este algoritmo es $\Ogr(FCxlog(FC))$ donde F es la cantidad de filas y C la cantidad de columans del mapa.
+
+Como podemos apreciar en el pseudocodigo nuestro algoritmo tiene complejidad $\mathcal{O}(mlog(n))$ donde m es la cantidad de ejes y n la cantidad de nodos de nuestro grafo. 
+La complejidad pedida para este algoritmo es $\mathcal{O}(FCxlog(FC))$ donde F es la cantidad de filas y C la cantidad de columans del mapa.
+
 
 Primero probaremos que podemos acotar la cantidad de ejes por la cantidad de nodos:
-Sabémos que $1/2  \Sum[1][n]{d(v_{i})} =m $. Sin embargo podemos acotar $d(v_{i}) \leq 4$ ya que como mucho los nodos del medio del mapa pueden tener 4 ejes mientras que todos los que esten en los bordes podran tener como mucho 2. Luego $1/2  \Sum[1][n]{d(v_{i})} \leq 1/2 \Sum[1][n]{4} = 2n$. Entonces $m \leq 2n$ y $\Ogr(m) \leq \Ogr(2n) \Ogr(n)$.
+Sabémos que $1/2  \sum_{1}^{n}d(v_{i}) =m $. Sin embargo podemos acotar $d(v_{i}) \leq 4$ ya que como mucho los nodos del medio del mapa pueden tener 4 ejes mientras que todos los que esten en los bordes podran tener como mucho 2. Luego $1/2  \sum_{1}^{n}{d(v_{i})} \leq 1/2 \sum_{1}^{n}{4} = 2n$. Entonces $m \leq 2n$ y $\mathcal{O}(m) \leq \mathcal{O}(2n) \mathcal{O}(n)$.
 
 Ahora veremos que la complejidad de nuestro algoritmo es la pedida:
-Por lo anterior tenemos que $\Ogr(mxlog(n))= \Ogr(nxlog(n))$.
-La cantidad de nodos que tengamos depende directamente de F y C. la maxima cantidad de nodos que podemos tener es F-1*C-1 (la matriz sin paredes descartando los bordes) luego $\Ogr(nlog(n)) = \Ogr(FCxlog(FC))$ 
+
+Por lo anterior tenemos que $\mathcal{O}(mlog(n))= \mathcal{O}(nlog(n))$.
+La cantidad de nodos que tengamos depende directamente de F y C. la maxima cantidad de nodos que podemos tener es F-1*C-1 (la matriz sin paredes descartando los bordes) luego $\mathcal{O}(nlog(n)) = \mathcal{O}(FClog(FC))$ 
 
 
 \subsection{Experimentación}
 
-La complejidad requerida para este algoritmo es $\Ogr(FCxlog(FC))$ y en la sección anterior probamos que esto es equivalente a  $\Ogr(nlog(n))$.
+La complejidad requerida para este algoritmo es $\mathcal{O}(FClog(FC))$ y en la sección anterior probamos que esto es equivalente a  $\mathcal{O}(nlog(n))$.
 Realizamos una serie de experimentos para respaldar empiricamente este hecho.
-Los mismos consisten principalmente en variar las dimensiones del mapa, es decir, modificar F y C. Esperamos que estas variaciones afecten la cantidad de nodos, aumentando o disminuyendo la complejidad a corde de $\Ogr(FCxlog(FC))$ manteniendo la misma tendencia. 
+
+Los mismos consisten principalmente en variar las dimensiones del mapa, es decir, modificar F y C. Esperamos que estas variaciones afecten la cantidad de nodos, aumentando o disminuyendo la complejidad a corde de $\mathcal{O}(FClog(FC))$ manteniendo la misma tendencia. 
+
 Creemos que nuestro algoritmo será un poco más rápido a la cota pedida ya que la cantidad de nodos es un poco menor a FC.
 
 Nuestro algoritmo devuelve -1 cuando se tienen componenetes conexas, es decir cuando no se pueden recorrer todas las salas. Decimdimos hacer un test para ver que ocurría en estos casos. al disminuir las componentes conexas tambien disminuimos la cantidad de nodos, por esta razón suponemos que debe tardar menos. sí no las disminuyeramos creemos que el tiempo sería el mismo.
@@ -191,17 +247,22 @@ Podemos observar que el algoritmo tiene la misma tendencia logaritmica que nuest
 
 
 En este experimento mantuvimos o bien constante el número de filas para aumentar de 10 en 10 las columnas hasta 250, o bien el número de columnas para aumentar las filas.
-%\begin{figure}[H]
-%\centering
-%	\begin{subfigure} 
-%	\includegraphics[width=0.6\textwidth]{soloFilas}
-%	\caption{Aumento en filas del mapa.}
-%	\end{subfigure}
-%	\begin{subfigure}
-%	\includegraphics[width=0.6\textwidth]{soloColumnas}
-%	\caption{Aumento en columnas del mapa.}
-%	\end{subfigre}
-%\end{figure}
+
+\clearpage
+\begin{figure}[!ht]
+    \centering
+    \begin{subfigure}{0.45\textwidth}
+        \includegraphics[width=\textwidth]{soloFilas}
+        \caption{Aumento en filas del mapa.}
+        \label{}
+    \end{subfigure}
+    \begin{subfigure}{0.45\textwidth}
+        \includegraphics[width=\textwidth]{soloColumnas}
+        \caption{Aumento en columnas del mapa.}
+        \label{}
+    \end{subfigure}
+\end{figure}
+
 Podemos ver que estos gráficos son practicamente iguales. con esto podemos mostrar que el algoritmo no depende en realidad de la cantidad de filas o columnas sino de los nodos. La razón por la cual nuestros gáficos son iguales es que mantienen la misma cantidad de nodos. la única diferencia en nustros mapas sería que uno es vertical y otro horizontal pero eso no afecta la cantidad de nodos.
 
 
@@ -212,7 +273,7 @@ Para este experimento creamos dos matrices manteniendo en una constante C=4 (hab
 \caption{msima cantidad de nodos en mapas con distinta distribución}
 \end{figure}
 
-Podemos ver que el caso de 4 columnas tiene un tiempo de ejecución mayor. Esto se debe a que el algoritmo Kruskal tiene complejidad $\Ogr(mxlog(n))$ y aunque en nuestro algoritmo podamos acotar la cantidad de ejes por la cantidad de nodos, esta diferencia sigue siendo perceptible como podemos observar en la figura. El grafo con 4 columnas tiene más ejes que el grafo con 2 pueso que los nodos del medio contienen cuatro ejes mientras que en el de 2 columnas la máxima cantidad de ejes que se puede aspirar a tener es 3 en los nodos que no son vértices.
+Podemos ver que el caso de 4 columnas tiene un tiempo de ejecución mayor. Esto se debe a que el algoritmo Kruskal tiene complejidad $\mathcal{O}(mxlog(n))$ y aunque en nuestro algoritmo podamos acotar la cantidad de ejes por la cantidad de nodos, esta diferencia sigue siendo perceptible como podemos observar en la figura. El grafo con 4 columnas tiene más ejes que el grafo con 2 pueso que los nodos del medio contienen cuatro ejes mientras que en el de 2 columnas la máxima cantidad de ejes que se puede aspirar a tener es 3 en los nodos que no son vértices.
 
 
 En este experimentos tomamos un mapa con F=C=31 y fuimos aumentando las componentes  conexas, agregando alternadamente una columna de "#" en el mapa.
@@ -241,13 +302,13 @@ Formalmente, tenemos un digrafo rotulado, con peso en los ejes, y cada nodo esta
 \subsection{Explicación de la solución}
 
    En esta sección explicaremos por que el problema dado se puede adapatar al algoritmo de camino mínimo de Dijkstra.
- La precondición que el algoritmo pide es que no tenga ejes negativos. Como el peso de los ejes esta definido como el tiempo que se tarda de llegar del nodo de origen al nodo de llegada podemos asegurarnos que nunca vamos a tener una entrada, que nos importe, que tenga un eje con peso negativo. 
+ La precondición que el algoritmo pide es que no tenga ejes negativos. Como el peso de los ejes esta definido como el tiempo que se tarda de llegar del nodo de origen al nodo de llegada podemos asegurarnos que nunca vamos a tener una entrada, que nos importe, que tenga un eje con peso negativo.
 
 \subsubsection{Pseudocódigo}
 
 \begin{algorithm}[H]{\textbf{CaminoMinimo}(MatrizAdy: Matriz(Nat, Nat) , estaciones: vector$<$Nat$>$)}
 	\begin{algorithmic}[1]
-		
+	
 		\State n $\gets$ tamaño(MatrizAdy) $\comment$ Comienzo de Parte 2
 		\State NodosSeguros $\gets$ 1
 		\State nodosNoSeguros $\comment$ conjunto $\{$2, ..., n$\}$
@@ -262,7 +323,7 @@ Formalmente, tenemos un digrafo rotulado, con peso en los ejes, y cada nodo esta
 \\
 		\qquad \textbf{if} longi $\geq$ longmin +longimin
 			\State \qquad \quad matAdy[1][e] $\gets$ (longpmin + longimin, nodomin)
-\\		 
+\\
  \qquad \textbf{endif}
 
 		\State tiempo $\gets$ $\pi_{1}$(MatAdy[1][n]) $\comment$ Fin de Parte 2 Comienzo de Parte 3
@@ -302,12 +363,13 @@ Formalmente, tenemos un digrafo rotulado, con peso en los ejes, y cada nodo esta
 \newpage
 
 \subsubsection{Demostración de Correctitud}
-Como podemos apreciar el pseudocódigo es el algoritmo Dijsktra, entonces su correctitud se desprende de la demostración de correctitud de dijkstra que se puede encontrar en varios libros de algoritmos, en nuestro caso vamos a referenciar al libro titulado ``Introduction to Algorithms, Second Edition"  de Thomas H Cormen, Charles E. Leiserson, entre otros. La demostracion se encuentra en el capítulo 24, subsección 3 bajo el título ``Theorem 24.6: (Correctness of Dijkstra's algorithm)". 
+Como podemos apreciar el pseudocódigo es el algoritmo Dijsktra, entonces su correctitud se desprende de la demostración de correctitud de dijkstra que se puede encontrar en varios libros de algoritmos, en nuestro caso vamos a referenciar al libro titulado ``Introduction to Algorithms, Second Edition"  de Thomas H Cormen, Charles E. Leiserson, entre otros. La demostracion se encuentra en el capítulo 24, subsección 3 bajo el título ``Theorem 24.6: (Correctness of Dijkstra's algorithm)".
 
 \subsubsection{Demostración de Complejidad}
 
 %No pude tabular, ni con \quad ni con \tab ni con $\>$ ni con $\-$ pero parece ser un problema de el salto de linea.
 Si analizamos con atención el pseudocódigo, tenemos tres secciones que se pueden analizar por separado y sumando sus complejidades obtendremos la complejidad total del algoritmo. La primer parte y la segunda parte combinadas son Dijkstra, la primera es la creación de la matriz y la segunda son los cálculos, la tercera parte es poner la información del camino mínimo. En los próximos párrafos nos vamos a referir a la cantidad de nodos en el gráfico como N. 
+
 \\
 \begin{description}
 \item[Parte 1] La primera parte a analizar es la creación de la matriz, al ser una matriz de adyacencia, la cantidad de filas es N y la cantidad de columnas es N, actualizar todos los valores es recorrer toda la matriz haciendo que la complejidad sea $\Theta$(N²)
@@ -392,15 +454,13 @@ Como se puede observar en el gráfico no respalda nuestra hipótesis, y nos gene
 \end{figure}
 
 \\
-Luego de demostrar que la complejidad Teórica es respaldada por la experimentación, entramos en una series de pruebas que se generaron por la falta de entendimiento de nuestros gráficos y la busqueda de una hipótesis que satisfaga al lector. Lamentablemente no encontramos una, solo encontramos más preguntas sin resolver, que para no agobiar al lector dejamos como meras incognitas para encarar en un futuro.¿Por qué los árboles tardan una cantidad significante más de tiempo que un grafo fuertemente conexo?¿Como se explica la variación de tiempos cuando la cantidad de ejes es lo mismo pero los nodos aumentan? Acaso fue que las 3000 iteraciones dieron unas mediciones poco estandares o hay una razon por la cual un grafo con 124 nodos tenga el mismo tiempo de ejecucion que un de 170, cuando estos tendrian que ser muy diferentes.  
+Luego de demostrar que la complejidad Teórica es respaldada por la experimentación, entramos en una series de pruebas que se generaron por la falta de entendimiento de nuestros gráficos y la busqueda de una hipótesis que satisfaga al lector. Lamentablemente no encontramos una, solo encontramos más preguntas sin resolver, que para no agobiar al lector dejamos como meras incognitas para encarar en un futuro.¿Por qué los árboles tardan una cantidad significante más de tiempo que un grafo fuertemente conexo?¿Cómo se explica la variación de tiempos cuando la cantidad de ejes es la misma pero los nodos aumentan? Acaso fue que las 3000 iteraciones dieron unas mediciones poco estandares o hay una razón por la cual un grafo con 124 nodos tenga el mismo tiempo de ejecución que uno de 170, cuando estos tendrían que ser muy diferentes.  
 
 
 \\
 
 \\
 \\
-
-
 
 
 

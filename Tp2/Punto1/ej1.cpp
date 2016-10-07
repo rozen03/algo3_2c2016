@@ -25,7 +25,7 @@ int Bfs(vector<Nodo *>& nodos){
 	//como consumo la cola de prioridad guardo el eje, representa el eje
 	//que une a la iesima posicion del arreglo pred con el valor del nodo.
 	queue<tuple<int, int> > list;
-	tuple<int, int> prim(0, -3); 
+	tuple<int, int> prim(0, -3);
 	list.push(prim);
 	int next = 0;
 	//BFS normal, salvo los if del for anidado.
@@ -42,24 +42,26 @@ int Bfs(vector<Nodo *>& nodos){
 			vector<Eje *> ejesNodin = nodin -> ejejes;
 			//agregamos los ejes que estan conectados
 			for(unsigned int i=0 ; i<ejesNodin.size(); i++){
-				Eje * ejeaux = ejesNodin[i];				
+				Eje * ejeaux = ejesNodin[i];		
 				Nodo * nodoaux = ejeaux ->dameElOtroNodoPorfa(nodin);
 				int acomp = nodoaux -> indice;
 				//si ya lo tagee o estoy bajando a una instancia invalida, reconstruir una pared
 				if(orden[acomp] != -1 || nodoaux->nivel < nodin->nivel) continue;
 				// estamos en el mismo nivel pero estoy rompiendo una pared, tendria que subir de nivel
-				if(nodoaux -> nivel == nodin -> nivel &&  nodoaux -> esPared) continue; 
+				if(nodoaux -> nivel == nodin -> nivel &&  nodoaux -> esPared) continue;
 				tuple<int, int> arist(acomp, nod);
 				list.push(arist);				
 			}
 		}
 	}
+
 	int x= nodos.size()-1;
 //res es los nodos que atravece, empiezo en uno por que en el while
 //no sumo el ultimo nodo.
 	int res=1;
 	int aux = 0;
 //uso un aux por que era mas facil de programar y entende, como mucho tenes que recorrer todo el grafo, n-1 nodos
+
 	while(aux < nodos.size()){
 		x= pred[x];
 		res++;
