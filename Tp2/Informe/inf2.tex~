@@ -46,14 +46,14 @@
 
 En este problema los viajeros encuentran un mapa de un laberinto señalando algún lugar con una x sin embargo no todos los puntos están conectados. Ellos quisieran llegar a ese lugar caminando lo menos posible, además pueden esforzarse para romper una cantidad determinada de paredes. Nos piden que les informemos cuánto deben caminar de ser posible.
 
-Formalmente esto equivale a modelar el problema utilzando un grafo que contiene nodos $"especiales"$(las paredes). Se busca la distancia entre dos nodos, pasando como mucho por p nodos especiales.
+Formalmente esto equivale a modelar el problema utilzando un grafo que contiene nodos "especiales"(las paredes). Se busca la distancia entre dos nodos, pasando como mucho por p nodos especiales.
 
 \subsection{Explicación de la solución}
 Podemos dividir la resolución en tres partes: la primera, donde interpretamos la entrada y generamos un primer grafo, en el cual las habitaciones y paredes son nodos, y dos nodos son adyacentes si y sólo si sus casillas originales lo son. En la segunda parte vamos a copiar el primer grafo tantas veces como paredes se puedan romper, de manera que la acción de romper una pared esta representada por un cambio de nivel en el grafo. Así, cada nivel muestra cuantas paredes fueron atravesadas, y los $p-1$ nodos finales, los finales con p paredes atravesadas.
 
-%Se podrá hacer un dibujo aca? la idea es hacer como un "plano" en perspectiva del primer grafo, como si fuese una feta de queso; y varias fetas abajo. ya fue igual
+%Se podrá hacer un dibujo aca? la idea es hacer como un "plano" en perspectiva del primer grafo, como si fuese una feta de queso; y varias fetas abajo.
 
-En la tercera parte, vamos a aplicar un bfs modificado, para calcular las distancias del nodo origen a todos los demás nodos. Entre las modificaciones se incluyen unos $"movimientos ilegales"$: estos son movimientos que el modelo solamente con  por un lado, no está permitido pasar a un nivel menor al que uno se encuentra. Además, no es correcto mover de un nodo $"habitación"$ a un nodo $"pared"$ en el mismo nivel.
+En la tercera parte, vamos a aplicar un bfs modificado, para calcular las distancias del nodo origen a todos los demás nodos. Entre las modificaciones se incluyen unos "movimientos ilegales": estos son movimientos que el modelo solamente con  por un lado, no está permitido pasar a un nivel menor al que uno se encuentra. Además, no es correcto mover de un nodo "habitación" a un nodo "pared" en el mismo nivel.
 
 Por último, se calcula la distancia mínima entre todos los nodos finales copiados. Si no existe un camino posible, el algoritmo devuelve -1
 
@@ -127,7 +127,7 @@ Por último, se calcula la distancia mínima entre todos los nodos finales copia
 		\State n <- ultimo nodo  de aux
 		\State nivel <- n->nivel
 		\State tamanioDelUltimoNivel
-		\State mientras exista n  y n->nivel = nivel 
+		\State mientras exista n  y n->nivel = nivel
 			\State retrocedo un nodo
 			\State tamanioDelUltimoNivel +=1
 		\State finMientras
@@ -161,23 +161,21 @@ Por último, se calcula la distancia mínima entre todos los nodos finales copia
 \subsection{Demostración de Correctitud}
 Para demostrar que este algoritmo devuelve lo pedido, podemos ver que todos los movimientos en el tablero estan representados por la posibilidad(o no) de visitar a un vecino. De esta manera, todos los caminos posibles(y sólo esos) están considerados a la hora de hacer bfs.
 Movimientos legales:
-Moverse de una habitación a otra; corresponde a dos nodos $"habitación"$ adyacentes. Como en todos los niveles creados esta adyacencia se mantiene, este movimiento siempre es posible.
-Romper una pared; corresponde a un $"cambio de nivel"$. Pasas de un nodo $"habitación"$ de nivel i a un nodo $"pared"$ de nivel i+1. Como existen P niveles, se pueden observar todas los caminos distintos, rompiendo las paredes en distintas situaciones. Notar que el algoritmo explícitamente prohíbe estos movimientos en el mismo nivel, para evitar falsos resultados.
+Moverse de una habitación a otra; corresponde a dos nodos "habitación" adyacentes. Como en todos los niveles creados esta adyacencia se mantiene, este movimiento siempre es posible.
+Romper una pared; corresponde a un "cambio de nivel". Pasas de un nodo "habitación" de nivel i a un nodo "pared" de nivel i+1. Como existen P niveles, se pueden observar todas los caminos distintos, rompiendo las paredes en distintas situaciones. Notar que el algoritmo explícitamente prohíbe estos movimientos en el mismo nivel, para evitar falsos resultados.
 Moverse de una pared a otro lado; este caso está siempre conectado en un mismo nivel, y con una guarda en el bfs para evitar la vuelta.
 
 \subsection{Demostración de Complejidad}
-Para poder probar que este algoritmo cumple la complejidad pedida, vamos a demostrar que en el grafo final(luego de la clonación) los ejes son, como mucho, ocho veces la cantidad de nodos.
-Podemos ver que, por un lado, en el grafo sin clonar, cada nodo puede tener dos(si está en una de las cuatro esquinas del tablero) tres(en los bordes) o cuatro(en el medio) ejes. Además, a la hora de clonar, creas un nuevo eje si y sólo si los adyacentes son distintos. Es decir, una habitación y una pared. De esta manera, el caso máximo de vecinos que puede tener un nodo es si todos sus vecinos son del otro tipo, tanto si es una habitación rodeada de paredes, o una pared rodeada de habitaciones.
-%Si recuperamos este ejercicio(je) estaria bueno poner una representacion de esto.
 
-Una vez pasado por eso, vemos que todos los ciclos de $ClonarUltimoNivel$ tienen complejidad $O(n)$, con n siendo los nodos. Como todos los elementos de la matriz menos los bordes son nodos, es lo mismo decir que la complejidad es $O(F*C)$. En la solución, por un lado se aplica $ClonarUltimoNivel$ p veces (dando una complejidad de $O(F*C*P)$ ), y luego se aplica bfs sobre el grafo clonado. El grafo clonado tiene $n*p$ nodos, con una cantidad de ejes acotado por lo mencionado anteriormente, llegando a una complejidad de $O(F*C*P)$. En conclusión, el algoritmo propuesto tiene una complejidad de $O(F*C*P)$, cumpliendo con la cota pedida.  
+
+\subsection{Experimentación}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Problema 2: Juntando piezas }
 
 \subsection{Introducción}
 
-En este problema nuestros arquéologos quieren recorrer todas las salas, para ello pueden romper paredes sin embargo, romperlas no cuesta el mismo esfuerzo para todas. Teniendo un mapa con los esfuerzos cuantificados del 1 al 9 desean saber cual es el mínimo esfuerzo que deben hacer para cumplir su objetivo.
+En este problema nuestros arqueologos quieren recorrer todas las salas, para ello pueden romper paredes sin embargo, romperlas no cuesta el mismo esfuerzo para todas. Teniendo un mapa con los esfuerzos cuantificados del 1 al 9 desean saber cual es el mínimo esfuerzo que deben hacer para cumplir su objetivo.
 
 Formalmente, podemos modelar este problema con grafos. Teniendo un grafo con peso se desea encontrar el árbol generador mínimo y devolver la sumatoria del peso de todos sus ejes.
 
@@ -278,7 +276,7 @@ Para este experimento creamos dos matrices manteniendo en una constante C=4 (hab
 Podemos ver que el caso de 4 columnas tiene un tiempo de ejecución mayor. Esto se debe a que el algoritmo Kruskal tiene complejidad $\mathcal{O}(mxlog(n))$ y aunque en nuestro algoritmo podamos acotar la cantidad de ejes por la cantidad de nodos, esta diferencia sigue siendo perceptible como podemos observar en la figura. El grafo con 4 columnas tiene más ejes que el grafo con 2 pueso que los nodos del medio contienen cuatro ejes mientras que en el de 2 columnas la máxima cantidad de ejes que se puede aspirar a tener es 3 en los nodos que no son vértices.
 
 
-En este experimentos tomamos un mapa con F=C=31 y fuimos aumentando las componentes  conexas, agregando alternadamente una columna de $"#"$ en el mapa.
+En este experimentos tomamos un mapa con F=C=31 y fuimos aumentando las componentes  conexas, agregando alternadamente una columna de "#" en el mapa.
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.6\textwidth]{CompConexas}
