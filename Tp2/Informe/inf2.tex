@@ -46,14 +46,22 @@
 
 En este problema los viajeros encuentran un mapa de un laberinto señalando algún lugar con una x, sin embargo no todos los puntos están conectados. Ellos quisieran llegar a ese lugar caminando lo menos posible. Además, pueden esforzarse para romper una cantidad determinada de paredes. Nos piden que les informemos cuánto deben caminar de ser posible.
 %Agregue comas y cosas
-Formalmente esto equivale a modelar el problema utilzando un grafo que contiene nodos $"especiales"$(las paredes). Se busca la distancia entre dos nodos, pasando como mucho por p nodos especiales.
+Formalmente esto equivale a modelar el problema utilzando un grafo que contiene nodos ``especiales"(las paredes). Se busca la distancia entre dos nodos, pasando como mucho por p nodos especiales.
 
 \subsection{Explicación de la solución}
 Podemos dividir la resolución en tres partes: la primera, donde interpretamos la entrada y generamos un primer grafo, en el cual las habitaciones y paredes son nodos, y dos nodos son adyacentes si y sólo si sus casillas originales lo son. En la segunda parte vamos a copiar el primer grafo tantas veces como paredes se puedan romper, de manera que la acción de romper una pared esta representada por un cambio de nivel en el grafo. Así, cada nivel muestra cuantas paredes fueron atravesadas, y los $p-1$ nodos finales, los finales con p paredes atravesadas.
 
-%Se podrá hacer un dibujo aca? la idea es hacer como un "plano" en perspectiva del primer grafo, como si fuese una feta de queso; y varias fetas abajo. ya fue igual
 
-En la tercera parte, vamos a aplicar un bfs modificado, para calcular las distancias del nodo origen a todos los demás nodos. Entre las modificaciones se incluyen unos movimientos ilegales: estos son movimientos que el modelo no contempla. Por un lado, no está permitido pasar a un nivel menor al que uno se encuentra. Además, no es correcto mover de un nodo $"habitación"$ a un nodo $"pared"$ en el mismo nivel. %cambie $"movimientos ilegales"$ por movimientos ilegales. No se veia bien. Sume un par de cosas que me habia comido.
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.6\textwidth]{pto1}
+\caption{imagen explicativa}
+\end{figure}
+
+%Se podrá hacer un dibujo aca? la idea es hacer como un "plano" en perspectiva del primer grafo, como si fuese una feta de queso; y varias fetas abajo. ya fue igual
+>>>>>>> ad04867e5437b82ed3fa0ecb9b4018b53ac32587
+
+En la tercera parte, vamos a aplicar un bfs modificado, para calcular las distancias del nodo origen a todos los demás nodos. Entre las modificaciones se incluyen unos ``movimientos ilegales": estos son movimientos que el modelo no contempla. Por un lado, no está permitido pasar a un nivel menor al que uno se encuentra. Además, no es correcto mover de un nodo $"habitación"$ a un nodo $"pared"$ en el mismo nivel. %cambie $"movimientos ilegales"$ por movimientos ilegales. No se veia bien. Sume un par de cosas que me habia comido.
 
 Por último, se calcula la distancia mínima entre todos los nodos finales copiados. Si no existe un camino posible a ninguno de los nodos finales en todos los niveles, el algoritmo devuelve -1
 
@@ -124,6 +132,7 @@ Por último, se calcula la distancia mínima entre todos los nodos finales copia
 
 \begin{algorithm}[H]{\textbf{ClonarUltimoNivel}(aux,ejes)}
 	\begin{algorithmic}[1]
+<<<<<<< HEAD
 		\State \quad n $\gets$ultimo nodo  de aux
 		\State \quad nivel $\gets$ el nivel del n
 		\State \quad tamanioDelUltimoNivel
@@ -152,6 +161,38 @@ Por último, se calcula la distancia mínima entre todos los nodos finales copia
 				\State \quad \quad \quad Fin Para
 			\State \quad \quad Fin Si
 		\State \quad Fin Para
+=======
+
+		\State \quad n <- ultimo nodo  de aux
+		\State \quad nivel <- n->nivel
+		\State \quad tamanioDelUltimoNivel
+		\State \quad mientras exista n  y n->nivel = nivel
+			\State \quad \quad  retrocedo un nodo
+			\State \quad \quad tamanioDelUltimoNivel +=1
+		\State \quad finMientras
+		\State \quad Para i desde 0 hasta tamaioDelUltimoNivel
+		  \State \quad nuevoNodo <-copia de n
+			\State \quad \quad nuevoNodo.indice<-n->indice + tamanioDelUltimoNivel
+			\State \quad \quad agrego nuevoNodo al final de  aux
+		\State \quad FinPara
+
+		\State \quad Para e en ejes
+		 \State \quad Si e tiene ambos ejes en el ultimonivel
+		 	\State \quad \quad nuevoEje<-copia del eje pero con los nodos del nuevo nivel
+		  \State \quad Agrego nuevoEje al final de ejes
+		 \State \quad fin Si
+		 \State \quad FinPara
+
+		\State \quad para n en nodos
+		  \State \quad \quad Si n es pared
+				\State\quad \quad \quad  Para e en n.ejes
+				\State \quad \quad \quad nuevoEje<-copia del otro nodo q conecta con n con su clon del nuevo nivel
+				\State \quad \quad \quad Agrego nuevoEje al final de ejes
+				\State \quad \quad \quad Fin Para
+			\State \quad \quad FinSi
+		\State \quad FinPara
+
+>>>>>>> acbff49e7f52ba9aa0100ff1e79be7c0a4214038
 	\end{algorithmic}
 \end{algorithm}
 %%%%%%%%%% Agregué todas las tabulaciones que faltaban. Espero que esten en el lugar correcto :3
@@ -162,8 +203,8 @@ Por último, se calcula la distancia mínima entre todos los nodos finales copia
 \subsection{Demostración de Correctitud}
 Para demostrar que este algoritmo devuelve lo pedido, podemos ver que todos los movimientos en el tablero estan representados por la posibilidad(o no) de visitar a un vecino. De esta manera, todos los caminos posibles(y sólo esos) están considerados a la hora de hacer bfs.
 Movimientos legales:
-Moverse de una habitación a otra; corresponde a 2 nodos $"habitación"$ adyacentes. Como en todos los niveles creados esta adyacencia se mantiene, este movimiento siempre es posible.
-Romper una pared; corresponde a un $"cambio de nivel"$. Pasas de un nodo $"habitación"$ de nivel i a un nodo $"pared"$ de nivel i+1. Como existen P niveles, se pueden observar todos los caminos distintos, rompiendo las paredes en distintas situaciones. Notar que el algoritmo explícitamente prohíbe estos movimientos en el mismo nivel, para evitar falsos resultados.
+Moverse de una habitación a otra; corresponde a 2 nodos ``habitación" adyacentes. Como en todos los niveles creados esta adyacencia se mantiene, este movimiento siempre es posible.
+Romper una pared; corresponde a un ``cambio de nivel". Pasas de un nodo ``habitación" de nivel i a un nodo ``pared" de nivel i+1. Como existen P niveles, se pueden observar todos los caminos distintos, rompiendo las paredes en distintas situaciones. Notar que el algoritmo explícitamente prohíbe estos movimientos en el mismo nivel, para evitar falsos resultados.
 Moverse de una pared a otro lado; este caso está siempre conectado en un mismo nivel, y con una guarda en el bfs para evitar la vuelta.
 
 \subsection{Demostración de Complejidad}
@@ -172,6 +213,12 @@ Podemos ver que, por un lado, en el grafo sin clonar, cada nodo puede tener dos(
 %Si recuperamos este ejercicio(je) estaria bueno poner una representacion de esto.
 
 Una vez pasado por eso, vemos que todos los ciclos de $ClonarUltimoNivel$ tienen complejidad $O(n)$, con n siendo los nodos. Como todos los elementos de la matriz menos los bordes son nodos, es lo mismo decir que la complejidad es $\mathcal{O}$(F*C). En la solución, por un lado se aplica $ClonarUltimoNivel$ p veces (dando una complejidad de $\mathcal{O}$(F*C*P) ), y luego se aplica bfs sobre el grafo clonado. El grafo clonado tiene $n*p$ nodos, con una cantidad de ejes acotado por lo mencionado anteriormente, llegando a una complejidad de $\mathcal{O}$(F*C*P). En conclusión, el algoritmo propuesto tiene una complejidad de $\mathcal{O}$(F*C*P), cumpliendo con la cota pedida.  
+
+
+
+
+
+Indi:-``La X nunca, pero nunca marca el lugar, creeme."
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Problema 2: Juntando piezas }
@@ -252,7 +299,7 @@ Podemos observar que el algoritmo tiene la misma tendencia logarítmica que nues
 
 En este experimento mantuvimos, o bien constante el número de filas para aumentar de 10 en 10 las columnas hasta 250, o bien el número de columnas para aumentar las filas.
 
-\clearpage
+
 \begin{figure}[!ht]
     \centering
     \begin{subfigure}{0.45\textwidth}
@@ -277,17 +324,18 @@ Para este experimento creamos dos matrices manteniendo en una constante C=4 (hab
 \caption{msima cantidad de nodos en mapas con distinta distribución}
 \end{figure}
 
-Podemos ver que el caso de 4 columnas tiene un tiempo de ejecución mayor. Esto se debe a que el algoritmo Kruskal tiene complejidad $\mathcal{O}(mxlog(n))$ y, aunque en nuestro algoritmo podamos acotar la cantidad de ejes por la cantidad de nodos, esta diferencia sigue siendo perceptible como podemos observar en la figura. El grafo con 4 columnas tiene más ejes que el grafo con 2 puesto que los nodos del medio contienen cuatro ejes, mientras que en el de 2 columnas la máxima cantidad de ejes que se puede aspirar a tener es 3 en los nodos que no son vértices.
+Podemos ver que el caso de 4 columnas tiene un tiempo de ejecución mayor. Esto se debe a que el algoritmo Kruskal tiene complejidad $\mathcal{O}(mlog(n))$ y aunque en nuestro algoritmo podamos acotar la cantidad de ejes por la cantidad de nodos, esta diferencia sigue siendo perceptible como podemos observar en la figura. El grafo con 4 columnas tiene más ejes que el grafo con 2 pueso que los nodos del medio contienen cuatro ejes mientras que en el de 2 columnas la máxima cantidad de ejes que se puede aspirar a tener es 3 en los nodos que no son vértices.
 
 
-En este experimentos tomamos un mapa con F=C=31 y fuimos aumentando las componentes  conexas, agregando alternadamente una columna de $"#"$ en el mapa.
+
+En este experimentos tomamos un mapa con F=C=31 y fuimos aumentando las componentes  conexas, agregando alternadamente una columna de $``\#"$ en el mapa.
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.6\textwidth]{CompConexas}
 \caption{Aumento de las componentes conexas del grafo}
 \end{figure}
 
-Como podemos observar en esta figura el tiempo de ejecución disminuye a medida que aumentan las componentes conexas. Creemos que esto se debe a la disminusión de la cantidad de ejes por nodo, similar a como explicamos en la experimento anterior.
+Como podemos observar en esta figura el tiempo de ejecución disminuye a medida que aumentan las componentes conexas. Creemos que esto se debe principalmente a la disminusión de la cantidad de nodos.
 
 
 
