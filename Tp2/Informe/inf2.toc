@@ -1,3 +1,5 @@
+<<<<<<< HEAD
+=======
 \select@language {spanish}
 \contentsline {section}{\numberline {1}Problema 1: Laberinto}{3}
 \contentsline {subsection}{\numberline {1.1}Introducci\IeC {\'o}n}{3}
@@ -23,3 +25,4 @@
 \contentsline {subsubsection}{\numberline {3.2.3}Demostraci\IeC {\'o}n de Complejidad}{11}
 \contentsline {subsection}{\numberline {3.3}Experimentaci\IeC {\'o}n}{11}
 \contentsline {subsubsection}{\numberline {3.3.1}Resultados y an\IeC {\'a}lisis}{12}
+>>>>>>> 054f90011c4c2758c6188c6bd4383b2150a170b8

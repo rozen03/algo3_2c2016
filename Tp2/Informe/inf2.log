@@ -1,11 +1,19 @@
+<<<<<<< HEAD
 This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2016.10.6)  7 OCT 2016 14:39
+=======
+<<<<<<< HEAD
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2016.5.1)  7 OCT 2016 13:57
+=======
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2016.10.6)  7 OCT 2016 12:38
+>>>>>>> 054f90011c4c2758c6188c6bd4383b2150a170b8
+>>>>>>> 676455c68bb2ca36c42323b0bcbc63a292c397a9
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
 **inf2.tex
 (./inf2.tex
 LaTeX2e <2016/02/01>
-Babel <3.9q> and hyphenation patterns for 81 language(s) loaded.
+Babel <3.9q> and hyphenation patterns for 7 language(s) loaded.
 (/usr/share/texlive/texmf-dist/tex/latex/base/article.cls
 Document Class: article 2014/09/29 v1.4h Standard LaTeX document class
 (/usr/share/texlive/texmf-dist/tex/latex/base/size12.clo
@@ -1179,6 +1187,647 @@ LaTeX Info: Redefining \% on input line 6.
 
 LaTeX Warning: There were multiply-defined labels.
 
+<<<<<<< HEAD
+Enter file name: 
+
+! LaTeX Error: File `aed2-tad.sty' not found.
+
+Type X to quit or <RETURN> to proceed,
+or enter new name. (Default extension: sty)
+
+Enter file name: 
+
+! LaTeX Error: File `aed2-symb.sty' not found.
+
+Type X to quit or <RETURN> to proceed,
+or enter new name. (Default extension: sty)
+
+Enter file name: 
+
+! LaTeX Error: File `aed2-itef.sty' not found.
+
+Type X to quit or <RETURN> to proceed,
+or enter new name. (Default extension: sty)
+
+Enter file name: 
+
+! LaTeX Error: File `algorithmicx.sty' not found.
+
+Type X to quit or <RETURN> to proceed,
+or enter new name. (Default extension: sty)
+
+Enter file name: 
+
+! LaTeX Error: File `algpseudocode.sty' not found.
+
+Type X to quit or <RETURN> to proceed,
+or enter new name. (Default extension: sty)
+
+Enter file name: 
+
+! LaTeX Error: File `algorithm.sty' not found.
+
+Type X to quit or <RETURN> to proceed,
+or enter new name. (Default extension: sty)
+
+Enter file name: 
+(/usr/share/texlive/texmf-dist/tex/latex/tools/enumerate.sty
+Package: enumerate 2015/07/23 v3.00 enumerate extensions (DPC)
+\@enLab=\toks21
+)
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/graphicx.sty
+Package: graphicx 2014/10/28 v1.0g Enhanced LaTeX Graphics (DPC,SPQR)
+
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/graphics.sty
+Package: graphics 2016/01/03 v1.0q Standard LaTeX Graphics (DPC,SPQR)
+
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/trig.sty
+Package: trig 2016/01/03 v1.10 sin cos tan (DPC)
+)
+(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/graphics.cfg
+File: graphics.cfg 2010/04/23 v1.9 graphics configuration of TeX Live
+)
+Package graphics Info: Driver file: pdftex.def on input line 95.
+
+(/usr/share/texlive/texmf-dist/tex/latex/pdftex-def/pdftex.def
+File: pdftex.def 2011/05/27 v0.06d Graphics/color for pdfTeX
+
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/infwarerr.sty
+Package: infwarerr 2010/04/08 v1.3 Providing info/warning/error messages (HO)
+)
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/ltxcmds.sty
+Package: ltxcmds 2011/11/09 v1.22 LaTeX kernel commands for general use (HO)
+)
+\Gread@gobject=\count92
+))
+\Gin@req@height=\dimen106
+\Gin@req@width=\dimen107
+)
+(/usr/share/texlive/texmf-dist/tex/latex/caption/caption.sty
+Package: caption 2016/02/21 v3.3-144 Customizing captions (AR)
+
+(/usr/share/texlive/texmf-dist/tex/latex/caption/caption3.sty
+Package: caption3 2016/02/04 v1.7-139 caption3 kernel (AR)
+Package caption3 Info: TeX engine: e-TeX on input line 67.
+\captionmargin=\dimen108
+\captionmargin@=\dimen109
+\captionwidth=\dimen110
+\caption@tempdima=\dimen111
+\caption@indent=\dimen112
+\caption@parindent=\dimen113
+\caption@hangindent=\dimen114
+)
+\c@ContinuedFloat=\count93
+)
+(/usr/share/texlive/texmf-dist/tex/latex/caption/subcaption.sty
+Package: subcaption 2016/02/20 v1.1-142 Sub-captions (AR)
+\c@subfigure=\count94
+\c@subtable=\count95
+)
+(/usr/share/texlive/texmf-dist/tex/latex/float/float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count96
+\float@exts=\toks22
+\float@box=\box27
+\@float@everytoks=\toks23
+\@floatcapt=\box28
+)
+(/usr/share/texlive/texmf-dist/tex/latex/anysize/anysize.sty
+Package: anysize 1994/08/13 setting margin sizes
+
+document style option `anysize' loaded
+Michael Salzenberg, Thomas Esser, Dirk Hillbrecht
+Version 1.0, Aug 13, 1994
+\@Leftmargin=\dimen115
+\@Rightmargin=\dimen116
+\@Topmargin=\dimen117
+\@Bottommargin=\dimen118
+) (./inf2.aux
+LaTeX Info: Redefining \. on input line 6.
+LaTeX Info: Redefining \% on input line 6.
+)
+\openout1 = `inf2.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 24.
+LaTeX Font Info:    Try loading font information for TS1+cmr on input line 24.
+ (/usr/share/texlive/texmf-dist/tex/latex/base/ts1cmr.fd
+File: ts1cmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    Try loading font information for OT1+lmr on input line 24.
+
+(/usr/share/texmf/tex/latex/lm/ot1lmr.fd
+File: ot1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
+)
+LaTeX Info: Redefining \. on input line 24.
+LaTeX Info: Redefining \% on input line 24.
+Package lastpage Info: Please have a look at the pageslts package at
+(lastpage)             https://www.ctan.org/pkg/pageslts
+(lastpage)             ! on input line 24.
+
+(/usr/share/texlive/texmf-dist/tex/context/base/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count97
+\scratchdimen=\dimen119
+\scratchbox=\box29
+\nofMPsegments=\count98
+\nofMParguments=\count99
+\everyMPshowfont=\toks24
+\MPscratchCnt=\count100
+\MPscratchDim=\dimen120
+\MPnumerator=\count101
+\makeMPintoPDFobject=\count102
+\everyMPtoPDFconversion=\toks25
+) (/usr/share/texlive/texmf-dist/tex/generic/oberdiek/pdftexcmds.sty
+Package: pdftexcmds 2011/11/29 v0.20 Utility functions of pdfTeX for LuaTeX (HO
+)
+
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/ifluatex.sty
+Package: ifluatex 2010/03/01 v1.3 Provides the ifluatex switch (HO)
+Package ifluatex Info: LuaTeX not detected.
+)
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/ifpdf.sty
+Package: ifpdf 2011/01/30 v2.3 Provides the ifpdf switch (HO)
+Package ifpdf Info: pdfTeX in PDF mode is detected.
+)
+Package pdftexcmds Info: LuaTeX not detected.
+Package pdftexcmds Info: \pdf@primitive is available.
+Package pdftexcmds Info: \pdf@ifprimitive is available.
+Package pdftexcmds Info: \pdfdraftmode found.
+)
+(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
+Package: epstopdf-base 2010/02/09 v2.5 Base part for package epstopdf
+
+(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/grfext.sty
+Package: grfext 2010/08/19 v1.1 Manage graphics extensions (HO)
+
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/kvdefinekeys.sty
+Package: kvdefinekeys 2011/04/07 v1.3 Define keys (HO)
+))
+(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/kvoptions.sty
+Package: kvoptions 2011/06/30 v3.11 Key value format for package options (HO)
+
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/kvsetkeys.sty
+Package: kvsetkeys 2012/04/25 v1.16 Key value parser (HO)
+
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/etexcmds.sty
+Package: etexcmds 2011/02/16 v1.5 Avoid name clashes with e-TeX commands (HO)
+Package etexcmds Info: Could not find \expanded.
+(etexcmds)             That can mean that you are not using pdfTeX 1.50 or
+(etexcmds)             that some package has redefined \expanded.
+(etexcmds)             In the latter case, load this package earlier.
+)))
+Package grfext Info: Graphics extension search list:
+(grfext)             [.png,.pdf,.jpg,.mps,.jpeg,.jbig2,.jb2,.PNG,.PDF,.JPG,.JPE
+G,.JBIG2,.JB2,.eps]
+(grfext)             \AppendGraphicsExtensions on input line 452.
+
+(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
+File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
+e
+))
+Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: float package is loaded.
+Package caption Info: End \AtBeginDocument code.
+
+! Undefined control sequence.
+l.26 \titulo
+            {Informe 2}
+? 
+! Undefined control sequence.
+l.27 \materia
+             {Algoritmos y Estructuras de Datos III}
+? 
+! Undefined control sequence.
+l.30 \integrante
+                 {Jazmín Alvazer Vico}{75/15}{jazminalvarezvico@gmail.com}
+? 
+! Undefined control sequence.
+l.31 \integrante
+                 {Marcelo Pedraza}{393/14}{marcelopedraza314@gmail.com}
+? 
+! Undefined control sequence.
+l.32 \integrante
+                 {Uriel Jonathan Rozenberg}{838/12}{rozenberguriel@gmail.com}
+? 
+! Undefined control sequence.
+l.33 \integrante
+                 {Javier María Cortés Conde Titó}{252/15}{javiercortescon...
+
+? 
+
+Overfull \hbox (71.41615pt too wide) in paragraph at lines 30--34
+[]\OT1/lmr/m/n/12 Jazm^^S^^Pn Al-va-zer Vi-co75/15jazminalvarezvico@gmail.com M
+ar-ce-lo Pe-dra-za393/14marcelopedraza314@gmail.com
+ []
+
+[1
+
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
+
+! LaTeX Error: No \title given.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.35 \maketitle
+               
+? 
+LaTeX Font Info:    Try loading font information for OML+lmm on input line 35.
+(/usr/share/texmf/tex/latex/lm/omllmm.fd
+File: omllmm.fd 2009/10/30 v1.6 Font defs for Latin Modern
+)
+LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 35.
+
+
+(/usr/share/texmf/tex/latex/lm/omslmsy.fd
+File: omslmsy.fd 2009/10/30 v1.6 Font defs for Latin Modern
+)
+LaTeX Font Info:    Try loading font information for OMX+lmex on input line 35.
+
+
+(/usr/share/texmf/tex/latex/lm/omxlmex.fd
+File: omxlmex.fd 2009/10/30 v1.6 Font defs for Latin Modern
+)
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <14.4> on input line 35.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <10> on input line 35.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <7> on input line 35.
+LaTeX Font Info:    Try loading font information for U+lasy on input line 35.
+
+(/usr/share/texlive/texmf-dist/tex/latex/base/ulasy.fd
+File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
+) [2] (./inf2.toc
+LaTeX Info: Redefining \. on input line 1.
+LaTeX Info: Redefining \% on input line 1.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <12> on input line 3.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <8> on input line 3.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <6> on input line 3.
+)
+\tf@toc=\write3
+\openout3 = `inf2.toc'.
+
+
+[3
+
+]
+Overfull \hbox (21.53308pt too wide) in paragraph at lines 49--50
+[]\OT1/lmr/m/n/12 Formalmente es-to equi-va-le a mo-de-lar el pro-ble-ma util-z
+an-do un gra-fo que con-tie-ne no-dos .[]peciales"(las
+ []
+
+
+! LaTeX Error: Environment algorithm undefined.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.66 \begin{algorithm}
+                      [H]{\textbf{solucion}(vector<Nodo>nodos, vector<Eje> e...
+
+? 
+
+! LaTeX Error: Environment algorithmic undefined.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.67 	\begin{algorithmic}
+                         [1]
+? 
+! Undefined control sequence.
+l.68 		\State
+              res=|nodos|
+? 
+! Undefined control sequence.
+l.69 		\State
+              vector<Nodos> aux=nodos
+? 
+! Undefined control sequence.
+l.70 		\State
+              Desde i=0 hasta i=p
+? 
+! Undefined control sequence.
+l.71 			\State
+               respar=Bfs(aux)
+? 
+! Undefined control sequence.
+l.72 			\State
+               aux= ClonarUltimoNivel(aux,ejes)
+? 
+! Undefined control sequence.
+l.73 			\State
+               Si respar>0 y respar<res hacer
+? 
+! Undefined control sequence.
+l.74 				\State
+                res=respar
+? 
+! Undefined control sequence.
+l.75 			\State
+               finSi
+? 
+! Undefined control sequence.
+l.76 		\State
+              finDesde
+? 
+! Undefined control sequence.
+l.77 		\State
+              Si res=|nodos| hacer
+? 
+! Undefined control sequence.
+l.78 			\State
+               devovler -1
+? 
+! Undefined control sequence.
+l.79 		\State
+              Sino
+? 
+! Undefined control sequence.
+l.80 			\State
+               devolver res
+? 
+! Undefined control sequence.
+l.81 		\State
+              finSi
+? 
+
+! LaTeX Error: \begin{document} ended by \end{algorithmic}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.82 	\end{algorithmic}
+                       
+? 
+
+! LaTeX Error: \begin{document} ended by \end{algorithm}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.83 \end{algorithm}
+                    
+? 
+
+Overfull \hbox (11.94852pt too wide) in paragraph at lines 66--84
+[]\OT1/lmr/m/n/12 [H]\OT1/lmr/bx/n/12 solucion\OT1/lmr/m/n/12 (vector<Nodo>nodo
+s, vec-tor<Eje>ejes, int p) [1] res=|nodos| vec-tor<Nodos>aux=nodos
+ []
+
+
+! LaTeX Error: Environment algorithm undefined.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.86 \begin{algorithm}
+                      [H]{\textbf{Bfs}(vector<Nodo> nodos)}
+? 
+
+! LaTeX Error: Environment algorithmic undefined.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.87 	\begin{algorithmic}
+                         [1]
+? 
+! Undefined control sequence.
+l.88 		\State
+              Para todo nodo i
+? 
+! Undefined control sequence.
+l.89 			\State
+               pred(i)=-1, order(i)=-1
+? 
+! Undefined control sequence.
+l.90 		\State
+              finPara
+? 
+! Undefined control sequence.
+l.91 		\State
+              lista list={(o,0)}
+? 
+! Undefined control sequence.
+l.92 		\State
+              Mientras
+? 
+
+! LaTeX Error: \begin{document} ended by \end{algorithmic}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.96 	\end{algorithmic}
+                       
+? 
+
+! LaTeX Error: \begin{document} ended by \end{algorithm}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.97 \end{algorithm}
+                    
+? 
+
+! LaTeX Error: Environment algorithm undefined.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.99 \begin{algorithm}
+                      [H]{\textbf{ClonarUltimoNivel}(aux,ejes)}
+? 
+
+! LaTeX Error: Environment algorithmic undefined.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.100 	\begin{algorithmic}
+                          [1]
+? 
+
+! LaTeX Error: \begin{document} ended by \end{algorithmic}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.104 	\end{algorithmic}
+                        
+? 
+
+! LaTeX Error: \begin{document} ended by \end{algorithm}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.105 \end{algorithm}
+                     
+? 
+[4
+
+]
+
+! LaTeX Error: Environment algorithm undefined.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.139 \begin{algorithm}
+                       [H]{\textbf{solucion}(int n, vecot$<$ejes$>$ aristas)}
+? 
+
+! LaTeX Error: Environment algorithmic undefined.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.140 	\begin{algorithmic}
+                          [1]
+? 
+! Undefined control sequence.
+l.141 		\State
+               convertir aristas en cola de prioridad según el peso \Commen...
+
+? 
+! Undefined control sequence.
+l.141 ...cola de prioridad según el peso \Comment
+                                                   $\Ogr(m)$
+? 
+! Undefined control sequence.
+<recently read> \Ogr 
+                     
+l.141 ...e prioridad según el peso \Comment $\Ogr
+                                                  (m)$
+? 
+! Undefined control sequence.
+l.142 		\State
+               int res= Kruskal(aristas,n)  \Comment $Ogr(mxlog(n))$
+? 
+! Undefined control sequence.
+l.142 ...ate int res= Kruskal(aristas,n)  \Comment
+                                                   $Ogr(mxlog(n))$
+? 
+! Undefined control sequence.
+l.143 		\devolver
+                  res \Comment \Ogr(1)
+? 
+! Undefined control sequence.
+l.143 		\devolver res \Comment
+                               \Ogr(1)
+? 
+! Undefined control sequence.
+l.143 		\devolver res \Comment \Ogr
+                                   (1)
+? 
+
+! LaTeX Error: \begin{document} ended by \end{algorithmic}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.144 	\end{algorithmic}
+                        
+? 
+
+! LaTeX Error: \begin{document} ended by \end{algorithm}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.145 \end{algorithm}
+                     
+? 
+! Undefined control sequence.
+<recently read> \Ogr 
+                     
+l.160 ...nuestro algoritmo tiene complejidad $\Ogr
+                                                  (mxlog(n))$ donde m es la ...
+
+? 
+! Undefined control sequence.
+<recently read> \Ogr 
+                     
+l.161 ...jidad pedida para este algoritmo es $\Ogr
+                                                  (FCxlog(FC))$ donde F es l...
+
+? 
+[5]
+! Undefined control sequence.
+l.164 Sabémos que $1/2  \Sum
+                             [1][n]{d(v_{i})} =m $. Sin embargo podemos acot...
+
+? 
+! Undefined control sequence.
+l.164 ...dran tener como mucho 2. Luego $1/2  \Sum
+                                                  [1][n]{d(v_{i})} \leq 1/2 ...
+
+? 
+! Undefined control sequence.
+l.164 ... $1/2  \Sum[1][n]{d(v_{i})} \leq 1/2 \Sum
+                                                  [1][n]{4} = 2n$. Entonces ...
+
+? 
+! Undefined control sequence.
+<recently read> \Ogr 
+                     
+l.164 ...n]{4} = 2n$. Entonces $m \leq 2n$ y $\Ogr
+                                                  (m) \leq \Ogr(2n) \Ogr(n)$.
+? 
+! Undefined control sequence.
+l.164 ...Entonces $m \leq 2n$ y $\Ogr(m) \leq \Ogr
+                                                  (2n) \Ogr(n)$.
+? 
+! Undefined control sequence.
+l.164 ...$m \leq 2n$ y $\Ogr(m) \leq \Ogr(2n) \Ogr
+                                                  (n)$.
+? 
+! Undefined control sequence.
+<recently read> \Ogr 
+                     
+l.167 Por lo anterior tenemos que $\Ogr
+                                       (mxlog(n))= \Ogr(nxlog(n))$.
+? 
+! Undefined control sequence.
+l.167 ...nterior tenemos que $\Ogr(
+=======
  ) 
 Here is how much of TeX's memory you used:
  6790 strings out of 493029
@@ -1205,3 +1854,4 @@ PDF statistics:
  0 named destinations out of 1000 (max. 500000)
  56 words of extra memory for PDF output out of 10000 (max. 10000000)
 
+>>>>>>> 054f90011c4c2758c6188c6bd4383b2150a170b8
