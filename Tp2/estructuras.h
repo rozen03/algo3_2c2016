@@ -44,10 +44,7 @@ public:
     ejejes = vector<Eje *>();
     contadorDeEjes=0;
   };
-  //vector<Eje *> ejes;
-  //Nodo(unsigned int indice) : indice(indice){
-    //ejes = vector<Eje *>();
-  //};
+
 
   void resizearEjes(){
     ejejes.resize(contadorDeEjes);
@@ -347,33 +344,32 @@ int tam = nodos.size()-1;
 int indices=nodos.size()+tamanioNivel;
 int tamanioNodos=nodos.size();
 int tamanioEjes=ejes.size();
+int contadorEjes=tamanioEjes;
 while (tam >-1 && nodos[tam]->nivel==nivelAnterior) {
   tam--;
   tamanioNivel++;
 }
 //tamanioNivel++;
 nodos.resize(tamanioNodos+tamanioNivel,NULL);
-ejes.resize(2*tamanioEjes,NULL);
+//ejes.resize(3*tamanioEjes,NULL);
 
 for (int i = 0; i < tamanioNivel; i++) {
   Nodo * n= nodos[tamanioNodos-tamanioNivel+i];
-
-  nodos[tamanioNodos+n->indice]= new Nodo(tamanioNodos+n->indice,nivelNuevo,n->esPared);
+  nodos[tamanioNodos+i]= new Nodo(tamanioNodos+i,nivelNuevo,n->esPared);
 }
-
 
 for (int i = 0; i <tamanioEjes; i++) {
   Eje* e = ejes[i];
   if(e->n1->nivel==e->n2->nivel && e->n1->nivel==nivelAnterior){
-    Eje *nuevoEje = new Eje(tamanioEjes+i, e->peso, nodos[tamanioNodos+e->n1->indice ], nodos[tamanioNodos+e->n2->indice]);
-    nodos[tamanioNodos+e->n1->indice]->ejes.push(nuevoEje);
-    nodos[tamanioNodos+e->n1->indice]->pushearEje(nuevoEje);
-    nodos[tamanioNodos+e->n2->indice]->ejes.push(nuevoEje);
-    nodos[tamanioNodos+e->n2->indice]->pushearEje(nuevoEje);
-    ejes[tamanioEjes+i]=nuevoEje;
+    Eje *nuevoEje = new Eje(tamanioEjes+i, e->peso, nodos[tamanioNivel+e->n1->indice ], nodos[tamanioNivel+e->n2->indice]);
+    nuevoEje->n1->ejes.push(nuevoEje);
+    nuevoEje->n1->pushearEje(nuevoEje);
+    nuevoEje->n2->ejes.push(nuevoEje);
+    nuevoEje->n2->pushearEje(nuevoEje);
+    ejes.push_back(nuevoEje);
   }
 }
-for (int i= 0; i < tamanioNivel; i++) {
+for (int i= 0; i <nodos.size(); i++) {
   Nodo * n= nodos[i];
 
   if(n->esPared){
@@ -381,13 +377,12 @@ for (int i= 0; i < tamanioNivel; i++) {
       Eje* e = n->ejejes[j];
       if(e->n1->nivel==e->n2->nivel && e->n1->nivel==nivelAnterior){
         Nodo* otroNodo = e->dameElOtroNodoPorfa(n);
-        Eje* nuevoEje = new Eje(tamanioEjes+tamanioEjes+i, e->peso, nodos[j], nodos[tamanioNodos+otroNodo->indice]);
-        nodos[tamanioNodos+e->n1->indice]->ejes.push(nuevoEje);
-        nodos[tamanioNodos+e->n1->indice]->pushearEje(nuevoEje);
-        nodos[tamanioNodos+e->n2->indice]->ejes.push(nuevoEje);
-        nodos[tamanioNodos+e->n2->indice]->pushearEje(nuevoEje);
+        Eje* nuevoEje = new Eje(tamanioEjes+tamanioEjes+i, e->peso, nodos[n->indice+tamanioNivel],otroNodo);
+        nuevoEje->n1->ejes.push(nuevoEje);
+        nuevoEje->n1->pushearEje(nuevoEje);
+        nuevoEje->n2->ejes.push(nuevoEje);
+        nuevoEje->n2->pushearEje(nuevoEje);
         ejes.push_back(nuevoEje);
-        //cout<<ejes.size()<<endl;
       }
 
       }

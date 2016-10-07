@@ -143,9 +143,22 @@ int Solucion(vector<Nodo *>& nodos, vector<Eje *>& ejes, int p){
 int main(int argc, char *argv[]) {
   std::vector<Nodo *> nodos;
   std::vector<Eje *> ejes;
+<<<<<<< HEAD
+  parsearInput(nodos,ejes,1);
+
+  cout<<"fin parsear"<<endl;
+
+	clonarUltimoNivel(nodos,ejes);
+  clonarUltimoNivel(nodos,ejes);
+  clonarUltimoNivel(nodos,ejes);
+  clonarUltimoNivel(nodos,ejes);
+  clonarUltimoNivel(nodos,ejes);
+	cout<<"fin clon"<<endl;
+=======
   int p = 0;
   p = parsearInput(nodos,ejes,1);
   int res = Solucion(nodos, ejes, p);/*
+>>>>>>> 4729852da08cef018106430829c4418596f65149
   for (size_t i = 0; i < nodos.size(); i++) {
     std::cout << nodos[i]->indice << std::endl;
   }
