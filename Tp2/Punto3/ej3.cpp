@@ -43,22 +43,23 @@ void sacar(vector<int>& ls, int valor){//O(ls.size())
 
 //-1 implica que no son vecinos, y un numero naturla mayor a cero indica el peso del pasar por ahi
 //este frena cuando encuentra el minimo en n.
+//es la implementacion de dijkstra usando arreglos leer principio de archivo para entender la matriz del digrafo.
 int caminoMinimoOpt(vector<vector<tuple<int,int> > >& matAdy, vector<int>& estaciones){
 	unsigned int n = matAdy.size() -  1;
 	vector<int> nodosSeguros;
 	nodosSeguros.push_back(1);
-	vector<int> nodos;
-	for(unsigned int i = 2;i<= n;i++) nodos.push_back(i);//O(n)
+	vector<int> nodosNoSeguros;
+	for(unsigned int i = 2;i<= n;i++) nodosNoSeguros.push_back(i);//O(n)
 	while(nodosSeguros.size() != n){//while se hace n veces
 		int nodomin;
-		nodomin = buscarMin(nodos, matAdy[1]);//O(nodos.size())  **1**
+		nodomin = buscarMin(nodosNoSeguros, matAdy[1]);//O(nodos.size())  **1**
 		//que la estacion 1 no este conectada a ninguna, de las que todavia no calculo el minimo
 		//si es n entonces ya no tengo por que actualizar otros nodos, ya que n estaria en la zona segura.
 		if(nodomin == -1 || nodomin == n) break;
 		nodosSeguros.push_back(nodomin);
-		sacar(nodos, nodomin);//O(nodos.size())**2**
-		for(unsigned int i = 0; i<nodos.size();i++){//O(nodos.size())**3**
-			int pos = nodos[i];
+		sacar(nodosNoSeguros, nodomin);//O(nodos.size())**2**
+		for(unsigned int i = 0; i<nodosNoSeguros.size();i++){//O(nodos.size())**3**
+			int pos = nodosNoSeguros[i];
 			int longi = get<0>(matAdy[1][pos]);
 			int longmin = get<0>(matAdy[1][nodomin]);
 			int longimin = get<0>(matAdy[nodomin][pos]);
@@ -84,22 +85,20 @@ int caminoMinimoOpt(vector<vector<tuple<int,int> > >& matAdy, vector<int>& estac
  *  
  */
 }
-//este calcula todos los minimos
+//este calcula todos los minimos Es Igual que el Opt pero con una leve modificacion.
 int caminoMinimo(vector<vector<tuple<int,int> > >& matAdy, vector<int>& estaciones){
 	unsigned int n = matAdy.size() -  1;
 	vector<int> nodosSeguros;
 	nodosSeguros.push_back(1);
 	vector<int> nodos;
-	for(unsigned int i = 2;i<= n;i++) nodos.push_back(i);//O(n)
-	while(nodosSeguros.size() != n){//while se hace n veces
+	for(unsigned int i = 2;i<= n;i++) nodos.push_back(i);
+	while(nodosSeguros.size() != n){
 		int nodomin;
-		nodomin = buscarMin(nodos, matAdy[1]);//O(nodos.size())  **1**
-		//que la estacion 1 no este conectada a ninguna, de las que todavia no calculo el minimo
-		//si es n entonces ya no tengo por que actualizar otros nodos, ya que n estaria en la zona segura.
+		nodomin = buscarMin(nodos, matAdy[1]);
 		if(nodomin == -1) break;
 		nodosSeguros.push_back(nodomin);
-		sacar(nodos, nodomin);//O(nodos.size())**2**
-		for(unsigned int i = 0; i<nodos.size();i++){//O(nodos.size())**3**
+		sacar(nodos, nodomin);
+		for(unsigned int i = 0; i<nodos.size();i++){
 			int pos = nodos[i];
 			int longi = get<0>(matAdy[1][pos]);
 			int longmin = get<0>(matAdy[1][nodomin]);
@@ -113,7 +112,7 @@ int caminoMinimo(vector<vector<tuple<int,int> > >& matAdy, vector<int>& estacion
 	
 	int tiempo = get<0>(matAdy[1][n]);
 	int pred = n;
-	while(pred != 1 && pred != 0){//O(n) como mucho tiene que ir a n estaciones
+	while(pred != 1 && pred != 0){
 		estaciones.push_back(pred);
 		pred = get<1>(matAdy[1][pred]);
 	}
