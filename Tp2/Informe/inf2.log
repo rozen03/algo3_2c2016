@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2016.10.6)  7 OCT 2016 12:38
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2016.10.6)  7 OCT 2016 14:39
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1014,140 +1014,48 @@ l.130 	\end{algorithmic}
                         
 ? 
 [4]
-! Undefined control sequence.
-<recently read> \Ogr 
-                     
-l.168 ...e prioridad según el peso \Comment $\Ogr
-                                                  (m)$
-? 
-! Undefined control sequence.
-<argument> \Ogr 
-                
-l.170 		\State \quad devolver res \Comment \Ogr
-                                               (1)
-? 
-[5]
-! Undefined control sequence.
-<recently read> \Ogr 
-                     
-l.185 ...nuestro algoritmo tiene complejidad $\Ogr
-                                                  (mxlog(n))$ donde m es la ...
 
-? 
-! Undefined control sequence.
-<recently read> \Ogr 
-                     
-l.186 ...jidad pedida para este algoritmo es $\Ogr
-                                                  (FCxlog(FC))$ donde F es l...
+! LaTeX Error: \mathcal allowed only in math mode.
 
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.170 ...tate \quad devolver res \Comment \mathcal
+                                                  {O}(1)
 ? 
-! Undefined control sequence.
-l.189 Sabémos que $1/2  \Sum
-                             [1][n]{d(v_{i})} =m $. Sin embargo podemos acot...
-
-? 
-! Undefined control sequence.
-l.189 ...dran tener como mucho 2. Luego $1/2  \Sum
-                                                  [1][n]{d(v_{i})} \leq 1/2 ...
-
-? 
-! Undefined control sequence.
-l.189 ... $1/2  \Sum[1][n]{d(v_{i})} \leq 1/2 \Sum
-                                                  [1][n]{4} = 2n$. Entonces ...
-
-? 
-! Undefined control sequence.
-<recently read> \Ogr 
-                     
-l.189 ...n]{4} = 2n$. Entonces $m \leq 2n$ y $\Ogr
-                                                  (m) \leq \Ogr(2n) \Ogr(n)$.
-? 
-! Undefined control sequence.
-l.189 ...Entonces $m \leq 2n$ y $\Ogr(m) \leq \Ogr
-                                                  (2n) \Ogr(n)$.
-? 
-! Undefined control sequence.
-l.189 ...$m \leq 2n$ y $\Ogr(m) \leq \Ogr(2n) \Ogr
-                                                  (n)$.
-? 
-! Undefined control sequence.
-<recently read> \Ogr 
-                     
-l.192 Por lo anterior tenemos que $\Ogr
-                                       (mxlog(n))= \Ogr(nxlog(n))$.
-? 
-! Undefined control sequence.
-l.192 ...nterior tenemos que $\Ogr(mxlog(n))= \Ogr
-                                                  (nxlog(n))$.
-? 
-! Undefined control sequence.
-<recently read> \Ogr 
-                     
-l.193 ...redes descartando los bordes) luego $\Ogr
-                                                  (nlog(n)) = \Ogr(FCxlog(FC))$
-
-? 
-! Undefined control sequence.
-l.193 ...o los bordes) luego $\Ogr(nlog(n)) = \Ogr
-                                                  (FCxlog(FC))$
-? 
-! Undefined control sequence.
-<recently read> \Ogr 
-                     
-l.198 ...ad requerida para este algoritmo es $\Ogr
-                                                  (FCxlog(FC))$ y en la secc...
-
-? 
-! Undefined control sequence.
-<recently read> \Ogr 
-                     
-l.198 ...probamos que esto es equivalente a  $\Ogr
-                                                  (nlog(n))$.
-? 
-! Undefined control sequence.
-<recently read> \Ogr 
-                     
-l.200 ...minuyendo la complejidad a corde de $\Ogr
-                                                  (FCxlog(FC))$ manteniendo ...
-
-? 
-<sinParedes.jpg, id=25, 803.0pt x 602.25pt>
+[5] <sinParedes.jpg, id=25, 803.0pt x 602.25pt>
 File: sinParedes.jpg Graphic file (type jpg)
  <use sinParedes.jpg>
 Package pdftex.def Info: sinParedes.jpg used on input line 211.
 (pdftex.def)             Requested size: 307.2929pt x 230.47473pt.
- [6] [7 <./sinParedes.jpg>] <soloFilas.jpg, id=34, 803.0pt x 602.25pt>
+ [6]
+[7 <./sinParedes.jpg>] <soloFilas.jpg, id=35, 803.0pt x 602.25pt>
 File: soloFilas.jpg Graphic file (type jpg)
- <use soloFilas.jpg>
+
+<use soloFilas.jpg>
 Package pdftex.def Info: soloFilas.jpg used on input line 225.
 (pdftex.def)             Requested size: 230.46576pt x 172.84686pt.
-
-<soloColumnas.jpg, id=35, 803.0pt x 602.25pt>
+ <soloColumnas.jpg, id=36, 803.0pt x 602.25pt>
 File: soloColumnas.jpg Graphic file (type jpg)
- <use soloColumnas.jpg>
+
+<use soloColumnas.jpg>
 Package pdftex.def Info: soloColumnas.jpg used on input line 230.
 (pdftex.def)             Requested size: 230.46576pt x 172.84686pt.
-
-<2columvs4colum.jpg, id=36, 734.9859pt x 572.1375pt>
+ <2columvs4colum.jpg, id=37, 734.9859pt x 572.1375pt>
 File: 2columvs4colum.jpg Graphic file (type jpg)
- <use 2columvs4colum.jpg>
+
+<use 2columvs4colum.jpg>
 Package pdftex.def Info: 2columvs4colum.jpg used on input line 243.
 (pdftex.def)             Requested size: 307.2929pt x 239.20483pt.
 
-! Undefined control sequence.
-<recently read> \Ogr 
-                     
-l.247 ...algoritmo Kruskal tiene complejidad $\Ogr
-                                                  (mxlog(n))$ y aunque en nu...
-
-? 
 ! You can't use `macro parameter character #' in horizontal mode.
 <argument> \csname system@active"\endcsname ##
                                               
 l.250 ...gregando alternadamente una columna de "#
                                                   " en el mapa.
 ? 
-<CompConexas.jpg, id=37, 803.0pt x 602.25pt>
+<CompConexas.jpg, id=38, 803.0pt x 602.25pt>
 File: CompConexas.jpg Graphic file (type jpg)
  <use CompConexas.jpg>
 Package pdftex.def Info: CompConexas.jpg used on input line 253.
@@ -1186,13 +1094,13 @@ l.333 \tab
            Ahora que analizamos las tres partes que podían llegar a dar com...
 
 ? 
-[11] <KnC100r3000.jpg, id=51, 803.0pt x 602.25pt>
+[11] <KnC100r3000.jpg, id=52, 803.0pt x 602.25pt>
 File: KnC100r3000.jpg Graphic file (type jpg)
  <use KnC100r3000.jpg>
 Package pdftex.def Info: KnC100r3000.jpg used on input line 352.
 (pdftex.def)             Requested size: 307.2929pt x 230.47473pt.
 
-[12 <./KnC100r3000.jpg>] <KnOptC150r3000.jpg, id=55, 803.0pt x 602.25pt>
+[12 <./KnC100r3000.jpg>] <KnOptC150r3000.jpg, id=56, 803.0pt x 602.25pt>
 File: KnOptC150r3000.jpg Graphic file (type jpg)
 
 <use KnOptC150r3000.jpg>
@@ -1210,7 +1118,7 @@ l.366 E
        n este gráfico podemos ver como A1 mantiene su apariencia cuadratica...
 
 ? 
-<KnsoloOptC100r3000.jpg, id=56, 803.0pt x 602.25pt>
+<KnsoloOptC100r3000.jpg, id=57, 803.0pt x 602.25pt>
 File: KnsoloOptC100r3000.jpg Graphic file (type jpg)
 
 <use KnsoloOptC100r3000.jpg>
@@ -1229,21 +1137,21 @@ l.375 C
 
 ? 
 [13 <./KnOptC150r3000.jpg> <./KnsoloOptC100r3000.jpg>]
-<Conexo200ejesC150r3000.jpg, id=61, 803.0pt x 602.25pt>
+<Conexo200ejesC150r3000.jpg, id=62, 803.0pt x 602.25pt>
 File: Conexo200ejesC150r3000.jpg Graphic file (type jpg)
 
 <use Conexo200ejesC150r3000.jpg>
 Package pdftex.def Info: Conexo200ejesC150r3000.jpg used on input line 383.
 (pdftex.def)             Requested size: 307.2929pt x 230.47473pt.
 
-<VariasDensidades.jpg, id=62, 803.0pt x 602.25pt>
+<VariasDensidades.jpg, id=63, 803.0pt x 602.25pt>
 File: VariasDensidades.jpg Graphic file (type jpg)
  <use VariasDensidades.jpg>
 Package pdftex.def Info: VariasDensidades.jpg used on input line 393.
 (pdftex.def)             Requested size: 307.2929pt x 230.47473pt.
 
 [14 <./Conexo200ejesC150r3000.jpg>]
-<VariasDensidadesSinArbol.jpg, id=66, 803.0pt x 602.25pt>
+<VariasDensidadesSinArbol.jpg, id=67, 803.0pt x 602.25pt>
 File: VariasDensidadesSinArbol.jpg Graphic file (type jpg)
 
 <use VariasDensidadesSinArbol.jpg>
@@ -1273,26 +1181,27 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 6791 strings out of 493029
- 97348 string characters out of 6136234
+ 6790 strings out of 493029
+ 97345 string characters out of 6136234
  173646 words of memory out of 5000000
- 10127 multiletter control sequences out of 15000+600000
+ 10126 multiletter control sequences out of 15000+600000
  43745 words of font info for 45 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  53i,7n,92p,1192b,524s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf/fonts/enc/dvips/lm/lm-ts1.enc}{/usr/share/texmf/fonts/enc/d
-vips/lm/lm-mathit.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-rm.enc}{/usr/shar
-e/texmf/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/share/texmf/fonts/enc/dvips/lm/l
-m-rmtt.enc}</usr/share/texmf/fonts/type1/public/lm/lmbx12.pfb></usr/share/texmf
-/fonts/type1/public/lm/lmmi12.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi8
-.pfb></usr/share/texmf/fonts/type1/public/lm/lmr10.pfb></usr/share/texmf/fonts/
-type1/public/lm/lmr12.pfb></usr/share/texmf/fonts/type1/public/lm/lmr8.pfb></us
-r/share/texmf/fonts/type1/public/lm/lmsy10.pfb></usr/share/texmf/fonts/type1/pu
-blic/lm/lmtt12.pfb>
-Output written on inf2.pdf (16 pages, 1684248 bytes).
+vips/lm/lm-mathit.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathex.enc}{/usr/
+share/texmf/fonts/enc/dvips/lm/lm-rm.enc}{/usr/share/texmf/fonts/enc/dvips/lm/l
+m-mathsy.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-rmtt.enc}</usr/share/texmf
+/fonts/type1/public/lm/lmbx12.pfb></usr/share/texmf/fonts/type1/public/lm/lmex1
+0.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi12.pfb></usr/share/texmf/font
+s/type1/public/lm/lmmi8.pfb></usr/share/texmf/fonts/type1/public/lm/lmr10.pfb><
+/usr/share/texmf/fonts/type1/public/lm/lmr12.pfb></usr/share/texmf/fonts/type1/
+public/lm/lmr8.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy10.pfb></usr/sha
+re/texmf/fonts/type1/public/lm/lmtt12.pfb>
+Output written on inf2.pdf (16 pages, 1687308 bytes).
 PDF statistics:
- 106 PDF objects out of 1000 (max. 8388607)
- 68 compressed objects within 1 object stream
+ 111 PDF objects out of 1000 (max. 8388607)
+ 72 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  56 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -150,14 +150,14 @@ Moverse de una pared a otro lado; este caso está siempre conectado en un mismo 
 
 \subsection{Introducción}
 
-En este problema nuestros arqueologos quieren recorrer todas las salas, para ello deben romper paredes sin embargo no todas cuestan el mismo esfuerzo para romperlas. Teniendo un mapa con los esfuerzos cuantificados del 1 al 9 desean saber cual es el mínimo esfuerzo que deben hacer para cumplir su objetivo.
+En este problema nuestros arqueologos quieren recorrer todas las salas, para ello pueden romper paredes sin embargo, romperlas no cuesta el mismo esfuerzo para todas. Teniendo un mapa con los esfuerzos cuantificados del 1 al 9 desean saber cual es el mínimo esfuerzo que deben hacer para cumplir su objetivo.
 
 Formalmente, podemos modelar este problema con grafos. Teniendo un grafo con peso se desea encontrar el árbol generador mínimo y devolver la sumatoria del peso de todos sus ejes.
 
 \subsection{Explicación de la solución}
 
 Definimos una clase eje que tiene como propiedad punteros a los nodos de cada extremo y su peso correspondiente.
-Luego acomodamos nuestra entrada para obtener el conjunto de todos los ejes y utilizamos el algoritmo de Kruskal para obtener el árbol generador mínimo y retornas el valor total del mismo. La única modificación del mismo es guardar un entero en el cual ir sumando el peso de cada arista elegida para devovler como resultado.
+Luego acomodamos nuestra entrada para obtener el conjunto de todos los ejes y utilizamos el algoritmo de Kruskal para obtener el árbol generador mínimo y retornar el valor total del mismo. La única modificación del mismo es guardar un entero en el cual ir sumando el peso de cada arista elegida para devovler como resultado.
 
 
 
@@ -165,9 +165,9 @@ Luego acomodamos nuestra entrada para obtener el conjunto de todos los ejes y ut
 
 \begin{algorithm}[H]{\textbf{solucion}(int n, vecor$<$ejes$>$ aristas)}
 	\begin{algorithmic}[1]
-		\State \quad convertir aristas en cola de prioridad según el peso \Comment $\Ogr(m)$
-		\State \quad int res= Kruskal(aristas,n)  \Comment $Ogr(mxlog(n))$
-		\State \quad devolver res \Comment \Ogr(1)
+		\State \quad convertir aristas en cola de prioridad según el peso \Comment $\mathcal(m)$
+		\State \quad int res= Kruskal(aristas,n)  \Comment $\mathcal{O}(mxlog(n))$
+		\State \quad devolver res \Comment \mathcal{O}(1)
 	\end{algorithmic}
 \end{algorithm}
 
@@ -182,22 +182,22 @@ En este problema nos piden que demos el esfuerzo que nos cuesta acceder a todas 
 
 \subsubsection{Demostración de Complejidad}
 
-Como podemos apreciar en el pseudocodigo nuestro algoritmo tiene complejidad $\Ogr(mxlog(n))$ donde m es la cantidad de ejes y n la cantidad de nodos de nuestro grafo. 
-La complejidad pedida para este algoritmo es $\Ogr(FCxlog(FC))$ donde F es la cantidad de filas y C la cantidad de columans del mapa.
+Como podemos apreciar en el pseudocodigo nuestro algoritmo tiene complejidad $\mathcal{O}(mlog(n))$ donde m es la cantidad de ejes y n la cantidad de nodos de nuestro grafo. 
+La complejidad pedida para este algoritmo es $\mathcal{O}(FCxlog(FC))$ donde F es la cantidad de filas y C la cantidad de columans del mapa.
 
 Primero probaremos que podemos acotar la cantidad de ejes por la cantidad de nodos:
-Sabémos que $1/2  \Sum[1][n]{d(v_{i})} =m $. Sin embargo podemos acotar $d(v_{i}) \leq 4$ ya que como mucho los nodos del medio del mapa pueden tener 4 ejes mientras que todos los que esten en los bordes podran tener como mucho 2. Luego $1/2  \Sum[1][n]{d(v_{i})} \leq 1/2 \Sum[1][n]{4} = 2n$. Entonces $m \leq 2n$ y $\Ogr(m) \leq \Ogr(2n) \Ogr(n)$.
+Sabémos que $1/2  \sum_{1}^{n}d(v_{i}) =m $. Sin embargo podemos acotar $d(v_{i}) \leq 4$ ya que como mucho los nodos del medio del mapa pueden tener 4 ejes mientras que todos los que esten en los bordes podran tener como mucho 2. Luego $1/2  \sum_{1}^{n}{d(v_{i})} \leq 1/2 \sum_{1}^{n}{4} = 2n$. Entonces $m \leq 2n$ y $\mathcal{O}(m) \leq \mathcal{O}(2n) \mathcal{O}(n)$.
 
 Ahora veremos que la complejidad de nuestro algoritmo es la pedida:
-Por lo anterior tenemos que $\Ogr(mxlog(n))= \Ogr(nxlog(n))$.
-La cantidad de nodos que tengamos depende directamente de F y C. la maxima cantidad de nodos que podemos tener es F-1*C-1 (la matriz sin paredes descartando los bordes) luego $\Ogr(nlog(n)) = \Ogr(FCxlog(FC))$ 
+Por lo anterior tenemos que $\mathcal{O}(mlog(n))= \mathcal{O}(nlog(n))$.
+La cantidad de nodos que tengamos depende directamente de F y C. la maxima cantidad de nodos que podemos tener es F-1*C-1 (la matriz sin paredes descartando los bordes) luego $\mathcal{O}(nlog(n)) = \mathcal{O}(FClog(FC))$ 
 
 
 \subsection{Experimentación}
 
-La complejidad requerida para este algoritmo es $\Ogr(FCxlog(FC))$ y en la sección anterior probamos que esto es equivalente a  $\Ogr(nlog(n))$.
+La complejidad requerida para este algoritmo es $\mathcal{O}(FClog(FC))$ y en la sección anterior probamos que esto es equivalente a  $\mathcal{O}(nlog(n))$.
 Realizamos una serie de experimentos para respaldar empiricamente este hecho.
-Los mismos consisten principalmente en variar las dimensiones del mapa, es decir, modificar F y C. Esperamos que estas variaciones afecten la cantidad de nodos, aumentando o disminuyendo la complejidad a corde de $\Ogr(FCxlog(FC))$ manteniendo la misma tendencia. 
+Los mismos consisten principalmente en variar las dimensiones del mapa, es decir, modificar F y C. Esperamos que estas variaciones afecten la cantidad de nodos, aumentando o disminuyendo la complejidad a corde de $\mathcal{O}(FClog(FC))$ manteniendo la misma tendencia. 
 Creemos que nuestro algoritmo será un poco más rápido a la cota pedida ya que la cantidad de nodos es un poco menor a FC.
 
 Nuestro algoritmo devuelve -1 cuando se tienen componenetes conexas, es decir cuando no se pueden recorrer todas las salas. Decimdimos hacer un test para ver que ocurría en estos casos. al disminuir las componentes conexas tambien disminuimos la cantidad de nodos, por esta razón suponemos que debe tardar menos. sí no las disminuyeramos creemos que el tiempo sería el mismo.
@@ -244,7 +244,7 @@ Para este experimento creamos dos matrices manteniendo en una constante C=4 (hab
 \caption{msima cantidad de nodos en mapas con distinta distribución}
 \end{figure}
 
-Podemos ver que el caso de 4 columnas tiene un tiempo de ejecución mayor. Esto se debe a que el algoritmo Kruskal tiene complejidad $\Ogr(mxlog(n))$ y aunque en nuestro algoritmo podamos acotar la cantidad de ejes por la cantidad de nodos, esta diferencia sigue siendo perceptible como podemos observar en la figura. El grafo con 4 columnas tiene más ejes que el grafo con 2 pueso que los nodos del medio contienen cuatro ejes mientras que en el de 2 columnas la máxima cantidad de ejes que se puede aspirar a tener es 3 en los nodos que no son vértices.
+Podemos ver que el caso de 4 columnas tiene un tiempo de ejecución mayor. Esto se debe a que el algoritmo Kruskal tiene complejidad $\mathcal{O}(mxlog(n))$ y aunque en nuestro algoritmo podamos acotar la cantidad de ejes por la cantidad de nodos, esta diferencia sigue siendo perceptible como podemos observar en la figura. El grafo con 4 columnas tiene más ejes que el grafo con 2 pueso que los nodos del medio contienen cuatro ejes mientras que en el de 2 columnas la máxima cantidad de ejes que se puede aspirar a tener es 3 en los nodos que no son vértices.
 
 
 En este experimentos tomamos un mapa con F=C=31 y fuimos aumentando las componentes  conexas, agregando alternadamente una columna de "#" en el mapa.
