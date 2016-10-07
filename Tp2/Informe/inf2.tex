@@ -65,33 +65,59 @@ Por último, se calcula la distancia mínima entre todos los nodos finales copia
 
 \begin{algorithm}[H]{\textbf{solucion}(vector<Nodo>nodos, vector<Eje> ejes, int p)}
 	\begin{algorithmic}[1]
-		\State res=|nodos|
-		\State vector<Nodos> aux=nodos
-		\State Desde i=0 hasta i=p
-			\State respar=Bfs(aux)
-			\State aux= ClonarUltimoNivel(aux,ejes)
-			\State Si respar>0 y respar<res hacer
-				\State res=respar
-			\State finSi
-		\State finDesde
-		\State Si res=|nodos| hacer
-			\State devovler -1
-		\State Sino
-			\State devolver res
-		\State finSi
+		\State \quad res$\gets|nodos|$
+		\State \quad vector$<Nodos>$ aux$\gets$nodos
+		\State \quad Desde i=0 hasta i=p
+			\State\quad \quad  respar$\gets$Bfs(aux)
+			\State \quad \quad aux$\gets$ ClonarUltimoNivel(aux,ejes)
+			\State \quad \quad Si respar$>$0 y respar$<$res hacer
+				\State\quad \quad \quad  res$\gets$respar
+			\State\quad \quad  finSi
+		\State \quad finDesde
+		\State \quad Si res=|nodos| hacer
+			\State \quad \quad devovler -1
+		\State \quad Sino
+			\State \quad \quad  devolver res
+		\State \quad finSi
 	\end{algorithmic}
 \end{algorithm}
 
 
-\begin{algorithm}[H]{\textbf{Bfs}(vector<Nodo> nodos)}
+\begin{algorithm}[H]{\textbf{Bfs}(vector<Nodos> nodos)}
 	\begin{algorithmic}[1]
-		\State Para todo nodo i
-			\State pred(i)=-1, order(i)=-1
-		\State finPara
-		\State lista list={(o,0)}
-		\State Mientras
+		\State \quad Para todo nodo i
+			\State \quad \quad  pred(i)$\gets$-1, order(i)$\gets$-1
+		\State \quad finPara
+		\State \quad int next$\gets$ 0
+		\State \quad lista list$\gets${(o,0)}
+		\State \quad Mientras list$\neq \emtyset$ hacer
+			\State \quad \quad Sacar un elemento (i,padre)
+			\State \quad \quad pred(i,padre)=padre
+			\State \quad \quad Si order(i=-1) hacer
+				\State \quad \quad \quad order(i)$\gets$next
+				\State \quad \quad \quad next+1
+				\State \quad \quad \quad Para cada arista j conectada al nodo i hacer:
+					\State \quad \quad \quad \quad Si(order(j)$=-1$ y nivel(j)$geq$nivel(i)) hacer
+						 \State \quad \quad \quad \quad \quad list$\cup${(j,i)}
+					\State \quad \quad \quad \quad finSi
+				\State \quad \quad \quad   finPara
+			\State \quad \quad  finSi
+		\State \quad finMientras
+		\State \quad int x $\gets$|nodos|-1, int res$\gets$2, int aux$\gets$0
+		\State \quad Mientras $< |nodos|$ hacer
+			\State \quad \quad  x$\gets$pred(x)
+			\State \quad \quad Si x$\gets0 \ o \ x\gets-1$ cortar finSi
+			\State \quad \quad res$\gets$res+1
+			\State \quad \quad aux$\gets$aux+1
+		\State \quad finMientras
+		\State \quad Si x=-1
+			\State \quad \quad devolver -1
+		\State \quad Sino
+			\State \quad \quad  devolver res
+		\State \quad finSi
 
-		TERMINAR
+
+
 
 	\end{algorithmic}
 \end{algorithm}
@@ -152,6 +178,7 @@ Moverse de una pared a otro lado; este caso está siempre conectado en un mismo 
 En este problema nuestros arqueologos quieren recorrer todas las salas, para ello deben romper paredes sin embargo no todas cuestan el mismo esfuerzo para romperlas. Teniendo un mapa con los esfuerzos cuantificados del 1 al 9 desean saber cual es el mínimo esfuerzo que deben hacer para cumplir su objetivo.
 
 Formalmente, podemos modelar este problema con grafos. Teniendo un grafo con peso se desea encontrar el árbol generador mínimo y devolver la sumatoria del peso de todos sus ejes.
+
 \subsection{Explicación de la solución}
 
 Definimos una clase eje que tiene como propiedad punteros a los nodos de cada extremo y su peso correspondiente.
@@ -161,11 +188,11 @@ Luego acomodamos nuestra entrada para obtener el conjunto de todos los ejes y ut
 
 \subsubsection{Pseudocódigo}
 
-\begin{algorithm}[H]{\textbf{solucion}(int n, vecot$<$ejes$>$ aristas)}
+\begin{algorithm}[H]{\textbf{solucion}(int n, vecor$<$ejes$>$ aristas)}
 	\begin{algorithmic}[1]
-		\State convertir aristas en cola de prioridad según el peso \Comment $\Ogr(m)$
-		\State int res= Kruskal(aristas,n)  \Comment $Ogr(mxlog(n))$
-		\devolver res \Comment \Ogr(1)
+		\State \quad convertir aristas en cola de prioridad según el peso \Comment $\Ogr(m)$
+		\State \quad int res= Kruskal(aristas,n)  \Comment $Ogr(mxlog(n))$
+		\State \quad devolver res \Comment \Ogr(1)
 	\end{algorithmic}
 \end{algorithm}
 
@@ -175,9 +202,8 @@ Este problema lo modelamos con grafos de modo tal que cada habitación caminable
 
 Un arbol generador mínimo de un grafo es un subgrafo que contiene todos los nodos del mismo y cumple las caracteristicas de un árbol(por ejemplo, solo existe un camino simple que conecta dos pares de nodos) y además por ser mínimo cumple que la sumatoria de los pesos de sus ejes es la menor posible.
 
-En este problema nos piden que demos el esfuerzo que nos cuesta acceder a todas las habitaciones.Por como modelamos el problema podemos ver que lo que nos están pidiendo es un AGM. Para encontrar el AGM de un grafo utilizamos el algoritmo Kruskal. La demostración de correctitud de este algoritmo puede encontrase en el paper de
+En este problema nos piden que demos el esfuerzo que nos cuesta acceder a todas las habitaciones.Por como modelamos el problema podemos ver que lo que nos están pidiendo es un AGM. Para encontrar el AGM de un grafo utilizamos el algoritmo Kruskal. La demostración de correctitud de este algoritmo puede encontrase en el paper de  J.B. Kruskal, ``On the shortest spanning subtree of a graph and the traveling salesman problem. Proceedings of the American Mathematical Society, Volume 7, pp. 48-50, 1956".
 
-J.B. Kruskal, ``On the shortest spanning subtree of a graph and the traveling salesman problem. Proceedings of the American Mathematical Society, Volume 7, pp. 48-50, 1956".
 
 
 \subsubsection{Demostración de Complejidad}
@@ -216,17 +242,23 @@ Podemos observar que el algoritmo tiene la misma tendencia logaritmica que nuest
 
 
 En este experimento mantuvimos o bien constante el número de filas para aumentar de 10 en 10 las columnas hasta 250, o bien el número de columnas para aumentar las filas.
-\begin{figure}[H]
-\centering
-	\begin{subfigure}
-	\includegraphics[width=0.6\textwidth]{soloFilas}
-	\caption{Aumento en filas del mapa.}
-	\end{subfigure}
-	\begin{subfigure}
-	\includegraphics[width=0.6\textwidth]{soloColumnas}
-	\caption{Aumento en columnas del mapa.}
-	\end{subfigre}
+
+\clearpage
+\begin{figure}[!ht]
+    \centering
+    \begin{subfigure}{0.45\textwidth}
+        \includegraphics[width=\textwidth]{soloFilas}
+        \caption{Aumento en filas del mapa.}
+        \label{}
+    \end{subfigure}
+    \begin{subfigure}{0.45\textwidth}
+        \includegraphics[width=\textwidth]{soloColumnas}
+        \caption{Aumento en columnas del mapa.}
+        \label{}
+    \end{subfigure}
 \end{figure}
+
+
 Podemos ver que estos gráficos son practicamente iguales. con esto podemos mostrar que el algoritmo no depende en realidad de la cantidad de filas o columnas sino de los nodos. La razón por la cual nuestros gáficos son iguales es que mantienen la misma cantidad de nodos. la única diferencia en nustros mapas sería que uno es vertical y otro horizontal pero eso no afecta la cantidad de nodos.
 
 
@@ -397,15 +429,6 @@ Como se puede observar en el gráfico no respalda nuestra hipótesis, y nos gene
 
 \\
 Luego de demostrar que la complejidad Teórica es respaldada por la experimentación, entramos en una series de pruebas que se generaron más por la falta de entendimiento de nuestros gráficos y la busqueda de una hipótesis que satisfaga al lector. Lamentablemente no encontramos una, solo encontramos más preguntas sin resolver, que para no agobiar al lector dejamos como meras incognitas para encarar en un futuro.¿Por qué los árboles tardan una cantidad significante más de tiempo que un grafo fuertemente conexo?¿Como se explica la variación de tiempos cuando la cantidad de ejes es lo mismo pero los nodos aumentan? Acaso fue que las 3000 iteraciones dieron unas mediciones poco estandares o hay una razon por la cual un grafo con 124 nodos tenga el mismo tiempo de ejecucion que un de 170, cuando estos tendrian que ser muy diferentes.
-
-
-\\
-
-\\
-\\
-
-
-
 
 
 \end{document}

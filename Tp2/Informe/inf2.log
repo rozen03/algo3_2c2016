@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2016.5.1)  7 OCT 2016 13:57
+=======
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2016.10.6)  7 OCT 2016 12:38
+>>>>>>> 054f90011c4c2758c6188c6bd4383b2150a170b8
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -597,12 +601,681 @@ Package: varwidth 2009/03/30 ver 0.92;  Variable-width minipages
 \@vwid@loff=\dimen104
 \@vwid@roff=\dimen105
 )
+(/home/jazz/texmf/tex/latex/caratula/caratula.sty
+Package: caratula 2003/4/13 v0.1 Para componer caratulas de TPs del DC
 
-! LaTeX Error: File `caratula.sty' not found.
+Cargando package 'caratula' v0.2 (21/4/2003)
+\intlist=\toks21
+) (/home/jazz/texmf/tex/latex/aed2-tad/aed2-tad.sty
+Package: aed2-tad 2011/04/04 - Para especificar TADs en formato AED2
 
-Type X to quit or <RETURN> to proceed,
-or enter new name. (Default extension: sty)
+(/usr/share/texlive/texmf-dist/tex/latex/tools/calc.sty
+Package: calc 2014/10/28 v4.3 Infix arithmetic (KKT,FJ)
+\calc@Acount=\count92
+\calc@Bcount=\count93
+\calc@Adimen=\dimen106
+\calc@Bdimen=\dimen107
+\calc@Askip=\skip52
+\calc@Bskip=\skip53
+LaTeX Info: Redefining \setlength on input line 80.
+LaTeX Info: Redefining \addtolength on input line 81.
+\calc@Ccount=\count94
+\calc@Cskip=\skip54
+)
+(/home/jazz/texmf/tex/latex/aed2-tokenizer/aed2-tokenizer.sty
+Package: aed2-tokenizer 2010/03/12
+)
+Package aed2-tad Info: Cargando package 'tad' (04/04/2011) on input line 26.
+\tadMargen=\skip55
+\tadSubMargen=\skip56
+\tadAnchoEncabezados=\skip57
+\tadSeparacionTitulos=\skip58
+\tadSeparacionFunciones=\skip59
+\tadAnchoNombreFunciones=\skip60
+\tadAnchoTipoFunciones=\skip61
+\tadSeparacionAxiomas=\skip62
+\tadAnchoIzquierdaAxioma=\skip63
+\tad@oldparindent=\skip64
+\pbox@len=\skip65
+\tad@ifFitsElse@largo=\skip66
+\igualobs@pre=\skip67
+\igualobs@max=\skip68
+\igualobssimple@max=\skip69
+\@Signatura=\box27
+\tadOperacion@textwidth=\skip70
+\tadAxioma@lenEquiv=\skip71
+\tadAxioma@lenDerecha=\skip72
+)
+(/home/jazz/texmf/tex/latex/aed2-symb/aed2-symb.sty
+Package: aed2-symb 2004/04/17 - Para componer simbolitos frecuentemente usados 
+en AED2
 
+Cargando package 'aed2-symb'
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsmath.sty
+Package: amsmath 2016/03/03 v2.15a AMS math features
+\@mathmargin=\skip73
+
+For additional information on amsmath, use the `?' option.
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amstext.sty
+Package: amstext 2000/06/29 v2.01 AMS text
+
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsgen.sty
+File: amsgen.sty 1999/11/30 v2.0 generic functions
+\@emptytoks=\toks22
+\ex@=\dimen108
+))
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsbsy.sty
+Package: amsbsy 1999/11/29 v1.2d Bold Symbols
+\pmbraise@=\dimen109
+)
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsopn.sty
+Package: amsopn 1999/12/14 v2.01 operator names
+)
+\inf@bad=\count95
+LaTeX Info: Redefining \frac on input line 199.
+\uproot@=\count96
+\leftroot@=\count97
+LaTeX Info: Redefining \overline on input line 297.
+\classnum@=\count98
+\DOTSCASE@=\count99
+LaTeX Info: Redefining \ldots on input line 394.
+LaTeX Info: Redefining \dots on input line 397.
+LaTeX Info: Redefining \cdots on input line 518.
+\Mathstrutbox@=\box28
+\strutbox@=\box29
+\big@size=\dimen110
+LaTeX Font Info:    Redeclaring font encoding OML on input line 630.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 631.
+\macc@depth=\count100
+\c@MaxMatrixCols=\count101
+\dotsspace@=\muskip10
+\c@parentequation=\count102
+\dspbrk@lvl=\count103
+\tag@help=\toks23
+\row@=\count104
+\column@=\count105
+\maxfields@=\count106
+\andhelp@=\toks24
+\eqnshift@=\dimen111
+\alignsep@=\dimen112
+\tagshift@=\dimen113
+\tagwidth@=\dimen114
+\totwidth@=\dimen115
+\lineht@=\dimen116
+\@envbody=\toks25
+\multlinegap=\skip74
+\multlinetaggap=\skip75
+\mathdisplay@stack=\toks26
+LaTeX Info: Redefining \[ on input line 2735.
+LaTeX Info: Redefining \] on input line 2736.
+)
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/amssymb.sty
+Package: amssymb 2013/01/14 v3.01 AMS font symbols
+
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/amsfonts.sty
+Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
+\symAMSa=\mathgroup5
+\symAMSb=\mathgroup6
+LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
+(Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
+)))
+(/home/jazz/texmf/tex/latex/aed2-itef/aed2-itef.sty
+Package: aed2-itef 2010/03/16 - if-then-else-fi en lenguaje de TADs.
+
+Cargando package 'itef' (2010/03/16)
+\itefIndentacion=\skip76
+\itef@widthUnaLinea=\skip77
+\itef@linewidth=\skip78
+) (/usr/share/texlive/texmf-dist/tex/latex/algorithmicx/algorithmicx.sty
+Package: algorithmicx 2005/04/27 v1.2 Algorithmicx
+
+Document Style algorithmicx 1.2 - a greatly improved `algorithmic' style
+\c@ALG@line=\count107
+\c@ALG@rem=\count108
+\c@ALG@nested=\count109
+\ALG@tlm=\skip79
+\ALG@thistlm=\skip80
+\c@ALG@Lnr=\count110
+\c@ALG@blocknr=\count111
+\c@ALG@storecount=\count112
+\c@ALG@tmpcounter=\count113
+\ALG@tmplength=\skip81
+) (/usr/share/texlive/texmf-dist/tex/latex/algorithmicx/algpseudocode.sty
+Package: algpseudocode 
+
+Document Style - pseudocode environments for use with the `algorithmicx' style
+) (/usr/share/texlive/texmf-dist/tex/latex/algorithms/algorithm.sty
+Package: algorithm 2009/08/24 v0.1 Document Style `algorithm' - floating enviro
+nment
+
+(/usr/share/texlive/texmf-dist/tex/latex/float/float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count114
+\float@exts=\toks27
+\float@box=\box30
+\@float@everytoks=\toks28
+\@floatcapt=\box31
+)
+\@float@every@algorithm=\toks29
+\c@algorithm=\count115
+)
+(/usr/share/texlive/texmf-dist/tex/latex/tools/enumerate.sty
+Package: enumerate 2015/07/23 v3.00 enumerate extensions (DPC)
+\@enLab=\toks30
+)
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/graphicx.sty
+Package: graphicx 2014/10/28 v1.0g Enhanced LaTeX Graphics (DPC,SPQR)
+
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/graphics.sty
+Package: graphics 2016/01/03 v1.0q Standard LaTeX Graphics (DPC,SPQR)
+
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/trig.sty
+Package: trig 2016/01/03 v1.10 sin cos tan (DPC)
+)
+(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/graphics.cfg
+File: graphics.cfg 2010/04/23 v1.9 graphics configuration of TeX Live
+)
+Package graphics Info: Driver file: pdftex.def on input line 95.
+
+(/usr/share/texlive/texmf-dist/tex/latex/pdftex-def/pdftex.def
+File: pdftex.def 2011/05/27 v0.06d Graphics/color for pdfTeX
+
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/infwarerr.sty
+Package: infwarerr 2010/04/08 v1.3 Providing info/warning/error messages (HO)
+)
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/ltxcmds.sty
+Package: ltxcmds 2011/11/09 v1.22 LaTeX kernel commands for general use (HO)
+)
+\Gread@gobject=\count116
+))
+\Gin@req@height=\dimen117
+\Gin@req@width=\dimen118
+)
+(/usr/share/texlive/texmf-dist/tex/latex/caption/caption.sty
+Package: caption 2016/02/21 v3.3-144 Customizing captions (AR)
+
+(/usr/share/texlive/texmf-dist/tex/latex/caption/caption3.sty
+Package: caption3 2016/02/04 v1.7-139 caption3 kernel (AR)
+Package caption3 Info: TeX engine: e-TeX on input line 67.
+\captionmargin=\dimen119
+\captionmargin@=\dimen120
+\captionwidth=\dimen121
+\caption@tempdima=\dimen122
+\caption@indent=\dimen123
+\caption@parindent=\dimen124
+\caption@hangindent=\dimen125
+)
+\c@ContinuedFloat=\count117
+Package caption Info: float package is loaded.
+)
+(/usr/share/texlive/texmf-dist/tex/latex/caption/subcaption.sty
+Package: subcaption 2016/02/20 v1.1-142 Sub-captions (AR)
+\c@subfigure=\count118
+\c@subtable=\count119
+)
+(/usr/share/texlive/texmf-dist/tex/latex/anysize/anysize.sty
+Package: anysize 1994/08/13 setting margin sizes
+
+document style option `anysize' loaded
+Michael Salzenberg, Thomas Esser, Dirk Hillbrecht
+Version 1.0, Aug 13, 1994
+\@Leftmargin=\dimen126
+\@Rightmargin=\dimen127
+\@Topmargin=\dimen128
+\@Bottommargin=\dimen129
+) (./inf2.aux
+LaTeX Info: Redefining \. on input line 6.
+LaTeX Info: Redefining \% on input line 6.
+
+
+LaTeX Warning: Label `' multiply defined.
+
+
+LaTeX Warning: Label `sub@' multiply defined.
+
+)
+\openout1 = `inf2.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 24.
+LaTeX Font Info:    Try loading font information for TS1+cmr on input line 24.
+ (/usr/share/texlive/texmf-dist/tex/latex/base/ts1cmr.fd
+File: ts1cmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    Try loading font information for OT1+lmr on input line 24.
+
+(/usr/share/texmf/tex/latex/lm/ot1lmr.fd
+File: ot1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
+)
+LaTeX Info: Redefining \. on input line 24.
+LaTeX Info: Redefining \% on input line 24.
+Package lastpage Info: Please have a look at the pageslts package at
+(lastpage)             https://www.ctan.org/pkg/pageslts
+(lastpage)             ! on input line 24.
+
+(/usr/share/texlive/texmf-dist/tex/context/base/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count120
+\scratchdimen=\dimen130
+\scratchbox=\box32
+\nofMPsegments=\count121
+\nofMParguments=\count122
+\everyMPshowfont=\toks31
+\MPscratchCnt=\count123
+\MPscratchDim=\dimen131
+\MPnumerator=\count124
+\makeMPintoPDFobject=\count125
+\everyMPtoPDFconversion=\toks32
+) (/usr/share/texlive/texmf-dist/tex/generic/oberdiek/pdftexcmds.sty
+Package: pdftexcmds 2011/11/29 v0.20 Utility functions of pdfTeX for LuaTeX (HO
+)
+
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/ifluatex.sty
+Package: ifluatex 2010/03/01 v1.3 Provides the ifluatex switch (HO)
+Package ifluatex Info: LuaTeX not detected.
+)
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/ifpdf.sty
+Package: ifpdf 2011/01/30 v2.3 Provides the ifpdf switch (HO)
+Package ifpdf Info: pdfTeX in PDF mode is detected.
+)
+Package pdftexcmds Info: LuaTeX not detected.
+Package pdftexcmds Info: \pdf@primitive is available.
+Package pdftexcmds Info: \pdf@ifprimitive is available.
+Package pdftexcmds Info: \pdfdraftmode found.
+)
+(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
+Package: epstopdf-base 2010/02/09 v2.5 Base part for package epstopdf
+
+(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/grfext.sty
+Package: grfext 2010/08/19 v1.1 Manage graphics extensions (HO)
+
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/kvdefinekeys.sty
+Package: kvdefinekeys 2011/04/07 v1.3 Define keys (HO)
+))
+(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/kvoptions.sty
+Package: kvoptions 2011/06/30 v3.11 Key value format for package options (HO)
+
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/kvsetkeys.sty
+Package: kvsetkeys 2012/04/25 v1.16 Key value parser (HO)
+
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/etexcmds.sty
+Package: etexcmds 2011/02/16 v1.5 Avoid name clashes with e-TeX commands (HO)
+Package etexcmds Info: Could not find \expanded.
+(etexcmds)             That can mean that you are not using pdfTeX 1.50 or
+(etexcmds)             that some package has redefined \expanded.
+(etexcmds)             In the latter case, load this package earlier.
+)))
+Package grfext Info: Graphics extension search list:
+(grfext)             [.png,.pdf,.jpg,.mps,.jpeg,.jbig2,.jb2,.PNG,.PDF,.JPG,.JPE
+G,.JBIG2,.JB2,.eps]
+(grfext)             \AppendGraphicsExtensions on input line 452.
+
+(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
+File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
+e
+))
+Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: End \AtBeginDocument code.
+LaTeX Font Info:    Try loading font information for OML+lmm on input line 35.
+
+(/usr/share/texmf/tex/latex/lm/omllmm.fd
+File: omllmm.fd 2009/10/30 v1.6 Font defs for Latin Modern
+)
+LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 35.
+
+
+(/usr/share/texmf/tex/latex/lm/omslmsy.fd
+File: omslmsy.fd 2009/10/30 v1.6 Font defs for Latin Modern
+)
+LaTeX Font Info:    Try loading font information for OMX+lmex on input line 35.
+
+
+(/usr/share/texmf/tex/latex/lm/omxlmex.fd
+File: omxlmex.fd 2009/10/30 v1.6 Font defs for Latin Modern
+)
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <12> on input line 35.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <8> on input line 35.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <6> on input line 35.
+LaTeX Font Info:    Try loading font information for U+lasy on input line 35.
+
+(/usr/share/texlive/texmf-dist/tex/latex/base/ulasy.fd
+File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
+)
+LaTeX Font Info:    Try loading font information for U+msa on input line 35.
+
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+LaTeX Font Info:    Try loading font information for U+msb on input line 35.
+
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+)
+LaTeX Font Info:    Try loading font information for OT1+lmtt on input line 35.
+
+
+(/usr/share/texmf/tex/latex/lm/ot1lmtt.fd
+File: ot1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
+)
+
+! Package inputenc Error: Unicode char �te (U+DA)
+(inputenc)                not set up for use with LaTeX.
+
+See the inputenc package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.35 \maketitle
+               
+? 
+[1
+
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] (./inf2.toc
+LaTeX Info: Redefining \. on input line 1.
+LaTeX Info: Redefining \% on input line 1.
+)
+\tf@toc=\write3
+\openout3 = `inf2.toc'.
+
+ [2
+
+]
+Overfull \hbox (21.53308pt too wide) in paragraph at lines 49--50
+[]\OT1/lmr/m/n/12 Formalmente es-to equi-va-le a mo-de-lar el pro-ble-ma util-z
+an-do un gra-fo que con-tie-ne no-dos .[]peciales"(las
+ []
+
+! Undefined control sequence.
+l.93 		\State \quad Mientras list$\neq \emtyset
+                                               $ hacer
+? 
+[3
+
+]
+
+! LaTeX Error: Something's wrong--perhaps a missing \item.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.130 	\end{algorithmic}
+                        
+? 
+[4]
+! Undefined control sequence.
+<recently read> \Ogr 
+                     
+l.168 ...e prioridad según el peso \Comment $\Ogr
+                                                  (m)$
+? 
+! Undefined control sequence.
+<argument> \Ogr 
+                
+l.170 		\State \quad devolver res \Comment \Ogr
+                                               (1)
+? 
+[5]
+! Undefined control sequence.
+<recently read> \Ogr 
+                     
+l.185 ...nuestro algoritmo tiene complejidad $\Ogr
+                                                  (mxlog(n))$ donde m es la ...
+
+? 
+! Undefined control sequence.
+<recently read> \Ogr 
+                     
+l.186 ...jidad pedida para este algoritmo es $\Ogr
+                                                  (FCxlog(FC))$ donde F es l...
+
+? 
+! Undefined control sequence.
+l.189 Sabémos que $1/2  \Sum
+                             [1][n]{d(v_{i})} =m $. Sin embargo podemos acot...
+
+? 
+! Undefined control sequence.
+l.189 ...dran tener como mucho 2. Luego $1/2  \Sum
+                                                  [1][n]{d(v_{i})} \leq 1/2 ...
+
+? 
+! Undefined control sequence.
+l.189 ... $1/2  \Sum[1][n]{d(v_{i})} \leq 1/2 \Sum
+                                                  [1][n]{4} = 2n$. Entonces ...
+
+? 
+! Undefined control sequence.
+<recently read> \Ogr 
+                     
+l.189 ...n]{4} = 2n$. Entonces $m \leq 2n$ y $\Ogr
+                                                  (m) \leq \Ogr(2n) \Ogr(n)$.
+? 
+! Undefined control sequence.
+l.189 ...Entonces $m \leq 2n$ y $\Ogr(m) \leq \Ogr
+                                                  (2n) \Ogr(n)$.
+? 
+! Undefined control sequence.
+l.189 ...$m \leq 2n$ y $\Ogr(m) \leq \Ogr(2n) \Ogr
+                                                  (n)$.
+? 
+! Undefined control sequence.
+<recently read> \Ogr 
+                     
+l.192 Por lo anterior tenemos que $\Ogr
+                                       (mxlog(n))= \Ogr(nxlog(n))$.
+? 
+! Undefined control sequence.
+l.192 ...nterior tenemos que $\Ogr(mxlog(n))= \Ogr
+                                                  (nxlog(n))$.
+? 
+! Undefined control sequence.
+<recently read> \Ogr 
+                     
+l.193 ...redes descartando los bordes) luego $\Ogr
+                                                  (nlog(n)) = \Ogr(FCxlog(FC))$
+
+? 
+! Undefined control sequence.
+l.193 ...o los bordes) luego $\Ogr(nlog(n)) = \Ogr
+                                                  (FCxlog(FC))$
+? 
+! Undefined control sequence.
+<recently read> \Ogr 
+                     
+l.198 ...ad requerida para este algoritmo es $\Ogr
+                                                  (FCxlog(FC))$ y en la secc...
+
+? 
+! Undefined control sequence.
+<recently read> \Ogr 
+                     
+l.198 ...probamos que esto es equivalente a  $\Ogr
+                                                  (nlog(n))$.
+? 
+! Undefined control sequence.
+<recently read> \Ogr 
+                     
+l.200 ...minuyendo la complejidad a corde de $\Ogr
+                                                  (FCxlog(FC))$ manteniendo ...
+
+? 
+<sinParedes.jpg, id=25, 803.0pt x 602.25pt>
+File: sinParedes.jpg Graphic file (type jpg)
+ <use sinParedes.jpg>
+Package pdftex.def Info: sinParedes.jpg used on input line 211.
+(pdftex.def)             Requested size: 307.2929pt x 230.47473pt.
+ [6] [7 <./sinParedes.jpg>] <soloFilas.jpg, id=34, 803.0pt x 602.25pt>
+File: soloFilas.jpg Graphic file (type jpg)
+ <use soloFilas.jpg>
+Package pdftex.def Info: soloFilas.jpg used on input line 225.
+(pdftex.def)             Requested size: 230.46576pt x 172.84686pt.
+
+<soloColumnas.jpg, id=35, 803.0pt x 602.25pt>
+File: soloColumnas.jpg Graphic file (type jpg)
+ <use soloColumnas.jpg>
+Package pdftex.def Info: soloColumnas.jpg used on input line 230.
+(pdftex.def)             Requested size: 230.46576pt x 172.84686pt.
+
+<2columvs4colum.jpg, id=36, 734.9859pt x 572.1375pt>
+File: 2columvs4colum.jpg Graphic file (type jpg)
+ <use 2columvs4colum.jpg>
+Package pdftex.def Info: 2columvs4colum.jpg used on input line 243.
+(pdftex.def)             Requested size: 307.2929pt x 239.20483pt.
+
+! Undefined control sequence.
+<recently read> \Ogr 
+                     
+l.247 ...algoritmo Kruskal tiene complejidad $\Ogr
+                                                  (mxlog(n))$ y aunque en nu...
+
+? 
+! You can't use `macro parameter character #' in horizontal mode.
+<argument> \csname system@active"\endcsname ##
+                                              
+l.250 ...gregando alternadamente una columna de "#
+                                                  " en el mapa.
+? 
+<CompConexas.jpg, id=37, 803.0pt x 602.25pt>
+File: CompConexas.jpg Graphic file (type jpg)
+ <use CompConexas.jpg>
+Package pdftex.def Info: CompConexas.jpg used on input line 253.
+(pdftex.def)             Requested size: 307.2929pt x 230.47473pt.
+ [8
+
+ <./soloFilas.jpg> <./soloColumnas.jpg> <./2columvs4colum.jpg>]
+! Undefined control sequence.
+<recently read> \comment 
+                         
+l.285 		\State nodosNoSeguros $\comment
+                                       $ conjunto $\{$2, ..., n$\}$
+? 
+! Missing $ inserted.
+<inserted text> 
+                $
+l.290 		\State \quad \forall
+                             \ e \ $\in$ nodos $\land$ [nodomin, e] $\in$ X
+? 
+! Missing $ inserted.
+<inserted text> 
+                $
+l.290 		\State \quad \forall \ e \ $\in
+                                       $ nodos $\land$ [nodomin, e] $\in$ X
+? 
+[9 <./CompConexas.jpg>] [10]
+LaTeX Font Info:    Try loading font information for TS1+lmr on input line 327.
+
+ (/usr/share/texmf/tex/latex/lm/ts1lmr.fd
+File: ts1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
+)
+! Undefined control sequence.
+<recently read> \tab 
+                     
+l.333 \tab
+           Ahora que analizamos las tres partes que podían llegar a dar com...
+
+? 
+[11] <KnC100r3000.jpg, id=51, 803.0pt x 602.25pt>
+File: KnC100r3000.jpg Graphic file (type jpg)
+ <use KnC100r3000.jpg>
+Package pdftex.def Info: KnC100r3000.jpg used on input line 352.
+(pdftex.def)             Requested size: 307.2929pt x 230.47473pt.
+
+[12 <./KnC100r3000.jpg>] <KnOptC150r3000.jpg, id=55, 803.0pt x 602.25pt>
+File: KnOptC150r3000.jpg Graphic file (type jpg)
+
+<use KnOptC150r3000.jpg>
+Package pdftex.def Info: KnOptC150r3000.jpg used on input line 362.
+(pdftex.def)             Requested size: 307.2929pt x 230.47473pt.
+
+
+! LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.366 E
+       n este gráfico podemos ver como A1 mantiene su apariencia cuadratica...
+
+? 
+<KnsoloOptC100r3000.jpg, id=56, 803.0pt x 602.25pt>
+File: KnsoloOptC100r3000.jpg Graphic file (type jpg)
+
+<use KnsoloOptC100r3000.jpg>
+Package pdftex.def Info: KnsoloOptC100r3000.jpg used on input line 371.
+(pdftex.def)             Requested size: 307.2929pt x 230.47473pt.
+
+
+! LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.375 C
+       omo Podemos observar la apariencia constante de A2 era meramente una ...
+
+? 
+[13 <./KnOptC150r3000.jpg> <./KnsoloOptC100r3000.jpg>]
+<Conexo200ejesC150r3000.jpg, id=61, 803.0pt x 602.25pt>
+File: Conexo200ejesC150r3000.jpg Graphic file (type jpg)
+
+<use Conexo200ejesC150r3000.jpg>
+Package pdftex.def Info: Conexo200ejesC150r3000.jpg used on input line 383.
+(pdftex.def)             Requested size: 307.2929pt x 230.47473pt.
+
+<VariasDensidades.jpg, id=62, 803.0pt x 602.25pt>
+File: VariasDensidades.jpg Graphic file (type jpg)
+ <use VariasDensidades.jpg>
+Package pdftex.def Info: VariasDensidades.jpg used on input line 393.
+(pdftex.def)             Requested size: 307.2929pt x 230.47473pt.
+
+[14 <./Conexo200ejesC150r3000.jpg>]
+<VariasDensidadesSinArbol.jpg, id=66, 803.0pt x 602.25pt>
+File: VariasDensidadesSinArbol.jpg Graphic file (type jpg)
+
+<use VariasDensidadesSinArbol.jpg>
+Package pdftex.def Info: VariasDensidadesSinArbol.jpg used on input line 401.
+(pdftex.def)             Requested size: 307.2929pt x 230.47473pt.
+
+
+! LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.406 L
+       uego de demostrar que la complejidad Teórica es respaldada por la ex...
+
+? 
+[15 <./VariasDensidades.jpg> <./VariasDensidadesSinArbol.jpg>]
+
+AED: lastpage setting LastPage
+[16] (./inf2.aux
+LaTeX Info: Redefining \. on input line 6.
+LaTeX Info: Redefining \% on input line 6.
+)
+
+LaTeX Warning: There were multiply-defined labels.
+
+<<<<<<< HEAD
 Enter file name: 
 
 ! LaTeX Error: File `aed2-tad.sty' not found.
@@ -1242,3 +1915,30 @@ l.167 Por lo anterior tenemos que $\Ogr
 ? 
 ! Undefined control sequence.
 l.167 ...nterior tenemos que $\Ogr(
+=======
+ ) 
+Here is how much of TeX's memory you used:
+ 6791 strings out of 493029
+ 97348 string characters out of 6136234
+ 173646 words of memory out of 5000000
+ 10127 multiletter control sequences out of 15000+600000
+ 43745 words of font info for 45 fonts, out of 8000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 53i,7n,92p,1192b,524s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/share/texmf/fonts/enc/dvips/lm/lm-ts1.enc}{/usr/share/texmf/fonts/enc/d
+vips/lm/lm-mathit.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-rm.enc}{/usr/shar
+e/texmf/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/share/texmf/fonts/enc/dvips/lm/l
+m-rmtt.enc}</usr/share/texmf/fonts/type1/public/lm/lmbx12.pfb></usr/share/texmf
+/fonts/type1/public/lm/lmmi12.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi8
+.pfb></usr/share/texmf/fonts/type1/public/lm/lmr10.pfb></usr/share/texmf/fonts/
+type1/public/lm/lmr12.pfb></usr/share/texmf/fonts/type1/public/lm/lmr8.pfb></us
+r/share/texmf/fonts/type1/public/lm/lmsy10.pfb></usr/share/texmf/fonts/type1/pu
+blic/lm/lmtt12.pfb>
+Output written on inf2.pdf (16 pages, 1684248 bytes).
+PDF statistics:
+ 106 PDF objects out of 1000 (max. 8388607)
+ 68 compressed objects within 1 object stream
+ 0 named destinations out of 1000 (max. 500000)
+ 56 words of extra memory for PDF output out of 10000 (max. 10000000)
+
+>>>>>>> 054f90011c4c2758c6188c6bd4383b2150a170b8
