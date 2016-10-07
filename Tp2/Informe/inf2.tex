@@ -55,7 +55,7 @@ Podemos dividir la resolución en tres partes: la primera, donde interpretamos l
 
 En la tercera parte, vamos a aplicar un bfs modificado, para calcular las distancias del nodo origen a todos los demás nodos. Entre las modificaciones se incluyen unos $"movimientos ilegales"$: estos son movimientos que el modelo solamente con  por un lado, no está permitido pasar a un nivel menor al que uno se encuentra. Además, no es correcto mover de un nodo $"habitación"$ a un nodo $"pared"$ en el mismo nivel.
 
-Por último, se calcula la distancia mínima entre todos los nodos finales copiados. Si no existe un camino posible, el algoritmo devuelve -1
+Por último, se calcula la distancia mínima entre todos los nodos finales copiados. Si no existe un camino posible a ninguno de los nodos finales en todos los niveles, el algoritmo devuelve -1
 
 
 
@@ -161,8 +161,8 @@ Por último, se calcula la distancia mínima entre todos los nodos finales copia
 \subsection{Demostración de Correctitud}
 Para demostrar que este algoritmo devuelve lo pedido, podemos ver que todos los movimientos en el tablero estan representados por la posibilidad(o no) de visitar a un vecino. De esta manera, todos los caminos posibles(y sólo esos) están considerados a la hora de hacer bfs.
 Movimientos legales:
-Moverse de una habitación a otra; corresponde a dos nodos $"habitación"$ adyacentes. Como en todos los niveles creados esta adyacencia se mantiene, este movimiento siempre es posible.
-Romper una pared; corresponde a un $"cambio de nivel"$. Pasas de un nodo $"habitación"$ de nivel i a un nodo $"pared"$ de nivel i+1. Como existen P niveles, se pueden observar todas los caminos distintos, rompiendo las paredes en distintas situaciones. Notar que el algoritmo explícitamente prohíbe estos movimientos en el mismo nivel, para evitar falsos resultados.
+Moverse de una habitación a otra; corresponde a 2 nodos $"habitación"$ adyacentes. Como en todos los niveles creados esta adyacencia se mantiene, este movimiento siempre es posible.
+Romper una pared; corresponde a un $"cambio de nivel"$. Pasas de un nodo $"habitación"$ de nivel i a un nodo $"pared"$ de nivel i+1. Como existen P niveles, se pueden observar todos los caminos distintos, rompiendo las paredes en distintas situaciones. Notar que el algoritmo explícitamente prohíbe estos movimientos en el mismo nivel, para evitar falsos resultados.
 Moverse de una pared a otro lado; este caso está siempre conectado en un mismo nivel, y con una guarda en el bfs para evitar la vuelta.
 
 \subsection{Demostración de Complejidad}
@@ -177,14 +177,14 @@ Una vez pasado por eso, vemos que todos los ciclos de $ClonarUltimoNivel$ tienen
 
 \subsection{Introducción}
 
-En este problema nuestros arquéologos quieren recorrer todas las salas, para ello pueden romper paredes sin embargo, romperlas no cuesta el mismo esfuerzo para todas. Teniendo un mapa con los esfuerzos cuantificados del 1 al 9 desean saber cual es el mínimo esfuerzo que deben hacer para cumplir su objetivo.
+En este problema nuestros arquéologos quieren recorrer todas las salas, para ello pueden romper las paredes. Sin embargo, romperlas no cuesta el mismo esfuerzo para todas. Teniendo un mapa con los esfuerzos cuantificados del 1 al 9 desean saber cuál es el mínimo esfuerzo que deben hacer para cumplir su objetivo.
 
 Formalmente, podemos modelar este problema con grafos. Teniendo un grafo con peso se desea encontrar el árbol generador mínimo y devolver la sumatoria del peso de todos sus ejes.
 
 \subsection{Explicación de la solución}
 
 Definimos una clase eje que tiene como propiedad punteros a los nodos de cada extremo y su peso correspondiente.
-Luego acomodamos nuestra entrada para obtener el conjunto de todos los ejes y utilizamos el algoritmo de Kruskal para obtener el árbol generador mínimo y retornar el valor total del mismo. La única modificación del mismo es guardar un entero en el cual ir sumando el peso de cada arista elegida para devovler como resultado.
+Luego acomodamos nuestra entrada para obtener el conjunto de todos los ejes y utilizamos el algoritmo de Kruskal para obtener el árbol generador mínimo, y retornar el valor total del mismo. La única modificación del mismo es guardar un entero en el cual ir sumando el peso de cada arista elegida para devolver como resultado.
 
 
 
@@ -200,9 +200,9 @@ Luego acomodamos nuestra entrada para obtener el conjunto de todos los ejes y ut
 
 \subsubsection{Demostración de Correctitud}
 
-Este problema lo modelamos con grafos de modo tal que cada habitación caminable es un nodo conectado a otros mediante sus ejes. Los mismos, de haber una pared en el medio tendrán peso igual al costo de destruirla y de no haber pared, tendrán peso cero. si entre dos nodos hay una pared indestructible esos nodos no podrán conectarse, es decir no existe una arista entre ellos.
+Este problema lo modelamos con grafos de modo tal que cada habitación caminable es un nodo conectado a otros mediante sus ejes. Los mismos, de haber una pared en el medio tendrán peso igual al costo de destruirla y, de no haber pared, tendrán peso cero. si entre dos nodos hay una pared indestructible esos nodos no podrán conectarse, es decir no existe una arista entre ellos.
 
-Un arbol generador mínimo de un grafo es un subgrafo que contiene todos los nodos del mismo y cumple las caracteristicas de un árbol(por ejemplo, solo existe un camino simple que conecta dos pares de nodos) y además por ser mínimo cumple que la sumatoria de los pesos de sus ejes es la menor posible.
+Un arbol generador mínimo de un grafo es un subgrafo que contiene todos los nodos del mismo y cumple las caracteristicas de un árbol(por ejemplo, solo existe un camino simple que conecta dos pares de nodos) y además, por ser mínimo, cumple que la sumatoria de los pesos de sus ejes es la menor posible.
 
 En este problema nos piden que demos el esfuerzo que nos cuesta acceder a todas las habitaciones.Por como modelamos el problema podemos ver que lo que nos están pidiendo es un AGM. Para encontrar el AGM de un grafo utilizamos el algoritmo Kruskal. La demostración de correctitud de este algoritmo puede encontrase en el paper de  J.B. Kruskal, ``On the shortest spanning subtree of a graph and the traveling salesman problem. Proceedings of the American Mathematical Society, Volume 7, pp. 48-50, 1956".
 
@@ -211,30 +211,31 @@ En este problema nos piden que demos el esfuerzo que nos cuesta acceder a todas 
 \subsubsection{Demostración de Complejidad}
 
 
-Como podemos apreciar en el pseudocodigo nuestro algoritmo tiene complejidad $\mathcal{O}(mlog(n))$ donde m es la cantidad de ejes y n la cantidad de nodos de nuestro grafo. 
-La complejidad pedida para este algoritmo es $\mathcal{O}(FCxlog(FC))$ donde F es la cantidad de filas y C la cantidad de columans del mapa.
+Como podemos apreciar en el pseudocódigo nuestro algoritmo tiene complejidad $\mathcal{O}(mlog(n))$ donde m es la cantidad de ejes y n la cantidad de nodos de nuestro grafo. 
+La complejidad pedida para este algoritmo es $\mathcal{O}(FCxlog(FC))$ donde F es la cantidad de filas y C la cantidad de columnas del mapa.
 
 
 Primero probaremos que podemos acotar la cantidad de ejes por la cantidad de nodos:
-Sabémos que $1/2  \sum_{1}^{n}d(v_{i}) =m $. Sin embargo podemos acotar $d(v_{i}) \leq 4$ ya que como mucho los nodos del medio del mapa pueden tener 4 ejes mientras que todos los que esten en los bordes podran tener como mucho 2. Luego $1/2  \sum_{1}^{n}{d(v_{i})} \leq 1/2 \sum_{1}^{n}{4} = 2n$. Entonces $m \leq 2n$ y $\mathcal{O}(m) \leq \mathcal{O}(2n) \mathcal{O}(n)$.
+Sabemos que $1/2  \sum_{1}^{n}d(v_{i}) =m $. Sin embargo podemos acotar $d(v_{i}) \leq 4$ ya que como mucho los nodos del medio del mapa pueden tener 4 ejes mientras que todos los que estén en los bordes podrán tener como mucho 2. Luego $1/2  \sum_{1}^{n}{d(v_{i})} \leq 1/2 \sum_{1}^{n}{4} = 2n$. Entonces $m \leq 2n$ y $\mathcal{O}(m) \leq \mathcal{O}(2n) \mathcal{O}(n)$.
 
 Ahora veremos que la complejidad de nuestro algoritmo es la pedida:
 
 Por lo anterior tenemos que $\mathcal{O}(mlog(n))= \mathcal{O}(nlog(n))$.
-La cantidad de nodos que tengamos depende directamente de F y C. la maxima cantidad de nodos que podemos tener es F-1*C-1 (la matriz sin paredes descartando los bordes) luego $\mathcal{O}(nlog(n)) = \mathcal{O}(FClog(FC))$ 
+La cantidad de nodos que tengamos depende directamente de F y C. la máxima cantidad de nodos que podemos tener es F-1*C-1 (la matriz sin paredes descartando los bordes) luego $\mathcal{O}(nlog(n)) = \mathcal{O}(FClog(FC))$ 
 
 
 \subsection{Experimentación}
 
 La complejidad requerida para este algoritmo es $\mathcal{O}(FClog(FC))$ y en la sección anterior probamos que esto es equivalente a  $\mathcal{O}(nlog(n))$.
-Realizamos una serie de experimentos para respaldar empiricamente este hecho.
+Realizamos una serie de experimentos para respaldar empíricamente este hecho.
 
 Los mismos consisten principalmente en variar las dimensiones del mapa, es decir, modificar F y C. Esperamos que estas variaciones afecten la cantidad de nodos, aumentando o disminuyendo la complejidad a corde de $\mathcal{O}(FClog(FC))$ manteniendo la misma tendencia. 
 
 Creemos que nuestro algoritmo será un poco más rápido a la cota pedida ya que la cantidad de nodos es un poco menor a FC.
 
-Nuestro algoritmo devuelve -1 cuando se tienen componenetes conexas, es decir cuando no se pueden recorrer todas las salas. Decimdimos hacer un test para ver que ocurría en estos casos. al disminuir las componentes conexas tambien disminuimos la cantidad de nodos, por esta razón suponemos que debe tardar menos. sí no las disminuyeramos creemos que el tiempo sería el mismo.
-
+Nuestro algoritmo devuelve -1 cuando se tienen componenetes conexas, es decir cuando no se pueden recorrer todas las salas. Decimdimos hacer un test para ver que ocurría en estos casos. al disminuir las componentes conexas tambien disminuimos la cantidad de nodos, por esta razón suponemos que debe tardar menos. si no las disminuyeramos creemos que el tiempo sería el mismo.
+\\
+Cada instancia de los experimentos fue iteradada 3000 veces, y se calculó el promedio.
 \subsubsection{Resultados y análisis}
 
 En nuestro primer experimento fuimos aumentando la dimensión de nuestro mapa, con F=C. lo corrimos para F=10 hasta F=250 aumentando de diez en diez.
@@ -245,10 +246,10 @@ En nuestro primer experimento fuimos aumentando la dimensión de nuestro mapa, c
 \caption{Aumento en la dimensión sel grafo}
 \end{figure}
 
-Podemos observar que el algoritmo tiene la misma tendencia logaritmica que nuestra cota teórica. También podemos ver que es mejor a media que aumenta la cantidad de nodos (o filas y columnas).
+Podemos observar que el algoritmo tiene la misma tendencia logarítmica que nuestra cota teórica. También podemos ver que es mejor a medida que aumenta la cantidad de nodos (o filas y columnas).
 
 
-En este experimento mantuvimos o bien constante el número de filas para aumentar de 10 en 10 las columnas hasta 250, o bien el número de columnas para aumentar las filas.
+En este experimento mantuvimos, o bien constante el número de filas para aumentar de 10 en 10 las columnas hasta 250, o bien el número de columnas para aumentar las filas.
 
 \clearpage
 \begin{figure}[!ht]
@@ -275,7 +276,7 @@ Para este experimento creamos dos matrices manteniendo en una constante C=4 (hab
 \caption{msima cantidad de nodos en mapas con distinta distribución}
 \end{figure}
 
-Podemos ver que el caso de 4 columnas tiene un tiempo de ejecución mayor. Esto se debe a que el algoritmo Kruskal tiene complejidad $\mathcal{O}(mxlog(n))$ y aunque en nuestro algoritmo podamos acotar la cantidad de ejes por la cantidad de nodos, esta diferencia sigue siendo perceptible como podemos observar en la figura. El grafo con 4 columnas tiene más ejes que el grafo con 2 pueso que los nodos del medio contienen cuatro ejes mientras que en el de 2 columnas la máxima cantidad de ejes que se puede aspirar a tener es 3 en los nodos que no son vértices.
+Podemos ver que el caso de 4 columnas tiene un tiempo de ejecución mayor. Esto se debe a que el algoritmo Kruskal tiene complejidad $\mathcal{O}(mxlog(n))$ y, aunque en nuestro algoritmo podamos acotar la cantidad de ejes por la cantidad de nodos, esta diferencia sigue siendo perceptible como podemos observar en la figura. El grafo con 4 columnas tiene más ejes que el grafo con 2 puesto que los nodos del medio contienen cuatro ejes, mientras que en el de 2 columnas la máxima cantidad de ejes que se puede aspirar a tener es 3 en los nodos que no son vértices.
 
 
 En este experimentos tomamos un mapa con F=C=31 y fuimos aumentando las componentes  conexas, agregando alternadamente una columna de $"#"$ en el mapa.
@@ -376,17 +377,17 @@ Si analizamos con atención el pseudocódigo, tenemos tres secciones que se pued
 \begin{description}
 \item[Parte 1] La primera parte a analizar es la creación de la matriz, al ser una matriz de adyacencia, la cantidad de filas es N y la cantidad de columnas es N, actualizar todos los valores es recorrer toda la matriz haciendo que la complejidad sea $\Theta$(N²)
 \\
-\item[Parte 2] En esta sección se encuentran dos ciclos anidados, podemos observar que el ciclo exterior hace N iteraciones ya que termina cuando el conjunto de nodos del grafo tiene el mismo cardinal que el conjunto de ``nodosSeguros'' y este último aumenta en uno por cada iteración. Dentro del ciclo principal tenemos dos operaciones que debemos tener en cuenta, sacar el nodo de la lista de ``nodosNoSeguros'' y el ciclo interno. Sacar un nodo de la lista, nos va a costar encontrar el nodo y luego eliminarlo. Por la estructura que utlizamos eliminarlo no nos aporta complejidad, pero encontrar el nodo es una busqueda lineal, es decir $\mathcal{O}$(N). La última parte que nos falta analizar para poder determinar la complejidad de los ciclos anidados es el ciclo interno. Cada iteración recorre N posiciones de la matriz, aquellas que podrían ser un eje válido, aunque hace cosas dependiendo de si es un eje válido o no, el interior del ciclo aporta una complejidad constante. Reuniendo toda la información, el interior del ciclo externo nos aporta una complejidad $\mathcal{O}$(N) e itera N veces, es decir que la complejidad de la segunda parte es $\mathcal{O}$(N²).
+\item[Parte 2] En esta sección se encuentran dos ciclos anidados, podemos observar que el ciclo exterior hace N iteraciones ya que termina cuando el conjunto de nodos del grafo tiene el mismo cardinal que el conjunto de ``nodosSeguros'' y este último aumenta en uno por cada iteración. Dentro del ciclo principal tenemos dos operaciones que debemos tener en cuenta; sacar el nodo de la lista de ``nodosNoSeguros'' y el ciclo interno. Sacar un nodo de la lista nos va a costar encontrar el nodo y luego eliminarlo. Por la estructura que utlizamos eliminarlo no nos aporta complejidad, pero encontrar el nodo es una búsqueda lineal, es decir $\mathcal{O}$(N). La última parte que nos falta analizar para poder determinar la complejidad de los ciclos anidados es el ciclo interno. Cada iteración recorre N posiciones de la matriz, aquellas que podrían ser un eje válido, aunque hace distintas cosas dependiendo de si es un eje válido o no, el interior del ciclo aporta una complejidad constante. Reuniendo toda la información, el interior del ciclo externo nos aporta una complejidad $\mathcal{O}$(N) e itera N veces, es decir que la complejidad de la segunda parte es $\mathcal{O}$(N²).
 \\
 \item[Parte 3] Nos encontramos un ciclo que lee los datos de la matriz y guarda en un conjunto los nodos que tenemos que atravezar para tener el camino mínimo. La cantidad máxima de iteraciones que hace este ciclo es N, el razonamiento detrás de esta afirmación es que los ejes no tienen pesos negativos, si existe un camino mínimo, este no va a tener ciclos ya que pasar por un ciclo solo aumentaría el peso total del camino, y un camino sin ciclos en un grafo con n nodos tiene a lo sumo n-1 ejes, ya que el camino puede llegar a pasar por todos los nodos. Podemos concluir que el ciclo hace n iteraciones en el peor caso, es decir que la tercer parte es $\mathcal{O}$(N)
 \\
 \end{description}
-\tab Ahora que analizamos las tres partes que podían llegar a dar complejidad al algoritmo sabemos que la complejidad algoritmica de la primer parte, la segunda parte y la tercera respectivamente son $\Theta$(N²), $\mathcal{O}$(N²), $\mathcal{O}$(N). Entonces la complejidad total es la suma de las complejidades dandonos $\mathcal{O}$(N²).
+\tab Ahora que analizamos las tres partes que podían llegar a dar complejidad al algoritmo sabemos que la complejidad algoritmica de la primer parte, la segunda parte y la tercera respectivamente son $\Theta$(N²), $\mathcal{O}$(N²), $\mathcal{O}$(N). Entonces la complejidad total es la suma de las complejidades resultando en $\mathcal{O}$(N²).
 
 \subsection{Experimentación}
 
 La cota de complejidad de nuestro algoritmo es $\mathcal{O}$(N²). Es decir que depende de la cantidad de nodos en un grafo.
-En esta sección trataremos de respaldar esta cota mediante el análisis de los datos empíricos que obtuvimos a traves del testeo de nuestros algoritmos.
+En esta sección trataremos de respaldar esta cota mediante el análisis de los datos empíricos que obtuvimos a través del testeo de nuestros algoritmos.
 \\
 Tenemos dos algoritmos, los dos una variación del mismo pseudocódigo, el algoritmo sin modificaciones, A1, que busca el camino mínimo con todos los nodos y el algoritmo, A2, que se interrumpe cuando encuentra el camino mínimo que estamos buscando.  
 \\
@@ -394,11 +395,11 @@ Tenemos dos algoritmos, los dos una variación del mismo pseudocódigo, el algor
 \\  
 Con este objetivo a lo largo de los tests modificamos los grafos para observar su comportamiento y poder sacar conclusiones sobre las elecciones algoritmicas que tomamos. En cada test los valores se logran al promediar un tres mil iteraciones sobre el mismo input, sobre que forma tiene el input se va a hablar más adelante.
 \\
-Tambien vale aclarar que no tenemos mucas restricciones sobre los parametros del input, esto quiere decir que nada asegura que del input no podamos obtener un pseudo-digrafo. La lectura de datos selecciona las aristas de menor peso y las deja en una matriz. Entonces la creación de la matriz no se toma en cuenta en la ejecución de cada experimento ya que nos aclararon que no tenemos que tomar mediciones que incluyan lectura de archivos.
-
+Tambien vale aclarar que no tenemos muchas restricciones sobre los parámetros del input, esto quiere decir que nada asegura que del input no podamos obtener un pseudo-digrafo. La lectura de datos selecciona las aristas de menor peso y las deja en una matriz. Entonces la creación de la matriz no se toma en cuenta en la ejecución de cada experimento ya que no tenemos que tomar mediciones que incluyan lectura de archivos.
+\\Cada instancia de los experimentos fue iteradada 3000 veces, y se calculó el promedio.
 \subsubsection{Resultados y análisis}
 
-En nuestro primer experimento corrimos el algoritmo con diferentes grafos Kn, donde el n empieza en diez, se incrementa de a diez y termina en 250 y los pesos de los ejes se generan de forma aleatoria. Creamos estos parametros para tener una primera impresión de como variaba dependiendo solamente de los nodos, ya que los ejes dependen de la cantidad de nodos. Nuestra expectativa era que A1 tenga un comportamiento cuadrático y que A2 tenga un comportamiento errático pero parecido a una función cuadrática, ya que no sabíamos como iban a afectar la interrupciones que introducimos en el algoritmo, esperabamos mejoras en algunas iteraciones.
+En nuestro primer experimento corrimos el algoritmo con diferentes grafos Kn, donde el n empieza en 10, se incrementa de a 10 y termina en 250 y los pesos de los ejes se generan de forma aleatoria. Creamos estos parámetros para tener una primera impresión de como variaba, dependiendo solamente de los nodos, ya que los ejes dependen de la cantidad de nodos. Nuestra expectativa era que A1 tenga un comportamiento cuadrático y que A2 tenga un comportamiento errático, pero parecido a una función cuadrática, ya que no sabíamos como iban a afectar la interrupciones que introducimos en el algoritmo, esperábamos mejoras en algunas iteraciones.
 
 \begin{figure}[H]
 \centering
@@ -406,9 +407,9 @@ En nuestro primer experimento corrimos el algoritmo con diferentes grafos Kn, do
 \caption{}
 \end{figure}
 
-Como se puede ver en el gráfico, nuestras expectativas fueron cumplidas, A1 tiene un tendencia cuadrática y A2 aunque no muestra una tendencia clara esta por debajo de A1. Como explicamos anteriormente este comportamiento errático responde a que A2 frena cuando encuentra el camino mínimo para n y no sigue ejecutando para otros nodos, esto quiere decir que cuanto más cerca esta A1 de A2 es que el camino mínimo de n es uno de los últimos en computarse y analogamente si estan lejos es que n es uno de los primeros en computarse.
+Como se puede ver en el gráfico, nuestras expectativas fueron cumplidas, A1 tiene un tendencia cuadrática y A2, aunque no muestra una tendencia clara, está por debajo de A1. Como explicamos anteriormente este comportamiento errático responde a que A2 termina cuando encuentra el camino mínimo para n y no sigue ejecutando para otros nodos, esto quiere decir que cuanto más cerca esta A1 de A2  el camino mínimo de n es uno de los últimos en computarse y análogamente si están lejos es que n es uno de los primeros en computarse.
 \\
-Al encontar respaldo empírico sobre como nuestro algoritmo cumple con las complejidades teóricas, decidimos evaluar como respondia A1 y A2 sobre el mejor caso, este seria que el camino mínimo sea el eje que va desde 1 hasta n, ya que A2 corta en cuanto encuentra la solución para n. Nuestra complejidad, despues de leer el input es lineal. Lo que creamos es un test que nos crea grafos Kn y que tienen la particularidad de que el eje (1,n) pesa cero, haciendolo el camino mínimo. Debajo se encuentran dos gráficos que modelan este test.
+Al encontar respaldo empírico sobre como nuestro algoritmo cumple con las complejidades teóricas, decidimos evaluar como respondía A1 y A2 sobre el mejor caso, este sería que el camino mínimo sea el eje que va desde 1 hasta n, ya que A2 corta en cuanto encuentra la solución para n. Nuestra complejidad, despues de leer el input es lineal. Lo que creamos es un test que nos crea grafos Kn y que tienen la particularidad de que el eje (1,n) pesa cero, haciendolo el camino mínimo. Debajo se encuentran dos gráficos que modelan este test.
 
 \begin{figure}[H]
 \centering
@@ -416,7 +417,7 @@ Al encontar respaldo empírico sobre como nuestro algoritmo cumple con las compl
 \caption{}
 \end{figure}
 \\
-En este gráfico podemos ver como A1 mantiene su apariencia cuadratica, pero nos hace pensar que A2 tiene una forma constante, lo cual no nos resulto coherente  por lo que nosotros sabemos de la implementación, la busqueda lineal del mínimo tiene que seguir ocurriendo. Por eso decidimos mirar solo la línea de A2 para ver que a que función se asemejaba.
+En este gráfico podemos ver como A1 mantiene su apariencia cuadratica, pero nos hace pensar que A2 tiene una forma constante, lo cual no nos resulto coherente por lo que sabemos de la implementación, la busqueda lineal del mínimo tiene que seguir ocurriendo. Por eso decidimos mirar solo la línea de A2 para ver que a que función se asemejaba.
 
 
 \begin{figure}[H]
@@ -427,9 +428,9 @@ En este gráfico podemos ver como A1 mantiene su apariencia cuadratica, pero nos
 \\
 Como Podemos observar la apariencia constante de A2 era meramente una apariencia por las escalas que tenía la figura 2. Ahora se nota claramente que A2 en el mejor caso es lineal.
 \\
-Al finalizar estos experimentos, nos dimos cuenta que modificar la cantidad de nodos y que la cantidad de ejes está en función a la cantidad de nodos nos reducía el univierso de posibles grafos y en ese sentido por ahí habían dependencias en terminos de complejidad que nosotros no cubríamos.
+Al finalizar estos experimentos, nos dimos cuenta que modificar la cantidad de nodos y que la cantidad de ejes está en función a la cantidad de nodos nos reducía el univierso de posibles grafos y probablemente habían dependencias en términos de complejidad que nosotros no cubríamos.
 \\
- Entonces creamos este experimento, que crea grafos conexos con 200 ejes y varía los nodos desde 20 hasta 199 y los pesos estan asignados aleatoriamente. Esperabamos un gráfico muy parecido a la figura 1.
+ Entonces creamos este experimento, que crea grafos conexos con 200 ejes y varía los nodos desde 20 hasta 199 y los pesos están asignados aleatoriamente. Esperábamos un gráfico muy parecido a la figura 1.
 
 \begin{figure}[H]
 \centering
@@ -437,9 +438,9 @@ Al finalizar estos experimentos, nos dimos cuenta que modificar la cantidad de n
 \caption{}
 \end{figure}
 
-Aunque se pueden ver unas tendencias cuadráticas en el gráfico y que esta por debajo de la cota dada, tambien podemos ver que la figura 1 tiene los datos de A1 más regulares que en la figura 2. Nuestras hipótesis es que cuanto más denso es el grafo, más regular quedan las mediciones y cuanto menos denso las mediciones tienden a ser irregulares. Entonces decidimos experimentar sobre grafos menos densos y ver como quedaban las mediciones.
+Aunque se pueden ver unas tendencias cuadráticas en el gráfico, y que está por debajo de la cota dada, también podemos ver que la figura 1 tiene los datos de A1 más regulares que en la figura 2. Nuestras hipótesis es que, cuanto más denso es el grafo, más regular quedan las mediciones y cuanto menos denso las mediciones tienden a ser irregulares. Entonces decidimos experimentar sobre grafos menos densos y ver como quedaban las mediciones.
 \\
-A fin de lo antes mencionado creamos una prueba, que dada una cierta cantidad de nodos, nos generaba cuatro grafos. Definimos el concepto D, como una simil densidad, donde la densidad esta definida como la cantidad de ejes en un grafo dado, cuanto más denso el grafo más ejes tiene. D funciona solo para grafos conexos, 0 es un árbol y 100 es el Kn.
+A fin de lo antes mencionado creamos una prueba, que dada una cierta cantidad de nodos, nos generaba cuatro grafos. Definimos el concepto D, como una símil densidad, donde la densidad está definida como la cantidad de ejes en un grafo dado, cuanto más denso el grafo más ejes tiene. D funciona sólo para grafos conexos, 0 es un árbol y 100 es el Kn.
 
 \begin{figure}[H]
 \centering
@@ -447,16 +448,16 @@ A fin de lo antes mencionado creamos una prueba, que dada una cierta cantidad de
 \caption{}
 \end{figure}
 
-Como se puede observar en el gráfico no respalda nuestra hipótesis, y nos genera una incertidumbre aún mayor, al encontrar la línea de Arboles muy por encima de las otras tres, que no era la idea intuitiva que nosotros teníamos donde los grafos menos densos iban a estar acotados por grafos más densos. Aun así el próximo el gráfico sin los arboles avala esta idea y podríamos pensar que el caso de los arboles es una excepción a la regla.
+Como se puede observar en el gráfico no se respalda nuestra hipótesis, y nos genera una incertidumbre aún mayor, al encontrar la línea de Arboles muy por encima de las otras tres, que no era la idea intuitiva que nosotros teníamos, donde los grafos menos densos iban a estar acotados por grafos más densos. Aun así el próximo gráfico sin los arboles avala esta idea, y podríamos pensar que el caso de los arboles es una excepción a la regla.
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.6\textwidth]{VariasDensidadesSinArbol}
+\includegraphics     [width=0.6\textwidth]{VariasDensidadesSinArbol}
 \caption{}
 \end{figure}
 
 \\
-Luego de demostrar que la complejidad Teórica es respaldada por la experimentación, entramos en una series de pruebas que se generaron por la falta de entendimiento de nuestros gráficos y la busqueda de una hipótesis que satisfaga al lector. Lamentablemente no encontramos una, solo encontramos más preguntas sin resolver, que para no agobiar al lector dejamos como meras incognitas para encarar en un futuro.¿Por qué los árboles tardan una cantidad significante más de tiempo que un grafo fuertemente conexo?¿Cómo se explica la variación de tiempos cuando la cantidad de ejes es la misma pero los nodos aumentan? Acaso fue que las 3000 iteraciones dieron unas mediciones poco estandares o hay una razón por la cual un grafo con 124 nodos tenga el mismo tiempo de ejecución que uno de 170, cuando estos tendrían que ser muy diferentes.  
+Luego de demostrar que la complejidad Teórica es respaldada por la experimentación, entramos en una series de pruebas que se generaron por la falta de entendimiento de nuestros gráficos y la busqueda de una hipótesis que satisfaga al lector. Lamentablemente no encontramos una, solo encontramos más preguntas sin resolver, que para no agobiar al lector dejamos como meras incógnitas para encarar en un futuro.¿Por qué los árboles tardan una cantidad significante más de tiempo que un grafo fuertemente conexo?¿Cómo se explica la variación de tiempos cuando la cantidad de ejes es la misma pero los nodos aumentan? Acaso fue que las 3000 iteraciones dieron unas mediciones poco estándares o hay una razón por la cual un grafo con 124 nodos tenga el mismo tiempo de ejecución que uno de 170, cuando estos tendrían que ser muy diferentes.  
 
 
 \\
