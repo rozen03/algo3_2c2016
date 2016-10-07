@@ -44,14 +44,18 @@
 
 \subsection{Introducción}
 
-En este problema los viajeros encuentran un mapa de un laberinto señalando algún lugar con una x sin embargo no todos los puntos están conectados. Ellos quisieran llegar a ese lugar caminando lo menos posible, además pueden esforzarse para romper una cantidad determinada de paredes. Nos piden que les informemos cuanto deben caminar de ser posible.
+En este problema los viajeros encuentran un mapa de un laberinto señalando algún lugar con una x sin embargo no todos los puntos están conectados. Ellos quisieran llegar a ese lugar caminando lo menos posible, además pueden esforzarse para romper una cantidad determinada de paredes. Nos piden que les informemos cuánto deben caminar de ser posible.
 
-Formalmente esto equivale a modelar el problema utilzando grafos. Cuando hay paredes de por medio, los ejes que conectan esos nodos tendrán una marca.Los nodos en el cual se empieza y termina también estarán marcado. Luego se aplica un algoritmo BFS modificado para encontrar el camino mínimo. 
+Formalmente esto equivale a modelar el problema utilzando un grafo que contiene nodos "especiales"(las paredes). Se busca la distancia entre dos nodos, pasando como mucho por p nodos especiales.
 
 \subsection{Explicación de la solución}
+Podemos dividir la resolución en tres partes: la primera, donde interpretamos la entrada y generamos un primer grafo, en el cual las habitaciones y paredes son nodos, y dos nodos son adyacentes si y sólo si sus casillas originales lo son. En la segunda parte vamos a copiar el primer grafo tantas veces como paredes se puedan romper, de manera que la acción de romper una pared esta representada por cambio de nivel en el grafo.  
 
+%Se podrá hacer un dibujo aca? la idea es hacer como un "plano" en perspectiva del primer grafo, como si fuese una feta de queso; y varias fetas abajo.
 
-%creeeo que le falta%
+En la tercera parte, vamos a aplicar un bfs modificado, para calcular las distancias del nodo origen a todos los demás nodos. Entre las modificaciones se incluyen unos "movimientos ilegales": por un lado, no está permitido pasar a un nivel menor al que uno se encuentra. Además, no es correcto mover de un nodo "habitación" a un nodo "pared" en el mismo nivel.
+
+Por último, se calcula la distancia mínima entre todos los nodos finales copiados.
 
 
 
