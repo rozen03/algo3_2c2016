@@ -14,10 +14,13 @@ uint64_t rdtsc() {
 
 void imprimirBalanza(list<unsigned long> balanza) {
   while (!balanza.empty()) {
-    // std::cout << ' ' << balanza.front();
+    std::cout << balanza.front();
     balanza.pop_front();
+    if (!balanza.empty()) {
+      std::cout << ' ';
+    }
   }
-  // cout<<endl;
+  cout << endl;
 }
 
 void terny(long n) {
@@ -44,26 +47,9 @@ void terny(long n) {
   imprimirBalanza(balanzaB);
 }
 int main() {
-  int n = 15;
-  unsigned long tam = std::pow(10, 15);
-  int repeticiones = 50000;
+  int n;
   std::ostringstream oss;
-  for (unsigned long i = 1; i < tam; i = 1 + round(i + i / 100)) {
-    // unsigned long j = 1;
-    // for (unsigned long i = 1; i < tam; i = j - 1) {
-    uint64_t begin, end, elapsed_secs, elapsed_final;
-    elapsed_secs = 0;
-    for (int j = 0; j < repeticiones; j++) {
-      begin = rdtsc();
-      terny(i);
-      end = rdtsc();
-      elapsed_secs += end - begin;
-    }
-    // std::cout << i << std::endl;
-    elapsed_final = elapsed_secs / repeticiones;
-    oss << i << "      \t " << elapsed_final << endl;
-    // std::cout << i << endl;
-    //  j *= 3;
-  }
+  cin >> n;
+  terny(n);
   cout << oss.str() << endl;
 }
