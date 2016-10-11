@@ -147,10 +147,10 @@ void LlenarMochilas(vector<vector<vector<vector<int> > > >& objetoxPesos,vector<
 
 }
 //para tests
-void lecturaDatosaux(string test, vector<Mochila>& mochilas, vector<Tesoro>& cofre){
+void lecturaDatosAux(string test, vector<Mochila>& mochilas, vector<Tesoro>& cofre){
 	int m;
 	int n;
-	ofstream ip;
+	fstream ip;
 	ip.open(test);
 	ip>> m>> n;
 	vector<Mochila> mochilasAux(3);
@@ -250,7 +250,7 @@ int solucion(vector<Mochila>& Mochilas,const vector<Tesoro>& precofre){
 
 	return sol;
 }
-
+/*
 int main(int argc, char *argv[]){
 	vector<Mochila> mochilas;
 	vector<Tesoro> cofre;
@@ -263,5 +263,5 @@ int main(int argc, char *argv[]){
 	}
 	return 0;
 }
-
+*/
 
