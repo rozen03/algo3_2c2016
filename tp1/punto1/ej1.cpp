@@ -160,7 +160,7 @@ return res;
   
 }
 
-long meterIda(int i, int j, list<long>& ArqA,list<long>& CanA, list<long>& ArqB, list<long>& CanB ){
+long meterIda(int i, int j, list<long>& ArqA,list<long>& CanA, list<long>& ArqB, list<long>& CanB ){//MODIFICAR PARA QUE CONTEMPLE TODOS LOS CASOS
   long res=0;
   if(i==2){
     long a=maximo(ArqA);
