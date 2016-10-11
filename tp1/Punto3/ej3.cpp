@@ -146,6 +146,40 @@ void LlenarMochilas(vector<vector<vector<vector<int> > > >& objetoxPesos,vector<
 
 
 }
+//para tests
+void lecturaDatosaux(string test, vector<Mochila>& mochilas, vector<Tesoro>& cofre){
+	int m;
+	int n;
+	ofstream ip;
+	ip.open(test);
+	ip>> m>> n;
+	vector<Mochila> mochilasAux(3);
+	int pesomax = 0;
+	//Creo las mochilas y las pongo en un vector
+	for(int i = 0; i<3; i++){
+		int k = 0;
+		if(i<m)	ip >> k;
+		if(k>pesomax) pesomax = k;
+		Mochila m(k);
+		mochilasAux[i] = m;
+	}
+	//Meto los tesoros en el cofre, tener en cuenta que tesoros
+	// con peso mayor que la capacidad se descartan aca.
+	vector<Tesoro> cofreAux;
+	for(int i = 0; i <n; i++){
+		int cant;
+		int p;
+		int v;
+		ip>> cant>> p>> v;
+	//(usar este cout para saber que tipos responden a que valores/peso
+	//Los tipos empiezan en 1.
+		for(int j = 0;j < cant; j++){
+			cofreAux.push_back(Tesoro(p,i + 1,v));
+		}
+	}
+	cofre = cofreAux;
+	mochilas = mochilasAux;
+}
 
 void lecturaDatos(vector<Mochila>& mochilas, vector<Tesoro>& cofre){
 	int m;
