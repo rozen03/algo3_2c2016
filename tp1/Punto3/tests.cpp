@@ -1,4 +1,5 @@
 #include "ej3.cpp" //ver q onda
+#include "calc.cpp"
 #include<iostream>
 #include<fstream>
 #include<stdio.h>
@@ -8,12 +9,12 @@
 #define ya chrono::high_resolution_clock::now
 
 using namespace std;
-/*
+
 void testPesoMejorCaso(int rep){
 	ofstream res("resultadosoPesoMejorCaso.txt");
+	srand(time(NULL));
 	for(int j = 2; j<51; j+= 2){
 		string js = to_string(j);
-		srand(time(NULL));
 		string ts = "test"+ js+"PesoMca.txt";
 		std::ofstream test10obj(ts);
 		test10obj << "1 50 \n";
@@ -25,30 +26,28 @@ void testPesoMejorCaso(int rep){
 			test10obj<< C<< " "<< p<< " "<<v << endl;
 		}
 		test10obj.close();
-		res<< j <<' ';
-		int sol= 0;
-		int valorar;
+		long sol= 0;
 		for(int i = 0; i <= rep; i++){
-			int solpar;
+			long solpar;
 			vector<Mochila> mochilas;
 			vector<Tesoro> cofre;
 			lecturaDatosAux(ts, mochilas,cofre);
 			auto start = ya();
-			valorar = solucion(mochilas, cofre);
+			solucion(mochilas, cofre);
 			auto end = ya();
 			solpar = chrono::duration_cast<std::chrono::nanoseconds>(end-start).count() / rep;
 			sol = sol +solpar;
 		}
-		res<<sol<<" & "<<valorar<<"\n";
+		res<<sol<<" & \n";
 	}
 	res.close();
 }
-*/
+
 void testObjAleatorios(int rep){
 	ofstream res("resultadoObjAl.txt");
+	srand(time(NULL));
 	for(int j = 2; j<51; j+= 2){
 		string js = to_string(j);
-		srand(time(NULL));
 		string ts = "test"+ js+"objAl.txt";
 		std::ofstream test10obj(ts);
 		test10obj << "1 "<< j<<" \n";
@@ -60,16 +59,14 @@ void testObjAleatorios(int rep){
 			test10obj<< C<< " "<< p<< " "<<v << endl;
 		}
 		test10obj.close();
-		res<< j <<' ';
-		int sol= 0;
-		int valorar = -1;
+		long sol= 0;
 		for(int i = 0; i <= rep; i++){
-			int solpar;
+			long solpar;
 			vector<Mochila> mochilas;
 			vector<Tesoro> cofre;
 			lecturaDatosAux(ts, mochilas,cofre);
 			auto start = ya();
-			valorar = solucion(mochilas, cofre);
+			solucion(mochilas, cofre);
 			auto end = ya();
 			solpar = chrono::duration_cast<std::chrono::nanoseconds>(end-start).count() / rep;
 			sol = sol +solpar;
@@ -78,12 +75,12 @@ void testObjAleatorios(int rep){
 	}
 	res.close();
 }
-/*
+
 void testObjPesoRango(int rep){
 	ofstream res("resultadosObjPesoRango.txt");
+	srand(time(NULL));
 	for(int j = 2; j<51; j+= 2){
 		string js = to_string(j);
-		srand(time(NULL));
 		string ts = "test"+ js+"objPr.txt";
 		std::ofstream test10obj (ts);
 		test10obj << "1 "<< j<<" \n";
@@ -95,17 +92,19 @@ void testObjPesoRango(int rep){
 			test10obj<< C<< " "<< p<< " "<<v << endl;
 		}
 		test10obj.close();
-		res<< j <<' ';
-		int sol= 0;
+		long sol= 0;
 		for(int i = 0; i <= rep; i++){
-			int solpar;
+			long solpar;
+			vector<Mochila> mochilas;
+			vector<Tesoro> cofre;
+			lecturaDatosAux(ts,mochilas,cofre);	
 			auto start = ya();
-			solucion(ts);
+			solucion(mochilas, cofre);
 			auto end = ya();
 			solpar = chrono::duration_cast<std::chrono::nanoseconds>(end-start).count() / rep;
 			sol = sol +solpar;
 		}
-		res<<" j "<<sol<<" & \n";
+		res<<j<<" & "<<sol<<" & \n";
 	}
 	res.close();
 }
@@ -126,12 +125,14 @@ void testObjMejorCaso(int rep){
 			test10obj<< C<< " "<< p<< " "<<v << endl;
 		}
 		test10obj.close();
-		res<< j <<' ';
-		int sol= 0;
+		long sol= 0;
 		for(int i = 0; i <= rep; i++){
-			int solpar;
+			long solpar;
+			vector<Mochila> mochilas;
+			vector<Tesoro> cofre;
+			lecturaDatosAux(ts,mochilas,cofre);	
 			auto start = ya();
-			solucion(ts);
+			solucion(mochilas, cofre);
 			auto end = ya();
 			solpar = chrono::duration_cast<std::chrono::nanoseconds>(end-start).count() / rep;
 			sol = sol +solpar;
@@ -140,7 +141,7 @@ void testObjMejorCaso(int rep){
 	}
 	res.close();
 }
-
+/*
 void testPesoMoch(int rep){
 	ofstream res("resultadosPesoMoch.txt");
 
@@ -182,8 +183,11 @@ void testPesoMoch(int rep){
 	int sol= 0;
 	for(int i = 0; i <= rep; i++){
 		int solpar;
+		vector<Mochila> mochilas;
+		vector<Tesoro> cofre;
+		lecturaDatosAux(t,mochilas,cofre);	
 		auto start = ya();
-		solucion(t);
+		solucion(mochilas, cofre);
 		auto end = ya();
 		solpar = chrono::duration_cast<std::chrono::nanoseconds>(end-start).count() / rep;
 		sol = sol +solpar;
@@ -229,12 +233,12 @@ void testPesoMoch(int rep){
 	res.close();
 
 }
-
+*/
 void testCantMoch(int rep){
 	ofstream res("resultadoCantMoch.txt");
+	srand(time(NULL));
 	for(int j = 1; j < 4; j++) {
 		string js = to_string(j);
-		srand(time(NULL));
 		string ts = "test"+ js+"CantMoch.txt";
 		std::ofstream test(ts);
 		test << j <<" "<< 50<<" \n";
@@ -256,12 +260,14 @@ void testCantMoch(int rep){
 			test<< C<< " "<< p<< " "<<v << endl;
 		}
 		test.close();
-		res<< j <<' ';
-		int sol= 0;
+		long sol= 0;
 		for(int i = 0; i <= rep; i++){
-			int solpar;
+			long solpar;
+			vector<Mochila> mochilas;
+			vector<Tesoro> cofre;
+			lecturaDatosAux(ts,mochilas,cofre);	
 			auto start = ya();
-			solucion(ts);
+			solucion(mochilas, cofre);
 			auto end = ya();
 			solpar = chrono::duration_cast<std::chrono::nanoseconds>(end-start).count() / rep;
 			sol = sol +solpar;
@@ -273,9 +279,9 @@ res.close();
 
 void testMochDistPeso(int rep){
 	ofstream res("soluMochDistPeso.txt");
+	srand(time(NULL));
 	for(int j = 2; j<51; j+= 2){
 		string js = to_string(j);
-		srand(time(NULL));
 		string ts = "test"+ js+"MochDistPeso.txt";
 		std::ofstream test(ts);
 		test << "1 "<< 50<<" \n";
@@ -287,12 +293,14 @@ void testMochDistPeso(int rep){
 			test<< C<< " "<< p<< " "<<v << endl;
 		}
 		test.close();
-		res<< j <<' ';
-		int sol= 0;
+		long sol= 0;
 		for(int i = 0; i <= rep; i++){
-			int solpar;
+			long solpar;
+			vector<Mochila> mochilas;
+			vector<Tesoro> cofre;
+			lecturaDatosAux(ts,mochilas,cofre);	
 			auto start = ya();
-			solucion(ts);
+			solucion(mochilas, cofre);
 			auto end = ya();
 			solpar = chrono::duration_cast<std::chrono::nanoseconds>(end-start).count() / rep;
 			sol = sol +solpar;
@@ -302,13 +310,12 @@ void testMochDistPeso(int rep){
 	res.close();
 
 }
-*/
 
-void testMismoPesoPor1(int rep){
+void testMismoPesoPor1Al(int rep){
 	ofstream res("soluMismoPesoPor1.txt");
+	srand(time(NULL));
 	for(int j = 2; j<51; j+= 2){
 		string js = to_string(j);
-		srand(time(NULL));
 		string ts = "testMochDistPeso1Moch.txt";
 		string ta = "testMochDistPeso2Moch.txt";
 		string tb = "testMochDistPeso3Moch.txt";
@@ -330,7 +337,6 @@ void testMismoPesoPor1(int rep){
 			testb<< C<< " "<< p<< " "<<v << endl;
 		}
 		test.close();
-		res<< j <<' ';
 		long sol= 0;
 		long sola = 0;
 		long solb = 0;
@@ -348,13 +354,13 @@ void testMismoPesoPor1(int rep){
 			vector<Tesoro> cofreb;
 			lecturaDatosAux(tb,mochilasb,cofreb);			
 			auto start = ya();
-			solucion(mochilas, cofres);
+			solucion(mochilas, cofre);
 			auto end = ya();			
 			auto starta = ya();
-			solucion(mochilasa, cofresa);
+			solucion(mochilasa, cofrea);
 			auto enda = ya();			
 			auto startb = ya();
-			solucion(mochilasb, cofresb);
+			solucion(mochilasb, cofreb);
 			auto endb = ya();
 			solpar = chrono::duration_cast<std::chrono::nanoseconds>(end-start).count() / rep;
 			solpara = chrono::duration_cast<std::chrono::nanoseconds>(enda-starta).count() / rep;
@@ -368,14 +374,290 @@ void testMismoPesoPor1(int rep){
 	res.close();
 }
 
+void testMismoPesoCompuestoAleat(int rep){
+	ofstream res("soluMismoPesoCompuestoAl.txt");
+	vector<vector<int> > matDiv = listaAdyDiv(50);
+	srand(time(NULL));
+	for(int j = 2; j<51; j+= 2){
+		string js = to_string(j);
+		string ts = "testMochDistPeso1Mocha.txt";
+		string ta = "testMochDistPeso2Mocha.txt";
+		string tb = "testMochDistPeso3Mocha.txt";
+		std::ofstream test(ts);
+		ofstream testa(ta);
+		ofstream testb(tb);
+		test << "1 "<< 50<<" \n";
+		testa<<"2 50\n";
+		testb<<"3 50\n";
+		vector<int> compdoble =Compuestox2(j, matDiv[j]);
+		vector<int> comptriple = Compuestox3(j, matDiv);
+		testa<<compdoble[0] <<" "<<compdoble[1]<<"\n";
+		testb<<comptriple[0]<<" "<<comptriple[1]<<" "<<comptriple[2]<<"\n";
+		test << j<< " \n";
+		for ( int i = 0; i < 50; i++) {
+			int C= 1;
+			int p=rand()%100+1;
+			int v=rand()%10000000+1;
+			test<< C<< " "<< p<< " "<<v << endl;
+			testa<< C<< " "<< p<< " "<<v << endl;
+			testb<< C<< " "<< p<< " "<<v << endl;
+		}
+		test.close();
+		long sol= 0;
+		long sola = 0;
+		long solb = 0;
+		for(int i = 0; i <= rep; i++){
+			long solpar;
+			long solpara;
+			long solparb;
+			vector<Mochila> mochilas;
+			vector<Tesoro> cofre;
+			lecturaDatosAux(ts,mochilas,cofre);			
+			vector<Mochila> mochilasa;
+			vector<Tesoro> cofrea;
+			lecturaDatosAux(ta,mochilasa,cofrea);
+			vector<Mochila> mochilasb;
+			vector<Tesoro> cofreb;
+			lecturaDatosAux(tb,mochilasb,cofreb);			
+			auto start = ya();
+			solucion(mochilas, cofre);
+			auto end = ya();			
+			auto starta = ya();
+			solucion(mochilasa, cofrea);
+			auto enda = ya();			
+			auto startb = ya();
+			solucion(mochilasb, cofreb);
+			auto endb = ya();
+			solpar = chrono::duration_cast<std::chrono::nanoseconds>(end-start).count() / rep;
+			solpara = chrono::duration_cast<std::chrono::nanoseconds>(enda-starta).count() / rep;
+			solparb = chrono::duration_cast<std::chrono::nanoseconds>(endb-startb).count() / rep;
+			sol = sol +solpar;
+			sola = sola +solpara;
+			solb = solb +solparb;
+		}
+		res<< j <<" & " <<sol<<" & "<<sola<<" & "<<solb<<" & El j compuestoDoble es "<<compdoble[0]<<"*"<<compdoble[1]<<" y el compuestoTriple es "<<comptriple[0]<<"*"<<comptriple[1]<<"*"<<comptriple[2]<<"\n";
+	}
+	res.close();
+}
+
+void testMismoPesoPor1Rang(int rep){
+	ofstream res("soluMismoPesoPor1Rang.txt");
+	srand(time(NULL));
+	for(int j = 2; j<51; j+= 2){
+		string js = to_string(j);
+		string ts = "testMochDistPeso1Moch.txt";
+		string ta = "testMochDistPeso2Moch.txt";
+		string tb = "testMochDistPeso3Moch.txt";
+		std::ofstream test(ts);
+		ofstream testa(ta);
+		ofstream testb(tb);
+		test << "1 "<< 50<<" \n";
+		testa<<"2 50\n";
+		testb<<"3 50\n";
+		testa<<"1 "<<j<<"\n";
+		testb<<"1 1 "<<j<<"\n";
+		test << j<< " \n";
+		for ( int i = 0; i < 50; i++) {
+			int C= 1;
+			int p= 1;
+			int v=rand()%10000000+1;
+			test<< C<< " "<< p<< " "<<v << endl;
+			testa<< C<< " "<< p<< " "<<v << endl;
+			testb<< C<< " "<< p<< " "<<v << endl;
+		}
+		test.close();
+		long sol= 0;
+		long sola = 0;
+		long solb = 0;
+		for(int i = 0; i <= rep; i++){
+			long solpar;
+			long solpara;
+			long solparb;
+			vector<Mochila> mochilas;
+			vector<Tesoro> cofre;
+			lecturaDatosAux(ts,mochilas,cofre);			
+			vector<Mochila> mochilasa;
+			vector<Tesoro> cofrea;
+			lecturaDatosAux(ta,mochilasa,cofrea);
+			vector<Mochila> mochilasb;
+			vector<Tesoro> cofreb;
+			lecturaDatosAux(tb,mochilasb,cofreb);			
+			auto start = ya();
+			solucion(mochilas, cofre);
+			auto end = ya();			
+			auto starta = ya();
+			solucion(mochilasa, cofrea);
+			auto enda = ya();			
+			auto startb = ya();
+			solucion(mochilasb, cofreb);
+			auto endb = ya();
+			solpar = chrono::duration_cast<std::chrono::nanoseconds>(end-start).count() / rep;
+			solpara = chrono::duration_cast<std::chrono::nanoseconds>(enda-starta).count() / rep;
+			solparb = chrono::duration_cast<std::chrono::nanoseconds>(endb-startb).count() / rep;
+			sol = sol +solpar;
+			sola = sola +solpara;
+			solb = solb +solparb;
+		}
+		res<< j <<" & " <<sol<<" & "<<sola<<" & "<<solb<<"\n";
+	}
+	res.close();
+}
+
+int minimo(vector<int> ls){
+	int res = ls[0];
+	for(int i = 0; i<ls.size();i++){
+		if(res>ls[i]) res = ls[i];
+	}
+	return res;
+}
+
+void testObjPeso1(int rep){
+	ofstream res("resultadoObjPeso1.txt");
+	srand(time(NULL));
+	for(int j = 2; j<51; j+= 2){
+		string js = to_string(j);
+		string ts = "testobjPeso1.txt";
+		std::ofstream test10obj(ts);
+		test10obj << "1 "<< j<<" \n";
+		test10obj << "50 \n";
+		for ( int i = 0; i < j; i++) {
+			int C= 1;
+			int p= 1;
+			int v=rand()%10000000+1;
+			test10obj<< C<< " "<< p<< " "<<v << endl;
+		}
+		test10obj.close();
+		int sol= 0;
+		for(int i = 0; i <= rep; i++){
+			long solpar;
+			vector<Mochila> mochilas;
+			vector<Tesoro> cofre;
+			lecturaDatosAux(ts, mochilas,cofre);
+			auto start = ya();
+			solucion(mochilas, cofre);
+			auto end = ya();
+			solpar = chrono::duration_cast<std::chrono::nanoseconds>(end-start).count() / rep;
+			sol = sol +solpar;
+		}
+		res<<j<<" & "<<sol<<" & \n";
+	}
+	res.close();
+}
+
+void testObjPeso50(int rep){
+	ofstream res("resultadoObjPeso50.txt");
+	srand(time(NULL));
+	for(int j = 2; j<51; j+= 2){
+		string js = to_string(j);
+		string ts = "test"+ js+"objAl.txt";
+		std::ofstream test10obj(ts);
+		test10obj << "1 "<< j<<" \n";
+		test10obj << "50 \n";
+		for ( int i = 0; i < j; i++) {
+			int C= 1;
+			int p=50;
+			int v=rand()%10000000+1;
+			test10obj<< C<< " "<< p<< " "<<v << endl;
+		}
+		test10obj.close();
+		long sol= 0;
+		for(int i = 0; i <= rep; i++){
+			long solpar;
+			vector<Mochila> mochilas;
+			vector<Tesoro> cofre;
+			lecturaDatosAux(ts, mochilas,cofre);
+			auto start = ya();
+			solucion(mochilas, cofre);
+			auto end = ya();
+			solpar = chrono::duration_cast<std::chrono::nanoseconds>(end-start).count() / rep;
+			sol = sol +solpar;
+		}
+		res<<j<<" & "<<sol<<" & \n";
+	}
+	res.close();
+}
+
+void testMismoPesoCompuestoRang(int rep){
+	ofstream res("soluMismoPesoCompuestoRang.txt");
+	vector<vector<int> > matDiv = listaAdyDiv(50);
+	srand(time(NULL));
+	for(int j = 2; j<51; j+= 2){
+		string js = to_string(j);
+		string ts = "testMochDistPeso1Mocha.txt";
+		string ta = "testMochDistPeso2Mocha.txt";
+		string tb = "testMochDistPeso3Mocha.txt";
+		std::ofstream test(ts);
+		ofstream testa(ta);
+		ofstream testb(tb);
+		test << "1 "<< 50<<" \n";
+		testa<<"2 50\n";
+		testb<<"3 50\n";
+		vector<int> compdoble =Compuestox2(j, matDiv[j]);
+		vector<int> comptriple = Compuestox3(j, matDiv);
+		testa<<compdoble[0] <<" "<<compdoble[1]<<"\n";
+		testb<<comptriple[0]<<" "<<comptriple[1]<<" "<<comptriple[2]<<"\n";
+		int min = minimo(comptriple);
+		test << j<< " \n";
+		for ( int i = 0; i < 50; i++) {
+			int C= 1;
+			int p= min;
+			int v=rand()%10000000+1;
+			test<< C<< " "<< p<< " "<<v << endl;
+			testa<< C<< " "<< p<< " "<<v << endl;
+			testb<< C<< " "<< p<< " "<<v << endl;
+		}
+		test.close();
+		long sol= 0;
+		long sola = 0;
+		long solb = 0;
+		for(int i = 0; i <= rep; i++){
+			long solpar;
+			long solpara;
+			long solparb;
+			vector<Mochila> mochilas;
+			vector<Tesoro> cofre;
+			lecturaDatosAux(ts,mochilas,cofre);			
+			vector<Mochila> mochilasa;
+			vector<Tesoro> cofrea;
+			lecturaDatosAux(ta,mochilasa,cofrea);
+			vector<Mochila> mochilasb;
+			vector<Tesoro> cofreb;
+			lecturaDatosAux(tb,mochilasb,cofreb);			
+			auto start = ya();
+			solucion(mochilas, cofre);
+			auto end = ya();			
+			auto starta = ya();
+			solucion(mochilasa, cofrea);
+			auto enda = ya();			
+			auto startb = ya();
+			solucion(mochilasb, cofreb);
+			auto endb = ya();
+			solpar = chrono::duration_cast<std::chrono::nanoseconds>(end-start).count() / rep;
+			solpara = chrono::duration_cast<std::chrono::nanoseconds>(enda-starta).count() / rep;
+			solparb = chrono::duration_cast<std::chrono::nanoseconds>(endb-startb).count() / rep;
+			sol = sol +solpar;
+			sola = sola +solpara;
+			solb = solb +solparb;
+		}
+		res<< j <<" & " <<sol<<" & "<<sola<<" & "<<solb<<" & El j compuestoDoble es "<<compdoble[0]<<"*"<<compdoble[1]<<" y el compuestoTriple es "<<comptriple[0]<<"*"<<comptriple[1]<<"*"<<comptriple[2]<<"\n";
+	}
+	res.close();
+}
+
 int main(){
-	//testObjAleatorios(1);
-	//testObjPesoRango(1000);
-	//testObjMejorCaso(1000);
+	testObjAleatorios(1000);
+	testObjPesoRango(1000);
+	testObjMejorCaso(1000);
 	//testPesoMoch(1000);
-	//testCantMoch(1000);
-	//testPesoMejorCaso(1);
-	//testMochDistPeso(1000);
-	//testMismoPesoPor1(1000);
+	testCantMoch(1000);
+	testPesoMejorCaso(1000);
+	testMochDistPeso(1000);
+	testMismoPesoPor1Al(1000);
+	testMismoPesoPor1Rang(1000);
+	testMismoPesoCompuestoAleat(1000);
+	testMismoPesoCompuestoRang(1000);
+	testObjPeso1(1000);
+	testObjPeso50(1000);
+	
 return 0;
 }
