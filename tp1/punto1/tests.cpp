@@ -1,4 +1,4 @@
-#include "ej1a.cpp"
+#include "ej1.cpp"
 #include <iostream>
 #include <fstream>
 #include <stdio.h>
@@ -47,6 +47,7 @@ void test(int rep){
 				sol = sol +solpar;
 			}
 			res<<" " << sol/rep<<" & " <<valor<<"\n";
+			
 			//cout<< "termine " << ts<<endl;
 		}
 	}	
@@ -55,7 +56,7 @@ void test(int rep){
 
 
 int main(){
-	test(1000);
+	test(2);
 	
 return 0;	
 	}
