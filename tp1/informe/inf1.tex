@@ -273,31 +273,41 @@ Como conclusión final a tomar en cuenta, consideramos que los mejores casos son
 
 En este problema, los exploradores se encuentran frente a muchos tesoros que desearían poder llevarse. Para esto, cuentan con varias mochilas, cada una con una determinada capacidad de peso que puede cargar.
 Los tesoros son de distintos tipos, y cada tipo tiene un peso y un valor determinado.
-El objetivo es encontrar la manera óptima de llenar las mochilas para poder llevar el mayor valor posibe.
+El objetivo es encontrar la manera óptima de llenar las mochilas para poder llevar el mayor valor posible.
 
 Formalmente, tenemos un conjunto de elementos que tienen como propiedad dos naturales asociados (el peso y el valor). Entonces podemos inferir que existen dos criterios de ordenamiento asociados respectivamente a estos valores.
 Al mismo tiempo tenemos otro conjunto de elementos que posee como propiedad un natural asociado (capacidad).
-Nuestro objetivo es seleccionar una combinación de los primeros objetos, restringida por las capacidades dadas, de modo de maximizar la sumatoria del valor de los mismos.
+Nuestro objetivo es seleccionar una combinación de los primeros objetos, restringida por las capacidades dadas, de modo de maximizar la sumatoria del valor de los mismos. 
 
 
 \subsection{Explicación de la solución}
 
    Inicialmente creímos que este problema podría resolverse mediante un algoritmo de BackTracking, sin embargo observamos que nunca lograríamos conseguir la complejidad pedida, puesto que este tipo de algoritmos conlleva una complejidad exponencial superior.
-   Finalmente, pudimos resolverlo mediante programación dinámica. Nuestro algoritmo principal llama a dos funciones que utilizan la recursividad para poder obtener en un caso el valor óptimo, y en el otro "las mochilas llenas."
-   Para facilitar el entendimiento del algoritmo introduciremos el concepto de "Hipercubo". Un hipercubo es el análogo n-dimensional de un cuadrado (n=2) o un cubo (n=3). En particular en nuestro problema tenemos un hipercubo de dimension cuatro, esta figura se denomina "teseracto", sin embargo por comodidad seguiremos llamándole hipercubo en el resto del informe.
-Para poder imaginar este concepto, podríamos visualizarlo en nuestro mundo tridimencional como un vector con cubos adentro. la cantidad de cubos dependera del largo de nustra cuarta "arista".
+   Finalmente, pudimos resolverlo mediante programación dinámica. Nuestro problema se divide en dos subproblemas:
+   Encontrar el valor óptimo, y luego llenar las mochilas con los objetos correspondientes.
+
+   Para obtener el valor óptimo, modelamos nuestro problema a partir de la siguiente función recursiva:
+
+	$f(o,p_{1},p_{2},p_{3})=0 \\
+	f(n,p_{1},p_{2},p_{3}) = Max(V_{n}+Max(f(n-1,p_{1}-p_{n},p_{2},p_{3}), f(n-1,p_{1},p_{2}-p_{n},p_{3}), f(n-1,p_{1},p_{2},p_{3}-p_{n})),f(n-1,p_{1},p_{2},p_{3})) $
+
+	Donde n representa el número de tesoro, $V_{n}$ y $P_{n}$ su valor y su peso respectivamente. $p_{1},p_{2}\ y \ p_{3}$ son las capacidades de cada mochila.
+
+	Esta función es del tipo top down, es decir, que para calcular su i-esimo término requiere de los anteriores. En cada estado decide recurivamente sí el mejor valor posible se obtiene de sólo guardar nuestro i-esimo objeto o en alguna de las tres mochilas, o en ninguna mochila.  
+
+	%q pensas? se puede hablar de que la func rec es top down o eso es solo para el algoritmo?%
+
+
 \\
 %%%%%%%%% MODIFICACION%%%%
-(Por ahí nos combiene sacar lo del hipercubo, o decir que esto nos va a ayudar en la demostracion de ccomplejidad, me costo mucho explicar que representaba el hipercubo y lo pase a la versión para bobos)FIJARSE!!!!
+
 \\
-	El algoritmo se encarga de llenar un arreglo de cuatro dimensiones, donde el tamaño del arreglo principal es la cantidad de objetos y los tamaños de los otros tres arreglos anidados son las capacidades de las tres mochilas.
+	Para resolver nuestro primer problema el algoritmo se encarga de llenar un arreglo de cuatro dimensiones, donde el tamaño del arreglo principal es la cantidad de objetos y los tamaños de los otros tres arreglos anidados son las capacidades de las tres mochilas.
 	Lo que representa cada posición, (x,y,z,w), de este arreglo es el valor óptimo que pueden lograr los primeros x objetos con una combinación de mochilas de peso y, z, w. En el caso que el problema a resolver responda a dos mochilas, una de las variables y, z, w seran 0 para cualquier posción y un caso similar si solo hay que llenar una mochila.
+
 %%%%%%%TERMINA MODIFICACION%%%%
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.4\textwidth]{hipercubo}
-\caption{Imagen explicativa del concepto de hipercubo}
-\end{figure}
+	Luego para llenar las mochilas utilizamos este arreglo (lleno luego de encontrar el valor ótimo) entonces para cada objeto i guardamos el valor óptimo es decir, la posición del arreglo (i,cap1,cap2,cap3). Después nos fijamos para cada mochila  el resultado de sumar el valor del objeto i con el valor óptimo para el objeto anterior menos el valor óptimo guardado, si esto da cero, es porque encontramos la mochila a la cual corresponde el objeto i. 
+
 
 
 Observación: nuestro algoritmo descarta los tesoros que tienen un peso mayor al máximo de capacidad entre las mochilas. Asumimos en el pseusocódigo que nuestra entrada cumple esa propiedad.
@@ -308,7 +318,7 @@ Observación: nuestro algoritmo descarta los tesoros que tienen un peso mayor al
 \begin{algorithm}[H]{\textbf{guardandoTesoro}(mochilas: vector$<$mochila$>$, cofre: vector$<$tesoro$>$)}
 	\begin{algorithmic}[1]
 		%\State objXpesos $\gets$ Hipercubo() incializado en -1 \Comment (en las posiciones donde no puede haber objetos incializo en 0) %$\mathcal{O}$()
-		\State objXpesos $\gets$ Hipercubo donde con todos los valores son -1 excepto en las posiciones donde no puede haber objetos que valen  0 %$\mathcal{O}$()
+		\State objXpesos $\gets$ 4-upla donde con todos los valores son -1 excepto en las posiciones donde no puede haber objetos que valen  0 %$\mathcal{O}$()
 		\State sol$\gets$ ValorOptimo(objXpesos,cofre,cofre.size-1,capacidades de las mochilas)
 		\State LlenarMochilas(objXpesos, cofre, mochila1, mochila2, mochila3)
 		\State return (sol, mochilas)
@@ -320,18 +330,18 @@ Observación: nuestro algoritmo descarta los tesoros que tienen un peso mayor al
 \begin{algorithm}[H]{\textbf{LlenarMochilas}(objetoXpeso: hipercubo, cofre:vector$<$tesoro$>$, m1,m2,m3:mochilas)}
 	\begin{algorithmic}[1]
 		\State desde i= cofre.size-1 hasta i=0
-			\State obj $\gets$ cofre[i]
-			\State cap1 $\gets$ m1.Capacidad
-			\State cap2 $\gets$ m2.Capacidad
-			\State cap3 $\gets$ m3.Capacidad
-			\If{$i=0$}
-				\State Agregar obj en cualquier mochila en la que entre.
-			\Else
-				\State valM1 $\gets$ obj.valor + ValorOptimo(objetoXPeso, cofre, i,cap1-obj.peso,cap2,cap3 )
-				\State valM2 $\gets$ obj.valor + ValorOptimo(objetoXPeso, cofre,i,cap1,cap2-obj.peso,cap3 )
-				\State valM3 $\gets$ obj.valor + ValorOptimo(objetoXPeso, cofre,i, cap1, cap2,cap3-obj.peso )
-				\State MeterEnCorrecta(valM1,valM2,valM3,m1,m2,m3,obj)
-			\EndIf
+			\State \quad obj $\gets$ cofre[i]
+			\State \quad cap1 $\gets$ m1.Capacidad
+			\State \quad cap2 $\gets$ m2.Capacidad
+			\State \quad cap3 $\gets$ m3.Capacidad
+			\State \quad Si $i=0$ hacer
+				\State \quad \quad Agregar obj en cualquier mochila en la que entre.
+			\State \quad Si no hacer
+				\State \quad \quad valM1 $\gets$ obj.valor + ValorOptimo(objetoXPeso, cofre, i,cap1-obj.peso,cap2,cap3 )
+				\State \quad \quad valM2 $\gets$ obj.valor + ValorOptimo(objetoXPeso, cofre,i,cap1,cap2-obj.peso,cap3 )
+				\State \quad \quad valM3 $\gets$ obj.valor + ValorOptimo(objetoXPeso, cofre,i, cap1, cap2,cap3-obj.peso )
+				\State \quad \quad  MeterEnCorrecta(valM1,valM2,valM3,m1,m2,m3,obj)
+			\State \quad finSi
 
 	\end{algorithmic}
 \end{algorithm}
@@ -340,49 +350,44 @@ Observación: nuestro algoritmo descarta los tesoros que tienen un peso mayor al
 
 %%%
 
-\begin{algorithm}[H]{\textbf{ValorOptimo(objXpeso:hipercubo, cofre:vector$<$tesoro$>$, objeto:int, peso1: int, peso2:int, peso3:int)}}
+\begin{algorithm}[H]{\textbf{ValorOptimo(objXpeso:4-upla, cofre:vector$<$tesoro$>$, objeto:int, peso1: int, peso2:int, peso3:int)}}
 	\begin{algorithmic}[1]
 		\State  pesoObj $\gets$ cofre[objeto].peso 
 		\State  pesoVal $\gets$ cofre[objeto].valor 
 
-		\If{$peso1 < 0 \vee peso2 < 0 \vee peso3 < 0$}
-			\State return $-1$ 
+		\State Si $peso1 < 0 \vee peso2 < 0 \vee peso3 < 0$
+			\State \quad devolver $-1$ 
 
-		\EndIf
+		\State finSi
 
-		\If{objetoxPesos[objeto][peso1][peso2][peso3] $\neq$ -1}
-			\State return objetoxPesos[objeto][peso1][peso2][peso3] 
-		\EndIf
-		\If{objeto $=$ 0}
-			\State val $\gets$ 0 
+		\State Si objetoxPesos[objeto][peso1][peso2][peso3] $\neq$ -1
+			\State \quad devolver objetoxPesos[objeto][peso1][peso2][peso3] 
+		\State finSi
+		\State Si objeto $=$ 0
+			\State \quad val $\gets$ 0 
 
-			\If{peso1 $\ge$ pesoObj $\vee$ peso2 $\ge$ pesoObj $\vee$ peso3 $\ge$ pesoObj}
-				\State val $\gets$ valorObj 
+			\State \quad Si peso1 $\ge$ pesoObj $\vee$ peso2 $\ge$ pesoObj $\vee$ peso3 $\ge$ pesoObj
+				\State\quad \quad  val $\gets$ valorObj 
 
-				\State objetoxPesos[objeto][peso1][peso2][peso3] $\gets$ val 
-				\State return val 
+				\State \quad \quad objetoxPesos[objeto][peso1][peso2][peso3] $\gets$ val 
+				\State \quad \quad devolver val
+			\State \quad Si no
+				\State \quad \quad devolver -1 %esta bien?%
+			\State \quad finSi
 
-			\EndIf
-
-		\Else
-			\State PosiblesSolus $\gets$ vector$<$int$>$ 
-			\State sinObj $\gets$ ValorOptimo(objetoxPesos, cofre, objeto -1, peso1, peso2, peso3)
-			\State PosiblesSolus.Agregar(sinObj)
-			\If{peso1-pesoObj $\ge$ 0}
-				\State objen1 $=$ valorObj + ValorOptimo(objetoxPesos, cofre, objeto - 1, peso1 - pesoObj, peso2, peso3)
-				\State PosiblesSolus.Agrergar(objen1)
-			\EndIf
-			\If{peso2 - pesoObj $\ge$ 0}
-				\State objen2 = valorObj + ValorOptimo(objetoxPesos, cofre, objeto - 1, peso1, peso2  - pesoObj, peso3)
-				\State PosiblesSolus.Agregar(objen2)
-			\EndIf
-			\If{peso3-pesoObj $\ge$ 0}
-				\State objen3 = valorObj + ValorOptimo(objetoxPesos, cofre, objeto - 1, peso1, peso2, peso3  - pesoObj)
-				\State PosiblesSolus.Agregar(objen3)
-			\EndIf
-			\State valor$\gets$Max(PsiblesSolus)
-			\State objetoxPesos[objeto][peso1][peso2][peso3] $\gets$ valor
-			\State return valor
+		\State Si no
+			\State \quad PosiblesSolus $\gets$ vector$<$int$>$ 
+			\State \quad sinObj $\gets$ ValorOptimo(objetoxPesos, cofre, objeto -1, peso1, peso2, peso3)
+			\State \quad PosiblesSolus.Agregar(sinObj)
+			\State \quad Desde j=1 hasta j=3 hacer
+				\State \quad \quad Si pesoj-pesoObj $\ge$ 0
+					\State \quad \quad \quad objenj $=$ valorObj + ValorOptimo(objetoxPesos, cofre, objeto - 1, pesoj - pesoObj, los otros dos pesos)
+					\State \quad \quad \quad PosiblesSolus.Agrergar(objenj)
+				\State \quad \quad finSi
+			\State \quad finDesde	
+			\State \quad  valor$\gets$Max(PosiblesSolus)
+			\State \quad objetoxPesos[objeto][peso1][peso2][peso3] $\gets$ valor
+			\State \quad return valor
 		\EndIf
 
 
@@ -392,7 +397,7 @@ Observación: nuestro algoritmo descarta los tesoros que tienen un peso mayor al
 \newpage
 
 \subsubsection{Demostración de Correctitud}
-Presentaremos la función matemática que modela nuestro problema:\\
+Presentaremos la función matemática que modela nuestro problema:\\ %cambiar%
 
 $f(o,p_{1},p_{2},p_{3})=0 \\
 f(n,p_{1},p_{2},p_{3}) = Max(V_{n}+Max(f(n-1,p_{1}-p_{n},p_{2},p_{3}), f(n-1,p_{1},p_{2}-p_{n},p_{3}), f(n-1,p_{1},p_{2},p_{3}-p_{n})),f(n-1,p_{1},p_{2},p_{3})) $

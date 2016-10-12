@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2016.2.24)  24 SEP 2016 16:07
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2016.3.25)  12 OCT 2016 10:07
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -502,12 +502,12 @@ Package: varwidth 2009/03/30 ver 0.92;  Variable-width minipages
 \@vwid@loff=\dimen104
 \@vwid@roff=\dimen105
 )
-(/home/javier/texmf/tex/latex/caratula/caratula.sty
+(/home/jaz/texmf/tex/latex/caratula/caratula.sty
 Package: caratula 2003/4/13 v0.1 Para componer caratulas de TPs del DC
 
 Cargando package 'caratula' v0.2 (21/4/2003)
 \intlist=\toks21
-) (/home/javier/texmf/tex/latex/aed2-tad/aed2-tad.sty
+) (/home/jaz/texmf/tex/latex/aed2-tad/aed2-tad.sty
 Package: aed2-tad 2011/04/04 - Para especificar TADs en formato AED2
 
 (/usr/share/texlive/texmf-dist/tex/latex/tools/calc.sty
@@ -523,7 +523,7 @@ LaTeX Info: Redefining \addtolength on input line 77.
 \calc@Ccount=\count95
 \calc@Cskip=\skip54
 )
-(/home/javier/texmf/tex/latex/aed2-tokenizer/aed2-tokenizer.sty
+(/home/jaz/texmf/tex/latex/aed2-tokenizer/aed2-tokenizer.sty
 Package: aed2-tokenizer 2010/03/12
 )
 Package aed2-tad Info: Cargando package 'tad' (04/04/2011) on input line 26.
@@ -547,7 +547,7 @@ Package aed2-tad Info: Cargando package 'tad' (04/04/2011) on input line 26.
 \tadAxioma@lenEquiv=\skip71
 \tadAxioma@lenDerecha=\skip72
 )
-(/home/javier/texmf/tex/latex/aed2-symb/aed2-symb.sty
+(/home/jaz/texmf/tex/latex/aed2-symb/aed2-symb.sty
 Package: aed2-symb 2004/04/17 - Para componer simbolitos frecuentemente usados 
 en AED2
 
@@ -620,7 +620,7 @@ Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
 LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
 (Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
 )))
-(/home/javier/texmf/tex/latex/aed2-itef/aed2-itef.sty
+(/home/jaz/texmf/tex/latex/aed2-itef/aed2-itef.sty
 Package: aed2-itef 2010/03/16 - if-then-else-fi en lenguaje de TADs.
 
 Cargando package 'itef' (2010/03/16)
@@ -892,80 +892,9 @@ LaTeX Info: Redefining \% on input line 1.
  [2
 
 ]
-! Undefined control sequence.
-<recently read> \endIf 
-                       
-l.96 				\endIf
-               
-? 
-! Missing number, treated as zero.
-<to be read again> 
-                   \ALG@b@2@EndWhile@0 
-l.97 			\EndWhile
-                 
-? 
-! Missing number, treated as zero.
-<to be read again> 
-                   \ALG@b@2@EndWhile@0 
-l.98 		\EndWhile
-                
-? 
-
-! Package algorithmicx Error: Some blocks are not closed!!!.
-
-See the algorithmicx package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.101 	\end{algorithmic}
-                        
-? 
 [3
 
-] [4]
-! Missing \endcsname inserted.
-<to be read again> 
-                   \ALG@currentblock@0 
-l.153 		\State
-               pesa $\gets$ 1
-? 
-! Extra \endcsname.
-\ALG@makebeginrepeat ...\ALG@thisblock \endcsname 
-                                                  \relax \def \ALG@thisblock...
-l.153 		\State
-               pesa $\gets$ 1
-? 
-! Missing \endcsname inserted.
-<to be read again> 
-                   \ALG@currentblock@0 
-l.154 		\While
-              { P $>$ 0}
-? 
-! Extra \endcsname.
-\ALG@makebeginrepeat ...\ALG@thisblock \endcsname 
-                                                  \relax \def \ALG@thisblock...
-l.154 		\While
-              { P $>$ 0}
-? 
-! Missing number, treated as zero.
-<to be read again> 
-                   \ALG@currentblock@0 
-l.166 	\end{algorithmic}
-                        
-? 
-! Missing = inserted for \ifnum.
-<to be read again> 
-                   \ALG@currentblock@0 
-l.166 	\end{algorithmic}
-                        
-? 
-! Missing number, treated as zero.
-<to be read again> 
-                   \ALG@currentblock@0 
-l.166 	\end{algorithmic}
-                        
-? 
-[5]
+] [4] [5]
 Underfull \hbox (badness 10000) in paragraph at lines 176--187
 
  []
@@ -1009,57 +938,78 @@ File: punto2-comparaciones.png Graphic file (type png)
 <use punto2-comparaciones.png>
 Package pdftex.def Info: punto2-comparaciones.png used on input line 255.
 (pdftex.def)             Requested size: 204.85672pt x 99.59048pt.
- [8 <./punto2-zoom.png> <./punto2-comparaciones.png>] <hipercubo.png, id=45, 84
-5.0772pt x 597.432pt>
-File: hipercubo.png Graphic file (type png)
- <use hipercubo.png>
-Package pdftex.def Info: hipercubo.png used on input line 298.
-(pdftex.def)             Requested size: 204.85672pt x 144.81783pt.
+ [8 <./punto2-zoom.png> <./punto2-comparaciones.png>]
 
-[9]
-Underfull \hbox (badness 1038) in paragraph at lines 343--344
-[]\OT1/lmr/bx/n/12 ValorOptimo(objXpeso:hipercubo, cofre:vector$\OML/lmm/m/it/1
-2 <$\OT1/lmr/bx/n/12 tesoro$\OML/lmm/m/it/12 >$\OT1/lmr/bx/n/12 , ob-je-to:int,
- pe-so1: int, pe-
+! LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.303 
+      
+? 
+
+! LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.305 	P
+        ara resolver nuestro primer problema el algoritmo se encarga de llen...
+
+? 
+
+Overfull \hbox (0.54286pt too wide) in paragraph at lines 309--310
+\OT1/lmr/m/n/12 ton-ces pa-ra ca-da ob-je-to i guar-da-mos el va-lor ^^Sopti-mo
+ es de-cir, la po-si-ci^^Son del arre-glo (i,cap1,cap2,cap3).
  []
 
-[10 <./hipercubo.png (PNG copy)>] [11]
-Underfull \hbox (badness 10000) in paragraph at lines 395--396
+[9]
+! Missing number, treated as zero.
+<to be read again> 
+                   \ALG@b@2@EndIf@0 
+l.391 		\EndIf
+              
+? 
+[10] [11]
+Underfull \hbox (badness 10000) in paragraph at lines 400--401
 
  []
 
 ! Undefined control sequence.
 <recently read> \Rigtharrow 
                             
-l.422 ...k) $\forall k<n$ y vale p(n) $\Rigtharrow
+l.427 ...k) $\forall k<n$ y vale p(n) $\Rigtharrow
                                                   $ vale p(n) $\forall n \in...
 
 ? 
 
-Underfull \hbox (badness 10000) in paragraph at lines 402--423
+Underfull \hbox (badness 10000) in paragraph at lines 407--428
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 402--423
+Underfull \hbox (badness 10000) in paragraph at lines 407--428
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 402--423
+Underfull \hbox (badness 10000) in paragraph at lines 407--428
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 402--423
+Underfull \hbox (badness 10000) in paragraph at lines 407--428
 
  []
 
-[12] <comparacionObjetos.jpg, id=58, 734.9859pt x 572.1375pt>
+[12] <comparacionObjetos.jpg, id=57, 734.9859pt x 572.1375pt>
 File: comparacionObjetos.jpg Graphic file (type jpg)
 
 <use comparacionObjetos.jpg>
-Package pdftex.def Info: comparacionObjetos.jpg used on input line 461.
+Package pdftex.def Info: comparacionObjetos.jpg used on input line 466.
 (pdftex.def)             Requested size: 307.2929pt x 239.20483pt.
  [13]
 
@@ -1069,7 +1019,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.473 \\
+l.478 \\
         
 ? 
 
@@ -1079,7 +1029,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.474 \\
+l.479 \\
         
 ? 
 
@@ -1089,7 +1039,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.475 L
+l.480 L
        uego realizamos tests para poder ver el comportamiento del algoritmo ...
 
 ? 
@@ -1100,11 +1050,11 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.481 ...raphics[width=0.6\textwidth]{pesoMochila}
+l.486 ...raphics[width=0.6\textwidth]{pesoMochila}
                                                   
 ? 
 
-Underfull \hbox (badness 10000) in paragraph at lines 485--489
+Underfull \hbox (badness 10000) in paragraph at lines 490--494
 
  []
 
@@ -1115,21 +1065,21 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.492 ...aphics[width=0.6\textwidth]{cantMochilas}
+l.497 ...aphics[width=0.6\textwidth]{cantMochilas}
                                                   
 ? 
 [14 <./comparacionObjetos.jpg>]
-Underfull \hbox (badness 10000) in paragraph at lines 496--500
+Underfull \hbox (badness 10000) in paragraph at lines 501--505
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 496--500
+Underfull \hbox (badness 10000) in paragraph at lines 501--505
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 496--500
+Underfull \hbox (badness 10000) in paragraph at lines 501--505
 
  []
 
@@ -1140,13 +1090,13 @@ LaTeX Info: Redefining \. on input line 6.
 LaTeX Info: Redefining \% on input line 6.
 ) ) 
 Here is how much of TeX's memory you used:
- 6566 strings out of 494966
- 94078 string characters out of 6179559
+ 6551 strings out of 494966
+ 93808 string characters out of 6179559
  166034 words of memory out of 5000000
- 9584 multiletter control sequences out of 15000+600000
+ 9570 multiletter control sequences out of 15000+600000
  40427 words of font info for 43 fonts, out of 8000000 for 9000
  40 hyphenation exceptions out of 8191
- 53i,7n,92p,599b,447s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 53i,7n,92p,599b,441s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf/fonts/enc/dvips/lm/lm-rm.enc}{/usr/share/texmf/fonts/enc/d
 vips/lm/lm-mathex.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/
 share/texmf/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/share/texmf/fonts/enc/dvips/
@@ -1157,10 +1107,10 @@ onts/type1/public/lm/lmr10.pfb></usr/share/texmf/fonts/type1/public/lm/lmr12.pf
 b></usr/share/texmf/fonts/type1/public/lm/lmr8.pfb></usr/share/texmf/fonts/type
 1/public/lm/lmsy10.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy8.pfb></usr/
 share/texmf/fonts/type1/public/lm/lmtt12.pfb>
-Output written on inf1.pdf (15 pages, 1247375 bytes).
+Output written on inf1.pdf (15 pages, 1172300 bytes).
 PDF statistics:
- 107 PDF objects out of 1000 (max. 8388607)
+ 106 PDF objects out of 1000 (max. 8388607)
  71 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 26 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 21 words of extra memory for PDF output out of 10000 (max. 10000000)
 
