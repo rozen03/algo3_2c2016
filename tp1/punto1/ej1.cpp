@@ -9,7 +9,12 @@
 using namespace std;
 std::vector<int> arqueologos;
 std::vector<int> canibales;
-
+void printearVector(vector<int> victor){
+	for (size_t i = 0; i < victor.size(); i++) {
+		cerr<<victor[i]<<",";
+	}
+	cerr<<endl;
+}
 int indiceCanibal(int velocidad){
 	size_t i = 0;
 	int res=-1;
@@ -24,7 +29,7 @@ int indiceCanibal(int velocidad){
 }
 
 int indiceArqueologo(int velocidad){
-	size_t i = 0;
+	int i = 0;
 	int res=-1;
 	while (i < arqueologos.size()) {
 		if(arqueologos[i] ==velocidad){
@@ -40,7 +45,7 @@ int mascaraCanibal(int velocidad){
  return 1<<(arqueologos.size() +indiceCanibal(velocidad));
 }
 int mascaraArqueologo(int velocidad){
- return 1<<indiceArqueologo(velocidad);
+ 	return 1<<indiceArqueologo(velocidad);
 }
 int numeroCanibales(vector <int> can){
 	int res=0;
@@ -74,12 +79,12 @@ void lecturaDatos(string input, vector<int>& arq, vector<int>& can){
     for (int i = 0; i < n; ++i){
         ip >> aux;
         arq.push_back(aux);
-		arqueologos.push_back(aux);
+				arqueologos.push_back(aux);
     }
     for (int i = 0; i < m; ++i){
         ip >> aux;
         can.push_back(aux);
-		canibales.push_back(aux);
+				canibales.push_back(aux);
     }
 		sort(can.begin(), can.end());
 		sort(arq.begin(), arq.end());
@@ -91,7 +96,9 @@ void lecturaDatos(string input, vector<int>& arq, vector<int>& can){
 void sacar(vector<int>& ls, int elem){
 	for(unsigned int i = 0; i<ls.size();i++){
 		if(ls[i] == elem){
-			ls[i] = ls[ls.size()];
+			ls[ls.size()]=-1;
+			ls[i] = ls[ls.size()-1];
+			ls[ls.size()-1]=-1;
 			ls.pop_back();
 			break;
 		}
@@ -285,9 +292,9 @@ int backtracking(vector<int> arqA, vector<int> canA, vector<int> arqB, vector<in
 
 			if(i>-1){
 				//habia un remove fijarse si el orden importa, remove no tenemos uso sacar
+				arqBbis.push_back(arqA[i]);
 				sacar(arqAbis, arqA[i]);
 				//no lo metiamos, no tiene sentido.
-				arqBbis.push_back(arqA[i]);
 				contador=0;
 			}else{
 				//esto es cuando no mandas arqueologos, por lo que entendi contador tendria que ser canAbis.size()-1 ya que queres mandar un segundo canibal
@@ -296,9 +303,9 @@ int backtracking(vector<int> arqA, vector<int> canA, vector<int> arqB, vector<in
 			}
 			if(j>-1){
 				//Habia Rm(era conAbis pero creo que querias que sea canAbis
+				canBbis.push_back(canA[j]);
 				sacar(canAbis,canA[j]);
 				//no lo metiamos antes, lo cual no tiene sentido
-				canBbis.push_back(canA[j]);
 				contador=0;
 			}else{
 				//esto es cuando no mandas canibales, por lo que entendi contador tendria que ser arqAbis.size()-1 ya que queres mandar un segundo arqueologo
@@ -324,7 +331,7 @@ int backtracking(vector<int> arqA, vector<int> canA, vector<int> arqB, vector<in
 						int velVuelta = - oruga;
 						//cree copias, por que si no estas devolviendo sobre cosas ya devueltas todo un quilombo, lo que aux era bis.
 						vector<int> arqAaux(arqAbis);
-						vector<int> canAaux(canAbis);
+						vector<int> canAaux(caneAbis);
 						vector<int> arqBaux(arqBbis);
 						vector<int> canBaux(canBbis);
 						cerr<<"estan volviendo con el "<< k<<" arqueologo y el "<<l<<" canibal el segundo es "<<segundo<<endl;
@@ -398,6 +405,8 @@ int backtracking(vector<int> arqA, vector<int> canA, vector<int> arqB, vector<in
 							}
 						cerr<<" la velocidad de vuelta es "<<velVuelta<<endl;
 						cerr<<"el tamaño de victor es "<<victor.size()<< " y quiero acceder a "<< numeroArqueologos(arqAaux)+numeroCanibales(canAaux)<<endl;
+						printearVector(arqAaux);
+						printearVector(canAaux);
 						if(victor[numeroArqueologos(arqAaux)+numeroCanibales(canAaux)] == 0){
 							cerr<<"victor funciono entro en el bc"<<endl;
 							solbc = backtracking(arqAaux, canAaux, arqBaux, canBaux, victor);
@@ -428,9 +437,9 @@ int solucion(const vector<int>& arq,const vector<int>& can){
 	vector<int> canB;
 	vector<int> n(can.size() +1, 0);
 	//vector< vector<int> > matriz(arq.size()+1, n);
-	cerr<<"que pija es 1<<(arq.size()+can.size()-1)? "<< (1<<(arq.size()+can.size()))<<endl;
+	cerr<<"que pija es 1<<(arq.size()+can.size())? "<< (1<<(arq.size()+can.size()))<<endl;
 	vector<int> victor(1<<(arq.size()+can.size()), 0);
-cout<<"cree victor entro en BC"<<endl;
+	cout<<"cree victor entro en BC"<<endl;//en todo caso es BT pibe xD
 	//la matriz chequea que esa combinacion de arqueologos/canibales no hayan esperado del lado A antes.
 	return backtracking(arq, can, arqB, canB, victor);
 }
@@ -440,14 +449,8 @@ int main(int argc, char *argv[]){
 
     vector<int> arqA;
     vector<int> canA;
-
-
-
     string input = argv[1];
     lecturaDatos(input, arqA,canA);
-
 	cout<< solucion(arqA, canA)<<endl;
-
     return 0;
-
 }
