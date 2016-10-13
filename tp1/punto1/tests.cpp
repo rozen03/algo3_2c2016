@@ -13,6 +13,47 @@ using namespace std;
 void test(int rep){
 	srand(time(NULL));
 	ofstream res("solu1Test.txt");
+
+		/* //Para Debugear casos particulares
+		// int i = 3;
+		// int j = 3;
+		// string is = to_string(i);
+		// string  js= to_string(j);
+		// string ts="testArq"+is+"Can"+js+".txt";
+		// ofstream input(ts);
+		// input << i <<" "<< j<<"\n";
+		// 	int v =1;
+		// for(int l = 0; l < i; l++){
+		// 	input << v<<" ";
+		// 	v = v+1;
+		// }
+		// input<<"\n";
+		// 	v =4;
+		// for(int l = 0; l < j; l++){
+		// 	input << v<<" ";
+		// 	v = v+1;
+		// }
+		// input <<"\n";
+		// input.close();
+		// res<< "Arq"<<is<<"-Can"<<js;
+		// long sol = 0;
+		// int valor = -2;
+		// for(int x = 0; x<=rep; x++){
+		// 	long solpar;
+		// 	list<long> arq;
+		// 	list<long> can;
+		// 	lecturaDatos(ts, arq, can);
+		// 	auto start = ya();
+		// 	valor = solucion(arq, can);
+		// 	auto end = ya();
+		// 	solpar = chrono::duration_cast<std::chrono::nanoseconds>(end-start).count();
+		// 	sol = sol +solpar;
+		// }
+		// res<<" " << sol/rep<<" & " <<valor<<"\n";
+	*/	
+	
+	
+
 	for(int i=0; i<6 ; i++){
 		for(int j=0; j+i<=6; j++ ){
 			if( i == 0 && j == 0) continue;
@@ -56,7 +97,7 @@ void test(int rep){
 
 
 int main(){
-	test(2);
+	test(1);
 	
 return 0;	
 	}
