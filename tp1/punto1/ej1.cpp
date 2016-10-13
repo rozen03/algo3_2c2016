@@ -3,10 +3,58 @@
 #include <fstream>
 #include <chrono>
 #include <vector>
+#include <math>
 
 using namespace std;
+std::vector<int> arqueologos;
+std::vector<int> canibales;
 
+int indiceCanibal(int velocidad){
+	size_t i = 0;
+	int res=-1;
+	while ( i < canibales.size()) {
+		if(canibales[i] ==velocidad ){
+			res=i;
+			i=canibales.size();
+		}
+		i++;
+	}
+	return res;
+}
 
+int indiceArqueologo(int velocidad){
+	size_t i = 0;
+	int res=-1;
+	while (i < arqueologos.size()) {
+		if(arqueologos[i] ==velocidad){
+			res=i;
+			i=arqueologos.size();
+		}
+		i++;
+	}
+	return res;
+}
+
+int mascaraCanibal(int velocidad){
+ return 1<<(arqueologos.size() +indiceCanibal(velocidad));
+}
+int mascaraArqueologo(int velocidad){
+ return 1<<indiceArqueologo(velocidad);
+}
+int numeroCanibales(vector <int> can){
+	int res=0;
+	for (size_t i = 0; i < can.size(); i++) {
+		res+=mascaraCanibal(can[i]);
+	}
+	return res;
+}
+int numeroArqueologos(vector <int> arq){
+	int res=0;
+	for (size_t i = 0; i < arq.size(); i++) {
+		res+=mascaraArqueologo(arq[i]);
+	}
+	return res;
+}
 //se asegura que al enviar a cantA y cantC no haya una muerte sangrienta de algun lado
 bool puedensalir(int cantA, int cantC, int arcMismoLado, int canMismoLado, int arcOtroLado, int canOtroLado){
 	bool p =arcMismoLado - cantA >= canMismoLado - cantC || arcMismoLado - cantA == 0;
@@ -25,16 +73,22 @@ void lecturaDatos(string input, list<long>& arq, list<long>& can){
     for (int i = 0; i < n; ++i){
         ip >> aux;
         arq.push_back(aux);
+				arqueologos.push_back(aux);
     }
     for (int i = 0; i < m; ++i){
         ip >> aux;
         can.push_back(aux);
+				canibales.push_back(aux);
     }
+		can.sort(can.begin(),can.end());
+		arq.sort(arq.begin(),arq.end());
+		arqueologos.sort(arqueologos.begin(),arqueologos.end());
+		canibales.sort(canibales.begin(),canibales.end());
 }
 
 //saca un solo elemento igual a elem
 list<long> sacar(list<long> ls, long elem){
-	list<long> res;	
+	list<long> res;
 	bool noencontre = true;
 	while(!ls.empty()){
 		long aux = ls.front();
@@ -195,7 +249,7 @@ long suma(list<long> ls){
 	return sol;
 }
 
-long backtracking(list<long> arqA, list<long> canA, list<long> arqB, list<long> canB, vector<vector<int> > matriz){
+long backtracking(list<long> arqA, list<long> canA, list<long> arqB, list<long> canB, vector<int>  victor){
 	int acantB = arqB.size();
 	int ccantB = canB.size();
 	int acantA = arqA.size();
@@ -221,36 +275,105 @@ long backtracking(list<long> arqA, list<long> canA, list<long> arqB, list<long> 
 		long sol = solpar + (acantA-2)*rapido;//ccantA-2 es la cantidad de veces que vuelve el mas rapido.
 		return sol;
 	}
-	matriz[acantA][ccantA] = 1;
+	victor[numeroArqueologos(arqA)+numeroCanibales(canA)] = 1;
 	vector<long> soluciones;
 	//ahora veo que personajes puedo enviar al lado B y que hacer con ellos
-	for(int i = 0; i < 3; i++){//arquelogos
-		for(int j = 0;j + i < 3; j++){//canibales Esta combinacion ij hace 5 iteraciones
-			long velIda = -1;
-			if( (i == 0 && j == 0) || (i == 0 && j == 1) || (i == 1 && j == 0)) continue;
-			if(puedensalir(i, j, acantA, ccantA,arqB.size(), canB.size())){
-				list<long> arqAux(arqA);
-				list<long> canAux(canA);
-				list<long> arqBaux(arqB);
-				list<long> canBaux(canB);
-				velIda = meterIda(i, j, arqAux,canAux,arqBaux, canBaux);
-				for(int k = 0; k<3;k++){//arqueologos
-					for(int l = 0; l+k<3; l++){//canibales es 5 veces
+	int segundoArqueologo=-1;
+	int segundoCanibal = -1;
+	int contador = 0;
+	int contador_dos=0;
+	for (size_t i = -1; i < arqA.size(); i++) {//itero sobre los arqueologos del lado A
+		for (size_t j = -1; j < canA.size(); j++) {//itero sobre los canibales del lado A
+			int velIda=0;
+			if(i<0 && j<0) continue;
+			segundoArqueologo=-1;
+			segundoCanibal = -1;
+			list<long> arqAbis=arqA;
+			list<long> canAbis=canA;
+
+			if(i>-1){
+				arqAbis.remove(arqA[i]);
+				contador=0;
+			}else{
+				contador = arqAbis.size();
+			}
+			if(j>-1){
+				conAbis.remove(conA[i]);
+				contador=0;
+			}else{
+				contador = canAbis.size();
+			}
+			if(i==-1){
+				velIda=conAbis[j];
+			}else i (j==-1){
+				velIda=arqAbis[i];
+			}else{
+				velIda=max(conAbis[j],arqAbis[i]);
+			}
+			for (size_t segundo = -1; segundo < contador; segundo++) {//esta iteracion esta hecha para considerar si se manda un segundo arqueologo o canibal
+																																//cuestion q si se manda uno y uno contador vale 0 y entonces mas abajo donde se chequea la variable segundo
+																																//no va a tomar en cuenta su valor q va a ser solamente -1.
+				for(int k = -1; k<arqB.size();k++){//arqueologos
+					for(int l = -1; l<canB.size(); l++){//canibales es 5 veces
+						if(l < 0 && k < 0) continue;
 						long velVuelta = - oruga;
 						long solbc = 0;
-						int acant = arqAux.size();
-						int ccant = canAux.size();
-						if(l == 0 && k == 0) continue;
-						if(arqAux.empty() && canAux.empty()) velVuelta =0;//caso base
-						if(puedensalir(k, l, arqBaux.size(), canBaux.size(),acant, ccant) && matriz[acant+k][ccant+l] == 0){
-							list<long> arqAbis(arqAux);
-							list<long> canAbis(canAux);
-							list<long> arqBbis(arqBaux);
-							list<long> canBbis(canBaux);
-							velVuelta = meterVuelta(k, l, arqAbis, canAbis, arqBbis, canBbis);
-							solbc = backtracking(arqAbis, canAbis, arqBbis, canBbis, matriz);
+						if(i>-1){
+							arqBbis.push_back(arqAbis[segundo]);
+							if(segundo>-1){
+								arqBbis.push_back(arqAbis[segundo]);
+								velIda=max(velIda,arqAbis[segundo]);
+							}
 						}
-						soluciones.push_back(velIda + velVuelta + solbc);
+						if(j>-1){
+							conBbis.push_back(conAbis[segundo]);
+							if(segundo>-1){
+								conBbis.push_back(conAbis[segundo]);
+								velIda=max(velIda,conAbis[segundo]);
+							}
+						}
+						if(k>-1){
+							arqAbis.push_back(arqBbis[k]);
+							arqBbis.remove(arqBbis[k]);
+							contador_dos=0;
+						}else{
+							contador_dos = arqBbis.size();
+						}
+						if(l>-1){
+							conAbis.push_back(conBbis[j]);
+							conBbis.remove(conBbis[i]);
+							contador_dos=0;
+						}else{
+							contador_dos = conBbis.size();
+						}
+						if(k==-1){
+							velVuelta=conBbis[l];
+						}else i (j==-1){
+							velVuelta=arqNbis[k];
+						}else{
+							velVuelta=max(conBbis[l],arqBbis[k]);
+						}
+						for (size_t segundo_que_vuelve = -1; segundo_que_vuelve < contador_dos;segundo_que_vuelve++) {
+							if(k>-1){
+								arqBbis.push_back(arqAbis[segundo_que_vuelve]);
+								if(segundo_que_vuelve>-1){
+									arqAbis.push_back(arqBbis[segundo_que_vuelve]);
+									velVuelta=max(velVuelta,)
+								}
+							}
+							if(l>-1){
+								conAbis.push_back(conAbis[segundo_que_vuelve]);
+								if(segundo_que_vuelve>-1){
+									conAbis.push_back(conAbis[segundo_que_vuelve]);
+								}
+							}
+						if(victor[numeroArqueologos(arqAbis)+numeroCanibales(canAbis)] == 0){
+							solbc = backtracking(arqAbis, canAbis, arqBbis, canBbis, victor);
+							if(solbc >-1){
+								soluciones.push_back(velIda + velVuelta + solbc);
+							}
+						}
+						}
 					}
 				}
 			}
@@ -258,12 +381,12 @@ long backtracking(list<long> arqA, list<long> canA, list<long> arqB, list<long> 
 	}
 	vector<long> solrec;
 	for(unsigned int i = 0; i<soluciones.size(); i++){
-		if(soluciones[i] >= 0) solrec.push_back(soluciones[i]);  
+		if(soluciones[i] >= 0) solrec.push_back(soluciones[i]);
 	}
 	if(solrec.empty()) return -1;
 	long sol = solrec[0];
 	for(unsigned int i = 0; i<solrec.size(); i++){
-		if(solrec[i] < sol) sol = solrec[i]; 
+		if(solrec[i] < sol) sol = solrec[i];
 	}
 	return sol;
 }
@@ -272,23 +395,24 @@ long solucion(const list<long>& arq,const list<long>& can){
 	list<long> arqB;
 	list<long> canB;
 	vector<int> n(can.size() +1, 0);
-	vector< vector<int> > matriz(arq.size()+1, n);
-	
+	//vector< vector<int> > matriz(arq.size()+1, n);
+	vector<int> victor(1<<(arq.size()+can.size()-1), 0);
+
 	//la matriz chequea que esa combinacion de arqueologos/canibales no hayan esperado del lado A antes.
-	return backtracking(arq, can, arqB, canB, matriz);
+	return backtracking(arq, can, arqB, canB, victor);
 }
 
 /*
 int main(int argc, char *argv[]){
-    
+
     list<long> arqA;
     list<long> canA;
-    
-    
-    
-    string input = argv[1];    
+
+
+
+    string input = argv[1];
     lecturaDatos(input, arqA,canA);
- 
+
 	cout<< solucion(arqA, canA)<<endl;
 
     return 0;
