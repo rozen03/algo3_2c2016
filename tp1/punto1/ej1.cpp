@@ -9,7 +9,12 @@
 using namespace std;
 std::vector<int> arqueologos;
 std::vector<int> canibales;
-
+void printearVector(vector<int> victor){
+	for (size_t i = 0; i < victor.size(); i++) {
+		cerr<<victor[i]<<",";
+	}
+	cerr<<endl;
+}
 int indiceCanibal(int velocidad){
 	size_t i = 0;
 	int res=-1;
@@ -24,7 +29,7 @@ int indiceCanibal(int velocidad){
 }
 
 int indiceArqueologo(int velocidad){
-	size_t i = 0;
+	int i = 0;
 	int res=-1;
 	while (i < arqueologos.size()) {
 		if(arqueologos[i] ==velocidad){
@@ -40,7 +45,7 @@ int mascaraCanibal(int velocidad){
  return 1<<(arqueologos.size()  +indiceCanibal(velocidad));
 }
 int mascaraArqueologo(int velocidad){
- return 1<<indiceArqueologo(velocidad);
+ 	return 1<<indiceArqueologo(velocidad);
 }
 int numeroCanibales(vector <int> can){
 	int res=0;
@@ -74,12 +79,12 @@ void lecturaDatos(string input, vector<int>& arq, vector<int>& can){
     for (int i = 0; i < n; ++i){
         ip >> aux;
         arq.push_back(aux);
-		arqueologos.push_back(aux);
+				arqueologos.push_back(aux);
     }
     for (int i = 0; i < m; ++i){
         ip >> aux;
         can.push_back(aux);
-		canibales.push_back(aux);
+				canibales.push_back(aux);
     }
 		sort(can.begin(), can.end());
 		sort(arq.begin(), arq.end());
@@ -356,7 +361,7 @@ int backtracking(vector<int> arqA, vector<int> canA, vector<int> arqB, vector<in
 						if(arqAbis.size()==0 && canAbis.size()==0) return velIda;
 						int velVuelta = - oruga;
 						vector<int> arqAaux(arqAbis);
-						vector<int> canAaux(canAbis);
+						vector<int> canAaux(caneAbis);
 						vector<int> arqBaux(arqBbis);
 						vector<int> canBaux(canBbis);
 						if(l < 0 && k < 0) continue;
@@ -466,14 +471,8 @@ int main(int argc, char *argv[]){
 
     vector<int> arqA;
     vector<int> canA;
-
-
-
     string input = argv[1];
     lecturaDatos(input, arqA,canA);
-
 	cout<< solucion(arqA, canA)<<endl;
-
     return 0;
-
 }
