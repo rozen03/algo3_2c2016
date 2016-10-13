@@ -1,4 +1,5 @@
 #include "ej1.cpp"
+#include "ej1P.cpp"
 #include <iostream>
 #include <fstream>
 #include <stdio.h>
@@ -76,18 +77,32 @@ void test(int rep){
 			res<< "Arq"<<is<<"-Can"<<js;
 			long sol = 0;
 			int valor = -2;
-			for(int x = 0; x<=rep; x++){
+			long valorp = -2;
+			long solp = 0;
+			cerr<< "Arq"<<is<<"-Can"<<js;
+			for(int x = 0; x<rep; x++){
 				long solpar;
-				list<long> arq;
-				list<long> can;
+				long solparp;
+				vector<int> arq;
+				vector<int> can;
 				lecturaDatos(ts, arq, can);
+				cerr<<" Pase lectura Datos ";
+				list<long> arqa;
+				list<long> cana;
+				//lecturaDatosP(ts, arqa, cana);
 				auto start = ya();
-				valor = solucion(arq, can);
+				//valor = solucion(arq, can);
 				auto end = ya();
+				auto startp = ya();
+				//valorp = solucionP(arqa, cana);
+				auto endp = ya();
 				solpar = chrono::duration_cast<std::chrono::nanoseconds>(end-start).count();
 				sol = sol +solpar;
+				solparp = chrono::duration_cast<std::chrono::nanoseconds>(endp-startp).count();
+				solp = solp +solparp; 
 			}
-			res<<" " << sol/rep<<" & " <<valor<<"\n";
+			cerr<<"...Terminado"<<endl;
+			res<<" " << sol/rep<<" & " <<valor<<"& el que anda & "<<solp/rep<<" & "<<valorp<<"\n";
 			
 			//cout<< "termine " << ts<<endl;
 		}

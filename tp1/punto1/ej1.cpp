@@ -3,7 +3,8 @@
 #include <fstream>
 #include <chrono>
 #include <vector>
-#include <math>
+//#include <math>
+#include <algorithm>
 
 using namespace std;
 std::vector<int> arqueologos;
@@ -63,71 +64,58 @@ bool puedensalir(int cantA, int cantC, int arcMismoLado, int canMismoLado, int a
 	return p && q && s;
 }
 
-void lecturaDatos(string input, list<long>& arq, list<long>& can){
+void lecturaDatos(string input, vector<int>& arq, vector<int>& can){
 	fstream ip;
 	ip.open(input);
 	int n;
     int m;
     ip >> n >> m;
-    long aux;
+    int aux;
     for (int i = 0; i < n; ++i){
         ip >> aux;
         arq.push_back(aux);
-				arqueologos.push_back(aux);
+		arqueologos.push_back(aux);
     }
     for (int i = 0; i < m; ++i){
         ip >> aux;
         can.push_back(aux);
-				canibales.push_back(aux);
+		canibales.push_back(aux);
     }
-		can.sort(can.begin(),can.end());
-		arq.sort(arq.begin(),arq.end());
-		arqueologos.sort(arqueologos.begin(),arqueologos.end());
-		canibales.sort(canibales.begin(),canibales.end());
+		sort(can.begin(), can.end());
+		sort(arq.begin(), arq.end());
+		sort(arqueologos.begin(),arqueologos.end());
+		sort(canibales.begin(),canibales.end());
 }
 
 //saca un solo elemento igual a elem
-list<long> sacar(list<long> ls, long elem){
-	list<long> res;
-	bool noencontre = true;
-	while(!ls.empty()){
-		long aux = ls.front();
-		ls.pop_front();
-		if(elem == aux){
-			if(noencontre){
-				noencontre = false;
-			}
-			else{
-				res.push_front(aux);
-			}
-		}
-		else{
-			res.push_front(aux);
+void sacar(vector<int>& ls, int elem){
+	for(unsigned int i = 0; i<ls.size();i++){
+		if(ls[i] == elem){
+			ls[i] = ls[ls.size()];
+			ls.pop_back();
+			break;
 		}
 	}
-	return res;
 }
 
-long maximo(list<long> a){
+int maximo(const vector<int>& a){
 	if(a.empty()) return -1;
-	long max = a.front();
-	while(!a.empty()){
-		if(max < a.front()) max = a.front();
-		a.pop_front();
+	int max = a[0];
+	for(unsigned int i = 0; i<a.size(); i++){
+		if(max<a[i]) max = a[i];
 	}
 	return max;
 }
 
-long minimo(list<long> a){
+int minimo(const vector<int>& a){
 	if(a.empty()) return -1;
-	long min = a.front();
-	while(!a.empty()){
-		if(min > a.front()) min = a.front();
-		a.pop_front();
+	int min = a[0];
+	for(unsigned int i = 0; i <a.size();i++){
+		if(a[i]<min) min = a[i];
 	}
 	return min;
 }
-
+/*
 long meterVuelta(int i, int j, list<long>& ArqA,list<long>& CanA, list<long>& ArqB, list<long>& CanB ){//esta funcion mantiene la hipotesis de que siempre combiene mandar el mas lento y el mas rapido
 	long res;
 	if (i==2) {
@@ -172,7 +160,8 @@ long meterVuelta(int i, int j, list<long>& ArqA,list<long>& CanA, list<long>& Ar
 		}
 return res;
 }
-
+*/
+/*
 long meterIda(int i, int j, list<long>& ArqA,list<long>& CanA, list<long>& ArqB, list<long>& CanB ){//MODIFICAR PARA QUE CONTEMPLE TODOS LOS CASOS
   long res=0;
   if(i==2){
@@ -224,147 +213,173 @@ long meterIda(int i, int j, list<long>& ArqA,list<long>& CanA, list<long>& ArqB,
 		}
 return res;
 }
-
+*/
 //devuelve el integrante mas lento duh si no hay integrantes lo cual es medio tonto devueve -1
-long integranteLento(const list<long>& a, const list<long>& b, const list<long>& c, const list<long>& d){
-	list<long> solus;
-	long as = maximo(a);
-	long bs = maximo(b);
-	long cs = maximo(c);
-	long ds = maximo(d);
-	solus.push_front(as);
-	solus.push_front(bs);
-	solus.push_front(cs);
-	solus.push_front(ds);
+int integranteLento(const vector<int>& a, const vector<int>& b, const vector<int>& c, const vector<int>& d){
+	vector<int> solus;
+	int as = maximo(a);
+	int bs = maximo(b);
+	int cs = maximo(c);
+	int ds = maximo(d);
+	solus.push_back(as);
+	solus.push_back(bs);
+	solus.push_back(cs);
+	solus.push_back(ds);
 	return maximo(solus);
 }
 
-long suma(list<long> ls){
-	long sol = 0;
-	while(!ls.empty()){
-		long aux = ls.front();
-		ls.pop_front();
-		sol += aux;
-	}
+int suma(const vector<int>& ls){
+	int sol = 0;
+	for(unsigned int i = 0; i<ls.size(); i++) sol += ls[i];
 	return sol;
 }
 
-long backtracking(list<long> arqA, list<long> canA, list<long> arqB, list<long> canB, vector<int>  victor){
+int backtracking(vector<int> arqA, vector<int> canA, vector<int> arqB, vector<int> canB, vector<int>  victor){
 	int acantB = arqB.size();
 	int ccantB = canB.size();
 	int acantA = arqA.size();
 	int ccantA = canA.size();
 	if(acantA== 0 && ccantA == 0) return 0;
 	if(acantB == 0 && ccantB== 0 && acantA < ccantA) return -1;//es raro (marce) Caso mas canibales que arquelogos y no hayas llevado a nadie del otro lado. es decir todos los casos no validos(Javi)
-	long lento = integranteLento(arqA, canA, arqB, canB);
+	int lento = integranteLento(arqA, canA, arqB, canB);
 	int cantot = acantA+ccantA +arqB.size()+canB.size();
-	long oruga = (lento*cantot*10000) + 1; //este es un "caso peor", de manera que cualquier camino posible sea menor a este.
+	int oruga = (lento*cantot*10000) + 1; //este es un "caso peor", de manera que cualquier camino posible sea menor a este.
 	//Es cuando solo hay canibales
 	if(!canA.empty() && arqA.empty() && canB.empty() && arqB.empty()){
 		if(canA.size() == 1) return canA.front();
-		long rapido = minimo(canA);
-		long solpar = suma(sacar(canA, rapido));//cada elemento tiene que pasar, y siempre va acompañado del mas rapido.
-		long sol = solpar + (ccantA-2)*rapido;//ccantA-2 es la cantidad de veces que vuelve el mas rapido.
+		int rapido = minimo(canA);
+		sacar(canA, rapido);
+		int solpar = suma(canA);//cada elemento tiene que pasar, y siempre va acompañado del mas rapido.
+		int sol = solpar + (ccantA-2)*rapido;//ccantA-2 es la cantidad de veces que vuelve el mas rapido.
 		return sol;
 	}
 	//Es cuando solo hay Arqueologos
 	if(canA.empty() && !arqA.empty() && canB.empty() && arqB.empty()){
 		if(arqA.size() == 1) return arqA.front();
-		long rapido = minimo(arqA);
-		long solpar = suma(sacar(arqA, rapido));//cada elemento tiene que pasar, y siempre va acompañado del mas rapido.
-		long sol = solpar + (acantA-2)*rapido;//ccantA-2 es la cantidad de veces que vuelve el mas rapido.
+		int rapido = minimo(arqA);
+		sacar(arqA, rapido);
+		int solpar = suma(arqA);//cada elemento tiene que pasar, y siempre va acompañado del mas rapido.
+		int sol = solpar + (acantA-2)*rapido;//ccantA-2 es la cantidad de veces que vuelve el mas rapido.
 		return sol;
 	}
 	victor[numeroArqueologos(arqA)+numeroCanibales(canA)] = 1;
-	vector<long> soluciones;
+	vector<int> soluciones;
+	cout<<"hice algo con victor bien piola"<<endl;
 	//ahora veo que personajes puedo enviar al lado B y que hacer con ellos
 	int segundoArqueologo=-1;
 	int segundoCanibal = -1;
 	int contador = 0;
 	int contador_dos=0;
-	for (size_t i = -1; i < arqA.size(); i++) {//itero sobre los arqueologos del lado A
-		for (size_t j = -1; j < canA.size(); j++) {//itero sobre los canibales del lado A
+	for (int i = -1; i < acantA; i++) {//itero sobre los arqueologos del lado A
+		for (int j = -1; j < ccantA; j++) {//itero sobre los canibales del lado A
 			int velIda=0;
 			if(i<0 && j<0) continue;
 			segundoArqueologo=-1;
 			segundoCanibal = -1;
-			list<long> arqAbis=arqA;
-			list<long> canAbis=canA;
+			vector<int> arqAbis=arqA;
+			vector<int> canAbis=canA;
+			vector<int> arqBbis = arqB;
+			vector<int> canBbis = canB;
+			cerr<<"estoy mandando al "<<i<<" arqueologo y al "<<j<<"canibal";
 
 			if(i>-1){
-				arqAbis.remove(arqA[i]);
+				//habia un remove fijarse si el orden importa, remove no tenemos uso sacar
+				sacar(arqAbis, arqA[i]);
 				contador=0;
 			}else{
-				contador = arqAbis.size();
+				//esto es cuando no mandas arqueologos, por lo que entendi contador tendria que ser canAbis.size()-1 ya que queres mandar un segundo canibal
+				//contador = arqAbis.size();
+				contador = canAbis.size() -1;//le resto 1 por que todavia no saque esse elemento entonces va a irse de rango si no se lo resto
 			}
 			if(j>-1){
-				conAbis.remove(conA[i]);
+				//Habia Rm(era conAbis pero creo que querias que sea canAbis
+				sacar(canAbis,canA[j]);
 				contador=0;
 			}else{
-				contador = canAbis.size();
+				//esto es cuando no mandas canibales, por lo que entendi contador tendria que ser arqAbis.size()-1 ya que queres mandar un segundo arqueologo
+				//contador = canAbis.size();
+				contador = arqAbis.size();//no le resto 1 por que ya se lo saque.
 			}
 			if(i==-1){
-				velIda=conAbis[j];
-			}else i (j==-1){
-				velIda=arqAbis[i];
+				velIda=canA[j];
+			}else if(j==-1){
+				velIda=arqA[i];
 			}else{
-				velIda=max(conAbis[j],arqAbis[i]);
+				velIda=max(canA[j],arqA[i]);
 			}
-			for (size_t segundo = -1; segundo < contador; segundo++) {//esta iteracion esta hecha para considerar si se manda un segundo arqueologo o canibal
+			cerr<<" El contador es "<<contador<<" La velocidad de Ida es "<<velIda<<endl;
+			for (int segundo = -1; segundo < contador; segundo++) {//esta iteracion esta hecha para considerar si se manda un segundo arqueologo o canibal
 																																//cuestion q si se manda uno y uno contador vale 0 y entonces mas abajo donde se chequea la variable segundo
 																																//no va a tomar en cuenta su valor q va a ser solamente -1.
-				for(int k = -1; k<arqB.size();k++){//arqueologos
-					for(int l = -1; l<canB.size(); l++){//canibales es 5 veces
+				for(int k = -1; k<acantB;k++){//arqueologos
+					for(int l = -1; l<ccantB; l++){//canibales es 5 veces
+						if(arqAbis.size()==0 && canAbis.size()==0) return velIda;
+						int velVuelta = - oruga;
 						if(l < 0 && k < 0) continue;
-						long velVuelta = - oruga;
-						long solbc = 0;
-						if(i>-1){
-							arqBbis.push_back(arqAbis[segundo]);
+						cerr<<"estan volviendo con el "<< k<<" arqueologo y el "<<l<<" canibal el segundo es "<<segundo;
+						int solbc = 0;
+						if(i>-1){//me parece que por ahi lo del segundo es mas facil pensar con un if(i<0) como no mande arqueologos
+							// mandaste arqueologos, queres ver si tenes que mandar otro, (sin contar que esto se rompe en la primer iteracion
+							//-1 no esta en rango), me parece que lo que queres hacer aca es adentro del if. lo metes dos veces no tiene sentido
+							//ademas te olvidas de sacarlo de la lista de arqAbis
+							//arqBbis.push_back(arqAbis[segundo]);
 							if(segundo>-1){
 								arqBbis.push_back(arqAbis[segundo]);
 								velIda=max(velIda,arqAbis[segundo]);
+								sacar(arqAbis, arqAbis[segundo]);//me parece que tenemos que sacarlo si lo mandamos al otro lado
 							}
 						}
 						if(j>-1){
-							conBbis.push_back(conAbis[segundo]);
+							//leer arriba analogo
+							//canBbis.push_back(canAbis[segundo]);
 							if(segundo>-1){
-								conBbis.push_back(conAbis[segundo]);
-								velIda=max(velIda,conAbis[segundo]);
+								canBbis.push_back(canAbis[segundo]);
+								velIda=max(velIda,canAbis[segundo]);
+								sacar(canAbis, canAbis[segundo]);
 							}
 						}
 						if(k>-1){
 							arqAbis.push_back(arqBbis[k]);
-							arqBbis.remove(arqBbis[k]);
+							//Habia Rm
+							sacar(arqBbis, arqBbis[k]);
 							contador_dos=0;
 						}else{
-							contador_dos = arqBbis.size();
+							//idem arriba me pa que aca va el canBbis por que no estas mandando arqueologos devuelta
+							//contador_dos = arqBbis.size();
+							contador_dos = canBbis.size()-1; //le resto uno por que no modifique canBbis todavia
 						}
 						if(l>-1){
-							conAbis.push_back(conBbis[j]);
-							conBbis.remove(conBbis[i]);
+							canAbis.push_back(canBbis[j]);
+							//Habia Rm
+							sacar(canBbis, canBbis[i]);
 							contador_dos=0;
-						}else{
-							contador_dos = conBbis.size();
+						}else{//idem arriba
+							//contador_dos = canBbis.size();
+							contador_dos = arqBbis.size();
 						}
 						if(k==-1){
-							velVuelta=conBbis[l];
-						}else i (j==-1){
-							velVuelta=arqNbis[k];
+							velVuelta=canBbis[l];
+						}else if(j==-1){
+							velVuelta=arqBbis[k];
 						}else{
-							velVuelta=max(conBbis[l],arqBbis[k]);
+							velVuelta=max(canBbis[l],arqBbis[k]);
 						}
-						for (size_t segundo_que_vuelve = -1; segundo_que_vuelve < contador_dos;segundo_que_vuelve++) {
-							if(k>-1){
-								arqBbis.push_back(arqAbis[segundo_que_vuelve]);
+						cerr<<" El contador es "<< contador_dos<<endl;
+						for (int segundo_que_vuelve = -1; segundo_que_vuelve < contador_dos;segundo_que_vuelve++) {
+							if(k>-1){//caso analogo arribaa
+								//arqBbis.push_back(arqAbis[segundo_que_vuelve]);
 								if(segundo_que_vuelve>-1){
 									arqAbis.push_back(arqBbis[segundo_que_vuelve]);
-									velVuelta=max(velVuelta,)
+									velVuelta=max(velVuelta,arqBbis[segundo_que_vuelve]);
+									sacar(arqBbis, arqBbis[segundo_que_vuelve]);
 								}
 							}
-							if(l>-1){
-								conAbis.push_back(conAbis[segundo_que_vuelve]);
+							if(l>-1){//casoAnalogoarriba me parece tambien que es canAbisPushback(canBbis[])
+								//canAbis.push_back(canAbis[segundo_que_vuelve]);
 								if(segundo_que_vuelve>-1){
-									conAbis.push_back(conAbis[segundo_que_vuelve]);
+									canAbis.push_back(canAbis[segundo_que_vuelve]);
+									velVuelta = max(velVuelta,canBbis[segundo_que_vuelve]);
+									sacar(canBbis, canBbis[segundo_que_vuelve]);
 								}
 							}
 						if(victor[numeroArqueologos(arqAbis)+numeroCanibales(canAbis)] == 0){
@@ -379,34 +394,34 @@ long backtracking(list<long> arqA, list<long> canA, list<long> arqB, list<long> 
 			}
 		}
 	}
-	vector<long> solrec;
+	vector<int> solrec;
 	for(unsigned int i = 0; i<soluciones.size(); i++){
 		if(soluciones[i] >= 0) solrec.push_back(soluciones[i]);
 	}
 	if(solrec.empty()) return -1;
-	long sol = solrec[0];
+	int sol = solrec[0];
 	for(unsigned int i = 0; i<solrec.size(); i++){
 		if(solrec[i] < sol) sol = solrec[i];
 	}
 	return sol;
 }
 
-long solucion(const list<long>& arq,const list<long>& can){
-	list<long> arqB;
-	list<long> canB;
+int solucion(const vector<int>& arq,const vector<int>& can){
+	vector<int> arqB;
+	vector<int> canB;
 	vector<int> n(can.size() +1, 0);
 	//vector< vector<int> > matriz(arq.size()+1, n);
 	vector<int> victor(1<<(arq.size()+can.size()-1), 0);
-
+cout<<"cree victor entro en BC"<<endl;
 	//la matriz chequea que esa combinacion de arqueologos/canibales no hayan esperado del lado A antes.
 	return backtracking(arq, can, arqB, canB, victor);
 }
 
-/*
+
 int main(int argc, char *argv[]){
 
-    list<long> arqA;
-    list<long> canA;
+    vector<int> arqA;
+    vector<int> canA;
 
 
 
@@ -418,5 +433,3 @@ int main(int argc, char *argv[]){
     return 0;
 
 }
-
-*/
