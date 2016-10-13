@@ -14,7 +14,7 @@ int indiceCanibal(int velocidad){
 	size_t i = 0;
 	int res=-1;
 	while ( i < canibales.size()) {
-		if(canibales[i] ==velocidad ){
+		if(canibales[i] == velocidad ){
 			res=i;
 			i=canibales.size();
 		}
@@ -37,7 +37,7 @@ int indiceArqueologo(int velocidad){
 }
 
 int mascaraCanibal(int velocidad){
- return 1<<(arqueologos.size() +indiceCanibal(velocidad));
+ return 1<<(arqueologos.size()  +indiceCanibal(velocidad));
 }
 int mascaraArqueologo(int velocidad){
  return 1<<indiceArqueologo(velocidad);
@@ -91,7 +91,7 @@ void lecturaDatos(string input, vector<int>& arq, vector<int>& can){
 void sacar(vector<int>& ls, int elem){
 	for(unsigned int i = 0; i<ls.size();i++){
 		if(ls[i] == elem){
-			ls[i] = ls[ls.size()];
+			ls[i] = ls[ls.size()-1];
 			ls.pop_back();
 			break;
 		}
@@ -234,6 +234,21 @@ int suma(const vector<int>& ls){
 	return sol;
 }
 
+void Imprimir(vector<int> arA, vector<int> caA, vector<int> arB, vector<int> caB){
+	cout<<"Del lado A tenemos arqueologos: ";
+	for(unsigned int i = 0; i < arA.size(); i++) cout<<arA[i]<<" ";
+	cout<<endl;
+	cout<<"Del lado A tenemos canibales: ";
+	for(unsigned int i = 0; i< caA.size();i++) cout<<caA[i]<<" ";
+	cout<<endl;
+	cout<<"Del lado B tenemos arqueologos: ";
+	for(unsigned int i = 0;i<arB.size();i++) cout<<arB[i]<<" "; 
+	cout<<endl;
+	cout<<"Del lado B tenemos canibales: ";
+	for(unsigned int i =0;i<caB.size();i++)cout<<caB[i]<<" ";
+	cout<<endl;
+}
+
 int backtracking(vector<int> arqA, vector<int> canA, vector<int> arqB, vector<int> canB, vector<int>  victor){
 	int acantB = arqB.size();
 	int ccantB = canB.size();
@@ -262,10 +277,11 @@ int backtracking(vector<int> arqA, vector<int> canA, vector<int> arqB, vector<in
 		int sol = solpar + (acantA-2)*rapido;//ccantA-2 es la cantidad de veces que vuelve el mas rapido.
 		return sol;
 	}
+	if(victor[numeroArqueologos(arqA)+numeroCanibales(canA)] == 1)return -1;
+	
 	victor[numeroArqueologos(arqA)+numeroCanibales(canA)] = 1;
 	vector<int> soluciones;
-	cout<<"hice algo con victor bien piola, marque esta posicion "<<numeroArqueologos(arqA)+numeroCanibales(canA) <<endl;
-	//ahora veo que personajes puedo enviar al lado B y que hacer con ellos
+	//cout<<"hice algo con victor bien piola, marque esta posicion "<<numeroArqueologos(arqA)+numeroCanibales(canA) <<endl;
 	int segundoArqueologo=-1;
 	int segundoCanibal = -1;
 	int contador = 0;
@@ -280,29 +296,18 @@ int backtracking(vector<int> arqA, vector<int> canA, vector<int> arqB, vector<in
 			vector<int> canAbis=canA;
 			vector<int> arqBbis = arqB;
 			vector<int> canBbis = canB;
-			cerr<<"La cantidad de arq y can del lado A es "<<acantA<<", "<<ccantA<<endl;
-			cerr<<"estoy mandando al "<<i<<" arqueologo y al "<<j<<" canibal";
-
 			if(i>-1){
-				//habia un remove fijarse si el orden importa, remove no tenemos uso sacar
 				sacar(arqAbis, arqA[i]);
-				//no lo metiamos, no tiene sentido.
 				arqBbis.push_back(arqA[i]);
 				contador=0;
 			}else{
-				//esto es cuando no mandas arqueologos, por lo que entendi contador tendria que ser canAbis.size()-1 ya que queres mandar un segundo canibal
-				//contador = arqAbis.size();
 				contador = canAbis.size() -1;//le resto 1 por que todavia no saque esse elemento entonces va a irse de rango si no se lo resto
 			}
 			if(j>-1){
-				//Habia Rm(era conAbis pero creo que querias que sea canAbis
 				sacar(canAbis,canA[j]);
-				//no lo metiamos antes, lo cual no tiene sentido
 				canBbis.push_back(canA[j]);
 				contador=0;
 			}else{
-				//esto es cuando no mandas canibales, por lo que entendi contador tendria que ser arqAbis.size()-1 ya que queres mandar un segundo arqueologo
-				//contador = canAbis.size();
 				contador = arqAbis.size();//no le resto 1 por que ya se lo saque.
 			}
 			if(i==-1){
@@ -314,7 +319,35 @@ int backtracking(vector<int> arqA, vector<int> canA, vector<int> arqB, vector<in
 			}
 			acantB = arqBbis.size();
 			ccantB = canBbis.size();
-			cerr<<" El contador es "<<contador<<" La velocidad de Ida es "<<velIda<<endl;
+			acantA = arqAbis.size();
+			ccantA = canAbis.size();/*
+			int ccantBaux = ccantB;
+			int ccantAaux = ccantA;
+			int acantBaux = acantB;
+			int acantAaux = acantA;
+			//si aca pregunto si pueden salir y si no pueden salir continue...
+			int canSalen = 0;
+			int arqSalen = 0;
+			if(i == -1){
+				canSalen = 1;
+				if(contador > -1){
+					canSalen = 2;
+					ccantAaux = ccantA-1;
+					ccantBaux = ccantB +1;
+			}
+			else{
+				arqSalen = 1;
+				if( contador > -1){
+					acantAaux = acantA -1;
+					acantBaux = acantB + 1;
+					arqSalen = 2;
+				}else{
+					canSalen = 1;
+				}
+			}
+			if(!puedensalir(canSalen, arqSalen, acantAaux, ccantAaux, acantBaux, ccantBaux)) continue;
+			*///cout<<"que tiene cada lado pre volver y pre segundo"<<endl;
+			//Imprimir(arqAbis, canAbis, arqBbis, canBbis);
 			for (int segundo = -1; segundo < contador; segundo++) {//esta iteracion esta hecha para considerar si se manda un segundo arqueologo o canibal
 											//cuestion q si se manda uno y uno contador vale 0 y entonces mas abajo donde se chequea la variable segundo
 											//no va a tomar en cuenta su valor q va a ser solamente -1.
@@ -322,53 +355,45 @@ int backtracking(vector<int> arqA, vector<int> canA, vector<int> arqB, vector<in
 					for(int l = -1; l<ccantB; l++){//canibales es 5 veces
 						if(arqAbis.size()==0 && canAbis.size()==0) return velIda;
 						int velVuelta = - oruga;
-						//cree copias, por que si no estas devolviendo sobre cosas ya devueltas todo un quilombo, lo que aux era bis.
 						vector<int> arqAaux(arqAbis);
 						vector<int> canAaux(canAbis);
 						vector<int> arqBaux(arqBbis);
 						vector<int> canBaux(canBbis);
-						cerr<<"estan volviendo con el "<< k<<" arqueologo y el "<<l<<" canibal el segundo es "<<segundo<<endl;
 						if(l < 0 && k < 0) continue;
 						int solbc = 0;
-						if(i>-1){//me parece que por ahi lo del segundo es mas facil pensar con un if(i<0) como no mande arqueologos
-							// mandaste arqueologos, queres ver si tenes que mandar otro, (sin contar que esto se rompe en la primer iteracion
-							//-1 no esta en rango), me parece que lo que queres hacer aca es adentro del if. lo metes dos veces no tiene sentido
-							//ademas te olvidas de sacarlo de la lista de arqAbis
-							//arqBbis.push_back(arqAbis[segundo]);
+						if(i>-1){
 							if(segundo>-1){
 								arqBaux.push_back(arqAbis[segundo]);
 								velIda=max(velIda,arqAbis[segundo]);
-								cerr<<"en realidad estoy mandando dos arquelogos su velocidad de ida es "<<velIda<<endl;
 								sacar(arqAaux, arqAbis[segundo]);//me parece que tenemos que sacarlo si lo mandamos al otro lado
 							}
 						}
 						if(j>-1){
-							//leer arriba analogo
-							//canBbis.push_back(canAbis[segundo]);
 							if(segundo>-1){
 								canBaux.push_back(canAbis[segundo]);
 								velIda=max(velIda,canAbis[segundo]);
-								cerr<<"en realidad estoy mandando dos canibales su velocidad de ida es "<<velIda<<endl;
 								sacar(canAaux, canAbis[segundo]);
 							}
 						}
 						if(k>-1){
+							//cout<<" tengo "<<arqBaux.size()<<" arq en lado B"<<endl;
 							arqAaux.push_back(arqBbis[k]);
-							//Habia Rm
 							sacar(arqBaux, arqBbis[k]);
+							//cout<<" tengo "<<arqBaux.size()<<" arq en lado Bpost"<<endl;
 							contador_dos=0;
 						}else{
-							//idem arriba me pa que aca va el canBbis por que no estas mandando arqueologos devuelta
-							//contador_dos = arqBbis.size();
 							contador_dos = canBbis.size()-1; //le resto uno por que no modifique canBbis todavia
 						}
 						if(l>-1){
-							canAaux.push_back(canBbis[j]);
-							//Habia Rm
-							sacar(canBaux, canBbis[i]);
+							canAaux.push_back(canBbis[l]);
+							//cout<<"que tiene el canBaux antes de sacar ?"<<canBbis[i]<<endl;
+							//for(unsigned int i = 0; i < canBaux.size();i++)cout<< canBaux[i]<<" ";
+							sacar(canBaux, canBbis[l]);
+							//cout<<"\n despues de sacar \n";
+							//for(unsigned int i = 0; i < canBaux.size();i++)cout<< canBaux[i]<<" ";
+							//cout<<"endl;
 							contador_dos=0;
 						}else{//idem arriba
-							//contador_dos = canBbis.size();
 							contador_dos = arqBbis.size();
 						}
 						if(k==-1){
@@ -378,33 +403,34 @@ int backtracking(vector<int> arqA, vector<int> canA, vector<int> arqB, vector<in
 						}else{
 							velVuelta=max(canBbis[l],arqBbis[k]);
 						}
-						cerr<<" El contador es "<< contador_dos;
 						for (int segundo_que_vuelve = -1; segundo_que_vuelve < contador_dos;segundo_que_vuelve++) {
 							if(k>-1){//caso analogo arribaa
-								//arqBbis.push_back(arqAbis[segundo_que_vuelve]);
 								if(segundo_que_vuelve>-1){
+									if(k == segundo_que_vuelve) continue;
 									arqAaux.push_back(arqBbis[segundo_que_vuelve]);
 									velVuelta=max(velVuelta,arqBbis[segundo_que_vuelve]);
 									sacar(arqBaux, arqBbis[segundo_que_vuelve]);
 								}
 							}
 							if(l>-1){//casoAnalogoarriba me parece tambien que es canAbisPushback(canBbis[])
-								//canAbis.push_back(canAbis[segundo_que_vuelve]);
 								if(segundo_que_vuelve>-1){
+									if(l == segundo_que_vuelve) continue;
 									canAaux.push_back(canAbis[segundo_que_vuelve]);
 									velVuelta = max(velVuelta,canBbis[segundo_que_vuelve]);
 									sacar(canBaux, canBbis[segundo_que_vuelve]);
 								}
 							}
-						cerr<<" la velocidad de vuelta es "<<velVuelta<<endl;
-						cerr<<"el tamaño de victor es "<<victor.size()<< " y quiero acceder a "<< numeroArqueologos(arqAaux)+numeroCanibales(canAaux)<<endl;
+						//cerr<<"el tamaño de victor es "<<victor.size()<< " y quiero acceder a "<< numeroArqueologos(arqAaux)+numeroCanibales(canAaux);
+						//cerr<<"quiero  ver que tengo de cada lado del puente con enviando "<<i<<" arq, enviando can "<<j <<", volviendo "<<k<<" arq, volveindo can "<<l<<" acaso envie dos canibales o arq? "<<segundo<<"acaso volvieron dos can o arq? "<<segundo_que_vuelve<<endl;
+						Imprimir(arqAaux, canAaux, arqBaux, canBaux);
 						if(victor[numeroArqueologos(arqAaux)+numeroCanibales(canAaux)] == 0){
-							cerr<<"victor funciono entro en el bc"<<endl;
+							//cerr<<"Entre"<<endl;
+							//cerr<<"victor funciono entro en el bc acceduendo a "<<numeroArqueologos(arqAaux)+numeroCanibales(canAaux)<<endl;
 							solbc = backtracking(arqAaux, canAaux, arqBaux, canBaux, victor);
 							if(solbc >-1){
 								soluciones.push_back(velIda + velVuelta + solbc);
 							}
-						}
+						}cerr<<endl;
 						}
 					}
 				}
@@ -428,9 +454,9 @@ int solucion(const vector<int>& arq,const vector<int>& can){
 	vector<int> canB;
 	vector<int> n(can.size() +1, 0);
 	//vector< vector<int> > matriz(arq.size()+1, n);
-	cerr<<"que pija es 1<<(arq.size()+can.size()-1)? "<< (1<<(arq.size()+can.size()))<<endl;
+	//cerr<<"que pija es 1<<(arq.size()+can.size()-1)? "<< (1<<(arq.size()+can.size()))<<endl;
 	vector<int> victor(1<<(arq.size()+can.size()), 0);
-cout<<"cree victor entro en BC"<<endl;
+//cout<<"cree victor entro en BC"<<endl;
 	//la matriz chequea que esa combinacion de arqueologos/canibales no hayan esperado del lado A antes.
 	return backtracking(arq, can, arqB, canB, victor);
 }

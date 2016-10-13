@@ -300,7 +300,7 @@ long solucionP(const list<long>& arq,const list<long>& can){
 	return backtrackingP(arq, can, arqB, canB, matriz);
 }
 
-/*
+
 int main(int argc, char *argv[]){
     
     list<long> arqA;
@@ -311,10 +311,10 @@ int main(int argc, char *argv[]){
     string input = argv[1];    
     lecturaDatosP(input, arqA,canA);
  
-	cout<< solucion(arqA, canA)<<endl;
+	cout<< solucionP(arqA, canA)<<endl;
 
     return 0;
 
 }
 
-*/
+
