@@ -74,73 +74,97 @@ A lo largo de esta sección renombraremos tipos, para facilitar la lectura.
 \\
 Tambien nos ahorraremos algunos pseudocódigos que son casos análogos entre Arqueólogos y caníbales.
 
-\begin{algorithm}[H]{\textbf{cant}(ls: vint) $\to$ $res$ : Nat }
+\begin{algorithm}[H]{\textbf{BT}() }
 	\begin{algorithmic}
-	\State aux $\gets$ 0
-	\State Desde i = 0 hasta Tam(ls)-1
-	\State \quad \textbf{if}(ls[i] != 0)
-	\State \qquad aux $\gets$ aux+1
-	\State \quad \textbf{fi}
-	\State res $\gets$ aux
+		\State Para todo arqueologo en el lado A
+		\State \quad  velArq=velocidad del aqueologo
+		\State \quad muevo arqueologo al lado B
+		\State \quad voyConA(velArq)
+		\State \quad voyConC(velArq)
+		\State \quad vuelvo al arqueologo al lado A
+		\State fin para
+		\State para todo canibal en el lado A
+		\State \quad velCan = velocidad del Canibal
+		\State \quad muevo al canibal al lado B
+		\State \quad voyConC(velArq)
+		\State \quad  vuelvo el canibal al lado A
+		\State fin para
 	\end{algorithmic}
 \end{algorithm}
 
-\begin{algorithm}[H]{\textbf{esValida}(instancia: ins) $\to$ $res$ : bool }
+\begin{algorithm}[H]{\textbf{voyConA}(int valElem1)}
 	\begin{algorithmic}
-	 res $\gets$ (cant($\pi_1$(instancia)) $\geq$ cant($\pi_2$(instancia))) $\lor$ (cant($\pi_1$(instancia)) = 0
-	\end{algorithmic}
-\end{algorithm}
-
-\begin{algorithm}[H]{\textbf{voyConA}(\textbf{In} VelElem1:Nat, \textbf{InOut} mMinActual:Nat, \textbf{InOut} ArqA: vint, \textbf{InOut} ArqB: vint)}
-	\begin{algorithmic}
-	\State Desde i = 0 hasta Tam(ArqA)-1
-	\State \quad \textbf{if}(ArqA[i] > 0)
-	\State \qquad valElem $\gets$ ArqA[i]
+	\State Para todo arqueologo en A
+	\State \qquad valElem $\gets$ velocidad del arqueologo
 	\State \qquad maximo $\gets$ max(valElem, velElem1)
 	\State \qquad mMinActual $\gets$ mMinActual + maximo
-	\State \qquad ArqB[i] = valElem
-	\State \qquad ArqA[i] = 0
+	\State \qquad muevo al aqueologo al lado B
 	\State \qquad VuelvoCon()
-	\State \qquad ArqB[i] = 0
-	\State \qquad ArqA[i] = valElem
-	\State \quad \textbf{fi} 
+	\State \qquad mMinActual $\gets$ mMinActual - maximo
+	\State \qquad vuelvo al arqueologo al lado A	
+	\State finPara
+	\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}[H]{\textbf{voyConC}(int valElem1)}
+	\begin{algorithmic}
+		\State  analogo a voyConA pero en lugar de arqueologos utilizamos canibales
+	\end{algorithmic}
+\end{algorithm}
+ 	
+\begin{algorithm}[H]{\textbf{esValida}(instancia: ins) $\to$ $res$ : bool }
+	\begin{algorithmic}
+	 res $\gets$ (cantidad de arqueologos de un lado$\geq$ cantidad de canibales del mismo lado) $\lor$ cantidad de arqueologos del lado es 0)
 	\end{algorithmic}
 \end{algorithm}
 
 
-
-\begin{algorithm}[H]{\textbf{BT}(M: Matriz nula de dim($|N_A|$+1 x $|M_A|$+1), $N_A, M_A, N_{B}, M_{B}$: Listas) }
+\begin{algorithm}[H]{\textbf{vuelvoCon}(\textbf{InOut} mMinActual:Nat, \textbf{InOut} mMinimoGlobal:Nat, \textbf{InOut} ArqA: vint, \textbf{InOut} ArqB: vint), \textbf{InOut} canA: vint, \textbf{InOut} canB: vint), \textbf{InOut} MIsntanciasSet: instancias}
 	\begin{algorithmic}
-		\If{$N_A$ es vacía}
-			\State min $\gets$  mínimo de $M_A$
-			\State devolver min*($|M_B|-1$)+ Sumatoria( $M_B$ sin el elemento min)
-		\EndIf
-		\State M[$|N_A$|+1][$|M_A|$+1] $\gets$1
-		\State T $\gets$ []
-		
-		\While{i= 0,1,2}
-			\While{j= 0,..,2-i}
-				\If{¬(i$\eq$j$\eq$0) PuedenSalir(i,j,$|N_A|,|M_A|,|N_{B}|,|M_{B}|$)}
-					\State se le quitan i elementos a $N_A$ y se le agregan a $N_B$
-					\State se le quitan j elementos a $M_A$ y se le agregan a $M_B$
-					\State (si i,j=1 se quita el más rápido, si i,j=2 se quitan el más rápido y el más lento)
-					\State t $\gets$ Max(de los elementos transferidos)
-					\While{k=0; k$\leq$2; k++}
-						\While{l=0; k+l$\leq$2; l++}
-							\If{PuedenSalir(k,l,$|N_A|,|M_A|,|N_{B}|,|M_{B}|$) $\land$ M[$N_A$+k][$M_A$+l]=0} %verificar esto
-								\State se le quitan k elementos a $N_B$ y se le agregan a $N_A$
-								\State se le quitan l elementos a $M_B$ y se le agregan a $M_A$
-								\State (se quitan los dos más rápidos)
-								\State t=t+Max(de los elementos transferidos)+ BT(M,$N_A,M_A,N_B,M_B$)
-								\State T.Agrergar(t)
-							\EndIf
-						\EndWhile
-					\EndWhile
-				\EndIf
-			\EndWhile
-		\EndWhile
-		\State devolver Min(T)
-
+	\State Sí no esValida(lado A) o no esValida(lado B)	
+	\State \quad Interrumpi
+	\State finSi
+	\State Sí la cantidad de arqueologos en A es cero y la cantidad de canibales en A es cero
+	\State \quad Sí mMinActual < mMinimoGlobal
+	\State \qquad mMinimoGlobal $\gets$ mMinActual
+	\State \quad finSi
+	\State  \quad Interrumpi
+	\State finSi
+	\State Para todo arqueologo en B 
+	\State \qquad valElem $\gets$ velocidad del arqueologo
+	\State \qquad mando al arqueologo al lado A	
+	\State \qquad Sí esta instancia no esta en instancias
+	\State \qquad \quad mMinActual $\gets$ mMinActual + valElem
+	\State \qquad \quad instancias $\cup$ \{ instancia \}
+	\State \qquad \quad BT()
+	\State \qquad \quad instancias - \{ instancia \}
+	\State \qquad \quad mMinActual $\gets$ mMinActual - valElem
+	\State \qquad finSi
+	\State \qquad vuelvo al arqueologo al lado B
+	\State \quad finSi
+	\State finPara
+	\State ParaTodo canibal en B
+	\State \quad \textbf{if}(canB[i] > 0)
+	\State \qquad analogo al for anterior pero con canibales
+	\State finPara
+	\State Para Todo arqueologo en B 
+	\State \quad valElemArq $\gets$ velocidad del arqueologo 
+	\State \qquad mando al arqueologo al lado A
+	\State \qquad Para todo canibal en B
+	\State \qquad \quad valElemCan $\gets$ velocidad del canibal	
+	\State \qquad \qquad mando al canibal al lado A
+	\State \qquad \qquad Si esta nueva instancia no esta en instancias
+	\State \qquad \qquad \quad max $\gets$ Maximo(valElemArq, valElemCan)
+	\State \qquad \qquad \quad mMinAcutal $\gets$ mMinActual + max
+	\State \qquad \qquad \quad BT()
+	\State \qquad \qquad \quad instancias - \{ instancia \}
+	\State \qquad \qquad \quad mMinActual $\gets$ mMinActual - maximo
+	\State \qquad \qquad finSi
+	\State \qquad \qquad vuelvo al canibal al lado B
+	\State \qquad vuelvo al aqueologo al lado B 
+	\State \qquad finPara
+	\State finPara
+																		
 	\end{algorithmic}
 \end{algorithm}
 
