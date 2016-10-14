@@ -49,19 +49,13 @@ Cada individuo consta de la propiedad ´´velocidad", un número natural que ind
 Formalmente queremos encontrar la solución óptima para minimizar el tiempo que toma atravesar un trayecto por dos conjuntos de individuos cuando uno de ellos no puede ser mayor al otro(exceptuando el caso en que uno de ellos es vacío).
 
 \subsection{Explicación de la solución}
-Para resolver este problema, usamos la técnica de backtracking: utilizamos una función recursiva para poder probar todos los caminos posibles que no generen situaciones en las cuales hay mas caníbales que arqueólogos en algún lado del puente. Finalmente elegímos el mínimo de los subcaminos recorridos.
+Para resolver este problema, usamos la técnica de backtracking: utilizamos una función recursiva para poder probar todos los caminos posibles que no generen situaciones en las cuales hay mas caníbales que arqueólogos en algún lado del puente (en estas situaciones se considera que el problema no tiene solución entonces devolvemos -1). al final de cada camino guardamos su valor para poder ir comparandolo con los demas y de esta forma siempre quedarnos con el menor.
 
 Para empezar, todos los casos donde ya se comience de un lado del puente con más caníbales que arqueólogos no tienen solución.
-El caso en el cual no haya arquéologos usamos una instancia aparte que conlleva muchas condiciones booleanas. Este caso se resuelve simplemente utilizando al caníbal más rápido para llevar a los demás. Para ver que esto es óptimo, basta ver que todos los individuos deben pasar al menos una vez. Para cualquier ida y vuelta la linterna, que vaya y vuelva el caníbal más rápido genera el mismo estado que cualquier otra opción, con un menor ´´costo".
 
- 
-Para los demás casos hay que analizar los cinco ´´movimientos"  válidos existentes para atravesar el puente: Pasar dos caníbales, dos pasar arqueólogos,pasar sólo un arqueólogo, pasar sólo un canibal o pasar un arqueólogo y un caníbal.
-Decidimos pensar la ida y vuelta de la linterna como un sólo estado, para no tener que registrar la ubicación de la misma.
-Para guardar la información de posiciones vamos a registrar el estado del lado izquierdo(o inicial) del puente, ya que cualquier individuo que no esté de ese lado, necesariamente estará del otro. Utilizamos una matriz de dimensión N+1xM+1 y cuatro listas($N_A$ y $M_A$ para indicar quiénes estan en el punto de partida y $N_B$ y$ M_B$ para el punto de llegada). Cada vez que modifiquemos $N_A$ y $M_B$ se entrará en la recursión copiando la matriz y registrando en la misma el nuevo estado recorrido. 
-Todos los resultados posibles se guardan en una lista para poder finalmente devolver el valor minimo de la misma el cual será nuestra solución.
-La función PuedenSalir verifica que, en caso de que cruzen el puente los individuos indicados, no generará problemas en ninguno de los lados del puente.
+ en cada rama del backtracking guardamos en un set las instancias que vamos generando para no generar loops. Una instancia serían los canivales de y arqueologos de un solo lado  del puente. (los mismos son distinguibles, es decir, diferenciamos dos canivales o arqueolos entre sí. De esta forma puede que dos instancias que tengan la misma cantidad de individuos sean distintas.)
 
-
+Nuestra solución va generando todas las posibles soluciones combinando de todas las maneras posibles las formas de ir y volver del puente hasta lograr pasar a todos los individuos al otro lado. para poder guardar la información de los mismos utilizamos dos vectores, uno para los arqueologos y otro para los canivales, ambos con el largo que corresponde a la cantidad de individuos de cada tipo. En sus posiciones se guardan las velocidades. Las soluciones se van creando a partir de ir sumando la velocidad (en caso de que se translade un individuo será la que le corresponda al mismo, de ser dos los que se transladan se suma la velocidad maxima) en cada movimiento. Las mismas se guardan de manera parcial para poder compararlas con una solucion general e ir reemplazandola siempre por la solución menor. 
 
 \subsection{Pseudocódigo}
 
@@ -78,104 +72,92 @@ Tambien nos ahorraremos algunos pseudocódigos que son casos análogos entre Arq
 	\begin{algorithmic}
 		\State Para todo arqueologo en el lado A
 		\State \quad  velArq=velocidad del aqueologo
+		\State \quad muevo arqueologo al lado B
 		\State \quad voyConA(velArq)
 		\State \quad voyConC(velArq)
+		\State \quad vuelvo al arqueologo al lado A
 		\State fin para
 		\State para todo canibal en el lado A
 		\State \quad velCan = velocidad del Canibal
+		\State \quad muevo al canibal al lado B
 		\State \quad voyConC(velArq)
+		\State \quad  vuelvo el canibal al lado A
 		\State fin para
 	\end{algorithmic}
 \end{algorithm}
 
-\begin{algorithm}[H]{\textbf{voyConA}()}
+\begin{algorithm}[H]{\textbf{voyConA}(int valElem1)}
 	\begin{algorithmic}
-	\State Desde i = 0 hasta Tam(ArqA)-1
-	\State \quad \textbf{if}(ArqA[i] > 0)
-	\State \qquad valElem $\gets$ ArqA[i]
+	\State Para todo arqueologo en A
+	\State \qquad valElem $\gets$ velocidad del arqueologo
 	\State \qquad maximo $\gets$ max(valElem, velElem1)
 	\State \qquad mMinActual $\gets$ mMinActual + maximo
-	\State \qquad ArqB[i] = valElem
-	\State \qquad ArqA[i] = 0
+	\State \qquad muevo al aqueologo al lado B
 	\State \qquad VuelvoCon()
-	\State \qquad ArqB[i] = 0
-	\State \qquad ArqA[i] = valElem
-	\State \quad \textbf{fi} 
+	\State \qquad mMinActual $\gets$ mMinActual - maximo
+	\State \qquad vuelvo al arqueologo al lado A	
+	\State finPara
 	\end{algorithmic}
 \end{algorithm}
 
-
+\begin{algorithm}[H]{\textbf{voyConC}(int valElem1)}
+	\begin{algorithmic}
+		\State  analogo a voyConA pero en lugar de arqueologos utilizamos canibales
+	\end{algorithmic}
+\end{algorithm}
+ 	
 \begin{algorithm}[H]{\textbf{esValida}(instancia: ins) $\to$ $res$ : bool }
 	\begin{algorithmic}
-	 res $\gets$ (cant($\pi_1$(instancia)) $\geq$ cant($\pi_2$(instancia))) $\lor$ (cant($\pi_1$(instancia)) = 0
+	 res $\gets$ (cantidad de arqueologos de un lado$\geq$ cantidad de canibales del mismo lado) $\lor$ cantidad de arqueologos del lado es 0)
 	\end{algorithmic}
 \end{algorithm}
 
 
 \begin{algorithm}[H]{\textbf{vuelvoCon}(\textbf{InOut} mMinActual:Nat, \textbf{InOut} mMinimoGlobal:Nat, \textbf{InOut} ArqA: vint, \textbf{InOut} ArqB: vint), \textbf{InOut} canA: vint, \textbf{InOut} canB: vint), \textbf{InOut} MIsntanciasSet: instancias}
 	\begin{algorithmic}
-	\State instanciaA $\gets$ (arqA, canA)
-	\State instanciaB $\gets$ (arqB, canB)
-	\State \textbf{if}($\neg$(esValida(instanciaA) $\land$ esValida(instanciaB)))
+	\State Sí no esValida(lado A) o no esValida(lado B)	
 	\State \quad Interrumpi
-	\State \textbf{fi}
-	\State \textbf{if}(cant(arqB) = TAM(arqB) $\land$ cant(canB) = TAM(canB))
-	\State \quad \textbf{if}(mMinActual < mMinimoGlobal)
+	\State finSi
+	\State Sí la cantidad de arqueologos en A es cero y la cantidad de canibales en A es cero
+	\State \quad Sí mMinActual < mMinimoGlobal
 	\State \qquad mMinimoGlobal $\gets$ mMinActual
-	\State \quad \textbf{if}
-	\State  \quad Interrumpi
-	\State \textbf{fi}
-	\State Desde i = 0 hasta TAM(arqB) -1 \comment Hacemos volver a todos los arq
-	\State \quad \textbf{if}(arqB[i] > 0)
-	\State \qquad valElem $\gets$ arqB[i]
-	\State \qquad arqA[i] $\gets$ valElem
-	\State \qquad arqB[i] $\gets$ 0
-	\State \qquad instancia $\gets$ (arqA, canA)
-	\State \qquad \textbf{if}(instancia $\not$\in instancias)
-	\State \qquad \quad mMinActual $\gets$ mMinActual + valElem
-	\State \qquad \quad instancias $\cup$ \{ instancia \}
+	\State \quad finSi
+	\State \quad Interrumpi
+	\State finSi
+	\State Para todo arqueologo en B 
+	\State \quad valElem $\gets$ velocidad del arqueologo
+	\State \quad mando al arqueologo al lado A	
+	\State \quad Sí esta instancia no esta en instancias
+	\State \qquad  mMinActual $\gets$ mMinActual + valElem
+	\State \qquad  instancias $\cup$ \{ instancia \}
+	\State \qquad  BT()
+	\State \qquad  instancias - \{ instancia \}
+	\State \qquad  mMinActual $\gets$ mMinActual - valElem
+	\State \quad finSi
+	\State \quad vuelvo al arqueologo al lado B
+	\State finPara
+	\State ParaTodo canibal en B
+	\State \quad \textbf{si}(canB[i] es positivo)
+	\State \qquad analogo al for anterior pero con canibales
+	\State finSi
+	\State finPara
+	\State Para Todo arqueologo en B 
+	\State \quad valElemArq $\gets$ velocidad del arqueologo 
+	\State \quad mando al arqueologo al lado A
+	\State \quad Para todo canibal en B
+	\State \qquad valElemCan $\gets$ velocidad del canibal	
+	\State \qquad mando al canibal al lado A
+	\State \qquad  Si esta nueva instancia no esta en instancias
+	\State \qquad \quad max $\gets$ Maximo(valElemArq, valElemCan)
+	\State \qquad \quad mMinAcutal $\gets$ mMinActual + max
 	\State \qquad \quad BT()
 	\State \qquad \quad instancias - \{ instancia \}
-	\State \qquad \quad mMinActual $\gets$ mMinActual - valElem
-	\State \qquad \textbf{fi}
-	\State \qquad arqA[i] $\gets$ 0
-	\State \qquad arqB[i] $\gets$ valElem
-	\State \quad \textbf{fi}
-	\State
-	\State Desde i = 0 hasta Tam(canB) -1
-	\State \quad \textbf{if}(canB[i] > 0)
-	\State \qquad valElem $\gets$ canB[i]
-	\State \qquad canA[i] $\gets$ valElem
-	\State \qquad canB[i] $\gets$ 0
-	\State \qquad instancia $\gets$ (arqA, canA)
-	\State \qquad \textbf{if}(instancia $\not$\in instancias)
-	\State \qquad \quad mMinActual $\gets$ mMinActual + valElem
-	\State \qquad \quad instancias $\cup$ \{ instancia \}
-	\State \qquad \quad BT()
-	\State \qquad \quad instancias - \{ instancia \}
-	\State \qquad \quad mMinActual $\gets$ mMinActual - valElem
-	\State \qquad \textbf{fi}
-	\State \qquad canA[i] $\gets$ 0
-	\State \qquad canB[i] $\gets$ valElem
-	\State \quad \textbf{fi}
-	\State
-	\State Desde i = 0 hasta Tam(ArqB)-1
-	\State \quad valElemArq $\gets$ arqB[i]
-	\State \quad \textbf{if}(valElemArq > 0)
-	\State \qquad arqA[i] $\gets$ valElemArq
-	\State \qquad arqB[i] $\gets$ 0
-	\State \qquad Desde j = 0 hasta Tam(canB)-1
-	\State \qquad \quad valElemCan $\gets$ canB[j]
-	\State \qquad \quad \textbf{if}(valElemCan > 0)
-	\State \qquad \quad 
-	\State \qquad \qquad canA[j] $\gets$ valElemCan
-	\State \qquad \qquad canB[j] $\gets$ 0
-	\State \qquad \qquad instancia $\gets$ (arqA, canA)
-	\State \qquad \qquad \textbf{if}(instancia $\not$\in instancias)
-	\State \qquad \qquad \quad max $\gets$ Maximo(valElemArq, valElemCan)
-	\State \qquad \qquad \quad mMinAcutal $\gets$ mMinActual + max
-	\State \qquad \qquad \quad BT()
-	\State 	
+	\State \qquad \quad mMinActual $\gets$ mMinActual - maximo
+	\State \qquad finSi
+	\State \qquad vuelvo al canibal al lado B
+	\State \qquad vuelvo al aqueologo al lado B 
+	\State \quad finPara
+	\State finPara
 																		
 	\end{algorithmic}
 \end{algorithm}
@@ -183,17 +165,21 @@ Tambien nos ahorraremos algunos pseudocódigos que son casos análogos entre Arq
 
 \subsection{Demostración de Correctitud}
 
-Para mostrar la correctitud de nuestro algoritmo queremos ver dos cosas:
+Para mostrar la correctitud de nuestro algoritmo queremos ver tres cosas cosas que el algoritmo termina, que analiza todos los casos posibles, y que devuelve el mínimo de los casos.
 \begin{itemize}
 
-	\item Recorre todos los casos: \\
-Si planteamos nuestras posibilidades como una matríz, vemos que todo lo pertinente al triángulo superior no tiene solución de manera trivial o se plantea un caso particular; estos casos son: los que hay sólo caníbales, o hay más caníbales que arquéologos desde un comienzo. Entonces nos concentraremos en el triángulo inferior.
-Al ser nuestro algoritmo una función recursiva solo terminará al llegar al caso base. Podemos ver que nuestro caso base se alcanza al obtener las dos listas inciales($N_A$, $M_A$) vacías.
-Como vemos en el primer conjunto de for, creamos  tuplas (i,j) tal que generan todas las posibles formas de pasar el puente, si esa tupla puede realmente pasar por el puente, se crea una copia de las listas $N_A$, $M_A$, $N_B$, $M_B$ donde, dependiendo del i, se sacan esa cantidad de elementos la lista $N_A$ y se ponen en $N_B$ caso análogo con j y $M$'s.
-Al generar todas las instancias del cruce del puente, ahora tenemos que saber todas las formas de volver el puente. De una forma similar a la explicada antes los últimos dos whiles funcionan tal que generan todas las formas de volver del puente.
+	\item El algoritmo termina: \\
+Para demostrar esto podemos ver que existen una cantidad finita de estados en los cuales los arquéologos y caníbales pueden estar posicionados y su camino recorrido(siempre y cuando en un mismo camino no se repitan estados). Además, el conjunto de instancias recorridas permite en un mismo camino no pasar dos veces por el mismo estado. Entonces, si por cada llamada a la función pasamos a una nueva instancia podemos concluir que existen una cantidad finita de llamadas. Por último, dentro de la función Backtracking no se desarrolla ningún ciclo infinito.
 
-	\item No hace ciclos: \\
-Nuestro algoritmo no admite ciclos puesto que tiene una condición booleana sobre la matriz, la cual no permite volver a una instancia anterior en las que esté el mismo conjunto de caníbales y arquéologos que en los casos anteriores. La misma consiste en que sólo pueden regrsar los individuos si y sólo si en la posición (i,j) (donde $i= N_A$+(los arquéologos que regresen) y $j=M_A$ + (los caníbales que regresan) ) hay un cero. Cada vez que se llama a la función recursivamente la posición inicial en el punto A es marcada con un 1. De esta forma es imposible realizar ciclos.
+
+	\item El algoritmo analiza todos los casos válidos posibles: \\
+Para ver esto alcanza con ver que, en cada llamada del Bactracking se consideran todos los movimientos válidos. Para empezar, antes de generar un movimiento de izquierda a derecha o de derecha a izquierda, se verifica que el estado en el que se encuentra es válido. Hay 3 casos que no se analizan a fondo, ya que son imposibles que den un camino mejor al que ya se encontró: por un lado, si el camino que se está generando ya es mayor a igual al mínimo camino generado, este nunca va a poder ser el mínimo global, ya que se todas las sumas son positivas.
+Además, nunca es óptimo volver con dos del mismo tipo, ya que si se puede volver con dos caníbales/arqueólogos, también se puede volver con el mínimo de los dos, generando un camino más óptimo que el generado en primer lugar.
+
+	\item El algoritmo devuelve el mínimo: \\
+Cuando un camino llega a pasar todos los individuos al otro lado del puente, compara su resultado con el Mínimo Global. Si es mejor, actualiza el mínimo a su resultado, si no, el mínimo global se mantiene. Al llegar al final del algoritmo,(y con lo mencionado anteriomente), vamos a haber comparado todos los caminos posiblemente óptimos, y siempre dejando al menor.
+
+
 
 \end{itemize}
 
@@ -215,14 +201,11 @@ Nuestro algoritmo no admite ciclos puesto que tiene una condición booleana sobr
 	Tras considerar todo lo dicho, lo único que necesitamos es determinar la suma de las complejidades de cada nodo. Al no poder encontrar una formula, vamos a acotar al nivel de ida por el nivel de vuelta ya que es mas grande, esto se demuestra con unas simples operaciones algebráicas y luego hacer la suma de cada nivel. por el item 4 y el item 6 sabemos que que la altura es x = $2^{n+m+1}$ y cada nivel tiene una complejidad de y = $\mathcal{O}((n+m)*(n*(1+m)+m))$. Entonces la complejidad es $\mathcal(\sum_{i=0}^{x} y^i)$ 
 
 \subsection{Experimentación}
-Para este problema generamos dos hipótesis:
-Suponemos que siempre que van dos individuos, si son del mismo tipo van los dos extremos(el más lento y el más rapido) y si son distinto tipo, pasa el mínimo de todo el grupo, y el máximo del otro tipo.
-En el caso de la vuelta, siempre se vuelve con los más veloces posibles.
-Queremos ver si esta estrategia sigue dando resultados óptimos, y cuál es la relación de complejidad
-\\
-Por otro lado, suponemos que el conjunto particular de caníbales y arquéologos en un lado de puente es indistinguible en los estados, y que alcanza con contemplar la cantidad. Es decir, si la hipótesis anterior se cumple, no sería necesario probar cada conjunto particular, reduciendo considerablemente la complejidad.
+Para la experimentación vamos a analizar nuestro algoritmo con las dos podas propuestas(por un lado, corta una rama cuando el mínimo generado hasta ese momento es menor que el mínimo global. Por el otro, la vuelta de dos arquéologos o de dos caníbales nunca genera un camíno óptimo) y compararlo con un algoritmo sin podas. Para esto, diseñamos dos experimentos con valores aleatorios controlados; el caso en el cual todos los de un tipo de individuo es más veloz que el otro, y el caso ´´alternado", en el cual si se ordenan los individuos, el tipo de persona se va alternando. Cada experimento se generó para todas las combinaciones posibles de cantidades de arquéologos y caníbales, y se repitió cien veces, quedándose con el promedio de los resultados.
 
+%%GRAAAAFICOOOOOOOOS
 
+Podemos observar que la poda no genera cambios significativos en la complejidad temporal del problema. No sólo eso; existen casos en los cuales la poda es más ineficiente que el algoritmo normal. 
 
 \section{Problema 2: Problemas en el camino}
 
@@ -329,20 +312,6 @@ Entonces, la complejidad del algoritmo es de $\mathcal{O}(Log_{3}(P))$.
 Luego, se puede probar que Log(P) es $\mathcal{O}(\sqrt(P))$
 
 
-
-
-%%Explicacion vieja
-
-% Si nos abstraemos del if, el ciclo tiene como condición que P$>$0, siendo P el valor de entrada. Como podemos observar, P es modificado dividiéndose por 3 cada iteración. Por álgebra básica sabemos que se necesesitarán como mucho $log_3(P) + 1$ iteraciones para que P sea menor a 0.
-% Ahora, tomando en cuenta el if hay un caso en el cual le sumamos 1 a P, lo cual afecta un poco la cuenta; volvemos a la explicación del algoritmo y tomamos el conjunto $T = {a_1,...,a_n}$ 
-% donde  $P = \sum_{i=0}^{n} a_i3^i$ con $0 \leq a_i \leq 2$ y $n = log_{3}{P}$, siendo el valor de rem el valor de $a_i$ en la iésima iteración.
-% Cuando hacemos que $P<-P+1$ nos queda que en la próxima iteración rem valdría uno más, es decir $a_{i+1}$ pasaría a valer uno más de lo que valdría en T. Ahora,  siendo estos que para todo $a_k$
-% valen entre 0 y 2, si $a_{i+1}$ en vez de valer 3, valdría 0 y $a_{i+2}$ valdría uno más también, y si  $a_{i+2}$ valía 2, pasaría a valer 0 y  $a_{i+3}$ valdría uno más, y así sucesivamente hasta llegar a $a_n$.
-% Y si resulta que también $a_n$ valía 2, entonces tendríamos un $a_{n+1}$ que pasaría a valer 1 y $a_n$ valdría 0.
-% Luego no hay mas casos donde $a_j$ (para $i<j<=n$) sea 2, entonces no hay más casos donde puedan volver a ocurrir este tipo de cosas, quedándonos asi, un máximo de $Log_3(P)+1$ iteraciones.
-
-% Entonces, la complejidad del algoritmo es de $\mathcal{O}(Log_{3}(P))$.
-% Luego, se puede probar que Log(P) es $\mathcal{O}(\sqrt(P))$
 
 
 \subsection{Experimentación}
