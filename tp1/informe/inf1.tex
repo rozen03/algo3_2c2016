@@ -306,9 +306,6 @@ Supongamos el caso en el cual, para cada iteración, a P se la divide por 3, se 
 Entonces, la complejidad del algoritmo es de $\mathcal{O}(Log_{3}(P))$.
 Luego, se puede probar que Log(P) es $\mathcal{O}(\sqrt(P))$
 
-
-
-
 %%Explicacion vieja
 
 % Si nos abstraemos del if, el ciclo tiene como condición que P$>$0, siendo P el valor de entrada. Como podemos observar, P es modificado dividiéndose por 3 cada iteración. Por álgebra básica sabemos que se necesesitarán como mucho $log_3(P) + 1$ iteraciones para que P sea menor a 0.
@@ -325,14 +322,10 @@ Luego, se puede probar que Log(P) es $\mathcal{O}(\sqrt(P))$
 
 \subsection{Experimentación}
  Al momento de la experimentación inicialmente teníamos la idea de que, al no tener mejores ni peores casos a nivel de complejidad teórica, no importaba mucho que valores de P que se ingresaban, e iba a ser siempre creciente.
-
+  Para el análisis de la complejidad te\'orica decidimos simplemente medir los tiempos del algoritmo aumentando el valor de entrada desde 1 hasta la cota puesta por el enunciado.
 \subsubsection{Análisis complejidad te\'orica}
- Para el análisis de la complejidad te\'orica decidimos simplemente medir los tiempos del algoritmo aumentando el valor de entrada desde 1 hasta la cota puesta por el enunciado.
   Después de observar los resultados, encontramos una función O(Log(n)) que se asemeje aproximadamente a los resultados de las mediciones del algoritmo para poder compararlo.
   Terminamos usando la funcion $500*log_3(x)$.
-  Notamos que no quedaba muy claro cómo es que las mediciones se asemejaban a $log_3(x)$. Entonces decidimos cambiar la escala:
-  En vez de presentar un gráfico que muestre los ejes (X,Y) = (peso de la llave, mediciones) lo vamos a mostrar como (X,Y) = (Log(peso de la llave),Log(mediciones))
-
 	\begin{figure}[H]
 	\centering
 	\includegraphics[width=0.8\textwidth]{punto2-mediciones}
@@ -349,7 +342,7 @@ Luego realizado el gráfico notamos que, a pesar de de que las mediciones simula
 \includegraphics[width=0.8\textwidth]{punto2-zoom}
 \caption{Mediciones de la implementaci\'on comparado con $500*log_{3}{n}$ zoom en escala logaritmica en X e Y }
 \end{figure}
-Si bien se organizaban como líneas rectas (a pesar de la escala), no se acomodaba su $"orden"$ respecto al logaritmo en base 3.
+Si bien se organizaban como líneas rectas , no se acomodaba su $"orden"$ respecto al logaritmo en base 3.
 Concluímos que esto se debe a la operación ´´meter la pesa en una balanza", que en la implentación del problema se traduce a introducir un entero al final de una lista, lo cual termina costando $\mathcal{O}(1)$
 
 Para ver si esto era cierto, hicimos nuevas mediciones, tomando para los pesos  solo 3 casos: \\
@@ -367,7 +360,25 @@ y como resultado del experimento nos quedó este gráfico
 En la imagen se puede notar que el caso de suma de potencias de 3 toma mucho más que los otros dos casos. Concluímos que esto se debe incialmente a que, en el caso de sólo potencias de 3, se hace un sólo acceso a la listar, mientras que el caso de potencias de 3 menos 1
 tal como sería el resultado al problema, se pone una pesa de la potencia de 3 del lado de la llave y una pesa de tamaño 1 en el otro, teniendo así sólo 2 accesos a la lista, cosa que en la implementación esto se representa sumándole 1 luego de cada división por 3 al peso de la llave en cada iteración.
 
-Como conclusión final a tomar en cuenta, consideramos que los mejores casos son los de potencias de 3 y los peores son los de sumas de potencias de 3.
+Como conclusión, considerabamos que los mejores casos son los de potencias de 3 y los peores son los de sumas de potencias de 3. Dado que en el caso de potencias de 3 se hacian mas accesos a lista.
+
+Pero al revisar contra las mediciones notamos que aparentemente habia aun peores casos que esos, luego de indagar sobre algunas experimentaciones finalmente decidimos tomar en cuenta no solamente los casos donde son sumas de potencias de 3 sino que ademas considerar los casos donde en la representacion ternaria en vez de tener todos los digitos con  valor 1,
+tenga al menos uno o dos digitos que tengan valor dos con esto.
+Luego lo plasmamos en el grafico anterior.
+
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.4\textwidth]{punto2-nuevosCasos}
+\caption{Comparaciones de la implementaci\'on comparando los casos en escala logarítmica en X e Y }
+\end{figure}
+
+Explicacion:
+Representacion ternaria 1 y 2, son los casos donde el valor representado en ternario contiene solamente digitos de valor 1 excepto uni o dos digitos(respectivamente) cuyo valor es dos.
+
+Concluimos finalmente que si bien cuantas menos digitos tenemos en cero en su representacion ternaria, mas toma el algoritmo pero además, cuantos menos digitos con valor dos tenga (excepto el caso en que no tenga ninguno) mas tiempo va a tomar el algoritmo.
+Esto se debe a que, al tener un valor de 2 en algun digito se termina haciendo una iteracion mas a que si no hubiese ningun 2, ahora al tener mas de un digito con valor 2 nos termina quedando menos accesos a lista. Por ende el caso con solo un digito en 2 y el resto en 1 nos da la maxima cantidad de iteraciones y accesos a lista en el algoritmo.
 
 
 
