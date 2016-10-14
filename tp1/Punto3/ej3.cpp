@@ -250,7 +250,7 @@ int solucion(vector<Mochila>& Mochilas,const vector<Tesoro>& precofre){
 
 	return sol;
 }
-/*
+
 int main(int argc, char *argv[]){
 	vector<Mochila> mochilas;
 	vector<Tesoro> cofre;
@@ -263,5 +263,5 @@ int main(int argc, char *argv[]){
 	}
 	return 0;
 }
-*/
+
 

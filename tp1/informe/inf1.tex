@@ -44,40 +44,38 @@
 
 \subsection{Introducción}
 
-En este problema, un grupo formado por arquéologos y caníbales debe cruzar un puente. El mismo sólo puede ser atravezado por dos personas a la vez, y tiene que ser cruzado con una linterna. Como el grupo sólo dispone de una linterna, siempre debe regresar alguno al lado del puente original. Además, en ningún lado del puente puede haber más caníbales que arquéologos.
-Cada individuo consta de la propiedad "velocidad", un número natural que indica cuánto tiempo tarda en atravezar el puente. Si dos personas atraviezan el puente juntas, lo hacen en el tiempo más grande entre los dos.
-
-%terminar?%
+En este problema, un grupo formado por arquéologos y caníbales debe cruzar un puente. El mismo sólo puede ser atravesado por dos personas a la vez, y tiene que ser cruzado con una linterna. Como el grupo sólo dispone de una linterna, siempre debe regresar alguno al lado del puente original. Además, en ningún lado del puente puede haber más caníbales que arquéologos.
+Cada individuo consta de la propiedad ´´velocidad", un número natural que indica cuánto tiempo tarda en atravesar el puente. Si dos personas atraviesan el puente juntas, lo hacen en el tiempo más grande entre los dos.
+Formalmente queremos encontrar la solución óptima para minimizar el tiempo que toma atravesar un trayecto por dos conjuntos de individuos cuando uno de ellos no puede ser mayor al otro(exceptuando el caso en que uno de ellos es vacío).
 
 \subsection{Explicación de la solución}
 Para resolver este problema, usamos la técnica de backtracking: utilizamos una función recursiva para poder probar todos los caminos posibles que no generen situaciones en las cuales hay mas caníbales que arqueólogos en algún lado del puente. Finalmente elegímos el mínimo de los subcaminos recorridos.
 
-Para empezar, todos los casos donde ya se comienze de un lado del puente con más caníbales que arqueólogos deben devolver -1.
-El caso en el cual no haya arqueologos usamos una instancia aparte que conlleva muchas condiciones booleanes. Este caso se resuelve simplemente utilizando al canibal más rápido para llevar a los demás.
+Para empezar, todos los casos donde ya se comience de un lado del puente con más caníbales que arqueólogos no tienen solución.
+El caso en el cual no haya arquéologos usamos una instancia aparte que conlleva muchas condiciones booleanas. Este caso se resuelve simplemente utilizando al caníbal más rápido para llevar a los demás. Para ver que esto es óptimo, basta ver que todos los individuos deben pasar al menos una vez. Para cualquier ida y vuelta la linterna, que vaya y vuelva el caníbal más rápido genera el mismo estado que cualquier otra opción, con un menor ´´costo".
+
  
-
-Para los demás casos hay que analizar los cinco "movimientos"  válidos existentes para atravezar el puente: Pasar dos caníbales, pasar dos arqueólogos,pasar sólo un arqueólogo, pasar sólo un canibal o pasar un arqueólogo y un caníbal. Un movimiento es óptimo si la persona que vuelve es la más rapida de su tipo, ya que de esta manera uno minimiza la cantidad de tiempo usado en llevar de regreso la linterna, siendo que cualquier otra combinación consume más tiempo.
-Para guardar la información de posiciones utilizamos una matriz de dimensión N+1xM+1 incializada en 0 y cuatro listas($N_A$ y $M_A$ para indicar quienes estan en el punto de partida y $N_B$ y$ M_B$ para el punto de llegada). cada vez que modifiquemos $N_A$ y $M_B$ se entrará en la recursión copiando M y marcando con un 1 la posicón que corresponde a ($|N_A|,|M_A|$).
-Todos los resultados se guardan en una lista para poder finalmente devolver el valor minimo de la misma el cual será nuestra solución.
-
-
-%creeeo que le falta%
+Para los demás casos hay que analizar los cinco ´´movimientos"  válidos existentes para atravesar el puente: Pasar dos caníbales, dos pasar arqueólogos,pasar sólo un arqueólogo, pasar sólo un canibal o pasar un arqueólogo y un caníbal.
+Decidimos pensar la ida y vuelta de la linterna como un sólo estado, para no tener que registrar la ubicación de la misma.
+Para guardar la información de posiciones vamos a registrar el estado del lado izquierdo(o inicial) del puente, ya que cualquier individuo que no esté de ese lado, necesariamente estará del otro. Utilizamos una matriz de dimensión N+1xM+1 y cuatro listas($N_A$ y $M_A$ para indicar quiénes estan en el punto de partida y $N_B$ y$ M_B$ para el punto de llegada). Cada vez que modifiquemos $N_A$ y $M_B$ se entrará en la recursión copiando la matriz y registrando en la misma el nuevo estado recorrido. 
+Todos los resultados posibles se guardan en una lista para poder finalmente devolver el valor minimo de la misma el cual será nuestra solución.
+La función PuedenSalir verifica que, en caso de que cruzen el puente los individuos indicados, no generará problemas en ninguno de los lados del puente.
 
 
 
-\subsection{Pseudocódico}
+\subsection{Pseudocódigo}
 \begin{algorithm}[H]{\textbf{BT}(M: Matriz nula de dim($|N_A|$+1 x $|M_A|$+1), $N_A, M_A, N_{B}, M_{B}$: Listas) }
 	\begin{algorithmic}
-		\If{$N_A$ == []}
-			\State min $\gets$ $M_A$.min()
-			\State devolver min*($|M_B|-1$)+ Sumatoria($M_B$.Sacar(min))
+		\If{$N_A$ es vacía}
+			\State min $\gets$  mínimo de $M_A$
+			\State devolver min*($|M_B|-1$)+ Sumatoria( $M_B$ sin el elemento min)
 		\EndIf
 		\State M[$|N_A$|+1][$|M_A|$+1] $\gets$1
 		\State T $\gets$ []
 		
-		\While{i=0; i$\leq$2; i++}
-			\While{j=0; j+i$\leq$2, j++}
-				\If{PuedenSalir(i,j,$|N_A|,|M_A|,|N_{B}|,|M_{B}|$)}
+		\While{i= 0,1,2}
+			\While{j= 0,..,2-i}
+				\If{¬(i$\eq$j$\eq$0) PuedenSalir(i,j,$|N_A|,|M_A|,|N_{B}|,|M_{B}|$)}
 					\State se le quitan i elementos a $N_A$ y se le agregan a $N_B$
 					\State se le quitan j elementos a $M_A$ y se le agregan a $M_B$
 					\State (si i,j=1 se quita el más rápido, si i,j=2 se quitan el más rápido y el más lento)
@@ -108,13 +106,13 @@ Para mostrar la correctitud de nuestro algoritmo queremos ver dos cosas:
 \begin{itemize}
 
 	\item Recorre todos los casos: \\
-Si planteamos nuestras posibilidades como una matríz, vemos que todo lo pertinente al triángulo superior entra en las podas del inicio del algoritmo. Entonces nos concentraremos en el triángulo inferior.
-Al ser nuestro algoritmo una función recursiva solo terminará al llegar al caso base. Podemos ver que nuestro caso base se alcanza al obtener las dos listas inciales($N_A$, $M_A$) vacias.
+Si planteamos nuestras posibilidades como una matríz, vemos que todo lo pertinente al triángulo superior no tiene solución de manera trivial o se plantea un caso particular; estos casos son: los que hay sólo caníbales, o hay más caníbales que arquéologos desde un comienzo. Entonces nos concentraremos en el triángulo inferior.
+Al ser nuestro algoritmo una función recursiva solo terminará al llegar al caso base. Podemos ver que nuestro caso base se alcanza al obtener las dos listas inciales($N_A$, $M_A$) vacías.
 Como vemos en el primer conjunto de for, creamos  tuplas (i,j) tal que generan todas las posibles formas de pasar el puente, si esa tupla puede realmente pasar por el puente, se crea una copia de las listas $N_A$, $M_A$, $N_B$, $M_B$ donde, dependiendo del i, se sacan esa cantidad de elementos la lista $N_A$ y se ponen en $N_B$ caso análogo con j y $M$'s.
 Al generar todas las instancias del cruce del puente, ahora tenemos que saber todas las formas de volver el puente. De una forma similar a la explicada antes los últimos dos whiles funcionan tal que generan todas las formas de volver del puente.
 
 	\item No hace ciclos: \\
-Nuestro algoritmo no admite ciclos puesto que tiene una condición booleana sobre la matriz, la cual no permite volver a una instancia anterior en las que este el mismo conjunto de canibales y arqueologos que en los casos anteriores. La misma consiste en que solo pueden regrsar los individuos si y solo si en la posición (i,j) (donde $i= N_A$+(los arqueolos que regresn) y $j=M_A$ + (los canibales que regresan) ) hay un cero. Cada vez que se llama a la función recursivamente la posición inicial en el punto A es marcada con un 1. De esta forma es imposible realizar ciclos.
+Nuestro algoritmo no admite ciclos puesto que tiene una condición booleana sobre la matriz, la cual no permite volver a una instancia anterior en las que esté el mismo conjunto de caníbales y arquéologos que en los casos anteriores. La misma consiste en que sólo pueden regrsar los individuos si y sólo si en la posición (i,j) (donde $i= N_A$+(los arquéologos que regresen) y $j=M_A$ + (los caníbales que regresan) ) hay un cero. Cada vez que se llama a la función recursivamente la posición inicial en el punto A es marcada con un 1. De esta forma es imposible realizar ciclos.
 
 \end{itemize}
 
@@ -122,12 +120,18 @@ Nuestro algoritmo no admite ciclos puesto que tiene una condición booleana sobr
 
 
 \subsection{Demostración de Complejidad}
-	Si pensamos todas nuestras posibilidades como un árbol de estados, haciendo que la función "ida" y "vuelta" genera 3 hijos y 4 hijos respectivamente(la función "vuelta" genera 5 hijos, pero uno de ellos es siempre un estado por el que ya pasamos).
-	 Además, la altura nunca va a ser mayor que $n*m/2$, ya que tenemos una matriz para verificar que no pasemos dos veces por el mismo estado.
-	 En resumen, la cantidad máxima de resultados es altura del árbol por la "amplitud": Podemos ver que la complejidad es $12^{n*m/2}$
+	Si pensamos todas nuestras posibilidades como un árbol de estados, haciendo que la función ´´ida" y ´´vuelta" genera 3 hijos y 4 hijos respectivamente(la función ´´vuelta" genera 5 hijos, pero uno de ellos es siempre un estado por el que ya pasamos).
+	 Además, la altura nunca va a ser mayor que $n*m/2$, ya que tenemos una matriz para verificar que no pasemos dos veces por el mismo estado. Además, las operaciones de cada estado consisten en ´´recorrer" todas las posibilidades de individuos a mandar, siendo esto %%VER BIEN ESTO  
+	 En resumen, la cantidad máxima de resultados es altura del árbol por la ´´amplitud": Podemos ver que la complejidad es $12^{n*m/2}$
 \subsection{Experimentación}
+Para este problema generamos dos hipótesis:
+Suponemos que siempre que van dos individuos, si son del mismo tipo van los dos extremos(el más lento y el más rapido) y si son distinto tipo, pasa el mínimo de todo el grupo, y el máximo del otro tipo.
+En el caso de la vuelta, siempre se vuelve con los más veloces posibles.
+Queremos ver si esta estrategia sigue dando resultados óptimos, y cuál es la relación de complejidad
+\\
+Por otro lado, suponemos que el conjunto particular de caníbales y arquéologos en un lado de puente es indistinguible en los estados, y que alcanza con contemplar la cantidad. Es decir, si la hipótesis anterior se cumple, no sería necesario probar cada conjunto particular, reduciendo considerablemente la complejidad.
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 
 \section{Problema 2: Problemas en el camino}
 
@@ -146,7 +150,7 @@ Luego, tomamos en orden creciente los elementos de T. Si $a_i$ es 0, no hacemos 
 
 \subsubsection{Pseudocódigo}
 
-Nota: Para la implementación, en vez de crear el conjunto T, vamos tomando el resto de P y dividiéndolo por 3. Entonces, el valor de la variable "rem" sería el equivalente al $a_i$ (i responde al número de iteraciones ya hechas)
+Nota: Para la implementación, en vez de crear el conjunto T, vamos tomando el resto de P y dividiéndolo por 3. Entonces, el valor de la variable ´´rem" sería el equivalente al $a_i$ (i responde al número de iteraciones ya hechas)
 
 \begin{algorithm}[H]{\textbf{Pesas}(Natural: P)}
 	\begin{algorithmic}[1]
@@ -206,8 +210,8 @@ Veamos el caso a_{i} = 2:
 \subsubsection{Demostración de Complejidad}
 
 El algoritmo consta de un ciclo, dentro de cada iteración, se calcula el resto y hace dos comparaciones; todas estas operaciones se ejecutan en O(1), mientras que colocar la pesa en cada balanza
-es agregar un número al final de una lista. Como el modelo de lista que usamos es "List", esto se realiza en O(1).
-Entonces, dentro de cada iteración solo se hacen operaciones en O(1). Esto hace que la complejidad sea la cantidad de iteraciones que hace el ciclo.
+es agregar un número al final de una lista. Como el modelo de lista que usamos es ´´List", esto se realiza en $\mathcal{O}(1)$.
+Entonces, dentro de cada iteración solo se hacen operaciones en $\mathcal{O}(1)$. Esto hace que la complejidad sea la cantidad de iteraciones que hace el ciclo.
 
 Si nos abstraemos del if, el ciclo tiene como condición que P$>$0, siendo P el valor de entrada. Como podemos observar, P es modificado dividiéndose por 3 cada iteración. Por álgebra básica sabemos que se necesesitarán como mucho $log_3(P) + 1$ iteraciones para que P sea menor a 0.
 Ahora, tomando en cuenta el if hay un caso en el cual le sumamos 1 a P, lo cual afecta un poco la cuenta; volvemos a la explicación del algoritmo y tomamos el conjunto $T = {a_1,...,a_n}$ 
@@ -248,7 +252,7 @@ Luego realizado el gráfico notamos que, a pesar de de que las mediciones simula
 \caption{Mediciones de la implementaci\'on comparado con $500*log_{3}{n}$ zoom en escala logaritmica en X e Y }
 \end{figure}
 Si bien se organizaban como líneas rectas (a pesar de la escala), no se acomodaba su $"orden"$ respecto al logaritmo en base 3.
-Concluímos que esto se debe a la operación "meter la pesa en una balanza", que en la implentación del problema se traduce a introducir un entero al final de una lista, lo cual termina costando $O(1)$
+Concluímos que esto se debe a la operación ´´meter la pesa en una balanza", que en la implentación del problema se traduce a introducir un entero al final de una lista, lo cual termina costando $\mathcal{O}(1)$
 
 Para ver si esto era cierto, hicimos nuevas mediciones, tomando para los pesos  solo 3 casos: \\
 -Potencias de 3: Que en la representacion ternaria, contaría solo con un 1 y puros ceros \\
@@ -487,7 +491,7 @@ Observemos que en general lleva más tiempo obtener un resultado cuando los obje
 \\
 \\
 Luego realizamos tests para poder ver el comportamiento del algoritmo al ir aumentando el peso de la mochila. Utilizamos un test para evaluar el comportamiento cuando los objetos son aleatorios y otro para cuando todos los tesoros tienen un peso mayor a la capacidad de la mochila, en ambos casos la cantidad de objetos es constante en 50 elementos.
-En esta figura podemos observar no solo la tendencia lineal de la complejidad del algoritmo sino también la variación de las pendientes en cada caso. Notemos que a mayor pendiente, la ejecución toma más tiempo, es decir es "más lenta".
+En esta figura podemos observar no solo la tendencia lineal de la complejidad del algoritmo sino también la variación de las pendientes en cada caso. Notemos que a mayor pendiente, la ejecución toma más tiempo, es decir es ´´más lenta".
 En particular podemos destacar que en el caso de que los objetos tengan todos peso mayor a la capacidad de las mochilas, la recta tiende a ser constante.
 
 \begin{figure}[H]
