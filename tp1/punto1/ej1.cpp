@@ -261,6 +261,7 @@ int backtracking(vector<int> arqA, vector<int> canA, vector<int> arqB, vector<in
 	int ccantA = canA.size();
 	if(acantA== 0 && ccantA == 0) return 0;
 	if(acantB == 0 && ccantB== 0 && acantA < ccantA) return -1;//es raro (marce) Caso mas canibales que arquelogos y no hayas llevado a nadie del otro lado. es decir todos los casos no validos(Javi)
+	if((acantA<ccantA && acantA>0) || (acantB>0 &&acantB<ccantB)) return -1;
 	int lento = integranteLento(arqA, canA, arqB, canB);
 	int cantot = acantA+ccantA +arqB.size()+canB.size();
 	int oruga = (lento*cantot*10000) + 1; //este es un "caso peor", de manera que cualquier camino posible sea menor a este.
@@ -324,8 +325,6 @@ int backtracking(vector<int> arqA, vector<int> canA, vector<int> arqB, vector<in
 			}
 			acantB = arqBbis.size();
 			ccantB = canBbis.size();
-			acantA = arqAbis.size();
-			ccantA = canAbis.size();/*
 			int ccantBaux = ccantB;
 			int ccantAaux = ccantA;
 			int acantBaux = acantB;
@@ -339,6 +338,7 @@ int backtracking(vector<int> arqA, vector<int> canA, vector<int> arqB, vector<in
 					canSalen = 2;
 					ccantAaux = ccantA-1;
 					ccantBaux = ccantB +1;
+				}
 			}
 			else{
 				arqSalen = 1;
@@ -350,8 +350,8 @@ int backtracking(vector<int> arqA, vector<int> canA, vector<int> arqB, vector<in
 					canSalen = 1;
 				}
 			}
-			if(!puedensalir(canSalen, arqSalen, acantAaux, ccantAaux, acantBaux, ccantBaux)) continue;
-			*///cout<<"que tiene cada lado pre volver y pre segundo"<<endl;
+			//if(!puedensalir(canSalen, arqSalen, acantAaux, ccantAaux, acantBaux, ccantBaux)) continue;
+			//cout<<"que tiene cada lado pre volver y pre segundo"<<endl;
 			//Imprimir(arqAbis, canAbis, arqBbis, canBbis);
 			for (int segundo = -1; segundo < contador; segundo++) {//esta iteracion esta hecha para considerar si se manda un segundo arqueologo o canibal
 											//cuestion q si se manda uno y uno contador vale 0 y entonces mas abajo donde se chequea la variable segundo
@@ -361,7 +361,7 @@ int backtracking(vector<int> arqA, vector<int> canA, vector<int> arqB, vector<in
 						if(arqAbis.size()==0 && canAbis.size()==0) return velIda;
 						int velVuelta = - oruga;
 						vector<int> arqAaux(arqAbis);
-						vector<int> canAaux(caneAbis);
+						vector<int> canAaux(canAbis);
 						vector<int> arqBaux(arqBbis);
 						vector<int> canBaux(canBbis);
 						if(l < 0 && k < 0) continue;
@@ -427,7 +427,10 @@ int backtracking(vector<int> arqA, vector<int> canA, vector<int> arqB, vector<in
 							}
 						//cerr<<"el tamaño de victor es "<<victor.size()<< " y quiero acceder a "<< numeroArqueologos(arqAaux)+numeroCanibales(canAaux);
 						//cerr<<"quiero  ver que tengo de cada lado del puente con enviando "<<i<<" arq, enviando can "<<j <<", volviendo "<<k<<" arq, volveindo can "<<l<<" acaso envie dos canibales o arq? "<<segundo<<"acaso volvieron dos can o arq? "<<segundo_que_vuelve<<endl;
-						Imprimir(arqAaux, canAaux, arqBaux, canBaux);
+						cerr<<endl;
+						cerr<<endl;
+						cerr<<contador<<" cont "<< contador_dos<<" cont2 "<< acantA<<" acantA "<<ccantA<<" ccantA "<< acantB<<" acantB "<<ccantB<<" ccantB"<<endl;
+						//Imprimir(arqAaux, canAaux, arqBaux, canBaux);
 						if(victor[numeroArqueologos(arqAaux)+numeroCanibales(canAaux)] == 0){
 							//cerr<<"Entre"<<endl;
 							//cerr<<"victor funciono entro en el bc acceduendo a "<<numeroArqueologos(arqAaux)+numeroCanibales(canAaux)<<endl;
