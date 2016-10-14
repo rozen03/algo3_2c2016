@@ -147,17 +147,21 @@ Tambien nos ahorraremos algunos pseudocódigos que son casos análogos entre Arq
 
 \subsection{Demostración de Correctitud}
 
-Para mostrar la correctitud de nuestro algoritmo queremos ver dos cosas:
+Para mostrar la correctitud de nuestro algoritmo queremos ver tres cosas cosas que el algoritmo termina, que analiza todos los casos posibles, y que devuelve el mínimo de los casos.
 \begin{itemize}
 
-	\item Recorre todos los casos: \\
-Si planteamos nuestras posibilidades como una matríz, vemos que todo lo pertinente al triángulo superior no tiene solución de manera trivial o se plantea un caso particular; estos casos son: los que hay sólo caníbales, o hay más caníbales que arquéologos desde un comienzo. Entonces nos concentraremos en el triángulo inferior.
-Al ser nuestro algoritmo una función recursiva solo terminará al llegar al caso base. Podemos ver que nuestro caso base se alcanza al obtener las dos listas inciales($N_A$, $M_A$) vacías.
-Como vemos en el primer conjunto de for, creamos  tuplas (i,j) tal que generan todas las posibles formas de pasar el puente, si esa tupla puede realmente pasar por el puente, se crea una copia de las listas $N_A$, $M_A$, $N_B$, $M_B$ donde, dependiendo del i, se sacan esa cantidad de elementos la lista $N_A$ y se ponen en $N_B$ caso análogo con j y $M$'s.
-Al generar todas las instancias del cruce del puente, ahora tenemos que saber todas las formas de volver el puente. De una forma similar a la explicada antes los últimos dos whiles funcionan tal que generan todas las formas de volver del puente.
+	\item El algoritmo termina: \\
+Para demostrar esto podemos ver que existen una cantidad finita de estados en los cuales los arquéologos y caníbales pueden estar posicionados y su camino recorrido(siempre y cuando en un mismo camino no se repitan estados). Además, el conjunto de instancias recorridas permite en un mismo camino no pasar dos veces por el mismo estado. Entonces, si por cada llamada a la función pasamos a una nueva instancia podemos concluir que existen una cantidad finita de llamadas. Por último, dentro de la función Backtracking no se desarrolla ningún ciclo infinito.
 
-	\item No hace ciclos: \\
-Nuestro algoritmo no admite ciclos puesto que tiene una condición booleana sobre la matriz, la cual no permite volver a una instancia anterior en las que esté el mismo conjunto de caníbales y arquéologos que en los casos anteriores. La misma consiste en que sólo pueden regrsar los individuos si y sólo si en la posición (i,j) (donde $i= N_A$+(los arquéologos que regresen) y $j=M_A$ + (los caníbales que regresan) ) hay un cero. Cada vez que se llama a la función recursivamente la posición inicial en el punto A es marcada con un 1. De esta forma es imposible realizar ciclos.
+
+	\item El algoritmo analiza todos los casos válidos posibles: \\
+Para ver esto alcanza con ver que, en cada llamada del Bactracking se consideran todos los movimientos válidos. Para empezar, antes de generar un movimiento de izquierda a derecha o de derecha a izquierda, se verifica que el estado en el que se encuentra es válido. Hay 3 casos que no se analizan a fondo, ya que son imposibles que den un camino mejor al que ya se encontró: por un lado, si el camino que se está generando ya es mayor a igual al mínimo camino generado, este nunca va a poder ser el mínimo global, ya que se todas las sumas son positivas.
+Además, nunca es óptimo volver con dos del mismo tipo, ya que si se puede volver con dos caníbales/arqueólogos, también se puede volver con el mínimo de los dos, generando un camino más óptimo que el generado en primer lugar.
+
+	\item El algoritmo devuelve el mínimo: \\
+Cuando un camino llega a pasar todos los individuos al otro lado del puente, compara su resultado con el Mínimo Global. Si es mejor, actualiza el mínimo a su resultado, si no, el mínimo global se mantiene. Al llegar al final del algoritmo,(y con lo mencionado anteriomente), vamos a haber comparado todos los caminos posiblemente óptimos, y siempre dejando al menor.
+
+
 
 \end{itemize}
 
