@@ -128,41 +128,41 @@ Tambien nos ahorraremos algunos pseudocódigos que son casos análogos entre Arq
 	\State \quad Sí mMinActual < mMinimoGlobal
 	\State \qquad mMinimoGlobal $\gets$ mMinActual
 	\State \quad finSi
-	\State  \quad Interrumpi
+	\State \quad Interrumpi
 	\State finSi
 	\State Para todo arqueologo en B 
-	\State \qquad valElem $\gets$ velocidad del arqueologo
-	\State \qquad mando al arqueologo al lado A	
-	\State \qquad Sí esta instancia no esta en instancias
-	\State \qquad \quad mMinActual $\gets$ mMinActual + valElem
-	\State \qquad \quad instancias $\cup$ \{ instancia \}
-	\State \qquad \quad BT()
-	\State \qquad \quad instancias - \{ instancia \}
-	\State \qquad \quad mMinActual $\gets$ mMinActual - valElem
-	\State \qquad finSi
-	\State \qquad vuelvo al arqueologo al lado B
+	\State \quad valElem $\gets$ velocidad del arqueologo
+	\State \quad mando al arqueologo al lado A	
+	\State \quad Sí esta instancia no esta en instancias
+	\State \qquad  mMinActual $\gets$ mMinActual + valElem
+	\State \qquad  instancias $\cup$ \{ instancia \}
+	\State \qquad  BT()
+	\State \qquad  instancias - \{ instancia \}
+	\State \qquad  mMinActual $\gets$ mMinActual - valElem
 	\State \quad finSi
+	\State \quad vuelvo al arqueologo al lado B
 	\State finPara
 	\State ParaTodo canibal en B
-	\State \quad \textbf{if}(canB[i] > 0)
+	\State \quad \textbf{si}(canB[i] es positivo)
 	\State \qquad analogo al for anterior pero con canibales
+	\State finSi
 	\State finPara
 	\State Para Todo arqueologo en B 
 	\State \quad valElemArq $\gets$ velocidad del arqueologo 
-	\State \qquad mando al arqueologo al lado A
-	\State \qquad Para todo canibal en B
-	\State \qquad \quad valElemCan $\gets$ velocidad del canibal	
-	\State \qquad \qquad mando al canibal al lado A
-	\State \qquad \qquad Si esta nueva instancia no esta en instancias
-	\State \qquad \qquad \quad max $\gets$ Maximo(valElemArq, valElemCan)
-	\State \qquad \qquad \quad mMinAcutal $\gets$ mMinActual + max
-	\State \qquad \qquad \quad BT()
-	\State \qquad \qquad \quad instancias - \{ instancia \}
-	\State \qquad \qquad \quad mMinActual $\gets$ mMinActual - maximo
-	\State \qquad \qquad finSi
-	\State \qquad \qquad vuelvo al canibal al lado B
+	\State \quad mando al arqueologo al lado A
+	\State \quad Para todo canibal en B
+	\State \qquad valElemCan $\gets$ velocidad del canibal	
+	\State \qquad mando al canibal al lado A
+	\State \qquad  Si esta nueva instancia no esta en instancias
+	\State \qquad \quad max $\gets$ Maximo(valElemArq, valElemCan)
+	\State \qquad \quad mMinAcutal $\gets$ mMinActual + max
+	\State \qquad \quad BT()
+	\State \qquad \quad instancias - \{ instancia \}
+	\State \qquad \quad mMinActual $\gets$ mMinActual - maximo
+	\State \qquad finSi
+	\State \qquad vuelvo al canibal al lado B
 	\State \qquad vuelvo al aqueologo al lado B 
-	\State \qquad finPara
+	\State \quad finPara
 	\State finPara
 																		
 	\end{algorithmic}
@@ -197,13 +197,7 @@ Cuando un camino llega a pasar todos los individuos al otro lado del puente, com
 	 Además, la altura nunca va a ser mayor que $n*m/2$, ya que tenemos una matriz para verificar que no pasemos dos veces por el mismo estado. Además, las operaciones de cada estado consisten en ´´recorrer" todas las posibilidades de individuos a mandar, siendo esto %%VER BIEN ESTO  
 	 En resumen, la cantidad máxima de resultados es altura del árbol por la ´´amplitud": Podemos ver que la complejidad es $12^{n*m/2}$
 \subsection{Experimentación}
-Para este problema generamos dos hipótesis:
-Suponemos que siempre que van dos individuos, si son del mismo tipo van los dos extremos(el más lento y el más rapido) y si son distinto tipo, pasa el mínimo de todo el grupo, y el máximo del otro tipo.
-En el caso de la vuelta, siempre se vuelve con los más veloces posibles.
-Queremos ver si esta estrategia sigue dando resultados óptimos, y cuál es la relación de complejidad
-\\
-Por otro lado, suponemos que el conjunto particular de caníbales y arquéologos en un lado de puente es indistinguible en los estados, y que alcanza con contemplar la cantidad. Es decir, si la hipótesis anterior se cumple, no sería necesario probar cada conjunto particular, reduciendo considerablemente la complejidad.
-
+Para la experimentación vamos a analizar nuestro algoritmo con las dos podas propuestas(por un lado, corta una rama cuando el mínimo generado hasta ese momento es menor que el mínimo global. Por el otro, la vuelta de dos arquéologos o de dos caníbales nunca genera un camíno óptimo) y compararlo 
 
 
 \section{Problema 2: Problemas en el camino}
