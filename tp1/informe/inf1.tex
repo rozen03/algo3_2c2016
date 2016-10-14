@@ -197,8 +197,11 @@ Cuando un camino llega a pasar todos los individuos al otro lado del puente, com
 	 Además, la altura nunca va a ser mayor que $n*m/2$, ya que tenemos una matriz para verificar que no pasemos dos veces por el mismo estado. Además, las operaciones de cada estado consisten en ´´recorrer" todas las posibilidades de individuos a mandar, siendo esto %%VER BIEN ESTO  
 	 En resumen, la cantidad máxima de resultados es altura del árbol por la ´´amplitud": Podemos ver que la complejidad es $12^{n*m/2}$
 \subsection{Experimentación}
-Para la experimentación vamos a analizar nuestro algoritmo con las dos podas propuestas(por un lado, corta una rama cuando el mínimo generado hasta ese momento es menor que el mínimo global. Por el otro, la vuelta de dos arquéologos o de dos caníbales nunca genera un camíno óptimo) y compararlo 
+Para la experimentación vamos a analizar nuestro algoritmo con las dos podas propuestas(por un lado, corta una rama cuando el mínimo generado hasta ese momento es menor que el mínimo global. Por el otro, la vuelta de dos arquéologos o de dos caníbales nunca genera un camíno óptimo) y compararlo con un algoritmo sin podas. Para esto, diseñamos dos experimentos con valores aleatorios controlados; el caso en el cual todos los de un tipo de individuo es más veloz que el otro, y el caso ´´alternado", en el cual si se ordenan los individuos, el tipo de persona se va alternando. Cada experimento se generó para todas las combinaciones posibles de cantidades de arquéologos y caníbales, y se repitió cien veces, quedándose con el promedio de los resultados.
 
+%%GRAAAAFICOOOOOOOOS
+
+Podemos observar que la poda no genera cambios significativos en la complejidad temporal del problema. No sólo eso; existen casos en los cuales la poda es más ineficiente que el algoritmo normal. 
 
 \section{Problema 2: Problemas en el camino}
 
