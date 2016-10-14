@@ -49,19 +49,13 @@ Cada individuo consta de la propiedad ´´velocidad", un número natural que ind
 Formalmente queremos encontrar la solución óptima para minimizar el tiempo que toma atravesar un trayecto por dos conjuntos de individuos cuando uno de ellos no puede ser mayor al otro(exceptuando el caso en que uno de ellos es vacío).
 
 \subsection{Explicación de la solución}
-Para resolver este problema, usamos la técnica de backtracking: utilizamos una función recursiva para poder probar todos los caminos posibles que no generen situaciones en las cuales hay mas caníbales que arqueólogos en algún lado del puente. Finalmente elegímos el mínimo de los subcaminos recorridos.
+Para resolver este problema, usamos la técnica de backtracking: utilizamos una función recursiva para poder probar todos los caminos posibles que no generen situaciones en las cuales hay mas caníbales que arqueólogos en algún lado del puente (en estas situaciones se considera que el problema no tiene solución entonces devolvemos -1). al final de cada camino guardamos su valor para poder ir comparandolo con los demas y de esta forma siempre quedarnos con el menor.
 
 Para empezar, todos los casos donde ya se comience de un lado del puente con más caníbales que arqueólogos no tienen solución.
-El caso en el cual no haya arquéologos usamos una instancia aparte que conlleva muchas condiciones booleanas. Este caso se resuelve simplemente utilizando al caníbal más rápido para llevar a los demás. Para ver que esto es óptimo, basta ver que todos los individuos deben pasar al menos una vez. Para cualquier ida y vuelta la linterna, que vaya y vuelva el caníbal más rápido genera el mismo estado que cualquier otra opción, con un menor ´´costo".
 
- 
-Para los demás casos hay que analizar los cinco ´´movimientos"  válidos existentes para atravesar el puente: Pasar dos caníbales, dos pasar arqueólogos,pasar sólo un arqueólogo, pasar sólo un canibal o pasar un arqueólogo y un caníbal.
-Decidimos pensar la ida y vuelta de la linterna como un sólo estado, para no tener que registrar la ubicación de la misma.
-Para guardar la información de posiciones vamos a registrar el estado del lado izquierdo(o inicial) del puente, ya que cualquier individuo que no esté de ese lado, necesariamente estará del otro. Utilizamos una matriz de dimensión N+1xM+1 y cuatro listas($N_A$ y $M_A$ para indicar quiénes estan en el punto de partida y $N_B$ y$ M_B$ para el punto de llegada). Cada vez que modifiquemos $N_A$ y $M_B$ se entrará en la recursión copiando la matriz y registrando en la misma el nuevo estado recorrido. 
-Todos los resultados posibles se guardan en una lista para poder finalmente devolver el valor minimo de la misma el cual será nuestra solución.
-La función PuedenSalir verifica que, en caso de que cruzen el puente los individuos indicados, no generará problemas en ninguno de los lados del puente.
+ en cada rama del backtracking guardamos en un set las instancias que vamos generando para no generar loops. Una instancia serían los canivales de y arqueologos de un solo lado  del puente. (los mismos son distinguibles, es decir, diferenciamos dos canivales o arqueolos entre sí. De esta forma puede que dos instancias que tengan la misma cantidad de individuos sean distintas.)
 
-
+Nuestra solución va generando todas las posibles soluciones combinando de todas las maneras posibles las formas de ir y volver del puente hasta lograr pasar a todos los individuos al otro lado. para poder guardar la información de los mismos utilizamos dos vectores, uno para los arqueologos y otro para los canivales, ambos con el largo que corresponde a la cantidad de individuos de cada tipo. En sus posiciones se guardan las velocidades. Las soluciones se van creando a partir de ir sumando la velocidad (en caso de que se translade un individuo será la que le corresponda al mismo, de ser dos los que se transladan se suma la velocidad maxima) en cada movimiento. Las mismas se guardan de manera parcial para poder compararlas con una solucion general e ir reemplazandola siempre por la solución menor. 
 
 \subsection{Pseudocódigo}
 
