@@ -96,7 +96,7 @@ void BT() {
 	if (!esValida(instanciaA) || !esValida(inatanciaB)  ||mMinActual >= mMinimoGlobal){
 		return;
 	}
- 	
+
  	//Por cada arqueologo que esta del lado inicial del puente lo hacemos cruzar con todos los arq y can que estan con el/ella
 	for (size_t i = 0; i < arqA.size(); i++) {
 	    int valElem = arqA[i];
@@ -105,7 +105,7 @@ void BT() {
 		   	arqA[i] = 0;
 		    arqB[i] = valElem;
 		    voyConA(valElem);
-		    voyConC(valElem);   
+		    voyConC(valElem);
 		    arqB[i] = 0;
 		    arqA[i] = valElem;
 	   	}
@@ -119,7 +119,7 @@ void BT() {
 		  	canA[i] = 0;
 		    canB[i] = valElem;
 		    voyConC(valElem);
-		   // voyConA(valElem); 
+		   // voyConA(valElem);
 		    canB[i] = 0;
 		    canA[i] = valElem;
 	  	}
@@ -142,7 +142,7 @@ void voyConA(int velElem1) {
 			mMinActual += maximo;
 			arqB[i] = valElem;
 			arqA[i] = 0;
-			vuelvoCon();	
+			vuelvoCon();
 			mMinActual -= maximo;
 			arqA[i] = valElem;
 			arqB[i] = 0;
@@ -153,10 +153,10 @@ void voyConA(int velElem1) {
 
 //Hace que efectivamente cruce un segundo can o un can con un arq y suma al tiempo el maximo entre ambos
 void voyConC(int velElem1) {
-	
+
 	for (int i = 0; i < canA.size(); ++i)
 	{
-		
+
 		if (canA[i] > 0)
 		{
 			int valElem = canA[i];
@@ -164,7 +164,7 @@ void voyConC(int velElem1) {
 			mMinActual += maximo;
 			canB[i] = valElem;
 			canA[i] = 0;
-			vuelvoCon();		
+			vuelvoCon();
 			mMinActual -= maximo;
 			canA[i] = valElem;
 			canB[i] = 0;
@@ -192,9 +192,10 @@ void vuelvoCon() {
 		return;
 	}
 
-	if (cant(arqA)==cant(canA) && cant(arqB)==cant(canB))
+	if (cant(arqA)==cant(canA) && cant(arqB)==cant(canB)&& cant(arqB)!=1)
 	{
 		sacar11();
+
 	}
 	else{
 		//esto implica cant(arqB)>cant(canB)
@@ -215,7 +216,7 @@ void vuelvoCon() {
 				sacarArq();
 			}
 		}
-		
+
 	}
 
 
@@ -236,7 +237,7 @@ int cant(vint v) {
 		if (v[i] != 0)
 		{
 			res++;
-		}	
+		}
 	}
 	return res;
 }
@@ -291,7 +292,7 @@ void sacar11(){
 			arqB[i] = valElemArq;
 			arqA[i] = 0;
 		}
-	}	
+	}
 }
 
 
@@ -347,9 +348,5 @@ void sacarCan(){
 			canB[i] = valElem;
 			canA[i] = 0;
 		}
-	}	
+	}
 }
-
-
-
-
