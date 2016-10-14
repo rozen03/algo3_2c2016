@@ -54,10 +54,10 @@ Para resolver este problema, usamos la técnica de backtracking: utilizamos una 
 Para empezar, todos los casos donde ya se comience de un lado del puente con más caníbales que arqueólogos no tienen solución.
 El caso en el cual no haya arquéologos usamos una instancia aparte que conlleva muchas condiciones booleanas. Este caso se resuelve simplemente utilizando al caníbal más rápido para llevar a los demás. Para ver que esto es óptimo, basta ver que todos los individuos deben pasar al menos una vez. Para cualquier ida y vuelta la linterna, que vaya y vuelva el caníbal más rápido genera el mismo estado que cualquier otra opción, con un menor ´´costo".
 
- 
+
 Para los demás casos hay que analizar los cinco ´´movimientos"  válidos existentes para atravesar el puente: Pasar dos caníbales, dos pasar arqueólogos,pasar sólo un arqueólogo, pasar sólo un canibal o pasar un arqueólogo y un caníbal.
 Decidimos pensar la ida y vuelta de la linterna como un sólo estado, para no tener que registrar la ubicación de la misma.
-Para guardar la información de posiciones vamos a registrar el estado del lado izquierdo(o inicial) del puente, ya que cualquier individuo que no esté de ese lado, necesariamente estará del otro. Utilizamos una matriz de dimensión N+1xM+1 y cuatro listas($N_A$ y $M_A$ para indicar quiénes estan en el punto de partida y $N_B$ y$ M_B$ para el punto de llegada). Cada vez que modifiquemos $N_A$ y $M_B$ se entrará en la recursión copiando la matriz y registrando en la misma el nuevo estado recorrido. 
+Para guardar la información de posiciones vamos a registrar el estado del lado izquierdo(o inicial) del puente, ya que cualquier individuo que no esté de ese lado, necesariamente estará del otro. Utilizamos una matriz de dimensión N+1xM+1 y cuatro listas($N_A$ y $M_A$ para indicar quiénes estan en el punto de partida y $N_B$ y$ M_B$ para el punto de llegada). Cada vez que modifiquemos $N_A$ y $M_B$ se entrará en la recursión copiando la matriz y registrando en la misma el nuevo estado recorrido.
 Todos los resultados posibles se guardan en una lista para poder finalmente devolver el valor minimo de la misma el cual será nuestra solución.
 La función PuedenSalir verifica que, en caso de que cruzen el puente los individuos indicados, no generará problemas en ninguno de los lados del puente.
 
@@ -72,7 +72,7 @@ La función PuedenSalir verifica que, en caso de que cruzen el puente los indivi
 		\EndIf
 		\State M[$|N_A$|+1][$|M_A|$+1] $\gets$1
 		\State T $\gets$ []
-		
+
 		\While{i= 0,1,2}
 			\While{j= 0,..,2-i}
 				\If{¬(i$\eq$j$\eq$0) PuedenSalir(i,j,$|N_A|,|M_A|,|N_{B}|,|M_{B}|$)}
@@ -92,15 +92,15 @@ La función PuedenSalir verifica que, en caso de que cruzen el puente los indivi
 						\EndWhile
 					\EndWhile
 				\EndIf
-			\EndWhile
-		\EndWhile
+			\EndWhile $//O(1)$
+		\EndWhile$//O(Log(P))$
 		\State devolver Min(T)
 
 	\end{algorithmic}
 \end{algorithm}
-
-
-\subsection{Demostración de Correctitud}
+ $//O(1)$
+ $//O(1)$
+\subsecti on{Demostración de Correctitud}
 
 Para mostrar la correctitud de nuestro algoritmo queremos ver dos cosas:
 \begin{itemize}
@@ -121,7 +121,7 @@ Nuestro algoritmo no admite ciclos puesto que tiene una condición booleana sobr
 
 \subsection{Demostración de Complejidad}
 	Si pensamos todas nuestras posibilidades como un árbol de estados, haciendo que la función ´´ida" y ´´vuelta" genera 3 hijos y 4 hijos respectivamente(la función ´´vuelta" genera 5 hijos, pero uno de ellos es siempre un estado por el que ya pasamos).
-	 Además, la altura nunca va a ser mayor que $n*m/2$, ya que tenemos una matriz para verificar que no pasemos dos veces por el mismo estado. Además, las operaciones de cada estado consisten en ´´recorrer" todas las posibilidades de individuos a mandar, siendo esto %%VER BIEN ESTO  
+	 Además, la altura nunca va a ser mayor que $n*m/2$, ya que tenemos una matriz para verificar que no pasemos dos veces por el mismo estado. Además, las operaciones de cada estado consisten en ´´recorrer" todas las posibilidades de individuos a mandar, siendo esto %%VER BIEN ESTO
 	 En resumen, la cantidad máxima de resultados es altura del árbol por la ´´amplitud": Podemos ver que la complejidad es $12^{n*m/2}$
 \subsection{Experimentación}
 Para este problema generamos dos hipótesis:
@@ -154,18 +154,18 @@ Nota: Para la implementación, en vez de crear el conjunto T, vamos tomando el r
 
 \begin{algorithm}[H]{\textbf{Pesas}(Natural: P)}
 	\begin{algorithmic}[1]
-		\State pesa $\gets$ 1
-		\While{ P $>$ 0}
-		 	\State rem $\gets$ $r_3 (P)$
-	    		\State P $\gets $ parte entera(P/3)
-	    		\If{rem = 1}
-	    			\State pesa va para la balanza izquierda    			\Else
-				\If{ rem = 2}
-	    				\State p$\gets$ P+1
-	    				\State pesa va para la balanza derecha
+		\State pesa $\gets$ 1 $//O(1)$
+		\While{ P $>$ 0}$//O(Log(P))$
+		 	\State rem $\gets$ $r_3 (P)$ $//O(1)$
+	    		\State P $\gets $ parte entera(P/3) $//O(1)$
+	    		\If{rem = 1} $//O(1)$
+	    			\State pesa va para la balanza izquierda     $//O(1)$    			\Else
+				\If{ rem = 2} $//O(1)$
+	    				\State p$\gets$ P+1   $//O(1)$
+	    				\State pesa va para la balanza derecha  $//O(1)$
 				\EndIf
 			\EndIf
-			\State pesa $\gets$ pesa*3
+			\State pesa $\gets$ pesa*3  $//O(1)$
 		\EndWhile
 	\end{algorithmic}
 \end{algorithm}
@@ -203,20 +203,20 @@ Ahora nuestro problema es la aparición de $a_i=2$ en la descomposición, puesto
 
 \subsubsection{Demostración de Complejidad}
 
-El algoritmo consta de un ciclo, dentro de cada iteración, se calcula el resto y hace dos comparaciones; todas estas operaciones se ejecutan en O(1), mientras que colocar la pesa en cada balanza
-es agregar un número al final de una lista. Como el modelo de lista que usamos es ´´List", esto se realiza en $\mathcal{O}(1)$.
-Entonces, dentro de cada iteración solo se hacen operaciones en $\mathcal{O}(1)$. Esto hace que la complejidad sea la cantidad de iteraciones que hace el ciclo.
-
-Si nos abstraemos del if, el ciclo tiene como condición que P$>$0, siendo P el valor de entrada. Como podemos observar, P es modificado dividiéndose por 3 cada iteración. Por álgebra básica sabemos que se necesesitarán como mucho $log_3(P) + 1$ iteraciones para que P sea menor a 0.
-Ahora, tomando en cuenta el if hay un caso en el cual le sumamos 1 a P, lo cual afecta un poco la cuenta; volvemos a la explicación del algoritmo y tomamos el conjunto $T = {a_1,...,a_n}$ 
-donde  $P = \sum_{i=0}^{n} a_i3^i$ con $0 \leq a_i \leq 2$ y $n = log_{3}{P}$, siendo el valor de rem el valor de $a_i$ en la iésima iteración.
-Cuando hacemos que $P<-P+1$ nos queda que en la próxima iteración rem valdría uno más, es decir $a_{i+1}$ pasaría a valer uno más de lo que valdría en T. Ahora,  siendo estos que para todo $a_k$
-valen entre 0 y 2, si $a_{i+1}$ en vez de valer 3, valdría 0 y $a_{i+2}$ valdría uno más también, y si  $a_{i+2}$ valía 2, pasaría a valer 0 y  $a_{i+3}$ valdría uno más, y así sucesivamente hasta llegar a $a_n$.
-Y si resulta que también $a_n$ valía 2, entonces tendríamos un $a_{n+1}$ que pasaría a valer 1 y $a_n$ valdría 0.
-Luego no hay mas casos donde $a_j$ (para $i<j<=n$) sea 2, entonces no hay más casos donde puedan volver a ocurrir este tipo de cosas, quedándonos asi, un máximo de $Log_3(P)+1$ iteraciones.
-
-Entonces, la complejidad del algoritmo es de $\mathcal{O}(Log_{3}(P))$.
-Luego, se puede probar que Log(P) es $\mathcal{O}(\sqrt(P))$
+%El algoritmo consta de un ciclo, dentro de cada iteración, se calcula el resto y hace dos comparaciones; todas estas operaciones se ejecutan en O(1), mientras que colocar la pesa en cada balanza
+%es agregar un número al final de una lista. Como el modelo de lista que usamos es ´´List", esto se realiza en $\mathcal{O}(1)$.
+%Entonces, dentro de cada iteración solo se hacen operaciones en $\mathcal{O}(1)$. Esto hace que la complejidad sea la cantidad de iteraciones que hace el ciclo.
+%
+%Si nos abstraemos del if, el ciclo tiene como condición que P$>$0, siendo P el valor de entrada. Como podemos observar, P es modificado dividiéndose por 3 cada iteración. Por álgebra básica sabemos que se necesesitarán como mucho $log_3(P) + 1$ iteraciones para que P sea menor a 0.
+%Ahora, tomando en cuenta el if hay un caso en el cual le sumamos 1 a P, lo cual afecta un poco la cuenta; volvemos a la explicación del algoritmo y tomamos el conjunto $T = {a_1,...,a_n}$
+%donde  $P = \sum_{i=0}^{n} a_i3^i$ con $0 \leq a_i \leq 2$ y $n = log_{3}{P}$, siendo el valor de rem el valor de $a_i$ en la iésima iteración.
+%Cuando hacemos que $P<-P+1$ nos queda que en la próxima iteración rem valdría uno más, es decir $a_{i+1}$ pasaría a valer uno más de lo que valdría en T. Ahora,  siendo estos que para todo $a_k$
+%valen entre 0 y 2, si $a_{i+1}$ en vez de valer 3, valdría 0 y $a_{i+2}$ valdría uno más también, y si  $a_{i+2}$ valía 2, pasaría a valer 0 y  $a_{i+3}$ valdría uno más, y así sucesivamente hasta llegar a $a_n$.
+%Y si resulta que también $a_n$ valía 2, entonces tendríamos un $a_{n+1}$ que pasaría a valer 1 y $a_n$ valdría 0.
+%Luego no hay mas casos donde $a_j$ (para $i<j<=n$) sea 2, entonces no hay más casos donde puedan volver a ocurrir este tipo de cosas, quedándonos asi, un máximo de $Log_3(P)+1$ iteraciones.
+%
+%Entonces, la complejidad del algoritmo es de $\mathcal{O}(Log_{3}(P))$.
+%Luego, se puede probar que Log(P) es $\mathcal{O}(\sqrt(P))$
 
 
 \subsection{Experimentación}
@@ -281,7 +281,7 @@ El objetivo es encontrar la manera óptima de llenar las mochilas para poder lle
 
 Formalmente, tenemos un conjunto de elementos que tienen como propiedad dos naturales asociados (el peso y el valor). Entonces podemos inferir que existen dos criterios de ordenamiento asociados respectivamente a estos valores.
 Al mismo tiempo tenemos otro conjunto de elementos que posee como propiedad un natural asociado (capacidad).
-Nuestro objetivo es seleccionar una combinación de los primeros objetos, restringida por las capacidades dadas, de modo de maximizar la sumatoria del valor de los mismos. 
+Nuestro objetivo es seleccionar una combinación de los primeros objetos, restringida por las capacidades dadas, de modo de maximizar la sumatoria del valor de los mismos.
 
 
 \subsection{Explicación de la solución}
@@ -297,7 +297,7 @@ Nuestro objetivo es seleccionar una combinación de los primeros objetos, restri
 
 	Donde n representa el número de tesoro, $V_{n}$ y $P_{n}$ su valor y su peso respectivamente. $p_{1},p_{2}\ y \ p_{3}$ son las capacidades de cada mochila.
 
-	Esta función es del tipo top down, es decir, que para calcular su i-esimo término requiere de los anteriores. En cada estado decide recurivamente sí el mejor valor posible se obtiene de sólo guardar nuestro i-esimo objeto o en alguna de las tres mochilas, o en ninguna mochila.  
+	Esta función es del tipo top down, es decir, que para calcular su i-esimo término requiere de los anteriores. En cada estado decide recurivamente sí el mejor valor posible se obtiene de sólo guardar nuestro i-esimo objeto o en alguna de las tres mochilas, o en ninguna mochila.
 
 	%q pensas? se puede hablar de que la func rec es top down o eso es solo para el algoritmo?%
 
@@ -310,7 +310,7 @@ Nuestro objetivo es seleccionar una combinación de los primeros objetos, restri
 	Lo que representa cada posición, (x,y,z,w), de este arreglo es el valor óptimo que pueden lograr los primeros x objetos con una combinación de mochilas de peso y, z, w. En el caso que el problema a resolver responda a dos mochilas, una de las variables y, z, w seran 0 para cualquier posción y un caso similar si solo hay que llenar una mochila.
 
 %%%%%%%TERMINA MODIFICACION%%%%
-	Luego para llenar las mochilas utilizamos este arreglo (lleno luego de encontrar el valor ótimo) entonces para cada objeto i guardamos el valor óptimo es decir, la posición del arreglo (i,cap1,cap2,cap3). Después nos fijamos para cada mochila  el resultado de sumar el valor del objeto i con el valor óptimo para el objeto anterior menos el valor óptimo guardado, si esto da cero, es porque encontramos la mochila a la cual corresponde el objeto i. 
+	Luego para llenar las mochilas utilizamos este arreglo (lleno luego de encontrar el valor ótimo) entonces para cada objeto i guardamos el valor óptimo es decir, la posición del arreglo (i,cap1,cap2,cap3). Después nos fijamos para cada mochila  el resultado de sumar el valor del objeto i con el valor óptimo para el objeto anterior menos el valor óptimo guardado, si esto da cero, es porque encontramos la mochila a la cual corresponde el objeto i.
 
 
 
@@ -356,31 +356,31 @@ Observación: nuestro algoritmo descarta los tesoros que tienen un peso mayor al
 
 \begin{algorithm}[H]{\textbf{ValorOptimo(objXpeso:4-upla, cofre:vector$<$tesoro$>$, objeto:int, peso1: int, peso2:int, peso3:int)}}
 	\begin{algorithmic}[1]
-		\State  pesoObj $\gets$ cofre[objeto].peso 
-		\State  pesoVal $\gets$ cofre[objeto].valor 
+		\State  pesoObj $\gets$ cofre[objeto].peso
+		\State  pesoVal $\gets$ cofre[objeto].valor
 
 		\State Si $peso1 < 0 \vee peso2 < 0 \vee peso3 < 0$
-			\State \quad devolver $-1$ 
+			\State \quad devolver $-1$
 
 		\State finSi
 
 		\State Si objetoxPesos[objeto][peso1][peso2][peso3] $\neq$ -1
-			\State \quad devolver objetoxPesos[objeto][peso1][peso2][peso3] 
+			\State \quad devolver objetoxPesos[objeto][peso1][peso2][peso3]
 		\State finSi
 		\State Si objeto $=$ 0
-			\State \quad val $\gets$ 0 
+			\State \quad val $\gets$ 0
 
 			\State \quad Si peso1 $\ge$ pesoObj $\vee$ peso2 $\ge$ pesoObj $\vee$ peso3 $\ge$ pesoObj
-				\State\quad \quad  val $\gets$ valorObj 
+				\State\quad \quad  val $\gets$ valorObj
 
-				\State \quad \quad objetoxPesos[objeto][peso1][peso2][peso3] $\gets$ val 
+				\State \quad \quad objetoxPesos[objeto][peso1][peso2][peso3] $\gets$ val
 				\State \quad \quad devolver val
 			\State \quad Si no
 				\State \quad \quad devolver -1 %esta bien?%
 			\State \quad finSi
 
 		\State Si no
-			\State \quad PosiblesSolus $\gets$ vector$<$int$>$ 
+			\State \quad PosiblesSolus $\gets$ vector$<$int$>$
 			\State \quad sinObj $\gets$ ValorOptimo(objetoxPesos, cofre, objeto -1, peso1, peso2, peso3)
 			\State \quad PosiblesSolus.Agregar(sinObj)
 			\State \quad Desde j=1 hasta j=3 hacer
@@ -388,7 +388,7 @@ Observación: nuestro algoritmo descarta los tesoros que tienen un peso mayor al
 					\State \quad \quad \quad objenj $=$ valorObj + ValorOptimo(objetoxPesos, cofre, objeto - 1, pesoj - pesoObj, los otros dos pesos)
 					\State \quad \quad \quad PosiblesSolus.Agrergar(objenj)
 				\State \quad \quad finSi
-			\State \quad finDesde	
+			\State \quad finDesde
 			\State \quad  valor$\gets$Max(PosiblesSolus)
 			\State \quad objetoxPesos[objeto][peso1][peso2][peso3] $\gets$ valor
 			\State \quad return valor
