@@ -64,6 +64,51 @@ La función PuedenSalir verifica que, en caso de que cruzen el puente los indivi
 
 
 \subsection{Pseudocódigo}
+
+A lo largo de esta sección renombraremos tipos, para facilitar la lectura.
+\begin{itemize}
+	\item vint es un arreglo de enteros.
+	\item ins es una dupla (vint, vint).
+	\item instancias es un conjunto de ins.
+\end{itemize}
+\\
+Tambien nos ahorraremos algunos pseudocódigos que son casos análogos entre Arqueólogos y caníbales.
+
+\begin{algorithm}[H]{\textbf{cant}(ls: vint) $\to$ $res$ : Nat }
+	\begin{algorithmic}
+	\State aux $\gets$ 0
+	\State Desde i = 0 hasta Tam(ls)-1
+	\State \quad \textbf{if}(ls[i] != 0)
+	\State \qquad aux $\gets$ aux+1
+	\State \quad \textbf{fi}
+	\State res $\gets$ aux
+	\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}[H]{\textbf{esValida}(instancia: ins) $\to$ $res$ : bool }
+	\begin{algorithmic}
+	 res $\gets$ (cant($\pi_1$(instancia)) $\geq$ cant($\pi_2$(instancia))) $\lor$ (cant($\pi_1$(instancia)) = 0
+	\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}[H]{\textbf{voyConA}(\textbf{In} VelElem1:Nat, \textbf{InOut} mMinActual:Nat, \textbf{InOut} ArqA: vint, \textbf{InOut} ArqB: vint)}
+	\begin{algorithmic}
+	\State Desde i = 0 hasta Tam(ArqA)-1
+	\State \quad \textbf{if}(ArqA[i] > 0)
+	\State \qquad valElem $\gets$ ArqA[i]
+	\State \qquad maximo $\gets$ max(valElem, velElem1)
+	\State \qquad mMinActual $\gets$ mMinActual + maximo
+	\State \qquad ArqB[i] = valElem
+	\State \qquad ArqA[i] = 0
+	\State \qquad VuelvoCon()
+	\State \qquad ArqB[i] = 0
+	\State \qquad ArqA[i] = valElem
+	\State \quad \textbf{fi} 
+	\end{algorithmic}
+\end{algorithm}
+
+
+
 \begin{algorithm}[H]{\textbf{BT}(M: Matriz nula de dim($|N_A|$+1 x $|M_A|$+1), $N_A, M_A, N_{B}, M_{B}$: Listas) }
 	\begin{algorithmic}
 		\If{$N_A$ es vacía}
