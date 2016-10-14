@@ -74,24 +74,21 @@ A lo largo de esta sección renombraremos tipos, para facilitar la lectura.
 \\
 Tambien nos ahorraremos algunos pseudocódigos que son casos análogos entre Arqueólogos y caníbales.
 
-\begin{algorithm}[H]{\textbf{cant}(ls: vint) $\to$ $res$ : Nat }
+\begin{algorithm}[H]{\textbf{BT}() }
 	\begin{algorithmic}
-	\State aux $\gets$ 0
-	\State Desde i = 0 hasta Tam(ls)-1
-	\State \quad \textbf{if}(ls[i] != 0)
-	\State \qquad aux $\gets$ aux+1
-	\State \quad \textbf{fi}
-	\State res $\gets$ aux
+		\State Para todo arqueologo en el lado A
+		\State \quad  velArq=velocidad del aqueologo
+		\State \quad voyConA(velArq)
+		\State \quad voyConC(velArq)
+		\State fin para
+		\State para todo canibal en el lado A
+		\State \quad velCan = velocidad del Canibal
+		\State \quad voyConC(velArq)
+		\State fin para
 	\end{algorithmic}
 \end{algorithm}
 
-\begin{algorithm}[H]{\textbf{esValida}(instancia: ins) $\to$ $res$ : bool }
-	\begin{algorithmic}
-	 res $\gets$ (cant($\pi_1$(instancia)) $\geq$ cant($\pi_2$(instancia))) $\lor$ (cant($\pi_1$(instancia)) = 0
-	\end{algorithmic}
-\end{algorithm}
-
-\begin{algorithm}[H]{\textbf{voyConA}(\textbf{In} VelElem1:Nat, \textbf{InOut} mMinActual:Nat, \textbf{InOut} ArqA: vint, \textbf{InOut} ArqB: vint)}
+\begin{algorithm}[H]{\textbf{voyConA}()}
 	\begin{algorithmic}
 	\State Desde i = 0 hasta Tam(ArqA)-1
 	\State \quad \textbf{if}(ArqA[i] > 0)
@@ -106,6 +103,14 @@ Tambien nos ahorraremos algunos pseudocódigos que son casos análogos entre Arq
 	\State \quad \textbf{fi} 
 	\end{algorithmic}
 \end{algorithm}
+
+
+\begin{algorithm}[H]{\textbf{esValida}(instancia: ins) $\to$ $res$ : bool }
+	\begin{algorithmic}
+	 res $\gets$ (cant($\pi_1$(instancia)) $\geq$ cant($\pi_2$(instancia))) $\lor$ (cant($\pi_1$(instancia)) = 0
+	\end{algorithmic}
+\end{algorithm}
+
 
 \begin{algorithm}[H]{\textbf{vuelvoCon}(\textbf{InOut} mMinActual:Nat, \textbf{InOut} mMinimoGlobal:Nat, \textbf{InOut} ArqA: vint, \textbf{InOut} ArqB: vint), \textbf{InOut} canA: vint, \textbf{InOut} canB: vint), \textbf{InOut} MIsntanciasSet: instancias}
 	\begin{algorithmic}
@@ -196,9 +201,19 @@ Nuestro algoritmo no admite ciclos puesto que tiene una condición booleana sobr
 
 
 \subsection{Demostración de Complejidad}
-	Si pensamos todas nuestras posibilidades como un árbol de estados, haciendo que la función ´´ida" y ´´vuelta" genera 3 hijos y 4 hijos respectivamente(la función ´´vuelta" genera 5 hijos, pero uno de ellos es siempre un estado por el que ya pasamos).
-	 Además, la altura nunca va a ser mayor que $n*m/2$, ya que tenemos una matriz para verificar que no pasemos dos veces por el mismo estado. Además, las operaciones de cada estado consisten en ´´recorrer" todas las posibilidades de individuos a mandar, siendo esto %%VER BIEN ESTO  
-	 En resumen, la cantidad máxima de resultados es altura del árbol por la ´´amplitud": Podemos ver que la complejidad es $12^{n*m/2}$
+	Para demostrar la complejidad del algoritmo explicaremos muchos conceptos y luego reuniremos todos para lograr una conclusión válida y prolija.
+\begin{enumerate}
+	\item Podemos plantear que el algoritmo crea un arbol de estados, si somos capaces de encontrar la altura y la cantidad de nodos que existen dada una altura la sumatoria de las complejidades de cada paso de estado a estado, podremos conseguir la complejidad teórica. En nuestro caso, encontraremos una cota superior a este árbol.
+	\item Los estados son creados, cuando se envian individuos del lado A al lado B, Estos estados tienen vinculados el tiempo que tardaron en ir o en volver.
+	\item Cada rama es única, por como se crean los estados, cada rama indica cual fue la forma de ir y volver del conjunto de personas, en forma ordenada, por esta razon, dos ramas no pueden ser iguales. Con ese orden, tambien podemos saber que en cada nivel los estados son diferentes. Ya que tienen una historia diferente, con ese razonamiento podemos llegar a concluir que dados dos estados, aunque parezca que tienen el mismo estado ya que tiene el mismo conjunto de personas de un lado sabemos que su historia es diferente llegando a la conclusión de que cada estado es distinto a cualquier otro.
+	\item La altura máxima que puede lograr el árbol es $2^{m+n+1}$, si colapsamos los niveles tal que cada nivel sea una ida y vuelta, sabemos que la longitud máxima de una rama es $2^{m+n}$ ya que las personas en un nivel pueden estar de un lado o del otro, haciendo que la longitud sea la antes mencionada. Como en realidad nuestros niveles no son ida y vuelta son ida o vuelta sabemos que la altura es el doble. Es decir que la altura es $2^{m+n+1}$.
+	\item Si estamos yendo a un nivel que es ida podemos, queremos ver cuanto nos cuesta llegar a ese nivel y cuantos nodos salen del nodo anterior. LLegar a ese nivel es $\mathcal{O}(1)$ por cada nodo, ya que es simplemente asignar unos valores que se acceden de un arreglo. La cantidad de nodos que se crean, suponiendo n y m la cantidad de arqueólogos y canibales respectivamente en el lado A, es n*(n-1)*m + m*(m-1). Separando en terminos, el primer termino sale de que para todo arquelogo, voy con algún canibal o con algún arqueólogo. El segundo termino es solo cuando los canibales van con canibales ya que canibal y arqueólogo fue considerado antes. Como todos los canibales salen con todos los otros es (m-1)*m. La complejidad para crear un nivel ida es $\mathcal{O}((n-1)*m + m*(m-1))$
+	\item si el nivel al que se desemboca es la vuelta, queremos ver cuanto nos cuesa llegar a ese nivel y cuantos nodos salen del nodo anterior. LLegar a a cada nodo de ese nivel nos cuesta, siendo m y n la cantidad de canibales y arqueólogos respectivamente, $\mathcal{O}(n+m)$. Ya que tenemos un buscar y un agregar en un conjunto que cuesta $\mathcal{O}(log(x))$ donde x es la cantidad de elementos del conjunto esta siendo todos los estados posibles de personas de un lado al otro. Esto sabemos que es $2^{m+n+1}$. Las propiedades del logaritmo nos llevan a la complejidad detallada anteriormente.
+	Ahora queremos ver cuantos nodos se crean. Para todo arqueologo, puede volver o solo o con un canibal, ya que demostramos que no volvemos con dos arqueólogos o dos canibales. Tambien sabemos que para todo canibal vuelve solo ya que volver con un arqueologo se considera antes. la complejidad es n*(1+m)+m.
+	Uniendo las dos cosas podemos determinar cual es la complejidad de crear este nivel, siendo $\mathcal{O}((n+m)*(n*(1+m)+m))$.
+\end{enumerate}
+	Tras considerar todo lo dicho, lo único que necesitamos es determinar la suma de las complejidades de cada nodo. Al no poder encontrar una formula, vamos a acotar al nivel de ida por el nivel de vuelta ya que es mas grande, esto se demuestra con unas simples operaciones algebráicas y luego hacer la suma de cada nivel. por el item 2 y el item 4 sabemos que que la altura es x = $2^{n+m+1}$ y cada nivel tiene una complejidad de y = $\mathcal{O}((n+m)*(n*(1+m)+m))$. Entonces la complejidad es $\mathcal(\sum_{i=0}^{x} y^i)$ 
+
 \subsection{Experimentación}
 Para este problema generamos dos hipótesis:
 Suponemos que siempre que van dos individuos, si son del mismo tipo van los dos extremos(el más lento y el más rapido) y si son distinto tipo, pasa el mínimo de todo el grupo, y el máximo del otro tipo.
