@@ -64,8 +64,19 @@ La función PuedenSalir verifica que, en caso de que cruzen el puente los indivi
 
 
 \subsection{Pseudocódigo}
-\begin{algorithm}[H]{\textbf{BT}(M: Matriz nula de dim($|N_A|$+1 x $|M_A|$+1), $N_A, M_A, N_{B}, M_{B}$: Listas) }
+
+A lo largo de esta sección renombraremos tipos, para facilitar la lectura.
+\begin{itemize}
+	\item vint es un arreglo de enteros.
+	\item ins es una dupla (vint, vint).
+	\item instancias es un conjunto de ins.
+\end{itemize}
+\\
+Tambien nos ahorraremos algunos pseudocódigos que son casos análogos entre Arqueólogos y caníbales.
+
+\begin{algorithm}[H]{\textbf{BT}() }
 	\begin{algorithmic}
+<<<<<<< HEAD
 		\If{$N_A$ es vacía}
 			\State min $\gets$  mínimo de $M_A$
 			\State devolver min*($|M_B|-1$)+ Sumatoria( $M_B$ sin el elemento min)
@@ -95,7 +106,97 @@ La función PuedenSalir verifica que, en caso de que cruzen el puente los indivi
 			\EndWhile $//O(1)$
 		\EndWhile$//O(Log(P))$
 		\State devolver Min(T)
+=======
+		\State Para todo arqueologo en el lado A
+		\State \quad  velArq=velocidad del aqueologo
+		\State \quad muevo arqueologo al lado B
+		\State \quad voyConA(velArq)
+		\State \quad voyConC(velArq)
+		\State \quad vuelvo al arqueologo al lado A
+		\State fin para
+		\State para todo canibal en el lado A
+		\State \quad velCan = velocidad del Canibal
+		\State \quad muevo al canibal al lado B
+		\State \quad voyConC(velArq)
+		\State \quad  vuelvo el canibal al lado A
+		\State fin para
+	\end{algorithmic}
+\end{algorithm}
+>>>>>>> 4a8425857147caa501c99d4c34ee083170f1f32f
 
+\begin{algorithm}[H]{\textbf{voyConA}(int valElem1)}
+	\begin{algorithmic}
+	\State Para todo arqueologo en A
+	\State \qquad valElem $\gets$ velocidad del arqueologo
+	\State \qquad maximo $\gets$ max(valElem, velElem1)
+	\State \qquad mMinActual $\gets$ mMinActual + maximo
+	\State \qquad muevo al aqueologo al lado B
+	\State \qquad VuelvoCon()
+	\State \qquad mMinActual $\gets$ mMinActual - maximo
+	\State \qquad vuelvo al arqueologo al lado A	
+	\State finPara
+	\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}[H]{\textbf{voyConC}(int valElem1)}
+	\begin{algorithmic}
+		\State  analogo a voyConA pero en lugar de arqueologos utilizamos canibales
+	\end{algorithmic}
+\end{algorithm}
+ 	
+\begin{algorithm}[H]{\textbf{esValida}(instancia: ins) $\to$ $res$ : bool }
+	\begin{algorithmic}
+	 res $\gets$ (cantidad de arqueologos de un lado$\geq$ cantidad de canibales del mismo lado) $\lor$ cantidad de arqueologos del lado es 0)
+	\end{algorithmic}
+\end{algorithm}
+
+
+\begin{algorithm}[H]{\textbf{vuelvoCon}(\textbf{InOut} mMinActual:Nat, \textbf{InOut} mMinimoGlobal:Nat, \textbf{InOut} ArqA: vint, \textbf{InOut} ArqB: vint), \textbf{InOut} canA: vint, \textbf{InOut} canB: vint), \textbf{InOut} MIsntanciasSet: instancias}
+	\begin{algorithmic}
+	\State Sí no esValida(lado A) o no esValida(lado B)	
+	\State \quad Interrumpi
+	\State finSi
+	\State Sí la cantidad de arqueologos en A es cero y la cantidad de canibales en A es cero
+	\State \quad Sí mMinActual < mMinimoGlobal
+	\State \qquad mMinimoGlobal $\gets$ mMinActual
+	\State \quad finSi
+	\State  \quad Interrumpi
+	\State finSi
+	\State Para todo arqueologo en B 
+	\State \qquad valElem $\gets$ velocidad del arqueologo
+	\State \qquad mando al arqueologo al lado A	
+	\State \qquad Sí esta instancia no esta en instancias
+	\State \qquad \quad mMinActual $\gets$ mMinActual + valElem
+	\State \qquad \quad instancias $\cup$ \{ instancia \}
+	\State \qquad \quad BT()
+	\State \qquad \quad instancias - \{ instancia \}
+	\State \qquad \quad mMinActual $\gets$ mMinActual - valElem
+	\State \qquad finSi
+	\State \qquad vuelvo al arqueologo al lado B
+	\State \quad finSi
+	\State finPara
+	\State ParaTodo canibal en B
+	\State \quad \textbf{if}(canB[i] > 0)
+	\State \qquad analogo al for anterior pero con canibales
+	\State finPara
+	\State Para Todo arqueologo en B 
+	\State \quad valElemArq $\gets$ velocidad del arqueologo 
+	\State \qquad mando al arqueologo al lado A
+	\State \qquad Para todo canibal en B
+	\State \qquad \quad valElemCan $\gets$ velocidad del canibal	
+	\State \qquad \qquad mando al canibal al lado A
+	\State \qquad \qquad Si esta nueva instancia no esta en instancias
+	\State \qquad \qquad \quad max $\gets$ Maximo(valElemArq, valElemCan)
+	\State \qquad \qquad \quad mMinAcutal $\gets$ mMinActual + max
+	\State \qquad \qquad \quad BT()
+	\State \qquad \qquad \quad instancias - \{ instancia \}
+	\State \qquad \qquad \quad mMinActual $\gets$ mMinActual - maximo
+	\State \qquad \qquad finSi
+	\State \qquad \qquad vuelvo al canibal al lado B
+	\State \qquad vuelvo al aqueologo al lado B 
+	\State \qquad finPara
+	\State finPara
+																		
 	\end{algorithmic}
 \end{algorithm}
  $//O(1)$
