@@ -174,31 +174,37 @@ Nota: Para la implementación, en vez de crear el conjunto T, vamos tomando el r
 
 \subsubsection{Demostración de Correctitud}
 
-Primero probaremos un lema inductivamente:
+Primero probaremos dos lemas:
 $\forall n \in N$ vale que  $2*3^{n} = 3^{n+1}-3^{n}$.
 
-Caso base:
-queremos ver que $2*3^{0} = 3^{1}-3^{0}$
-$2*3^0 = 2*1=2$ y $3^1-3^0= 3-1=2$ entonces $2*3^{0} = 3^{1}-3^{0}$
-\\
-\\
-Hipótesis Inductiva:
-$\forall n \in N$ vale que  $2*3^{n} = 3^{n+1}-3^{n}$
-\\
-\\
-Paso Inductivo:
-queremos ver que $\forall n \in N$ vale que  $2*3^{n+1} = 3^{n+2}-3^{n+1}$
+lema 1:$ 2*3^{n} = 3^{n+1}-3^{n} \Longleftrightarrow 2*3^{n}+3^{n} = 3^{n+1} \Longleftrightarrow (2+1)*3^{n} = 3^{n+1} \Longleftrightarrow   3*3^{n} = 3^{n+1} \Longleftrightarrow  3^{n+1} = 3^{n+1}$ 
 
-$2*3^{n+1} = 2*3^{n}*3 $
-\\
- por hipotesis inductiva: $2*3^{n}*3 = (3^{n+1}-3^{n})*3 = 3^{n+1}*3 - 3^{n}*3= 3^{n+2}-3^{n+1} $
-\\
-luego, como valen el caso base y el paso inductivo, entonces vale $2*3^{n} = 3^{n+1}-3^{n} \forall n \in N $
+lema2 : probaremos por inducción que $ \Sum_{0}^{n}{k_{i}*3^{i}} < 3^{n}$ con $-1 \leq k_{i} \leq 1 $
+%completar%
 
 \\
 Ahora para probar la correctitud del algoritmo, desarrollaremos algunos conceptos algebraicos.
 Por el algoritmo de división de Euclides sabemos que podemos escribir \\  $P= q*3+ r_{3}(P)$ con $0\leq r_{3}(P) \leq 2 $. Luego, podemos escribir $q= z*3 + r_{3}(q)$, entonces $P= (z*3 + r_{3}(q))*3 +r_{3}(P)$ y así recursivamente y aplicando la distributividad de la suma podemos descomponer p en las potencias de 3. Finalmente obtendríamos $p= \sum_{i=0}^{n}{a_i 3^{i}} $ con $0 \leq a_i \leq 2$.
-Ahora nuestro problema es la aparición de $a_i=2$ en la descomposición, puesto que sólo tenemos una pesa por potencia de tres. Pero por lo visto en el lema anterior, $2*3^{i}= 3^{i+1}-3^{i}$. Esto equivale a colocar la pesa $3^{i+1}$ en la balaza izquierda y la $3^{i}$ en la derecha, obteniendo el equivalente a 2 pesas $3^{1}$ en la izquierda. aplicando este proceso recursivamente, obtenemos  una descomposición de P sumando y restando sus potencias de tres sin repeticiones.
+
+Ahora nuestro problema es la aparición de $a_i=2$ en la descomposición, puesto que sólo tenemos una pesa por potencia de tres.
+
+Probaremos por inducción global  que  $ \forall n \in N vale  \sum_{0}^{n}{a_{i}*3^{i}}= \sum_{0}^{n+1}{b_{i}*3^{i}} con 0\leq a_{i} \leq 2 y -1 \leq b_{i} \leq 1$ 
+
+caso base: 
+
+%completar%
+
+
+%viejo%
+
+$p= \sum_{i=0}^{n}{a_i 3^{i}} =  \sum_{i=0}^{n-1}{a_i 3^{i}} + a_n*3^{n}$ 
+
+por hipotesis inductiva, sabemos que para $0\leq i \leq n-1, -1\leq a_{i}\leq 1$. Por Euclides, como explicamos antes, $0\leq a_{n} \leq 2 $ en los primeros dos casos es trivial la validez de la proposición. 
+Veamos el caso a_{i} = 2:
+  Por el lema, podemos escribir $2*3^{n}= = 3^{n+1}-3^{n}$  entonces  podemos escribir a_{i} p= \sum_{i=0}^{n}{a_i 3^{i}} = \sum_{ 
+
+
+ Pero por lo visto en el lema anterior, $2*3^{i}= 3^{i+1}-3^{i}$. Esto equivale a colocar la pesa $3^{i+1}$ en la balaza izquierda y la $3^{i}$ en la derecha, obteniendo el equivalente a 2 pesas $3^{1}$ en la izquierda. aplicando este proceso recursivamente, obtenemos  una descomposición de P sumando y restando sus potencias de tres sin repeticiones.
 
 
 \subsubsection{Demostración de Complejidad}
@@ -292,29 +298,25 @@ Nuestro objetivo es seleccionar una combinación de los primeros objetos, restri
 
    Para obtener el valor óptimo, modelamos nuestro problema a partir de la siguiente función recursiva:
 
-	$f(o,p_{1},p_{2},p_{3})=0 \\
+	$f(0,p_{1},p_{2},p_{3})=0 \\
 	f(n,p_{1},p_{2},p_{3}) = Max(V_{n}+Max(f(n-1,p_{1}-p_{n},p_{2},p_{3}), f(n-1,p_{1},p_{2}-p_{n},p_{3}), f(n-1,p_{1},p_{2},p_{3}-p_{n})),f(n-1,p_{1},p_{2},p_{3})) $
 
 	Donde n representa el número de tesoro, $V_{n}$ y $P_{n}$ su valor y su peso respectivamente. $p_{1},p_{2}\ y \ p_{3}$ son las capacidades de cada mochila.
 
-	Esta función es del tipo top down, es decir, que para calcular su i-esimo término requiere de los anteriores. En cada estado decide recurivamente sí el mejor valor posible se obtiene de sólo guardar nuestro i-esimo objeto o en alguna de las tres mochilas, o en ninguna mochila.  
-
-	%q pensas? se puede hablar de que la func rec es top down o eso es solo para el algoritmo?%
+	Esta función,al ser recursiva, para calcular su i-esimo término requiere de los anteriores. En cada estado decide recurivamente sí el mejor valor posible se obtiene de sólo guardar nuestro i-esimo objeto o en alguna de las tres mochilas, o en ninguna mochila.  
 
 
-\\
-%%%%%%%%% MODIFICACION%%%%
 
-\\
 	Para resolver nuestro primer problema el algoritmo se encarga de llenar un arreglo de cuatro dimensiones, donde el tamaño del arreglo principal es la cantidad de objetos y los tamaños de los otros tres arreglos anidados son las capacidades de las tres mochilas.
 	Lo que representa cada posición, (x,y,z,w), de este arreglo es el valor óptimo que pueden lograr los primeros x objetos con una combinación de mochilas de peso y, z, w. En el caso que el problema a resolver responda a dos mochilas, una de las variables y, z, w seran 0 para cualquier posción y un caso similar si solo hay que llenar una mochila.
 
-%%%%%%%TERMINA MODIFICACION%%%%
-	Luego para llenar las mochilas utilizamos este arreglo (lleno luego de encontrar el valor ótimo) entonces para cada objeto i guardamos el valor óptimo es decir, la posición del arreglo (i,cap1,cap2,cap3). Después nos fijamos para cada mochila  el resultado de sumar el valor del objeto i con el valor óptimo para el objeto anterior menos el valor óptimo guardado, si esto da cero, es porque encontramos la mochila a la cual corresponde el objeto i. 
+
+	Luego para llenar las mochilas utilizamos este arreglo (lleno luego de encontrar el valor ótimo) entonces para cada objeto i guardamos el valor óptimo es decir, la posición del arreglo (i,cap1,cap2,cap3). 
+
+	Después para decidir en cuál mochila tendría que ser guardado revisamos la posición que corresponde al objeto anterior (i-1) y para cada mochila, las otras tres coordenadas serán, la capacidad de la mochila que estamos revisando menos el peso del objeto i, y las otras dos se mantienen constantes. Si esto da cero, es porque encontramos la mochila a la cual corresponde el objeto i, si no ese objeto no debe ser metido en ninguna mochila. 
 
 
-
-Observación: nuestro algoritmo descarta los tesoros que tienen un peso mayor al máximo de capacidad entre las mochilas. Asumimos en el pseusocódigo que nuestra entrada cumple esa propiedad.
+	Observación: nuestro algoritmo descarta los tesoros que tienen un peso mayor al máximo de capacidad entre las mochilas. Asumimos en el pseusocódigo que nuestra entrada cumple esa propiedad.
 
 
 \subsubsection{Pseudocódigo}
@@ -424,11 +426,17 @@ Ahora queremos ver que $f(n,p_{1},p_{2},p_{3})$ da el valor óptimo para n objet
 $f(n,p_{1},p_{2},p_{3}) = Max(V_{n}+Max(f(n-1,p_{1}-p_{n},p_{2},p_{3}), f(n-1,p_{1},p_{2}-p_{n},p_{3}), f(n-1,p_{1},p_{2},p_{3}-p_{n})),f(n-1,p_{1},p_{2},p_{3})) $ \\
 por hipótesis inductiva (como $n-1 \leq k$ para algun k) sabemos que $f(n-1,p_{1}-p_{n},p_{2},p_{3}), f(n-1,p_{1},p_{2}-p_{n},p_{3}), f(n-1,p_{1},p_{2},p_{3}-p_{n}) y f(n-1,p_{1},p_{2},p_{3})$ son los valores óptimos que se pueden conseguir con n-1 objetos restando (o no) el peso del objeto n de modo de luego poder guardarlo en alguna mochila (o no). Utilizaremos los renombres $V_{01},V_{02},V_{03},V_{00}$ respectivamente.
 Entonces tenemos: \\
-$f(n,p_{1},p_{2},p_{3})= Max(V_{n}+Max(V_{01},V_{0,2},V_{03}),V_{00})$\\
+$f(n,p_{1},p_{2},p_{3})= Max(V_{n}+Max(V_{01},V_{02},V_{03}),V_{00})$\\
 Podemos ver que esta función  compara el valor óptimo de llenar las mochilas con n-1 tesoros y el tesoro n, con el valor óptimo de llenar las mochilas con n-1 tesoros sin el tesoro n (de esta forma se tiene cuenta el caso en el que el mejor valor se obtiene de poner algún objeto  de los n-1 anteriores que impide luego meter el tesoro n).\\
 Como la función Max devuelve el mayor valor, el resultado sera el óptimo.
 \\
 Como valen P(0)..p(k) $\forall k<n$ y vale p(n) $\Rigtharrow$ vale p(n) $\forall n \in N \cup {0} $
+
+En nuestra demostración utilizamos el principio de optimalidad. Ahora probaremos que efectivamente queremos construir nuestra solución a partir de subsoluciones óptimas:
+
+Supongamos que $f(n,p_{1},p_{2},p_{3}) = Max(V_{n} + H, V_{00})$ donde H es una subsolución del estado anterior que no es óptima. sabemos que $ H < Max(V_{01},V_{02},V_{03})$ (ya que si no sería óptima) entonces $V_{n}+H < V_{n}+Max(V_{01},V_{02},V_{03})$ (ya que estamos sumando números positivos) Luego $Max(V_{n}+H,V_{00}) \leq Max(V_{n}+Max(V_{01},V_{02},V_{03}), V_{00})$ entonces $f(n,p_{1},p_{2},p_{3})$ no es óptimo, absurdo. 
+
+
 
 \subsubsection{Demostración de Complejidad}
 
@@ -436,6 +444,7 @@ La complejidad del algoritmo GuardarTesoro es $\mathcal{O}(\prod_{i=1}^{3}K_{i} 
 
 Primero haremos unas observaciones preliminares:
 \begin{itemize}
+<<<<<<< HEAD
 %%modificacion
 	\item Se puede pensar que el arreglo de cuatro dimensiones en realidad es un arreglo de cubos, donde el índice de cada cubo es hasta que objeto se verifico la solución optima. 
 %%%finModif
@@ -445,14 +454,27 @@ Primero haremos unas observaciones preliminares:
 \end{itemize}
 
 Volviendo a la demostración, tanto en el pseudocódigo como en la función matemática podemos ver que la recursión se realiza a lo sumo cuatro veces la cantidad total de tesoros, pero estas recursiones se hacen sobre valores distintos, posiciones distintas del arreglo y referenciamos al hipercubo. Para llenar un cubo, siempre debemos recurrir al cubo anterior, uno puede pensar que esto aportaría complejidad, sin embargo, al guardar estos valores sólo construimos estos cubos una vez, y la complejidad por acceso es $\Theta(1)$.
+=======
+
+	\item Podemos pensar un arreglo de 4 dimensiones como un ''hipercubo" (el equivalente a un cubo pero en varias dimensiones, es particular en nuestro caso 4) 
+	\item El volumen de un cubo es es $\prod_{i=1}^{3}A_{i}$ donde cada $A_i$ es una arista que representa el eje de la altura, el ancho o el largo. Como explicamos en la introducción gracias a nuestro modelado, sabemos que llenar una posición del cubo nos cuesta $\Theta(1)$, entonces llenarlo entero nos costará el equivalente al volumen del mismo. Podriamos visualizarlo como subdividir un cubo en cubos pequeños de dimension 1x1x1.
+	\item Llenar un hipercubo con un valor determinado (como ocurre en la linea 1 de guardandoTesoro) cuesta $\mathcal{O}(\prod_{i=1}^{3}K_{i} * T)$ ya que hay T cubos para llenar.
+	\item Cuando se llama a LlenarMochilas desde GuardarTesoro cuesta $\mathcal{O}(T)$ ya que en las lineas 9,10,11 cuando se llama a ValorOptimo, el hipercubo objetoXpeso cuenta con todos los valores ya calculados entrando en el if (linea 6) que devuelve en $\mathcal{O}(1)$ el valor.
+\end{itemize}
+
+Volviendo a la demostración, tanto en el pseudocódigo como en la función matemática podemos ver que la recursión se realiza tantas veces como la cantidad total de tesoros, y las recursiones internas,las que dependen de cada mochila se realizan tantas veces como la capacidad de la misma. Para llenar un cubo, siempre debemos recurrir al cubo anterior, uno puede pensar que esto aportaría complejidad, sin embargo, al guardar estos valores sólo construimos estos cubos una vez, y la complejidad por acceso es $\Theta(1)$.
+
+Otra manera de verlo, es análoga a la explicación de la complejidad de llenar un cubo. Al estar llenando un hipercubo la complejidad será quivalente al hipervolumen del mismo, es decir, multiplicariamos las tres aristas anteriores por una que sería la cuarta dimensión(en este caso los tesoros).
+>>>>>>> 4b33ce7012995ae4c33bf8ec53cf4a364819766d
 
 como se guardan los valores y en ninguna recursividad  el algoritmo recalcula un valor, la complejidad está dada por llenar el arreglo de cubos. Concluyendo que la complejidad es $\mathcal{O}(\prod_{i=1}^{3}K_{i} * T)$
 
 Ahora probemos que esta complejidad es menor a la pedida ($\mathcal{O}((\sum_{i=1}^{3}K_{i})^{3} * T)$)
+<<<<<<< HEAD
 \\
 quiero ver que $\mathcal{O}(\prod_{i=1}^{3}K_{i} * T)$ $\leq$ $\mathcal{O}((\sum_{i=1}^{3}K_{i})^{3} * T)$
 \\
-si T es cero la desigualdad es verdadera, sino es equivalente probar que $\mathcal{O}(\prod_{i=1}^{3}K_{i})$ $\leq$ $\mathcal{O}((\sum_{i=1}^{3}K_{i})^{3})$
+si T es cero la desigualdad es verdadera,sino es equivalente probar que $\mathcal{O}(\prod_{i=1}^{3}K_{i})$ $\leq$ $\mathcal{O}((\sum_{i=1}^{3}K_{i})^{3})$
 \\
 Si expandimos la suma y la productoria nos queda :
 \\
@@ -462,6 +484,10 @@ K_1*K_2*K_3 $\leq$ K_1^3+K_2^3+K_3^3 +3*K_1^2*K_2 + 3*K_1^2*K_3 + 3*K_2^2*K_1 + 
 \\
 como K_i $\geq$ 0 para todo i, eso se cumple y demostramos que la complejidad es menor a la pedida.
 %$\prod_{i=1}^{3}K_{i}  = K_1*K_2*K_3$   sea $K_{max} = Max(K_1,K_2,K_3)$ y $K_o= K_1^3 + K_2^3 + K_3^3 - K_{max}^3$ entonces $K_1*K_2*K_3 < K_{max}^3 < K_{max}^3 + K_o = K_1^3+K_2^3+K_3^3 <(\sum_{i=1}^{3}K_{i})^{3}$ entonces $\prod_{i=1}^{3}K_{i}* T < \sum_{i=1}^{3}K_{i})^{3} * T $
+=======
+
+$\prod_{i=1}^{3}K_{i}  = K_1*K_2*K_3$   sea $K_{max} = Max(K_1,K_2,K_3)$ y $K_o= K_1^3 + K_2^3 + K_3^3 - K_{max}^3$ entonces $K_1*K_2*K_3 \leq K_m^3 \leq K_m^3 + K_o = K_1^3+K_2^3+K_3^3 <(\sum_{i=1}^{3}K_{i})^{3}$ entonces $\prod_{i=1}^{3}K_{i}* T < (\sum_{i=1}^{3}K_{i})^{3} * T $
+>>>>>>> 4b33ce7012995ae4c33bf8ec53cf4a364819766d
 
 
 \subsection{Experimentación}
@@ -516,8 +542,12 @@ En el  gráfico se trata de comparar como afecta la distribución de pesos en la
 \caption{variación de la cantidad de mochilas.}
 \end{figure}
 
+<<<<<<< HEAD
 En esta figura podemos observar el crecimiento exponencial del tiempo dependiendo de la cantidad de mochilas, como la escala es logaritmica y las curvas son casi lineas rectas entonces podemos deducir que el tiempo crece de forma exponencial. Esto concuerda con el hecho de que al tener todas las variables en 50 ($T=50, K_1 =50 k_2=50, k_3=50$) al ir aumentando la cantidad de mochilas estaríamos elevando la constante 50 (con $K_1$ tenemos $K_1*T=50^2$, con $K_2$ tenemos $K_1*K_2*T=50^3, etc $). Este es el tipo de función exponencial $Y=50^X$.
 \\
+=======
+En esta figura podemos observar el crecimiento exponencial del tiempo dependiendo de la cantidad de mochilas. Esto concuerda con el hecho de que al tener todas las variables en 50 ($T=50, K_1 =50 k_2=50, k_3=50$) al ir aumentando la cantidad de mochilas estaríamos elevando la constai{} nte 50 (con $K_1$ tenemos $K_1*T=50^2$, con $K_2$ tenemos $K_1*K_2*T=50^3, etc $). Este es el tipo de función exponencial $Y=50^X$.
+>>>>>>> 4b33ce7012995ae4c33bf8ec53cf4a364819766d
 \\
 En el último gráfico se trata de comparar como afecta la distribución de pesos en las mochilas. Como nuestra complejidad varía dependiendo del producto de las capacidades queríamos ver como era el tiempo de ejecución para distinta cantidad de mochilas con el mismo producto. tomamos cincuenta objetos con peso igual a la capacidad mínima del conjunto de mochilas en el que testeamos y repetimos cada instancia mil veces tomando el promedio. 
 \begin{figure}[H]
