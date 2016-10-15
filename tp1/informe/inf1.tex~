@@ -53,9 +53,10 @@ Para resolver este problema, usamos la técnica de backtracking: utilizamos una 
 
 Para empezar, todos los casos donde ya se comience de un lado del puente con más caníbales que arqueólogos no tienen solución.
 
+
  en cada rama del backtracking guardamos en un set las instancias que vamos generando para no generar loops. Una instancia serían los canivales de y arqueologos de un solo lado  del puente. (los mismos son distinguibles, es decir, diferenciamos dos canivales o arqueolos entre sí. De esta forma puede que dos instancias que tengan la misma cantidad de individuos sean distintas.)
 
-Nuestra solución va generando todas las posibles soluciones combinando de todas las maneras posibles las formas de ir y volver del puente hasta lograr pasar a todos los individuos al otro lado. para poder guardar la información de los mismos utilizamos dos vectores, uno para los arqueologos y otro para los canivales, ambos con el largo que corresponde a la cantidad de individuos de cada tipo. En sus posiciones se guardan las velocidades. Las soluciones se van creando a partir de ir sumando la velocidad (en caso de que se translade un individuo será la que le corresponda al mismo, de ser dos los que se transladan se suma la velocidad maxima) en cada movimiento. Las mismas se guardan de manera parcial para poder compararlas con una solucion general e ir reemplazandola siempre por la solución menor. 
+Nuestra solución va generando todas las posibles soluciones combinando de todas las maneras posibles las formas de ir y volver del puente hasta lograr pasar a todos los individuos al otro lado. para poder guardar la información de los mismos utilizamos dos vectores, uno para los arqueologos y otro para los canivales, ambos con el largo que corresponde a la cantidad de individuos de cada tipo. En sus posiciones se guardan las velocidades. Las soluciones se van creando a partir de ir sumando la velocidad (en caso de que se translade un individuo será la que le corresponda al mismo, de ser dos los que se transladan se suma la velocidad maxima) en cada movimiento. Las mismas se guardan de manera parcial para poder compararlas con una solucion general e ir reemplazandola siempre por la solución menor.
 
 \subsection{Pseudocódigo}
 
@@ -95,7 +96,7 @@ Tambien nos ahorraremos algunos pseudocódigos que son casos análogos entre Arq
 	\State \qquad muevo al aqueologo al lado B
 	\State \qquad VuelvoCon()
 	\State \qquad mMinActual $\gets$ mMinActual - maximo
-	\State \qquad vuelvo al arqueologo al lado A	
+	\State \qquad vuelvo al arqueologo al lado A
 	\State finPara
 	\end{algorithmic}
 \end{algorithm}
@@ -105,7 +106,7 @@ Tambien nos ahorraremos algunos pseudocódigos que son casos análogos entre Arq
 		\State  analogo a voyConA pero en lugar de arqueologos utilizamos canibales
 	\end{algorithmic}
 \end{algorithm}
- 	
+
 \begin{algorithm}[H]{\textbf{esValida}(instancia: ins) $\to$ $res$ : bool }
 	\begin{algorithmic}
 	 res $\gets$ (cantidad de arqueologos de un lado$\geq$ cantidad de canibales del mismo lado) $\lor$ cantidad de arqueologos del lado es 0)
@@ -115,7 +116,7 @@ Tambien nos ahorraremos algunos pseudocódigos que son casos análogos entre Arq
 
 \begin{algorithm}[H]{\textbf{vuelvoCon}(\textbf{InOut} mMinActual:Nat, \textbf{InOut} mMinimoGlobal:Nat, \textbf{InOut} ArqA: vint, \textbf{InOut} ArqB: vint), \textbf{InOut} canA: vint, \textbf{InOut} canB: vint), \textbf{InOut} MIsntanciasSet: instancias}
 	\begin{algorithmic}
-	\State Sí no esValida(lado A) o no esValida(lado B)	
+	\State Sí no esValida(lado A) o no esValida(lado B)
 	\State \quad Interrumpi
 	\State finSi
 	\State Sí la cantidad de arqueologos en A es cero y la cantidad de canibales en A es cero
@@ -124,15 +125,17 @@ Tambien nos ahorraremos algunos pseudocódigos que son casos análogos entre Arq
 	\State \quad finSi
 	\State \quad Interrumpi
 	\State finSi
-	\State Para todo arqueologo en B 
+
+	\State Para todo arqueologo en B
 	\State \quad valElem $\gets$ velocidad del arqueologo
-	\State \quad mando al arqueologo al lado A	
+	\State \quad mando al arqueologo al lado A
 	\State \quad Sí esta instancia no esta en instancias
 	\State \qquad  mMinActual $\gets$ mMinActual + valElem
 	\State \qquad  instancias $\cup$ \{ instancia \}
 	\State \qquad  BT()
 	\State \qquad  instancias - \{ instancia \}
 	\State \qquad  mMinActual $\gets$ mMinActual - valElem
+
 	\State \quad finSi
 	\State \quad vuelvo al arqueologo al lado B
 	\State finPara
@@ -141,11 +144,12 @@ Tambien nos ahorraremos algunos pseudocódigos que son casos análogos entre Arq
 	\State \qquad analogo al for anterior pero con canibales
 	\State finSi
 	\State finPara
-	\State Para Todo arqueologo en B 
-	\State \quad valElemArq $\gets$ velocidad del arqueologo 
+
+	\State Para Todo arqueologo en B
+	\State \quad valElemArq $\gets$ velocidad del arqueologo
 	\State \quad mando al arqueologo al lado A
 	\State \quad Para todo canibal en B
-	\State \qquad valElemCan $\gets$ velocidad del canibal	
+	\State \qquad valElemCan $\gets$ velocidad del canibal
 	\State \qquad mando al canibal al lado A
 	\State \qquad  Si esta nueva instancia no esta en instancias
 	\State \qquad \quad max $\gets$ Maximo(valElemArq, valElemCan)
@@ -155,10 +159,11 @@ Tambien nos ahorraremos algunos pseudocódigos que son casos análogos entre Arq
 	\State \qquad \quad mMinActual $\gets$ mMinActual - maximo
 	\State \qquad finSi
 	\State \qquad vuelvo al canibal al lado B
-	\State \qquad vuelvo al aqueologo al lado B 
+	\State \qquad vuelvo al aqueologo al lado B
 	\State \quad finPara
+
 	\State finPara
-																		
+
 	\end{algorithmic}
 \end{algorithm}
 
@@ -187,6 +192,7 @@ Cuando un camino llega a pasar todos los individuos al otro lado del puente, com
 
 
 \subsection{Demostración de Complejidad}
+<<<<<<< HEAD
 	Para demostrar la complejidad del algoritmo explicaremos muchos conceptos y luego reuniremos todos para lograr una conclusión válida y prolija.
 \begin{enumerate}
 	\item Podemos plantear que el algoritmo crea un arbol de estados, si somos capaces de encontrar la altura y la cantidad de nodos que existen dada una altura la sumatoria de las complejidades de cada paso de estado a estado, podremos conseguir la complejidad teórica. En nuestro caso, encontraremos una cota superior a este árbol.
@@ -200,12 +206,17 @@ Cuando un camino llega a pasar todos los individuos al otro lado del puente, com
 \end{enumerate}
 	Tras considerar todo lo dicho, lo único que necesitamos es determinar la suma de las complejidades de cada nodo. Al no poder encontrar una formula, vamos a acotar al nivel de ida por el nivel de vuelta ya que es mas grande, esto se demuestra con unas simples operaciones algebráicas y luego hacer la suma de cada nivel. por el item 4 y el item 6 sabemos que que la altura es x = $2^{n+m+1}$ y cada nivel tiene una complejidad de y = $\mathcal{O}((n+m)*(n*(1+m)+m))$. Entonces la complejidad es $\mathcal(\sum_{i=0}^{x} y^i)$ 
 
+=======
+	Si pensamos todas nuestras posibilidades como un árbol de estados, haciendo que la función ´´ida" y ´´vuelta" genera 3 hijos y 4 hijos respectivamente(la función ´´vuelta" genera 5 hijos, pero uno de ellos es siempre un estado por el que ya pasamos).
+	 Además, la altura nunca va a ser mayor que $n*m/2$, ya que tenemos una matriz para verificar que no pasemos dos veces por el mismo estado. Además, las operaciones de cada estado consisten en ´´recorrer" todas las posibilidades de individuos a mandar, siendo esto %%VER BIEN ESTO
+	 En resumen, la cantidad máxima de resultados es altura del árbol por la ´´amplitud": Podemos ver que la complejidad es $12^{n*m/2}$
+>>>>>>> 8df187b2169cb7ce976068485c676d515cce9b14
 \subsection{Experimentación}
 Para la experimentación vamos a analizar nuestro algoritmo con las dos podas propuestas(por un lado, corta una rama cuando el mínimo generado hasta ese momento es menor que el mínimo global. Por el otro, la vuelta de dos arquéologos o de dos caníbales nunca genera un camíno óptimo) y compararlo con un algoritmo sin podas. Para esto, diseñamos dos experimentos con valores aleatorios controlados; el caso en el cual todos los de un tipo de individuo es más veloz que el otro, y el caso ´´alternado", en el cual si se ordenan los individuos, el tipo de persona se va alternando. Cada experimento se generó para todas las combinaciones posibles de cantidades de arquéologos y caníbales, y se repitió cien veces, quedándose con el promedio de los resultados.
 
 %%GRAAAAFICOOOOOOOOS
 
-Podemos observar que la poda no genera cambios significativos en la complejidad temporal del problema. No sólo eso; existen casos en los cuales la poda es más ineficiente que el algoritmo normal. 
+Podemos observar que la poda no genera cambios significativos en la complejidad temporal del problema. No sólo eso; existen casos en los cuales la poda es más ineficiente que el algoritmo normal. Además es notorio que los casos donde la a cantidad de caníbales y arquéologos es la misma se generan máximos locales.
 
 \section{Problema 2: Problemas en el camino}
 
@@ -251,11 +262,11 @@ Nota: Para la implementación, en vez de crear el conjunto T, vamos tomando el r
 Primero probaremos dos lemas:
 $\forall n \in N$ vale que  $2*3^{n} = 3^{n+1}-3^{n}$.
 
-lema 1:$ 2*3^{n} = 3^{n+1}-3^{n} \Longleftrightarrow 2*3^{n}+3^{n} = 3^{n+1} \Longleftrightarrow (2+1)*3^{n} = 3^{n+1} \Longleftrightarrow   3*3^{n} = 3^{n+1} \Longleftrightarrow  3^{n+1} = 3^{n+1}$ 
+lema 1:$ 2*3^{n} = 3^{n+1}-3^{n} \Longleftrightarrow 2*3^{n}+3^{n} = 3^{n+1} \Longleftrightarrow (2+1)*3^{n} = 3^{n+1} \Longleftrightarrow   3*3^{n} = 3^{n+1} \Longleftrightarrow  3^{n+1} = 3^{n+1}$
 
 lema2 : probaremos por inducción que $ \Sum_{0}^{n}{3^{i}} < 3^{n+1}$
 caso base: $n \eq 0$. $3^{0} < 3^{1}$
-Paso Inductivo: 
+Paso Inductivo:
 	Supongo que $ \Sum_{0}^{n}{3^{i}} < 3^{n+1}$
 	Quiero ver que $ \Sum_{0}^{n+1}{3^{i}} < 3^{n+2}$
 	$ \Sum_{0}^{n+1}{3^{i}} \eq \Sum_{0}^{n}{3^{i}} + 3^{n+1}$
@@ -268,7 +279,7 @@ Ahora nuestro problema es la aparición de $a_i=2$ en la descomposición, puesto
 
 Probaremos por inducción global  que dado un natural P y su representación en potencias de dos $a_{i}$, $ \forall n \in N vale  \sum_{0}^{n}{a_{i}*3^{i}}= \sum_{0}^{n+1}{b_{i}*3^{i}} con 0\leq a_{i} \leq 2 y -1 \leq b_{i} \leq 1$. Podemos ver que $b_{n+1}\neq -1$, ya que P esto generaría un número negativo, y p es natural.
 
-caso base:  
+caso base:
 $\sum_{0}^{n}{a_{i}*3^{i}}= \sum_{0}^{n+1}{b_{i}*3^{i}} con 0\leq a_{i} \leq 2 y -1 \leq b_{i} \leq 1$
 Existen tres opciones. En el caso que $a_{0} \eq 0$, $b_{0} \eq 0$ y $b_{1} \eq 0$.
 En el caso $a_{0} \eq 1$, $b_{0} \eq 1$ y $b_{1} \eq 0$.
@@ -289,11 +300,11 @@ En el caso 2, por lema 1 podemos decir que $b_{n+1}$ pasa a ser -1, y $b_{n+2}$ 
 
 %viejo%
 
-$p= \sum_{i=0}^{n}{a_i 3^{i}} =  \sum_{i=0}^{n-1}{a_i 3^{i}} + a_n*3^{n}$ 
+$p= \sum_{i=0}^{n}{a_i 3^{i}} =  \sum_{i=0}^{n-1}{a_i 3^{i}} + a_n*3^{n}$
 
-por hipotesis inductiva, sabemos que para $0\leq i \leq n-1, -1\leq a_{i}\leq 1$. Por Euclides, como explicamos antes, $0\leq a_{n} \leq 2 $ en los primeros dos casos es trivial la validez de la proposición. 
+por hipotesis inductiva, sabemos que para $0\leq i \leq n-1, -1\leq a_{i}\leq 1$. Por Euclides, como explicamos antes, $0\leq a_{n} \leq 2 $ en los primeros dos casos es trivial la validez de la proposición.
 Veamos el caso a_{i} = 2:
-  Por el lema, podemos escribir $2*3^{n}= = 3^{n+1}-3^{n}$  entonces  podemos escribir a_{i} p= \sum_{i=0}^{n}{a_i 3^{i}} = \sum_{ 
+  Por el lema, podemos escribir $2*3^{n}= = 3^{n+1}-3^{n}$  entonces  podemos escribir a_{i} p= \sum_{i=0}^{n}{a_i 3^{i}} = \sum_{
 
 
  Pero por lo visto en el lema anterior, $2*3^{i}= 3^{i+1}-3^{i}$. Esto equivale a colocar la pesa $3^{i+1}$ en la balaza izquierda y la $3^{i}$ en la derecha, obteniendo el equivalente a 2 pesas $3^{1}$ en la izquierda. aplicando este proceso recursivamente, obtenemos  una descomposición de P sumando y restando sus potencias de tres sin repeticiones.
@@ -311,19 +322,30 @@ Supongamos el caso en el cual, para cada iteración, a P se la divide por 3, se 
 Entonces, la complejidad del algoritmo es de $\mathcal{O}(Log_{3}(P))$.
 Luego, se puede probar que Log(P) es $\mathcal{O}(\sqrt(P))$
 
+<<<<<<< HEAD
 
+=======
+%%Explicacion vieja
+
+% Si nos abstraemos del if, el ciclo tiene como condición que P$>$0, siendo P el valor de entrada. Como podemos observar, P es modificado dividiéndose por 3 cada iteración. Por álgebra básica sabemos que se necesesitarán como mucho $log_3(P) + 1$ iteraciones para que P sea menor a 0.
+% Ahora, tomando en cuenta el if hay un caso en el cual le sumamos 1 a P, lo cual afecta un poco la cuenta; volvemos a la explicación del algoritmo y tomamos el conjunto $T = {a_1,...,a_n}$
+% donde  $P = \sum_{i=0}^{n} a_i3^i$ con $0 \leq a_i \leq 2$ y $n = log_{3}{P}$, siendo el valor de rem el valor de $a_i$ en la iésima iteración.
+% Cuando hacemos que $P<-P+1$ nos queda que en la próxima iteración rem valdría uno más, es decir $a_{i+1}$ pasaría a valer uno más de lo que valdría en T. Ahora,  siendo estos que para todo $a_k$
+% valen entre 0 y 2, si $a_{i+1}$ en vez de valer 3, valdría 0 y $a_{i+2}$ valdría uno más también, y si  $a_{i+2}$ valía 2, pasaría a valer 0 y  $a_{i+3}$ valdría uno más, y así sucesivamente hasta llegar a $a_n$.
+% Y si resulta que también $a_n$ valía 2, entonces tendríamos un $a_{n+1}$ que pasaría a valer 1 y $a_n$ valdría 0.
+% Luego no hay mas casos donde $a_j$ (para $i<j<=n$) sea 2, entonces no hay más casos donde puedan volver a ocurrir este tipo de cosas, quedándonos asi, un máximo de $Log_3(P)+1$ iteraciones.
+
+% Entonces, la complejidad del algoritmo es de $\mathcal{O}(Log_{3}(P))$.
+% Luego, se puede probar que Log(P) es $\mathcal{O}(\sqrt(P))$
+>>>>>>> 8df187b2169cb7ce976068485c676d515cce9b14
 
 
 \subsection{Experimentación}
  Al momento de la experimentación inicialmente teníamos la idea de que, al no tener mejores ni peores casos a nivel de complejidad teórica, no importaba mucho que valores de P que se ingresaban, e iba a ser siempre creciente.
-
+  Para el análisis de la complejidad te\'orica decidimos simplemente medir los tiempos del algoritmo aumentando el valor de entrada desde 1 hasta la cota puesta por el enunciado.
 \subsubsection{Análisis complejidad te\'orica}
- Para el análisis de la complejidad te\'orica decidimos simplemente medir los tiempos del algoritmo aumentando el valor de entrada desde 1 hasta la cota puesta por el enunciado.
   Después de observar los resultados, encontramos una función O(Log(n)) que se asemeje aproximadamente a los resultados de las mediciones del algoritmo para poder compararlo.
   Terminamos usando la funcion $500*log_3(x)$.
-  Notamos que no quedaba muy claro cómo es que las mediciones se asemejaban a $log_3(x)$. Entonces decidimos cambiar la escala:
-  En vez de presentar un gráfico que muestre los ejes (X,Y) = (peso de la llave, mediciones) lo vamos a mostrar como (X,Y) = (Log(peso de la llave),Log(mediciones))
-
 	\begin{figure}[H]
 	\centering
 	\includegraphics[width=0.8\textwidth]{punto2-mediciones}
@@ -340,7 +362,7 @@ Luego realizado el gráfico notamos que, a pesar de de que las mediciones simula
 \includegraphics[width=0.8\textwidth]{punto2-zoom}
 \caption{Mediciones de la implementaci\'on comparado con $500*log_{3}{n}$ zoom en escala logaritmica en X e Y }
 \end{figure}
-Si bien se organizaban como líneas rectas (a pesar de la escala), no se acomodaba su $"orden"$ respecto al logaritmo en base 3.
+Si bien se organizaban como líneas rectas , no se acomodaba su $"orden"$ respecto al logaritmo en base 3.
 Concluímos que esto se debe a la operación ´´meter la pesa en una balanza", que en la implentación del problema se traduce a introducir un entero al final de una lista, lo cual termina costando $\mathcal{O}(1)$
 
 Para ver si esto era cierto, hicimos nuevas mediciones, tomando para los pesos  solo 3 casos: \\
@@ -358,7 +380,25 @@ y como resultado del experimento nos quedó este gráfico
 En la imagen se puede notar que el caso de suma de potencias de 3 toma mucho más que los otros dos casos. Concluímos que esto se debe incialmente a que, en el caso de sólo potencias de 3, se hace un sólo acceso a la listar, mientras que el caso de potencias de 3 menos 1
 tal como sería el resultado al problema, se pone una pesa de la potencia de 3 del lado de la llave y una pesa de tamaño 1 en el otro, teniendo así sólo 2 accesos a la lista, cosa que en la implementación esto se representa sumándole 1 luego de cada división por 3 al peso de la llave en cada iteración.
 
-Como conclusión final a tomar en cuenta, consideramos que los mejores casos son los de potencias de 3 y los peores son los de sumas de potencias de 3.
+Como conclusión, considerabamos que los mejores casos son los de potencias de 3 y los peores son los de sumas de potencias de 3. Dado que en el caso de potencias de 3 se hacian mas accesos a lista.
+
+Pero al revisar contra las mediciones notamos que aparentemente habia aun peores casos que esos, luego de indagar sobre algunas experimentaciones finalmente decidimos tomar en cuenta no solamente los casos donde son sumas de potencias de 3 sino que ademas considerar los casos donde en la representacion ternaria en vez de tener todos los digitos con  valor 1,
+tenga al menos uno o dos digitos que tengan valor dos con esto.
+Luego lo plasmamos en el grafico anterior.
+
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.4\textwidth]{punto2-nuevosCasos}
+\caption{Comparaciones de la implementaci\'on comparando los casos en escala logarítmica en X e Y }
+\end{figure}
+
+Explicacion:
+Representacion ternaria 1 y 2, son los casos donde el valor representado en ternario contiene solamente digitos de valor 1 excepto uni o dos digitos(respectivamente) cuyo valor es dos.
+
+Concluimos finalmente que si bien cuantas menos digitos tenemos en cero en su representacion ternaria, mas toma el algoritmo pero además, cuantos menos digitos con valor dos tenga (excepto el caso en que no tenga ninguno) mas tiempo va a tomar el algoritmo.
+Esto se debe a que, al tener un valor de 2 en algun digito se termina haciendo una iteracion mas a que si no hubiese ningun 2, ahora al tener mas de un digito con valor 2 nos termina quedando menos accesos a lista. Por ende el caso con solo un digito en 2 y el resto en 1 nos da la maxima cantidad de iteraciones y accesos a lista en el algoritmo.
 
 
 
@@ -376,7 +416,7 @@ El objetivo es encontrar la manera óptima de llenar las mochilas para poder lle
 
 Formalmente, tenemos un conjunto de elementos que tienen como propiedad dos naturales asociados (el peso y el valor). Entonces podemos inferir que existen dos criterios de ordenamiento asociados respectivamente a estos valores.
 Al mismo tiempo tenemos otro conjunto de elementos que posee como propiedad un natural asociado (capacidad).
-Nuestro objetivo es seleccionar una combinación de los primeros objetos, restringida por las capacidades dadas, de modo de maximizar la sumatoria del valor de los mismos. 
+Nuestro objetivo es seleccionar una combinación de los primeros objetos, restringida por las capacidades dadas, de modo de maximizar la sumatoria del valor de los mismos.
 
 
 \subsection{Explicación de la solución}
@@ -392,7 +432,7 @@ Nuestro objetivo es seleccionar una combinación de los primeros objetos, restri
 
 	Donde n representa el número de tesoro, $V_{n}$ y $P_{n}$ su valor y su peso respectivamente. $p_{1},p_{2}\ y \ p_{3}$ son las capacidades de cada mochila.
 
-	Esta función,al ser recursiva, para calcular su i-esimo término requiere de los anteriores. En cada estado decide recurivamente sí el mejor valor posible se obtiene de sólo guardar nuestro i-esimo objeto o en alguna de las tres mochilas, o en ninguna mochila.  
+	Esta función,al ser recursiva, para calcular su i-esimo término requiere de los anteriores. En cada estado decide recurivamente sí el mejor valor posible se obtiene de sólo guardar nuestro i-esimo objeto o en alguna de las tres mochilas, o en ninguna mochila.
 
 
 
@@ -400,9 +440,9 @@ Nuestro objetivo es seleccionar una combinación de los primeros objetos, restri
 	Lo que representa cada posición, (x,y,z,w), de este arreglo es el valor óptimo que pueden lograr los primeros x objetos con una combinación de mochilas de peso y, z, w. En el caso que el problema a resolver responda a dos mochilas, una de las variables y, z, w seran 0 para cualquier posción y un caso similar si solo hay que llenar una mochila.
 
 
-	Luego para llenar las mochilas utilizamos este arreglo (lleno luego de encontrar el valor ótimo) entonces para cada objeto i guardamos el valor óptimo es decir, la posición del arreglo (i,cap1,cap2,cap3). 
+	Luego para llenar las mochilas utilizamos este arreglo (lleno luego de encontrar el valor ótimo) entonces para cada objeto i guardamos el valor óptimo es decir, la posición del arreglo (i,cap1,cap2,cap3).
 
-	Después para decidir en cuál mochila tendría que ser guardado revisamos la posición que corresponde al objeto anterior (i-1) y para cada mochila, las otras tres coordenadas serán, la capacidad de la mochila que estamos revisando menos el peso del objeto i, y las otras dos se mantienen constantes. Si esto da cero, es porque encontramos la mochila a la cual corresponde el objeto i, si no ese objeto no debe ser metido en ninguna mochila. 
+	Después para decidir en cuál mochila tendría que ser guardado revisamos la posición que corresponde al objeto anterior (i-1) y para cada mochila, las otras tres coordenadas serán, la capacidad de la mochila que estamos revisando menos el peso del objeto i, y las otras dos se mantienen constantes. Si esto da cero, es porque encontramos la mochila a la cual corresponde el objeto i, si no ese objeto no debe ser metido en ninguna mochila.
 
 
 	Observación: nuestro algoritmo descarta los tesoros que tienen un peso mayor al máximo de capacidad entre las mochilas. Asumimos en el pseusocódigo que nuestra entrada cumple esa propiedad.
@@ -447,31 +487,31 @@ Nuestro objetivo es seleccionar una combinación de los primeros objetos, restri
 
 \begin{algorithm}[H]{\textbf{ValorOptimo(objXpeso:4-upla, cofre:vector$<$tesoro$>$, objeto:int, peso1: int, peso2:int, peso3:int)}}
 	\begin{algorithmic}[1]
-		\State  pesoObj $\gets$ cofre[objeto].peso 
-		\State  pesoVal $\gets$ cofre[objeto].valor 
+		\State  pesoObj $\gets$ cofre[objeto].peso
+		\State  pesoVal $\gets$ cofre[objeto].valor
 
 		\State Si $peso1 < 0 \vee peso2 < 0 \vee peso3 < 0$
-			\State \quad devolver $-1$ 
+			\State \quad devolver $-1$
 
 		\State finSi
 
 		\State Si objetoxPesos[objeto][peso1][peso2][peso3] $\neq$ -1
-			\State \quad devolver objetoxPesos[objeto][peso1][peso2][peso3] 
+			\State \quad devolver objetoxPesos[objeto][peso1][peso2][peso3]
 		\State finSi
 		\State Si objeto $=$ 0
-			\State \quad val $\gets$ 0 
+			\State \quad val $\gets$ 0
 
 			\State \quad Si peso1 $\ge$ pesoObj $\vee$ peso2 $\ge$ pesoObj $\vee$ peso3 $\ge$ pesoObj
-				\State\quad \quad  val $\gets$ valorObj 
+				\State\quad \quad  val $\gets$ valorObj
 
-				\State \quad \quad objetoxPesos[objeto][peso1][peso2][peso3] $\gets$ val 
+				\State \quad \quad objetoxPesos[objeto][peso1][peso2][peso3] $\gets$ val
 				\State \quad \quad devolver val
 			\State \quad Si no
 				\State \quad \quad devolver -1 %esta bien?%
 			\State \quad finSi
 
 		\State Si no
-			\State \quad PosiblesSolus $\gets$ vector$<$int$>$ 
+			\State \quad PosiblesSolus $\gets$ vector$<$int$>$
 			\State \quad sinObj $\gets$ ValorOptimo(objetoxPesos, cofre, objeto -1, peso1, peso2, peso3)
 			\State \quad PosiblesSolus.Agregar(sinObj)
 			\State \quad Desde j=1 hasta j=3 hacer
@@ -479,7 +519,7 @@ Nuestro objetivo es seleccionar una combinación de los primeros objetos, restri
 					\State \quad \quad \quad objenj $=$ valorObj + ValorOptimo(objetoxPesos, cofre, objeto - 1, pesoj - pesoObj, los otros dos pesos)
 					\State \quad \quad \quad PosiblesSolus.Agrergar(objenj)
 				\State \quad \quad finSi
-			\State \quad finDesde	
+			\State \quad finDesde
 			\State \quad  valor$\gets$Max(PosiblesSolus)
 			\State \quad objetoxPesos[objeto][peso1][peso2][peso3] $\gets$ valor
 			\State \quad return valor
@@ -523,7 +563,7 @@ Como valen P(0)..p(k) $\forall k<n$ y vale p(n) $\Rigtharrow$ vale p(n) $\forall
 
 En nuestra demostración utilizamos el principio de optimalidad. Ahora probaremos que efectivamente queremos construir nuestra solución a partir de subsoluciones óptimas:
 
-Supongamos que $f(n,p_{1},p_{2},p_{3}) = Max(V_{n} + H, V_{00})$ donde H es una subsolución del estado anterior que no es óptima. sabemos que $ H < Max(V_{01},V_{02},V_{03})$ (ya que si no sería óptima) entonces $V_{n}+H < V_{n}+Max(V_{01},V_{02},V_{03})$ (ya que estamos sumando números positivos) Luego $Max(V_{n}+H,V_{00}) \leq Max(V_{n}+Max(V_{01},V_{02},V_{03}), V_{00})$ entonces $f(n,p_{1},p_{2},p_{3})$ no es óptimo, absurdo. 
+Supongamos que $f(n,p_{1},p_{2},p_{3}) = Max(V_{n} + H, V_{00})$ donde H es una subsolución del estado anterior que no es óptima. sabemos que $ H < Max(V_{01},V_{02},V_{03})$ (ya que si no sería óptima) entonces $V_{n}+H < V_{n}+Max(V_{01},V_{02},V_{03})$ (ya que estamos sumando números positivos) Luego $Max(V_{n}+H,V_{00}) \leq Max(V_{n}+Max(V_{01},V_{02},V_{03}), V_{00})$ entonces $f(n,p_{1},p_{2},p_{3})$ no es óptimo, absurdo.
 
 
 
@@ -534,7 +574,7 @@ La complejidad del algoritmo GuardarTesoro es $\mathcal{O}(\prod_{i=1}^{3}K_{i} 
 Primero haremos unas observaciones preliminares:
 \begin{itemize}
 %%modificacion
-	\item Se puede pensar que el arreglo de cuatro dimensiones en realidad es un arreglo de cubos, donde el índice de cada cubo es hasta que objeto se verifico la solución optima. 
+	\item Se puede pensar que el arreglo de cuatro dimensiones en realidad es un arreglo de cubos, donde el índice de cada cubo es hasta que objeto se verifico la solución optima.
 %%%finModif
 	\item El volumen de un cubo es es $\prod_{i=1}^{3}A_{i}$ donde cada $A_i$ es una arista que representa el eje de la altura, el ancho o el largo. En este caso las aristas de los cubos serán las capacidades de las mochilas, sabemos que llenar una posición del cubo nos cuesta $\Theta(1)$, entonces llenarlo entero nos costará el equivalente al volumen del mismo.
 	\item Llenar un hipercubo, o arreglo de cubos, con un valor determinado (como ocurre en la linea 1 de guardandoTesoro) cuesta $\mathcal{O}(\prod_{i=1}^{3}K_{i} * T)$ ya que hay T cubos para llenar.
@@ -583,7 +623,7 @@ En esta figura podemos observar no solo la tendencia lineal en la complejidad de
 El hecho de que los gráficos sean lineales respaldan nuestra cota de complejidad ya que estaríamos variando el parámetro T mientras $K_1$ (la capacidad de la mochila) se mantiene constante. Estaríamos bajo la presencia de una función de tipo $Y=c*X$ con c constante.
 En particular podemos destacar que en el caso de que los objetos tengan todos peso mayor a la capacidad de las mochilas, la recta tiende a ser constante y el tiempo de ejecución es casi nulo.
 Podemos concluir que este sería nuestro mejor caso, y se debe al hecho de que filtramos nuestra entrada para que no se tengan en cuenta estos tesoros.
-Tambien se puede observar una sección donde los objetos con peso aleatorio tienen un tiempo de ejecución que los otros casos, esto bien puede resultar de los valores de los pesos. Si los pesos en son menores en el caso de los pesos aleatorios a los pesos en rango, la cantidad de recursiones a las que se lllama, son mayores. 
+Tambien se puede observar una sección donde los objetos con peso aleatorio tienen un tiempo de ejecución que los otros casos, esto bien puede resultar de los valores de los pesos. Si los pesos en son menores en el caso de los pesos aleatorios a los pesos en rango, la cantidad de recursiones a las que se lllama, son mayores.
 Observemos que en general lleva más tiempo obtener un resultado cuando los objetos tienen peso menor a la capacidad de la mochila.
 
 \\
@@ -615,7 +655,7 @@ En el  gráfico se trata de comparar como afecta la distribución de pesos en la
 En esta figura podemos observar el crecimiento exponencial del tiempo dependiendo de la cantidad de mochilas, como la escala es logaritmica y las curvas son casi lineas rectas entonces podemos deducir que el tiempo crece de forma exponencial. Esto concuerda con el hecho de que al tener todas las variables en 50 ($T=50, K_1 =50 k_2=50, k_3=50$) al ir aumentando la cantidad de mochilas estaríamos elevando la constante 50 (con $K_1$ tenemos $K_1*T=50^2$, con $K_2$ tenemos $K_1*K_2*T=50^3, etc $). Este es el tipo de función exponencial $Y=50^X$.
 \\
 \\
-En el último gráfico se trata de comparar como afecta la distribución de pesos en las mochilas. Como nuestra complejidad varía dependiendo del producto de las capacidades queríamos ver como era el tiempo de ejecución para distinta cantidad de mochilas con el mismo producto. tomamos cincuenta objetos con peso igual a la capacidad mínima del conjunto de mochilas en el que testeamos y repetimos cada instancia mil veces tomando el promedio. 
+En el último gráfico se trata de comparar como afecta la distribución de pesos en las mochilas. Como nuestra complejidad varía dependiendo del producto de las capacidades queríamos ver como era el tiempo de ejecución para distinta cantidad de mochilas con el mismo producto. tomamos cincuenta objetos con peso igual a la capacidad mínima del conjunto de mochilas en el que testeamos y repetimos cada instancia mil veces tomando el promedio.
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.8\textwidth]{MismoPesoCompRang}
@@ -627,11 +667,11 @@ En el gráfico separaremos las mediciones en 3 partes, una los picos altos, desd
 
 
 \begin{center}
- \begin{tabular}{|c |c |c|||c|c|c|} 
+ \begin{tabular}{|c |c |c|||c|c|c|}
  \hline
- Picos Altos & Dos mochilas & Tres mochilas&Picos Altos & Dos mochilas & Tres mochilas\\ [0.5ex] 
+ Picos Altos & Dos mochilas & Tres mochilas&Picos Altos & Dos mochilas & Tres mochilas\\ [0.5ex]
  \hline\hline
- 2 & 1*2 & 1*1*2 & 8 & 2*4 & 2*2*2 \\ 
+ 2 & 1*2 & 1*1*2 & 8 & 2*4 & 2*2*2 \\
  \hline
  4 & 2*2 & 1*2*2 & 12 & 3*4 & 2*2*3\\
  \hline
@@ -649,9 +689,9 @@ En el gráfico separaremos las mediciones en 3 partes, una los picos altos, desd
  \hline
  38 & 2*19 & 1*2*19 & 40 & 8*5 & 2*2*10\\
  \hline
- 46 & 2*23 & 1*2*23 & 44 & 11*4 & 2*2*11\\  
+ 46 & 2*23 & 1*2*23 & 44 & 11*4 & 2*2*11\\
  \hline
-- & - & - & 48 & 8*6 & 2*2*12\\ [1ex] 
+- & - & - & 48 & 8*6 & 2*2*12\\ [1ex]
  \hline
 \end{tabular}
 \end{center}
@@ -659,17 +699,17 @@ En el gráfico separaremos las mediciones en 3 partes, una los picos altos, desd
 
 
 \begin{center}
- \begin{tabular}{|c | c | c|} 
+ \begin{tabular}{|c | c | c|}
  \hline
- Anomalías & Dos mochilas & Tres mochilas  \\ [0.5ex] 
+ Anomalías & Dos mochilas & Tres mochilas  \\ [0.5ex]
  \hline\hline
- 18 & 3*6 & 2*3*3  \\ 
+ 18 & 3*6 & 2*3*3  \\
  \hline
  30 & 5*6 & 2*3*5 \\
  \hline
  42 & 6*7 & 2*3*7 \\
  \hline
- 50 & 5*10 & 2*5*5  \\ [1ex] 
+ 50 & 5*10 & 2*5*5  \\ [1ex]
  \hline
 \end{tabular}
 \end{center}
