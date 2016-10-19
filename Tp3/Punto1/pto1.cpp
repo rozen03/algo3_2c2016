@@ -1,12 +1,8 @@
-#include "clases.h"
+#include "../clases.h"
 #include <iostream>
 #include <chrono>
-#include <vector>
-#include <set>
-#include <tuple>
-#include <utility>
 #include <limits>
-#include <math>
+
 
 using namespace std;
 
@@ -15,36 +11,41 @@ static int MAX = numeric_limits<int>::max();
 
 //Tipos
 typedef vector<int> vint;
-typedef vector<nodo > vnod;
 
-//Statics
-static int MAX = numeric_limits<int>::max();
 
 //variables globales
-int MinGlobal;
-int MinActual;
+float MinGlobal;
+float MinActual;
 vint RecorridoGlobal;
 vint RecorridoActual;
 vnod PokeParadas;
 vnod Gimnasios;
 int GimRecorridos;
-Mochila mochila;
+Mochila moch(0);
 
 
 //declaracion de funciones
 void BT();
-void LecturaDeDatos();
-void voyPP();
-void voyGym(); 
-bool puedoIrG();
-bool puedoIrPP();
-int distancia();
+void voy(Nodo & p);
+bool puedoIrG(Nodo & p);
+bool puedoIrPP(Nodo & p);
+Nodo & BuscarNodo(int n);
+int Maximo(int a, int b);
 
 
 //funciones
 
 int main(){
 	MinGlobal = MAX;
+	MinActual=0;
+	Lectura(Gimnasios,PokeParadas,moch);
+	BT();
+	cout<< MinGlobal << " "<< RecorridoGlobal.size() <<" ";
+	for(int i=0; i<RecorridoGlobal.size(); i++){
+		cout<< RecorridoGlobal[i] << " ";	
+	} 
+	cout<< endl;
+	return 0;
 
 }
 
@@ -58,13 +59,13 @@ void BT(){
 			//esto elige de donde salimos
 			if(RecorridoActual.empty()) {
 				if(i<PokeParadas.size()){
-				nodo pp = PokeParadas[i];
+				Nodo pp = PokeParadas[i];
 				//si es posible ir con el gimnasio, marco y voy y desmarco
 					if(puedoIrPP(pp)){
-						pp.Recorrer()=true;
-						RecorridoActual.push_back(pp.Indice());
-						voyPP(pp);
-						pp.Recorrer()=false;
+						pp.Recorrer(true);
+						RecorridoActual.push_back(pp.DameIndice());
+						BT();
+						pp.Recorrer(false);
 						RecorridoActual.pop_back();
 					}
 			 	}	
@@ -72,71 +73,77 @@ void BT(){
 
 
 			if(i<Gimnasios.size()){
-				nodo gim = Gimnasios[i];
+				Nodo gim = Gimnasios[i];
 				//si es posible ir con el gimnasio, marco y voy y desmarco
 				if (puedoIrG(gim)){
-					gim.Recorrer()=true;
-
-					voyGym(gim);
-					gim.Recorrer()=false;
+					GimRecorridos++;					
+					voy(gim);	
+					GimRecorridos--;				
 				}
 			}
 			//Voy a pokeparadas
 			if(i<PokeParadas.size()){
-				nodo pp = PokeParadas[i];
+				Nodo pp = PokeParadas[i];
 				//si es posible ir a pokeparada, marco y voy y desmarco
 				if(puedoIrPP(pp)){
-					voyPP(pp);
+					voy(pp);
 				}
 			}
 			
 				
+	}
+	if(MinActual<=MinGlobal){
+		MinGlobal=MinActual;
+		RecorridoGlobal=RecorridoActual;
 	}	
 	return;
 }
 
-bool puedoIrPP( nodo p){
-	return !mochila.EstaLLena() && (p.Recorrido() == false);
+bool puedoIrPP( Nodo & p){
+	return !moch.estaLLena() && (p.Recorrido() == false);
 }
 
-bool puedoIrG(nodo p){
-	return mochila.DamePeso() >= -(p.DamePociones()) && (p.Recorrido() == false);
-}
-
-int distancia(nodo o, nodo f) {
-	int x = o.CordenadaX() - f.CordenadaX();
-	int y = o.CordenadaY() - f.CordenadaY();
-	int pre = pow(x, 2) + pow(y, 2);
-	return sqrt(pre);
+bool puedoIrG(Nodo & p){
+	return moch.DamePeso() >= -(p.DamePociones()) && (p.Recorrido() == false);
 }
 
 
-void voyPP(nodo p) {
-	pp.Recorrer()=true;
-	nodo origen = BuscarNodo(RecorridoActual.back());
-	int dist = Distancia(origen, p)
+
+void voy(Nodo & p) {
+	p.Recorrer(true);
+	Nodo origen = BuscarNodo(RecorridoActual.back());
+	float dist = Distancia(origen, p)
 	MinActual += dist;
-	RecorridoActual.push_back(p.Indice());
+	RecorridoActual.push_back(p.DameIndice());
 	int pociones = p.DamePociones();
-	mochila.usarMochila(pociones);
+	moch.usarMochila(pociones);
 	BT();
 	MinActual -= dist;
 	RecorridoActual.pop_back();
-	pp.Recorrer()=false;
-	RecorridoActual.push_back(p.Indice());
-	mochila.usarMochila(-pociones);
+	pp.Recorrer(false);
+	RecorridoActual.push_back(p.DameIndice());
+	moch.usarMochila(-pociones);
 }
 
-void voyGym(nodo g) {
-	pp.Recorrer()=true;
-	nodo origen = BuscarNodo(RecorridoActual.back());
-	int dist = Distancia(origen, p)
-	MinActual += dist;
-	RecorridoActual.push_back(p.Indice());
-	BT();
-	MinActual -= dist;
-	RecorridoActual.pop_back();
-	pp.Recorrer()=false;
-	RecorridoActual.push_back(p.Indice());
 
-} 
+
+Nodo & BuscarNodo(int n){
+	if(n<= Gimnasios.size()){
+		return Gimnasios[n-1];
+	}
+	else{
+		return PokeParadas[n-Gimnasios.size()-1];
+	}
+}
+
+
+
+//Max entre 2 valores
+int Maximo(int a, int b){
+	if (a <= b)
+	{
+		return b;
+	}
+	return a;
+}
+
