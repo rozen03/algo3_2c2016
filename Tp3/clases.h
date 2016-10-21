@@ -17,7 +17,7 @@ public:
 	int DamePociones();
 	bool Recorrido();
 	void Recorrer(bool b);
-	float Distancia(Nodo & x, Nodo & y);
+	float Distancia(Nodo & y);
 	bool EsGim();
 
 private:
@@ -35,6 +35,7 @@ public:
 	int DameCapacidad();
 	int DamePeso();
 	bool estaLLena();
+	void Restaurar(int n);
 	void usarMochila(int n); 
 	void CambiarCapacidad(int n);	
 	
@@ -54,9 +55,9 @@ int Nodo::DameIndice(){
 Nodo::Nodo(int p, int i, int x, int y):indice(i), pociones(p), X(x), Y(y), Recorri(false){
 };
 
-float Nodo::Distancia(Nodo & o, Nodo & f) {
-	int x = o.X - f.X;
-	int y = o.Y - f.Y;
+float Nodo::Distancia(Nodo & f) {
+	int x = X - f.X;
+	int y = Y - f.Y;
 	int pre = pow(x, 2) + pow(y, 2);
 	return sqrt(pre);
 }
@@ -102,6 +103,10 @@ void Mochila::usarMochila(int n){
 	else{
 		peso+=n;
 	}
+}
+
+void Mochila::Restaurar(int n){
+	peso = n;
 }
 
 
