@@ -7,15 +7,15 @@
 using namespace std;
 
 //Statics
-static int MAX = numeric_limits<int>::max();
+static double MAX = numeric_limits<double>::max();
 
 //Tipos
 typedef vector<int> vint;
 
 
 //variables globales
-float MinGlobal;
-float MinActual;
+double MinGlobal;
+double MinActual;
 vint RecorridoGlobal;
 vint RecorridoActual;
 vnod PokeParadas;
@@ -56,7 +56,7 @@ bool puedoIrPPABC(Nodo & p);
 Nodo & BuscarNodo(int n);
 int Maximo(int a, int b);
 void LecturaDatos();
-void Reset(vnod & PP, vnod & G);
+void Reset(vnod & PP, vnod & G, int pocNecAux);
 
 
 //funciones
@@ -66,45 +66,46 @@ int main(){
 	MinActual=0;
 	vnod PPAux;
 	vnod GAux;
+	int pocNecAux;
 	LecturaDatos();
 	PPAux = PokeParadas;
 	GAux = Gimnasios;
+	pocNecAux = PocionesNecesarias;
 	BT();
 	int Cbt = CantBT;
 	int dist = MinGlobal;
 	vint Solbt = RecorridoGlobal;
-	Reset(PPAux, GAux);
-	CantBT = 20;
+	Reset(PPAux, GAux, pocNecAux);
 	BTA();
 	int CbtA = CantBT;
 	int distA = MinGlobal;
 	vint SolbtA = RecorridoGlobal;
-	Reset(PPAux, GAux);
+	Reset(PPAux, GAux, pocNecAux);
 	BTB();
 	int CbtB = CantBT;
 	int distB = MinGlobal;
 	vint SolbtB = RecorridoGlobal;
-	Reset(PPAux, GAux);
+	Reset(PPAux, GAux, pocNecAux);
 	BTC();
 	int CbtC = CantBT;
 	int distC = MinGlobal;
 	vint SolbtC = RecorridoGlobal;
-	Reset(PPAux, GAux);
+	Reset(PPAux, GAux, pocNecAux);
 	BTAB();
 	int CbtAB = CantBT;
 	int distAB = MinGlobal;
 	vint SolbtAB = RecorridoGlobal;
-	Reset(PPAux, GAux);
+	Reset(PPAux, GAux, pocNecAux);
 	BTAC();
 	int CbtAC = CantBT;
 	int distAC = MinGlobal;
 	vint SolbtAC = RecorridoGlobal;
-	Reset(PPAux, GAux);
+	Reset(PPAux, GAux, pocNecAux);
 	BTBC();
 	int CbtBC = CantBT;
 	int distBC = MinGlobal;
 	vint SolbtBC = RecorridoGlobal;
-	Reset(PPAux, GAux);
+	Reset(PPAux, GAux, pocNecAux);
 	BTABC();
 	int CbtABC = CantBT;
 	int distABC = MinGlobal;
@@ -116,15 +117,18 @@ int main(){
 	else{
 		cout<<"La Cagaste con una poda por favor no pls no sir pls no"<<endl;
 		cout<<"Distancia dependiendo de las Podas, Sin Podas "<< dist<<", con Poda A "<<distA<<", con Poda B "<<distB<<", con Poda C "<<distC<<", Con Poda AB "<<distAB<<", con Poda AC "<<distAC<<", con Poda BC "<<distBC<<", con poda ABC "<<distABC<<endl; 
-	
+		cout<<"Sin Podas El recorrido es ";
+		for(int i = 0; i < Solbt.size(); i++) cout<<Solbt[i]<<" ";
+		cout<<"\nCon Poda A El recorrido es ";
+		for(int i = 0; i <SolbtA.size(); i++) cout<<SolbtA[i]<<" ";
+		cout<<endl;
 	}
 
 	cout<< endl;
 	return 0;
 }
 
-void Reset(vnod & PPAux,vnod & GAux){
-	cout<<"Entro A reset"<<endl;
+void Reset(vnod & PPAux,vnod & GAux,int pocNecAux){
 	CantBT = 0;
 	MinGlobal = MAX;
 	MinActual=0;
@@ -132,11 +136,10 @@ void Reset(vnod & PPAux,vnod & GAux){
 	RecorridoActual.clear();
 	GimRecorridos = 0;
 	PPRecorridas = 0;
-	PocionesNecesarias = 0;
+	PocionesNecesarias = pocNecAux;
 	PokeParadas = PPAux;
 	Gimnasios = GAux;
 	moch.Restaurar(0);
-	cout<<"Termine de resetear quiero ver que pija tiene cada cosa "<<endl;
 }
 
 void LecturaDatos(){
@@ -781,7 +784,6 @@ bool puedoIrPPB(Nodo & p){
 	moch.Restaurar(pocionesEnMoch);
 	int PPRestantes = PokeParadas.size() - PPRecorridas;
 	if(MochilaPost + (3*PPRestantes) < PocionesNecesarias) NoConsumoDemas = false;
-	
 	return (p.Recorrido() == false) && NoConsumoDemas;
 
 }
@@ -809,7 +811,7 @@ bool puedoIrG(Nodo & p){
 void voy(Nodo & p) {
 	p.Recorrer(true);
 	Nodo origen = BuscarNodo(RecorridoActual.back());
-	float dist = origen.Distancia(p);
+	double dist = origen.Distancia(p);
 	MinActual += dist;
 	RecorridoActual.push_back(p.DameIndice());
 	int pociones = p.DamePociones();
@@ -825,7 +827,7 @@ void voy(Nodo & p) {
 void voyA(Nodo & p) {
 	p.Recorrer(true);
 	Nodo origen = BuscarNodo(RecorridoActual.back());
-	float dist = origen.Distancia(p);
+	double dist = origen.Distancia(p);
 	MinActual += dist;
 	RecorridoActual.push_back(p.DameIndice());
 	int pociones = p.DamePociones();
@@ -841,7 +843,7 @@ void voyA(Nodo & p) {
 void voyB(Nodo & p) {
 	p.Recorrer(true);
 	Nodo origen = BuscarNodo(RecorridoActual.back());
-	float dist = origen.Distancia(p);
+	double dist = origen.Distancia(p);
 	MinActual += dist;
 	RecorridoActual.push_back(p.DameIndice());
 	int pociones = p.DamePociones();
@@ -857,7 +859,7 @@ void voyB(Nodo & p) {
 void voyC(Nodo & p) {
 	p.Recorrer(true);
 	Nodo origen = BuscarNodo(RecorridoActual.back());
-	float dist = origen.Distancia(p);
+	double dist = origen.Distancia(p);
 	MinActual += dist;
 	RecorridoActual.push_back(p.DameIndice());
 	int pociones = p.DamePociones();
@@ -873,7 +875,7 @@ void voyC(Nodo & p) {
 void voyAB(Nodo & p) {
 	p.Recorrer(true);
 	Nodo origen = BuscarNodo(RecorridoActual.back());
-	float dist = origen.Distancia(p);
+	double dist = origen.Distancia(p);
 	MinActual += dist;
 	RecorridoActual.push_back(p.DameIndice());
 	int pociones = p.DamePociones();
@@ -889,7 +891,7 @@ void voyAB(Nodo & p) {
 void voyAC(Nodo & p) {
 	p.Recorrer(true);
 	Nodo origen = BuscarNodo(RecorridoActual.back());
-	float dist = origen.Distancia(p);
+	double dist = origen.Distancia(p);
 	MinActual += dist;
 	RecorridoActual.push_back(p.DameIndice());
 	int pociones = p.DamePociones();
@@ -905,7 +907,7 @@ void voyAC(Nodo & p) {
 void voyBC(Nodo & p) {
 	p.Recorrer(true);
 	Nodo origen = BuscarNodo(RecorridoActual.back());
-	float dist = origen.Distancia(p);
+	double dist = origen.Distancia(p);
 	MinActual += dist;
 	RecorridoActual.push_back(p.DameIndice());
 	int pociones = p.DamePociones();
@@ -921,7 +923,7 @@ void voyBC(Nodo & p) {
 void voyABC(Nodo & p) {
 	p.Recorrer(true);
 	Nodo origen = BuscarNodo(RecorridoActual.back());
-	float dist = origen.Distancia(p);
+	double dist = origen.Distancia(p);
 	MinActual += dist;
 	RecorridoActual.push_back(p.DameIndice());
 	int pociones = p.DamePociones();

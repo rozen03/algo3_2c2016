@@ -7,15 +7,15 @@
 using namespace std;
 
 //Statics
-static int MAX = numeric_limits<int>::max();
+static double MAX = numeric_limits<double>::max();
 
 //Tipos
 typedef vector<int> vint;
 
 
 //variables globales
-float MinGlobal;
-float MinActual;
+double MinGlobal;
+double MinActual;
 vint RecorridoGlobal;
 vint RecorridoActual;
 vnod PokeParadas;
@@ -174,7 +174,7 @@ bool puedoIrPP( Nodo & p){
 	int MochilaPost = moch.DamePeso();
 	moch.Restaurar(pocionesEnMoch);
 	int pocionesQueDa = 3;
-	if(moch.Capacidad()<3) pocionesQueDa = moch.Capacidad();
+	if(moch.DameCapacidad()<3) pocionesQueDa = moch.DameCapacidad();
 	int PPRestantes = PokeParadas.size() - PPRecorridas;
 	if(MochilaPost + (3*PPRestantes) < PocionesNecesarias) NoConsumoDemas = false;
 	
@@ -190,7 +190,7 @@ bool puedoIrG(Nodo & p){
 void voy(Nodo & p) {
 	p.Recorrer(true);
 	Nodo origen = BuscarNodo(RecorridoActual.back());
-	float dist = origen.Distancia(p);
+	double dist = origen.Distancia(p);
 	MinActual += dist;
 	RecorridoActual.push_back(p.DameIndice());
 	int pociones = p.DamePociones();

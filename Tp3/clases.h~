@@ -17,7 +17,7 @@ public:
 	int DamePociones();
 	bool Recorrido();
 	void Recorrer(bool b);
-	float Distancia(Nodo & y);
+	double Distancia(Nodo & y);
 	bool EsGim();
 
 private:
@@ -55,7 +55,7 @@ int Nodo::DameIndice(){
 Nodo::Nodo(int p, int i, int x, int y):indice(i), pociones(p), X(x), Y(y), Recorri(false){
 };
 
-float Nodo::Distancia(Nodo & f) {
+double Nodo::Distancia(Nodo & f) {
 	int x = X - f.X;
 	int y = Y - f.Y;
 	int pre = pow(x, 2) + pow(y, 2);

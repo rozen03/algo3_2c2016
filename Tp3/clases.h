@@ -17,8 +17,10 @@ public:
 	int DamePociones();
 	bool Recorrido();
 	void Recorrer(bool b);
-	float Distancia(Nodo & y);
+	double Distancia(Nodo & y);
 	bool EsGim();
+	int CordenadaX();
+	int CordenadaY();
 
 private:
 	int indice;
@@ -55,7 +57,7 @@ int Nodo::DameIndice(){
 Nodo::Nodo(int p, int i, int x, int y):indice(i), pociones(p), X(x), Y(y), Recorri(false){
 };
 
-float Nodo::Distancia(Nodo & f) {
+double Nodo::Distancia(Nodo & f) {
 	int x = X - f.X;
 	int y = Y - f.Y;
 	int pre = pow(x, 2) + pow(y, 2);
@@ -76,6 +78,15 @@ void Nodo::Recorrer(bool b){
 
 bool Nodo::EsGim(){
 	return (pociones!=3);
+}
+
+
+int Nodo::CordenadaX(){
+	return X;
+}
+
+int Nodo::CordenadaY(){
+	return Y;
 }
 
 //funciones mochila
