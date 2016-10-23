@@ -26,25 +26,74 @@ Nodo *	GimMasCercano(); //devuelve el  gimnasio mas cercano. Si devuelve 0 es po
 Nodo *	PokeParadaMasCercana(); //devuelve el id de la pokeparada mas cercana.
 void	moverse(Nodo * p);//actualiza la posicion actual, y el recorrido, y elimina el Nodo de vector correspondiente.
 double	dist(Nodo * p); //calcula la distancia desde la posicion actual hasta el Nodo
-void sacar(vnod vect, int ind);
+void sacar(vnod &vect, int ind);
 
 int main(){
+	Lectura(Gimnasios, PokeParadas, moch);
 	//comienza en ALGUN LADO. Por ej; la primera pokeparada tambieeeeen fijarse si "es posible"
 	/*
 		ARMAR ESTA COSA
 	*/
+	//Eleccion de comienzo
+	//Idea: recorro los gimnasios. 
+	//Si encuentro un gimnasio con fuerza =0 lo elijo
+	//para todos los gimnasios con fuerza menor a 3, calculo
+	// la pokeparada más cercana y empiezo por esa
+	int minPoke =0; //lugar del vector
+	double mindist = -1; //la distancia minima de la pokeparada
+	for (int i = 0; i < Gimnasios.size(); ++i){
+		if(Gimnasios[i].DamePociones()==0){
+			xactual = Gimnasios[i].CordenadaX();
+			yactual = Gimnasios[i].CordenadaY();
+			Recorrido.push_back(Gimnasios[i].DameIndice());
+			sacar(Gimnasios,Gimnasios[i].DameIndice());
+			break;
+		}
+		else if(Gimnasios[i].DamePociones()<4){
+			for(int j=0; j < PokeParadas.size(); j++){
+				if(mindist==-1 || PokeParadas[j].Distancia(Gimnasios[i])< mindist ){
+					minPoke=j;
+					mindist= PokeParadas[j].Distancia(Gimnasios[i]);
+				}
+
+			}
+
+		}	
+ 	} 
+ 	//MI CODIGO ES UN MOUNSTRO DE FRANKESTEIN D:
+ 	if(Recorrido.empty()){//si no encontre un gimnasio trivial
+ 		 //Si encontre al menos un gimansio facil, voy a la pokeparada mas cercana
+ 		 // Si no, voy a la primer pokeparada del vecor (es mejorable, pero no mucho)
+ 			xactual = PokeParadas[minPoke].CordenadaX();
+			yactual = PokeParadas[minPoke].CordenadaY();
+			Recorrido.push_back(PokeParadas[minPoke].DameIndice());
+			moch.usarMochila(PokeParadas[minPoke].DamePociones());
+			sacar(PokeParadas,PokeParadas[minPoke].DameIndice());
+ 		
+ 		
+
+ 
+ 	}
+	
+	//Fin de eleccion de comienzo
 	Nodo* proxLugar=0;
 
 	while(!Gimnasios.empty()){//mientras sigan existiendo gimnasios que no pasaron  
+		//cout <<"Gimnasios"<< Gimnasios.size()<< endl;
+		//cout <<"PokeParadaMasCercana"<< PokeParadaMasCercana.size()<< endl;
 		proxLugar = GimMasCercano();
 		if(proxLugar==0){ //no le puedo ganar al gimnasio mas cercano
 			proxLugar = PokeParadaMasCercana();
+		}
+		if(proxLugar==0){
+		distanciaRecorrida=-1;
+		Recorrido.clear();
 		}
 		moverse(proxLugar);
 
 	}
 
-
+	cout << "distanciaRecorrida" << distanciaRecorrida << endl;
 	//Devolver distanciaRecorrida y RecorridoActual
 }
 
@@ -120,12 +169,14 @@ void moverse(Nodo * lugar){
 	}
 }
 
-void sacar(vnod vector,int elem){
+void sacar(vnod &vector,int elem){
+	
 	for(int i = 0; i<vector.size();i++){
 		int indiceAux = vector[i].DameIndice();
 		if(indiceAux == elem){
 			vector[i] = vector.back();
 			vector.pop_back();
+			
 			return;
 		}
 	}
