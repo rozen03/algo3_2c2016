@@ -27,13 +27,30 @@ Nodo *	PokeParadaMasCercana(); //devuelve el id de la pokeparada mas cercana.
 void	moverse(Nodo * p);//actualiza la posicion actual, y el recorrido, y elimina el Nodo de vector correspondiente.
 double	dist(Nodo * p); //calcula la distancia desde la posicion actual hasta el Nodo
 void sacar(vnod &vect, int ind);
+void goloso();
+void elegirPrimero();
+void solucion();
+
 
 int main(){
 	Lectura(Gimnasios, PokeParadas, moch);
-	//comienza en ALGUN LADO. Por ej; la primera pokeparada tambieeeeen fijarse si "es posible"
-	/*
-		ARMAR ESTA COSA
-	*/
+	solucion();
+	return 0;
+}
+
+void solucion(){
+	elegirPrimero();
+	goloso();
+
+	cout <<distanciaRecorrida <<" ";
+	cout <<Recorrido.size() <<" ";
+	for(int i=0; i<Recorrido.size(); i++){
+		cout <<  Recorrido[i] << " ";
+	}
+	cout <<endl;
+}
+
+void elegirPrimero(){
 	//Eleccion de comienzo
 	//Idea: recorro los gimnasios. 
 	//Si encuentro un gimnasio con fuerza =0 lo elijo
@@ -76,6 +93,12 @@ int main(){
  	}
 	
 	//Fin de eleccion de comienzo
+}
+
+
+void goloso(){
+	
+	
 	Nodo* proxLugar=0;
 
 	while(!Gimnasios.empty()){//mientras sigan existiendo gimnasios que no pasaron  
@@ -93,8 +116,6 @@ int main(){
 
 	}
 
-	cout << "distanciaRecorrida" << distanciaRecorrida << endl;
-	//Devolver distanciaRecorrida y RecorridoActual
 }
 
 
