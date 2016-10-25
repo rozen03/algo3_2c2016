@@ -1,0 +1,140 @@
+\documentclass[spanish,12pt]{article}
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{xspace}
+\usepackage{lmodern}
+\usepackage{indentfirst}
+\usepackage{xargs}
+\usepackage{ifthen}
+\usepackage{fancyhdr}
+\usepackage{latexsym}
+\usepackage{lastpage}
+\usepackage{textcomp}
+\usepackage{varwidth}
+\usepackage{caratula, aed2-tad,aed2-symb,aed2-itef}
+\usepackage{algorithmicx, algpseudocode, algorithm}
+\usepackage{enumerate}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{float}
+\usepackage{anysize}
+\marginsize{1.5cm}{1.5cm}{1.5cm}{1.5cm}
+
+\begin{document}
+
+\titulo{Informe 3}
+\materia{Algoritmos y Estructuras de Datos III}
+\author{Grupo  \\Alvarez Vico Jazm\'in\\Cortés Conde Titó Javier María\\Pedraza Marcelo \\ Rozenberg Uriel Jonathan}
+
+\integrante {Jazmín Alvazer Vico}{75/15}{jazminalvarezvico@gmail.com}
+\integrante {Marcelo Pedraza}{393/14}{marcelopedraza314@gmail.com}
+\integrante {Uriel Jonathan Rozenberg}{838/12}{rozenberguriel@gmail.com}
+\integrante {Javier María Cortés Conde Titó}{252/15}{javiercortescondetito@gmail.com}
+
+\maketitle
+
+
+\clearpage
+
+\tableofcontents
+\cleardoublepage
+
+
+\section{Introducción}
+En nuestro problema Brian quiere convertirse en "maestro pokemon" en el menor tiempo posible. Para lograr este objetivo debe ir a todos los "gimnasios" y conquistarlos. Para poder hacerlo, cada gimnasio requiere una cantidad determinada de pociones. Estas pociones pueden obtenerse en las "pokeparadas". Las pokeparadas solo pueden visitarse una vez y de cada visita obtenemos tres pociones.
+
+Formalmente, podemos caracterizar nuestras pokeparadas y  gimnasios como nodos formando un grafo completo, es decir que existen aristas para unir cualquier par de nodo. nuestras aristas deben tener peso, que equivalga a la distancia entre dos nodos. entonces queremos encontrar el camino mínimo que une todo los nodos gimnasios y los nodos pokeparada que hagan falta para poder conquistar todos los gimnasios. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Algoritmo exacto}
+
+\subsection{Exlicación de la solución}
+
+\subsection{Pseudocodigo}
+
+\begin{algorithm}[H]{\textbf{Solución}(mochila moch, vnod  PokeParadas, vnod Gimnasios)}
+	\begin{algorithmic}[1]
+		\State MinActual $\gets \infty$
+		\State MinGlobal $\gets 0$
+		\State RecorridoGlobal $\gets$ vector de enteros
+		\State RecorridoActual $\gets$ vector de enteros
+		\State Si  MinActual$>$MinGlobal  
+			 \State \quad cortar
+		\State finSi
+		\State Si GimRecorridos = $|$Gimnasios$|$ % ver donde declaro  GimRecorridos%
+		\State \quad Si MinActual $<$ Min Gobal
+		\State \qquad MinGlobal $\gets$ MinActual
+		\State \qquad RecorridoGlobal $\gets$ RecorridoAtual
+		\State \quad finSi
+		\State finSi
+		\State Desde i=0 hasta i$<$Max($|$Gimnasios$|$,$|$PokeParadas$|$)
+		\State \quad Si RecorridoActual es vacio
+		\State \qquad Si i$<|$PokeParadas$|$ 
+		\State \qquad \quad Marco el nodo
+		\State \qquad \quad agrego el indice del nodo a RecorridoActual
+		\State \qquad \quad aumento el peso de la mochila a medida de que sea posible hasta tres
+		\State \qquad \quad BT(mochila moch, vnod  PokeParadas, vnod Gimnasios)
+		\State \qquad \quad revierto las modificaciones
+		\State \qquad finSi
+		\State \qquad Si
+		\State \qquad \quad Si i$< |$Gimnasios$|$
+		\State \qquad \qquad gim $\gets$ Gimnasios[i]
+		\State \qquad \qquad Si puedoIr(gim)
+		\State \qquad \qquad \quad GimRecorridos +1
+		\State \qquad \qquad \quad Marco gim
+		\State \qquad \qquad \quad Agrego el indice 
+		\State \qquad \qquad fin Si
+		\State \qquad \quad finSi
+		\State \qquad finSi  			
+		\State \quad finSi
+		\State finDesde
+  
+	\end{algorithmic}
+\end{algorithm}
+
+\subsection{Complejidad}
+
+\subsection{Experimentación y análisis de resultados}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\section{Heurística constructiva golosa}
+
+\subsection{Exlicación de la solución}
+
+\subsection{Pseudocodigo}
+
+\subsection{Complejidad}
+
+\subsection{Experimentación y análisis de resultados}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\section{Heurística de búsqueda local}
+
+\subsection{Exlicación de la solución}
+
+\subsection{Pseudocodigo}
+
+\subsection{Complejidad}
+
+\subsection{Experimentación y análisis de resultados}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\section{Metaheurística}
+
+\subsection{Exlicación de la solución}
+
+\subsection{Pseudocodigo}
+
+\subsection{Complejidad}
+
+\subsection{Experimentación y análisis de resultados}
+\end{document}
