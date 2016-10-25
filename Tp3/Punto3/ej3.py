@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 from math import sqrt
-def test(lista):
+def test(lista:list)->int:
     suma=0
     for i in lista:
         try: #esto esa asi, si tiene la posicion 2 de la terna no tira error, si tira erro es por q no está entonces es una pokeparada
@@ -8,14 +8,14 @@ def test(lista):
         except:
             suma+=3
     return suma
-def distancias(lista):
+def distancias(lista:list)->float:
     suma=0
     prev=lista[0]
     for i in lista:
         suma+=sqrt((i[0]-prev[0])**2 +(i[1]-prev[1])**2) # ** = potencia
     return suma
 
-def tirarPokeParadas(pokeParadas,gimnasios,k):
+def tirarPokeParadas(pokeParadas:list,gimnasios:list,k:int)->tuple: #lista, lista
     """
     Esto lo que hace es armar un nuevo array tal que tenga el orden de los gimnasios tal cual le llego pero antes de cada gimnasio
     tenes la cantidad necesaria de pokeparadas y las mas cercanas a ese gimnasio, luego son descartadas y si hay un gimnasio con esa pokeparada q le quede mas convenientemente,
