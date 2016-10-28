@@ -5,7 +5,7 @@
 
 
 using namespace std;
-
+/*
 //Statics
 static double MAX = numeric_limits<double>::max();
 
@@ -25,10 +25,10 @@ int PPRecorridas;
 Mochila moch(0);
 int PocionesNecesarias;
 int CantBT;
-
+*/
 
 //declaracion de funciones
-void BT();
+void BTSP();
 void BTA();
 void BTB();
 void BTC();
@@ -36,7 +36,7 @@ void BTAB();
 void BTAC();
 void BTBC();
 void BTABC();
-void voy(Nodo & p);
+void voySP(Nodo & p);
 void voyA(Nodo & p);
 void voyB(Nodo & p);
 void voyC(Nodo & p);
@@ -44,8 +44,8 @@ void voyAB(Nodo & p);
 void voyAC(Nodo & p);
 void voyBC(Nodo & p);
 void voyABC(Nodo & p);
-bool puedoIrG(Nodo & p);
-bool puedoIrPP(Nodo & p);
+//bool puedoIrG(Nodo & p);
+//bool puedoIrPP(Nodo & p);
 bool puedoIrPPA(Nodo & p);
 bool puedoIrPPB(Nodo & p);
 bool puedoIrPPC(Nodo & p);
@@ -53,82 +53,88 @@ bool puedoIrPPAB(Nodo & p);
 bool puedoIrPPAC(Nodo & p);
 bool puedoIrPPBC(Nodo & p);
 bool puedoIrPPABC(Nodo & p);
-Nodo & BuscarNodo(int n);
-int Maximo(int a, int b);
-void LecturaDatos();
-void Reset(vnod & PP, vnod & G, int pocNecAux);
-
+//Nodo & BuscarNodo(int n);
+//int Maximo(int a, int b);
+void Reset(vnod & PP, vnod & G, int pocNecAux, Mochila mochil);
+void CorrerPodas(vnod gim, vnod pp, Mochila mochil, ofstream & podas);
+void Imprimir(vint sol, ofstream & podas);
 
 //funciones
 
-int main(){
-	MinGlobal = MAX;
-	MinActual=0;
-	vnod PPAux;
-	vnod GAux;
-	int pocNecAux;
-	LecturaDatos();
-	PPAux = PokeParadas;
-	GAux = Gimnasios;
-	pocNecAux = PocionesNecesarias;
-	BT();
-	int Cbt = CantBT;
-	int dist = MinGlobal;
-	vint Solbt = RecorridoGlobal;
-	Reset(PPAux, GAux, pocNecAux);
-	BTA();
-	int CbtA = CantBT;
-	int distA = MinGlobal;
-	vint SolbtA = RecorridoGlobal;
-	Reset(PPAux, GAux, pocNecAux);
-	BTB();
-	int CbtB = CantBT;
-	int distB = MinGlobal;
-	vint SolbtB = RecorridoGlobal;
-	Reset(PPAux, GAux, pocNecAux);
-	BTC();
-	int CbtC = CantBT;
-	int distC = MinGlobal;
-	vint SolbtC = RecorridoGlobal;
-	Reset(PPAux, GAux, pocNecAux);
-	BTAB();
-	int CbtAB = CantBT;
-	int distAB = MinGlobal;
-	vint SolbtAB = RecorridoGlobal;
-	Reset(PPAux, GAux, pocNecAux);
-	BTAC();
-	int CbtAC = CantBT;
-	int distAC = MinGlobal;
-	vint SolbtAC = RecorridoGlobal;
-	Reset(PPAux, GAux, pocNecAux);
-	BTBC();
-	int CbtBC = CantBT;
-	int distBC = MinGlobal;
-	vint SolbtBC = RecorridoGlobal;
-	Reset(PPAux, GAux, pocNecAux);
-	BTABC();
-	int CbtABC = CantBT;
-	int distABC = MinGlobal;
-	vint SolbtABC = RecorridoGlobal;
-	if(distABC == dist && distBC == distAC && distAB == distC && distB == distA && distC == distB && dist == distAC && dist == distA){
-		cout<<"Cantidad de llamadas al BT dependiendo de las Podas, Sin Podas "<< Cbt<<", con Poda A "<<CbtA<<", con Poda B "<<CbtB;
-		cout<<", con Poda C "<<CbtC<<", Con Poda AB "<<CbtAB<<", con Poda AC "<<CbtAC<<", con Poda BC "<<CbtBC<<", con poda ABC "<<CbtABC<<endl; 
-	}
-	else{
-		cout<<"La Cagaste con una poda por favor no pls no sir pls no"<<endl;
-		cout<<"Distancia dependiendo de las Podas, Sin Podas "<< dist<<", con Poda A "<<distA<<", con Poda B "<<distB<<", con Poda C "<<distC<<", Con Poda AB "<<distAB<<", con Poda AC "<<distAC<<", con Poda BC "<<distBC<<", con poda ABC "<<distABC<<endl; 
-		cout<<"Sin Podas El recorrido es ";
-		for(int i = 0; i < Solbt.size(); i++) cout<<Solbt[i]<<" ";
-		cout<<"\nCon Poda A El recorrido es ";
-		for(int i = 0; i <SolbtA.size(); i++) cout<<SolbtA[i]<<" ";
-		cout<<endl;
-	}
-
-	cout<< endl;
-	return 0;
+void Imprimir(vint sol, ofstream & podas){
+	for(int i = 0; i<sol.size(); i++)podas<< sol[i]<<" ";
 }
 
-void Reset(vnod & PPAux,vnod & GAux,int pocNecAux){
+void CorrerPodas(vnod gim, vnod pp, Mochila mochil, ofstream & podas){
+	MinGlobal = MAX;
+	MinActual=0;
+	vnod PPAux =pp;
+	vnod GAux = gim;
+	int pocNecAux;
+	PokeParadas = PPAux;
+	Gimnasios = GAux;
+	pocNecAux = PocionesNecesarias;
+	moch = mochil;
+	BTSP();
+	int Cbt = CantBT;
+	double dist = MinGlobal;
+	vint Solbt = RecorridoGlobal;
+	Reset(PPAux, GAux, pocNecAux, mochil);
+	BTA();
+	int CbtA = CantBT;
+	double distA = MinGlobal;
+	vint SolbtA = RecorridoGlobal;
+	Reset(PPAux, GAux, pocNecAux, mochil);
+	BTB();
+	int CbtB = CantBT;
+	double distB = MinGlobal;
+	vint SolbtB = RecorridoGlobal;
+	Reset(PPAux, GAux, pocNecAux, mochil);
+	BTC();
+	int CbtC = CantBT;
+	double distC = MinGlobal;
+	vint SolbtC = RecorridoGlobal;
+	Reset(PPAux, GAux, pocNecAux, mochil);
+	BTAB();
+	int CbtAB = CantBT;
+	double distAB = MinGlobal;
+	vint SolbtAB = RecorridoGlobal;
+	Reset(PPAux, GAux, pocNecAux, mochil);
+	BTAC();
+	int CbtAC = CantBT;
+	double distAC = MinGlobal;
+	vint SolbtAC = RecorridoGlobal;
+	Reset(PPAux, GAux, pocNecAux, mochil);
+	BTBC();
+	int CbtBC = CantBT;
+	double distBC = MinGlobal;
+	vint SolbtBC = RecorridoGlobal;
+	Reset(PPAux, GAux, pocNecAux, mochil);
+	BTABC();
+	int CbtABC = CantBT;
+	double distABC = MinGlobal;
+	vint SolbtABC = RecorridoGlobal;
+	podas<< Cbt<<" & "<<dist<<" & ";
+	Imprimir(Solbt, podas);
+	podas<<" & "<<CbtA<<" & "<<distA<<" & ";
+	Imprimir(SolbtA, podas);
+	podas<<" & "<<CbtB<<" & "<<distB<<" & ";
+	Imprimir(SolbtB, podas);
+	podas<<" & "<<CbtC<<" & "<<distC<<" & ";
+	Imprimir(SolbtC, podas);
+	podas<<" & "<<CbtAB<<" & "<<distAB<<" & ";
+	Imprimir(SolbtAB, podas);
+	podas<<" & "<<CbtAC<< " & "<< distAC<<" & ";
+	Imprimir(SolbtAC, podas);
+	podas<<" & "<<CbtBC<<" & "<<distBC<<" & ";
+	Imprimir(SolbtAC, podas);
+	podas<<" & "<<CbtABC<<" & "<<distABC<<" & ";
+	Imprimir(SolbtABC, podas);
+	cout<<"termine correr Podas"<<endl;
+	
+}
+
+void Reset(vnod & PPAux,vnod & GAux,int pocNecAux, Mochila mochil){
 	CantBT = 0;
 	MinGlobal = MAX;
 	MinActual=0;
@@ -139,11 +145,11 @@ void Reset(vnod & PPAux,vnod & GAux,int pocNecAux){
 	PocionesNecesarias = pocNecAux;
 	PokeParadas = PPAux;
 	Gimnasios = GAux;
-	moch.Restaurar(0);
+	moch = mochil;
 }
-
+/*
 void LecturaDatos(){
-	int n, m, k;
+	int n, m, k; 
 	int maxPos = 0;
 	cin>> n >> m >> k;
 	moch.CambiarCapacidad(k);
@@ -167,8 +173,8 @@ void LecturaDatos(){
 		PokeParadas.push_back(nuevo); 
 	}
 }
-
-void BT(){
+*/
+void BTSP(){
 	CantBT++;
 	//Quiero cortar o en el caso de que ya hay una solucion mejor o cuando ya recorri todos los gimnasios.
 	if(GimRecorridos == Gimnasios.size()){
@@ -190,7 +196,7 @@ void BT(){
 					RecorridoActual.push_back(pp.DameIndice());
 					PPRecorridas++;
 					moch.usarMochila(pociones);
-					BT();
+					BTSP();
 					pp.Recorrer(false);
 					RecorridoActual.pop_back();
 					PPRecorridas--;
@@ -205,7 +211,7 @@ void BT(){
 						GimRecorridos++;
 						gim.Recorrer(true);
 						RecorridoActual.push_back(gim.DameIndice());
-						BT();
+						BTSP();
 						RecorridoActual.pop_back();
 						gim.Recorrer(false);
 						GimRecorridos--;
@@ -220,7 +226,7 @@ void BT(){
 					GimRecorridos++;
 					//como las pociones de un gimnasio son negativas y quiero achicar la catidad de pociones se suma
 					PocionesNecesarias += gim.DamePociones();					
-					voy(gim);
+					voySP(gim);
 					PocionesNecesarias -= gim.DamePociones();
 					GimRecorridos--;				
 				}
@@ -234,7 +240,7 @@ void BT(){
 				PPRecorridas++;
 				//si es posible ir a pokeparada, marco y voy y desmarco
 				if(puedoIrPP(pp)){
-					voy(pp);
+					voySP(pp);
 				}
 				PPRecorridas--;
 			}
@@ -764,10 +770,6 @@ void BTABC(){
 	}
 }
 
-//aca se fija si ya recorrio esta PP.
-bool puedoIrPP( Nodo & p){
-	return !p.Recorrido();
-}
 
 //Idem puedoIRPP pero con Poda c
 bool puedoIrPPC(Nodo & p){
@@ -802,13 +804,8 @@ bool puedoIrPPBC(Nodo & p){
 	return !moch.estaLLena() && (p.Recorrido() == false) && NoConsumoDemas;
 }
 
-//Aca se trata de ver si se puede ir a un Gimnasio, es decir que tengamos las pociones necesarias y no haberlo recorrido antes.
-bool puedoIrG(Nodo & p){
-	return moch.DamePeso() >= -(p.DamePociones()) && (p.Recorrido() == false);
-}
-
 //Aca se decide ir a un Nodo sin importar si es PP o gimnasio, basicamente se marcan los estados para que el BT funcione bien
-void voy(Nodo & p) {
+void voySP(Nodo & p) {
 	p.Recorrer(true);
 	Nodo origen = BuscarNodo(RecorridoActual.back());
 	double dist = origen.Distancia(p);
@@ -817,7 +814,7 @@ void voy(Nodo & p) {
 	int pociones = p.DamePociones();
 	int pocionesEnMoch = moch.DamePeso();
 	moch.usarMochila(pociones);
-	BT();
+	BTSP();
 	MinActual -= dist;
 	RecorridoActual.pop_back();
 	p.Recorrer(false);
@@ -936,22 +933,3 @@ void voyABC(Nodo & p) {
 	moch.Restaurar(pocionesEnMoch);
 }
 
-Nodo & BuscarNodo(int n){
-	if(n<= Gimnasios.size()){
-		return Gimnasios[n-1];
-	}
-	else{
-		return PokeParadas[n-Gimnasios.size()-1];
-	}
-}
-
-
-
-//Max entre 2 valores
-int Maximo(int a, int b){
-	if (a <= b)
-	{
-		return b;
-	}
-	return a;
-}

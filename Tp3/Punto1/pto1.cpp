@@ -35,10 +35,11 @@ bool puedoIrPP(Nodo & p);
 Nodo & BuscarNodo(int n);
 int Maximo(int a, int b);
 void LecturaDatos();
+int solu(vnod gim, vnod pp, Mochila moch, vint recorrido);
 
 
 //funciones
-
+/*
 int main(){
 	MinGlobal = MAX;
 	MinActual=0;
@@ -56,6 +57,18 @@ int main(){
 	}
 	cout<< endl;
 	return 0;
+}*/
+
+int pto1(vnod gim, vnod pp, Mochila moch, vint recorrido){
+	MinGlobal = MAX;
+	MinActual = 0;
+	PokeParadas = pp;
+	Gimnasios = gim;
+	BT();
+	recorrido = RecorridoGlobal;
+	int res = MinGlobal;
+	if(recorrido.empty()) res = -1;
+	return res;
 }
 
 void LecturaDatos(){
@@ -86,7 +99,6 @@ void LecturaDatos(){
 }
 
 void BT(){
-	CantBT++;
 	//Quiero cortar o en el caso de que ya hay una solucion mejor o cuando ya recorri todos los gimnasios.
 	if(MinActual> MinGlobal) return;
 	if(GimRecorridos == Gimnasios.size()){

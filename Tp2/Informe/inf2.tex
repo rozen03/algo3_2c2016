@@ -356,6 +356,31 @@ Formalmente, tenemos un digrafo rotulado, con peso en los ejes, y cada nodo esta
 
 \subsubsection{Pseudocódigo}
 
+\begin{algorithm}[H]{\textbf{Solución}(input: Arreglo[(Origen, Destino, Tiempo)])}
+	\begin{algorithmic}[1]
+		\State LecturaDatos(input, matAdy) $\comment$ Parte 1
+		\State valor $\gets$ CaminoMinimo(matAdy, estaciones) $\comment$ Parte 2 y Parte 3
+		\State res $\gets$ valor $\land$ estaciones
+	\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}[H]{\textbf{LecturaDatos}(input: Arreglo[(Origen, Destino, Tiempo)], matAdy: Matriz(TiempoM, OrigenM))}
+	\begin{algorithmic}[1]
+		\State Origen, Destino, Tiempo, TiempoM y OrigenM son Nat, simplifica la lectura
+		\State Incializa matAdy con (-1, -1);
+		\State $\forall$ x $\in$ input
+		\State \quad aux $\gets$(Tiempo(x), Origen(x))
+		\State \quad tiempoaux $\gets$ TiempoM(matAdy[Origen(x)][Destino(x)])
+\\
+		\qquad \textbf{if} tiempoaux $\neq$ -1 $\vee$ tiempoaux $\geq$ Tiempo(x)
+			\State \qquad \quad matAdy[Origen(x)][Destino(x)] $\gets$ Tiempo(x)
+\\
+		 \qquad \textbf{endif}
+	\end{algorithmic}
+\end{algorithm}
+
+	Como no se sabe mucho de que input acepta el algoritmo, es decir, puede perfectamente un digrafo decidimos que era importante aclarar con el pseudocodigo de la lectura de datos como creamos la matriz de adyacencia. Como es un digrafo la convencion que tomaremos es que dada una posición M_{ij} i es el origen y j es el destino. Luego en vez de solo representar el peso del eje tambien tenemos martcado cual es el predecesor, se inicializa los valores con valores que nunca vamos a tomar para saber si ese eje pertenece al grafo o no.
+
 \begin{algorithm}[H]{\textbf{CaminoMinimo}(MatrizAdy: Matriz(Nat, Nat) , estaciones: vector$<$Nat$>$)}
 	\begin{algorithmic}[1]
 
@@ -366,7 +391,7 @@ Formalmente, tenemos un digrafo rotulado, con peso en los ejes, y cada nodo esta
 		\State \quad nodomin $\gets$ buscarMin(nodos, MatAdy[1])
 		\State \quad nodosNoSeguros - $\{$nodomin$\}$
 		\State \quad NodosSeguros $\cup$ $\{$nodomin$\}$
-		\State \quad \forall \ e \ $\in$ nodos $\land$ [nodomin, e] $\in$ X
+		\State \quad \forall \ e \ $\in$ nodosNoSeguros $\land$ [nodomin, e] $\in$ X
 		\State \qquad longi $\gets$ $\pi_{1}$(matAdy[1][e])
 		\State \qquad longmin $\gets$ $\pi_{1}$(matAdy[1][nodomin])
 		\State \qquad longimin $\gets$ $\pi_{1}$(matAdy[nodomin][pos])
@@ -386,28 +411,10 @@ Formalmente, tenemos un digrafo rotulado, con peso en los ejes, y cada nodo esta
  	\end{algorithmic}
 \end{algorithm}
 
-\begin{algorithm}[H]{\textbf{LecturaDatos}(input: Arreglo[(Origen, Destino, Tiempo)], matAdy: Matriz(TiempoM, OrigenM))}
-	\begin{algorithmic}[1]
-		\State Origen, Destino, Tiempo, TiempoM y OrigenM son Nat, simplifica la lectura
-		\State Incializa matAdy con (-1, -1);
-		\State $\forall$ x $\in$ input
-		\State \quad aux $\gets$(Tiempo(x), Origen(x))
-		\State \quad tiempoaux $\gets$ TiempoM(matAdy[Origen(x)][Destino(x)])
-\\
-		\qquad \textbf{if} tiempoaux $\neq$ -1 $\vee$ tiempoaux $\geq$ Tiempo(x)
-			\State \qquad \quad matAdy[Origen(x)][Destino(x)] $\gets$ Tiempo(x)
-\\
- \qquad \textbf{endif}
-	\end{algorithmic}
-\end{algorithm}
+	CaminoMinimo en la parte 2 es dijkstra y en la parte 3 es recorrer la matriz para saber cuales son las estaciones que recorre el camino mínimo.
 
-\begin{algorithm}[H]{\textbf{Solución}(input: Arreglo[(Origen, Destino, Tiempo)])}
-	\begin{algorithmic}[1]
-		\State LecturaDatos(input, matAdy) $\comment$ Parte 1
-		\State valor $\gets$ CaminoMinimo(matAdy, estaciones) $\comment$ Parte 2 y Parte 3
-		\State res $\gets$ valor $\land$ estaciones
-	\end{algorithmic}
-\end{algorithm}
+
+
 
 
 \newpage
@@ -429,7 +436,7 @@ Si analizamos con atención el pseudocódigo, tenemos tres secciones que se pued
 \item[Parte 3] Nos encontramos un ciclo que lee los datos de la matriz y guarda en un conjunto los nodos que tenemos que atravezar para tener el camino mínimo. La cantidad máxima de iteraciones que hace este ciclo es N, el razonamiento detrás de esta afirmación es que los ejes no tienen pesos negativos, si existe un camino mínimo, este no va a tener ciclos ya que pasar por un ciclo solo aumentaría el peso total del camino, y un camino sin ciclos en un grafo con n nodos tiene a lo sumo n-1 ejes, ya que el camino puede llegar a pasar por todos los nodos. Podemos concluir que el ciclo hace n iteraciones en el peor caso, es decir que la tercer parte es $\mathcal{O}$(N)
 \\
 \end{description}
-\tab Ahora que analizamos las tres partes que podían llegar a dar complejidad al algoritmo sabemos que la complejidad algoritmica de la primer parte, la segunda parte y la tercera respectivamente son $\Theta$(N²), $\mathcal{O}$(N²), $\mathcal{O}$(N). Entonces la complejidad total es la suma de las complejidades resultando en $\mathcal{O}$(N²).
+\tab Ahora que analizamos las tres partes que podían llegar a dar complejidad al algoritmo sabemos que la complejidad algoritmica de la primer parte, la segunda parte y la tercera respectivamente son $\Theta$(N²), $\mathcal{O}$(N²), $\mathcal{O}$(N). Entonces como todas las complejidades pertenecen al orden de $\mathcal{O}$(N²) y esta clase de complejidad es la mìnima a la que todas pertenecen a la vez, la complejidad total es $\mathcal{O}$(N²) .
 
 \subsection{Experimentación}
 
@@ -473,11 +480,11 @@ En este gráfico podemos ver como A1 mantiene su apariencia cuadratica, pero nos
 \caption{}
 \end{figure}
 \\
-Como Podemos observar la apariencia constante de A2 era meramente una apariencia por las escalas que tenía la figura 2. Ahora se nota claramente que A2 en el mejor caso es lineal.
+Como Podemos observar la apariencia constante de A2 era meramente una apariencia por las escalas que tenía la figura 10. Ahora se nota claramente que A2 en el mejor caso es lineal.
 \\
 Al finalizar estos experimentos, nos dimos cuenta que modificar la cantidad de nodos y que la cantidad de ejes está en función a la cantidad de nodos nos reducía el univierso de posibles grafos y probablemente habían dependencias en términos de complejidad que nosotros no cubríamos.
 \\
- Entonces creamos este experimento, que crea grafos conexos con 200 ejes y varía los nodos desde 20 hasta 199 y los pesos están asignados aleatoriamente. Esperábamos un gráfico muy parecido a la figura 1.
+ Entonces creamos este experimento, que crea grafos conexos con 200 ejes y varía los nodos desde 20 hasta 199 y los pesos están asignados aleatoriamente. Esperábamos un gráfico muy parecido a la figura 9.
 
 \begin{figure}[H]
 \centering
@@ -485,7 +492,7 @@ Al finalizar estos experimentos, nos dimos cuenta que modificar la cantidad de n
 \caption{}
 \end{figure}
 
-Aunque se pueden ver unas tendencias cuadráticas en el gráfico, y que está por debajo de la cota dada, también podemos ver que la figura 1 tiene los datos de A1 más regulares que en la figura 2. Nuestras hipótesis es que, cuanto más denso es el grafo, más regular quedan las mediciones y cuanto menos denso las mediciones tienden a ser irregulares. Entonces decidimos experimentar sobre grafos menos densos y ver como quedaban las mediciones.
+Aunque se pueden ver unas tendencias cuadráticas en el gráfico, y que está por debajo de la cota dada, también podemos ver que la figura 9 tiene los datos de A1 más regulares que en la figura 2. Nuestras hipótesis es que, cuanto más denso es el grafo, más regular quedan las mediciones y cuanto menos denso las mediciones tienden a ser irregulares. Entonces decidimos experimentar sobre grafos menos densos y ver como quedaban las mediciones.
 \\
 A fin de lo antes mencionado creamos una prueba, que dada una cierta cantidad de nodos, nos generaba cuatro grafos. Definimos el concepto D, como una símil densidad, donde la densidad está definida como la cantidad de ejes en un grafo dado, cuanto más denso el grafo más ejes tiene. D funciona sólo para grafos conexos, 0 es un árbol y 100 es el Kn.
 

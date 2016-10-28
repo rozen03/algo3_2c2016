@@ -1,8 +1,8 @@
 #include <cmath>
 #include <vector>
 #include <iostream>
-//#ifndef __NODO__
-//#define __NODO__
+#ifndef __NODO__
+#define __NODO__
 
 
 using namespace std;
@@ -149,5 +149,4 @@ void Lectura(vnod& gimnasios, vnod& pokeParadas, Mochila& moch){
 		pokeParadas.push_back(nuevo); 
 	}
 }
-
-
+#endif

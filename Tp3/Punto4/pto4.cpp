@@ -1,10 +1,10 @@
 #include "../clases.h"
-#include"../Punto2/Punto2.cpp"
-#include"../Punto3/pto3.cpp"
+#include "../Punto2/Punto2.cpp"
+#include "../Punto3/pto3.cpp"
 #include <iostream>
 #include <limits>
-#include<stdio.h>
-#include<stdlib.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 using namespace std;
 
@@ -74,7 +74,9 @@ void GolozoRand(){
   //cout <<"PokeParadaMasCercana"<< PokeParadaMasCercana.size()<< endl;
     vpnod losMasCercanos;
     //guardamos los 4 gim y las 4 pp mas cercanas a la posicion actual
-    for (int i = 0; i < 4; i++) {
+    double porcAux = (Gimnasios.size()+ PokeParadas.size()) * 20/100;
+    int  porcentaje = ceil(porcAux);
+    for (int i = 0; i < porcentaje; i++) {
       Nodo* aux=PokeParadaMasCercana();
       if (aux != NULL) losMasCercanos.push_back(aux);
       sacar(PokeParadas, aux->DameIndice());
@@ -121,14 +123,20 @@ int puntajeAnodo(Nodo n){
 
 void filtro(vpnod & vect ){
   vpnod aux;
-  for (int i = 0; i < 4; i++) {
+  Nodo * GimMin;
+  bool hayGim = false;
+  for (int i = 0; i < ceil(vect.size()/2); i++) {
     Nodo* min=vect[0];
+    if(vect[i]->esGim() && GimMin == NULL) GimMin=vect[i];
+    if(GimMin != NULL && dist(vect[i]) < dist(GimMin) ) GimMin=vect[i];
     for ( j = 1; j < vect.size(); j++) {
       if dist(min)>dist(vect[j]) min=vect[j];
     }
+    if(min -> esGim()) hayGim = true;
     aux.push_back(min);
     SacarPunteros(vect, min->DameIndice());
   }
+  if(!hayGim) aux.push_back(GimMin);
   vect=aux;
 }
 
@@ -151,7 +159,7 @@ Nodo* ElegirElNodo(vpnod vect){
   vint valorNodos;
   int suma=0;
   for(int i=0; i<vect.size(); i++){
-    int aux= 40-i*10;
+    int aux= vect.size()*10-i*10;
     aux += puntajeAnodo(&vect[i]);
     suma+=aux;
     valorNodos.push_back(suma);
