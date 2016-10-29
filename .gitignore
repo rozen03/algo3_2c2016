@@ -1,0 +1,9 @@
+#ignora todo lo que esta adentro del tp1.
+tp1/**
+#ignora los auxiliares de los pdf, busca en todas las carpetas esas terminaciones y las ignora
+**/*.log
+**/*.aux
+**/*.toc
+
+#ignora eso, que basicamente es un backup
+**/*~
