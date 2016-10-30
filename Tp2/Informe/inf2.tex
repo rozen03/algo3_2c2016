@@ -228,8 +228,10 @@ Formalmente, podemos modelar este problema con grafos. Teniendo un grafo con pes
 
 \subsection{Explicación de la solución}
 
-Definimos una clase eje que tiene como propiedad punteros a los nodos de cada extremo y su peso correspondiente.
-Los ejes representan las paredes y los nodos las habitaciones. En el mapa las habitaciones estar representadas mediante $`` . "$. Estos serán nuestros nodos. los numeros y $``\#"$ representan las paredes, nuestros ejes. Si un eje tiene peso cero, es porque no hace falta romper ninguna pared para transpasar la habitaciòn. es decir esos nodos son consecutivos. Que entre dos nodos haya una pared $``\#"$ implica que no habra un eje que los una ya que esa pared es irrompible.
+Nuestra entrada es un ``mapa" que contiene `` . ", $``\# "$ y números, es decir una matriz que en cada posición tiene alguno de esos simbolos. los puntos representan lugares caminables. Cada punto lo representamos con un nodo. los números son las paredes que se pueden romper y los numerales son las paredes irrompibles. Los nodos pueden conectarse a otros nodos que estén vertical o horizontalmente al mismo sí son continuos o tienen una pared rompible en el medio.
+
+Definimos una clase eje que tiene como propiedad punteros a los nodos de cada extremo y un peso que representa cuanto cuesta romper la pared que existe entre ellos. Si dos salas son continuas, es decir no tienen un número o numeral en el medio el eje que las une tendrá peso cero. Sí entre dos nodos hay un número, ese será el peso del eje que los une. De haber un numeral, como esa pared es irrompible, no habrá un eje que una a esos nodos.
+
 \\
 Ahora, teniendo el conjunto de todos los ejes y utilizamos el algoritmo de Kruskal para obtener el árbol generador mínimo, y retornar el valor total del mismo. 
 \\
@@ -265,19 +267,21 @@ guardamos un entero en el cual ir sumando el peso de cada arista elegida para de
 		\State \quad devovler res; \Comment $\mathcal{O}(1)$
 		
 	\medskip
-        \Statex \underline{Complejidad:} $\matchal{O}(n)$ esto le aporta el "+n" a la complejidad del Kruskal 
+        \Statex \underline{Complejidad:} $\matchal{O}(n)$ esto le aporta el $``+n "$ a la complejidad del Kruskal 
 	\end{algorithmic}
 \end{algorithm}
 
 \subsubsection{Demostración de Correctitud}
 
 Este problema lo modelamos con grafos de modo tal que cada habitación caminable es un nodo conectado a otros mediante sus ejes. Los mismos, de haber una pared en el medio tendrán peso igual al costo de destruirla y, de no haber pared, tendrán peso cero. Si entre dos nodos hay una pared indestructible esos nodos no podrán conectarse, es decir no existe una arista entre ellos.
-
+\\
 Un arbol generador mínimo de un grafo es un subgrafo que contiene todos los nodos del mismo y es un árbol  que cumple que la sumatoria de los pesos de sus ejes es la menor posible. Es decir, no existe otro arbol generador tal que la sumatoria del peso de sus ejes sea mayor que la del AGM.
 También podemos garantizar que es mejor que cualquier subgrafo no arbol, ya que implicaría que tiene circuitos, y esto siempre agregaría peso de más ya que habría aristas de más.
-
-En este problema nos piden que demos el esfuerzo minimo que nos cuesta acceder a todas las habitaciones. Por como modelamos el problema y las definiciones previas, esto es equivalente a encontrar el conjunto de aristas que conectan todos los nodos tal que minimzen la sumatoria de sus pesos. podemos ver que lo que nos están pidiendo es un AGM. Si el problema tiene solución, para encontrar el AGM del grafo utilizamos el algoritmo Kruskal. La demostración de correctitud de este algoritmo puede encontrase en el paper de  J.B. Kruskal, ``On the shortest spanning subtree of a graph and the traveling salesman problem. Proceedings of the American Mathematical Society, Volume 7, pp. 48-50, 1956".
-
+\\
+En este problema nos piden que demos el esfuerzo minimo que nos cuesta acceder a todas las habitaciones. Por como modelamos el problema y las definiciones previas, esto es equivalente a encontrar el conjunto de aristas que conectan todos los nodos tal que minimzen la sumatoria de sus pesos.
+Como los ejes que conectan nuestros nodos continuos tienen peso cero, entonces no gregan peso a nuestro resultado. Es decir, que el resultado será el mismo que si las consideraramos como una sola sala.  
+ Entonces podemos ver que lo que nos están pidiendo es un AGM. Si el problema tiene solución, para encontrar el AGM del grafo utilizamos el algoritmo Kruskal. La demostración de correctitud de este algoritmo puede encontrase en el paper de  J.B. Kruskal, ``On the shortest spanning subtree of a graph and the traveling salesman problem. Proceedings of the American Mathematical Society, Volume 7, pp. 48-50, 1956".
+\\
 En caso de que el problema no tenga solución utilizamos las funciones de dsu para devolver -1. Basicamente, si no existe un AGM posible es porque el grafo no es conexo. En este caso exisitrán un par de nodos que al finalizar el kruskal no tendrán el mismo nodo padre. 
 
 
@@ -290,13 +294,23 @@ La complejidad pedida para este algoritmo es $\mathcal{O}(FClog(FC))$ donde F es
 \\
 Primero probaremos que podemos acotar la cantidad de ejes por la cantidad de nodos:
 \\
-Sabemos que $1/2  \sum_{1}^{n}d(v_{i}) =m $. Sin embargo podemos acotar $d(v_{i}) \leq 4$ ya que como mucho los nodos del medio del mapa pueden tener 4 ejes mientras que todos los que estén en los bordes podrán tener como mucho 2. Luego $1/2  \sum_{1}^{n}{d(v_{i})} \leq 1/2 \sum_{1}^{n}{4} = 2n$. Entonces $m \leq 2n$ y $\mathcal{O}(m) \leq \mathcal{O}(2n) \mathcal{O}(n)$.
+Sabemos que
+\\
+ $1/2  \sum_{1}^{n}d(v_{i}) =m $. 
+\\
+Sin embargo podemos acotar $d(v_{i}) \leq 4$ ya que como mucho los nodos del medio del mapa pueden tener 4 ejes mientras que todos los que estén en los bordes podrán tener como mucho 2.
+\\
+ Luego $1/2  \sum_{1}^{n}{d(v_{i})} \leq 1/2 \sum_{1}^{n}{4} = 2n$.
+\\
+ Entonces $m \leq 2n$ y $\mathcal{O}(m) \leq \mathcal{O}(2n) \mathcal{O}(n)$.
 \\
 Ahora veremos que la complejidad de nuestro algoritmo es la pedida:
 \\
 Por lo anterior tenemos que $\mathcal{O}(m(log(m)+log(n))+n)= \mathcal{O}(n(2log(n)+1)) = \mathcal{O}(nlog(n))$.
 \\
-La cantidad de nodos que tengamos depende directamente de F y C. la máxima cantidad de nodos que podemos tener es F-1*C-1 (la matriz sin paredes descartando los bordes) luego $\mathcal{O}(nlog(n)) = \mathcal{O}(FClog(FC))$
+La cantidad de nodos que tengamos depende directamente de F y C. la máxima cantidad de nodos que podemos tener es F-1*C-1 (la matriz sin paredes descartando los bordes) 
+\\
+Luego $\mathcal{O}(nlog(n)) = \mathcal{O}(FClog(FC))$
 
 
 \subsection{Experimentación}

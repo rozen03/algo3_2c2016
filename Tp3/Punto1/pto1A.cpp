@@ -58,7 +58,6 @@ bool puedoIrPPABC(Nodo & p);
 void Reset(vnod & PP, vnod & G, int pocNecAux, Mochila mochil);
 void CorrerPodas(vnod gim, vnod pp, Mochila mochil, ofstream & podas);
 void Imprimir(vint sol, ofstream & podas);
-
 //funciones
 
 void Imprimir(vint sol, ofstream & podas){
@@ -66,20 +65,43 @@ void Imprimir(vint sol, ofstream & podas){
 }
 
 void CorrerPodas(vnod gim, vnod pp, Mochila mochil, ofstream & podas){
-	MinGlobal = MAX;
-	MinActual=0;
-	vnod PPAux =pp;
+	vnod PPAux = pp;
 	vnod GAux = gim;
-	int pocNecAux;
-	PokeParadas = PPAux;
-	Gimnasios = GAux;
-	pocNecAux = PocionesNecesarias;
-	moch = mochil;
+	int pocNecAux = 0;
+	for(int i = 0; i<gim.size(); i++) pocNecAux -= gim[i].DamePociones();
+	cout<<"Entre a CorrerPodas con "<<pp.size()<<" pokeparadas y "<<gim.size()<<"gimnasios"<<endl;
+	cout<<"el Gim son ";
+	ImprimirNod(gim);
+	cout<<"las pp son ";
+	ImprimirNod(pp);
+	cout<<"las copias son en gim ";
+	ImprimirNod(GAux);
+	cout<<"en pp son ";
+	ImprimirNod(PPAux); 
+	
+	Reset(PPAux, GAux, pocNecAux, mochil);
 	BTSP();
 	int Cbt = CantBT;
 	double dist = MinGlobal;
 	vint Solbt = RecorridoGlobal;
+	
+	cout<<"pre reset los valores son ";
+	cout<< CantBT<<" cant, "<< MinGlobal<<" minGlob, "<<MinActual<<" minActual, ";
+	cout<< GimRecorridos<<" gimRecc, "<<PPRecorridas<<" PPreco, ";
+	cout<<"los Gim y pp "<<endl;
+	ImprimirNod(Gimnasios);
+	ImprimirNod(PokeParadas);
+	cout<<"Recorrido BT ";
+	for(int i = 0; i<Solbt.size();i++) cout<< Solbt[i]<<" ";
+	cout<<endl;
 	Reset(PPAux, GAux, pocNecAux, mochil);
+	cout<<"post reset los valores son ";
+	cout<< CantBT<<" cant, "<< MinGlobal<<" minGlob, "<<MinActual<<" minActual, ";
+	cout<< GimRecorridos<<" gimRecc, "<<PPRecorridas<<" PPreco, ";
+	cout<<"los Gim y pp "<<endl;
+	ImprimirNod(Gimnasios);
+	ImprimirNod(PokeParadas);
+	
 	BTA();
 	int CbtA = CantBT;
 	double distA = MinGlobal;
@@ -145,7 +167,8 @@ void Reset(vnod & PPAux,vnod & GAux,int pocNecAux, Mochila mochil){
 	PocionesNecesarias = pocNecAux;
 	PokeParadas = PPAux;
 	Gimnasios = GAux;
-	moch = mochil;
+	moch.CambiarCapacidad(mochil.DameCapacidad());
+	moch.Restaurar(0);
 }
 /*
 void LecturaDatos(){
