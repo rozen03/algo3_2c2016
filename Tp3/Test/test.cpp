@@ -16,7 +16,9 @@ using namespace std;
 void Correr(int rep, vnod gimnasios, vnod pokeparadas, Mochila moch, ofstream & res, int nroEj){
 	int valor;
 	vector<int> sol;
-	int (* foo)(vnod,vnod, Mochila,vint);
+	int (* foo)(vnod,vnod, Mochila,vint &);
+		cout<<"Entro a correr con "<<gimnasios.size()<<" gimansios y "<<pokeparadas.size()<<" pokeparadas"<<endl;
+		cout<<"Nro de ej "<<nroEj<<endl;
 	switch(nroEj){
 		case 1:
 		foo = &pto1;
@@ -24,13 +26,13 @@ void Correr(int rep, vnod gimnasios, vnod pokeparadas, Mochila moch, ofstream & 
 		foo = &;VER*/
 		break;
 		/*case 2:
-		foo = pto2;
+		foo = &pto2;
 		break;
 		case 3:
-		foo = pto3;
+		foo = &pto3;
 		break;
 		case 4:
-		foo = pto4;
+		foo = &pto4;
 		break;*/
 		default:
 		cout<<"N invalido"<<endl;
@@ -51,6 +53,7 @@ void Correr(int rep, vnod gimnasios, vnod pokeparadas, Mochila moch, ofstream & 
 		res<<tiempo<<" & ";
 	}
 	res<<"\n";
+	cout<<"salgo de correr con "<<gimnasios.size()<<" gimansios y "<<pokeparadas.size()<<" pokeparadas"<<endl;
 }
 
 
@@ -59,6 +62,7 @@ void PPdeMas(){}
 */
 void RectaPPgim(int rep, int cantgim){
 	ofstream res("resultadossRectaSinMoch.txt");
+	ofstream casos("casos.txt");
 	vnod gimnasios;
 	vnod pp;
 	srand(time(NULL));
@@ -81,7 +85,7 @@ void RectaPPgim(int rep, int cantgim){
 			indicePP++;
 			pp.push_back(pokeparada);
 		}
-		if(i < 10){
+		if(11 > pp.size()+gimnasios.size()){
 			for(int nroEj = 1; nroEj <= 4; nroEj++){
 				res<<nroEj<<" & "<<i << " & "<< ppTotales<<" & ";
 				Correr(rep, gimnasios, pp, moch, res, nroEj);	
@@ -95,7 +99,12 @@ void RectaPPgim(int rep, int cantgim){
 			podas<<" & #BT con Poda ABC & distancia & recorrido\n";
 			podas << gimnasios.size() << " & "<<pp.size() << " & ";
 			CorrerPodas(gimnasios, pp, moch, podas); 
-			
+			podas<<"\n";
+			casos<<"La idea es saber como estan conformados los casos gimansios & pp \n";
+			for(int i = 0; i<gimnasios.size();i++) casos<<"("<<gimnasios[i].CordenadaX()<<","<<gimnasios[i].CordenadaY()<<")["<<gimnasios[i].DamePociones()<<"] ";
+			casos<<" & ";
+			for(int i = 0; i< pp.size();i++) casos<<"("<<pp[i].CordenadaX()<<","<<pp[i].CordenadaY()<<") ";
+			casos<<"\n";
 		}
 		else{
 			for(int nroEj = 2; nroEj <= 4; nroEj++){

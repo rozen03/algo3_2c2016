@@ -1,0 +1,4 @@
+la idea es tener una recta tal que todas las pp que necesitas para ganar un gimnasio las tenes antes de llegar
+pto & cantidad de gimnasios & cantidad de pokeparadas & distancia & resultado & ... tiempos ...& 
+1 & 1 & 9 & -1 & & 1664 & 
+2 & 1 & 9 & 3 & 1 & 9 & 4 & 1 & 9 & 2 & 2 & 18 & 3 & 2 & 18 & 4 & 2 & 18 & 2 & 3 & 20 & 3 & 3 & 20 & 4 & 3 & 20 & 2 & 4 & 28 & 3 & 4 & 28 & 4 & 4 & 28 & 2 & 5 & 37 & 3 & 5 & 37 & 4 & 5 & 37 & 2 & 6 & 46 & 3 & 6 & 46 & 4 & 6 & 46 & 2 & 7 & 50 & 3 & 7 & 50 & 4 & 7 & 50 & 2 & 8 & 51 & 3 & 8 & 51 & 4 & 8 & 51 & 2 & 9 & 60 & 3 & 9 & 60 & 4 & 9 & 60 & 2 & 10 & 65 & 3 & 10 & 65 & 4 & 10 & 65 & 

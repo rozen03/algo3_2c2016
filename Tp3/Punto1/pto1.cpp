@@ -59,7 +59,7 @@ int main(){
 	return 0;
 }*/
 
-int pto1(vnod gim, vnod pp, Mochila moch, vint recorrido){
+int pto1(vnod gim, vnod pp, Mochila moch, vint & recorrido){
 	MinGlobal = MAX;
 	MinActual = 0;
 	PokeParadas = pp;
