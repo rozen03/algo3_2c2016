@@ -124,7 +124,7 @@ void Mochila::Restaurar(int n){
 typedef vector<Nodo > vnod;
 
 //da informacion sobre un vector de nodos
-void void ImprimirNod( vnod & gim){
+void ImprimirNod( vnod & gim){
 	for(int i = 0; i< gim.size(); i++){
 		cout<<"("<<gim[i].CordenadaX()<<","<<gim[i].CordenadaY()<<") ";
 		if( gim[i].EsGim()) cout<<"["<<-gim[i].DamePociones()<<"] ";

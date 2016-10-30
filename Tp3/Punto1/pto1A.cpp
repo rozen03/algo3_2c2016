@@ -55,7 +55,7 @@ bool puedoIrPPBC(Nodo & p);
 bool puedoIrPPABC(Nodo & p);
 //Nodo & BuscarNodo(int n);
 //int Maximo(int a, int b);
-void Reset(vnod & PP, vnod & G, int pocNecAux, Mochila mochil);
+//void Reset(vnod & PP, vnod & G, Mochila mochil);
 void CorrerPodas(vnod gim, vnod pp, Mochila mochil, ofstream & podas);
 void Imprimir(vint sol, ofstream & podas);
 //funciones
@@ -64,22 +64,22 @@ void Imprimir(vint sol, ofstream & podas){
 	for(int i = 0; i<sol.size(); i++)podas<< sol[i]<<" ";
 }
 
-void CorrerPodas(vnod gim, vnod pp, Mochila mochil, ofstream & podas){
-	vnod PPAux = pp;
-	vnod GAux = gim;
-	int pocNecAux = 0;
-	for(int i = 0; i<gim.size(); i++) pocNecAux -= gim[i].DamePociones();
-	cout<<"Entre a CorrerPodas con "<<pp.size()<<" pokeparadas y "<<gim.size()<<"gimnasios"<<endl;
-	cout<<"el Gim son ";
-	ImprimirNod(gim);
-	cout<<"las pp son ";
-	ImprimirNod(pp);
+void CorrerPodas(vnod GAux, vnod PPAux, Mochila mochil, ofstream & podas){
+	cout<<"Entre a CorrerPodas con "<<PPAux.size()<<" pokeparadas y "<<GAux.size()<<" gimnasios"<<endl;
 	cout<<"las copias son en gim ";
 	ImprimirNod(GAux);
 	cout<<"en pp son ";
 	ImprimirNod(PPAux); 
 	
-	Reset(PPAux, GAux, pocNecAux, mochil);
+	Reset(PPAux, GAux, mochil);
+	cout<<"antes de llamar al BT post reset";
+	cout<<"post reset los valores son ";
+	cout<< CantBT<<" cant, "<< MinGlobal<<" minGlob, "<<MinActual<<" minActual, ";
+	cout<< GimRecorridos<<" gimRecc, "<<PPRecorridas<<" PPreco, ";
+	cout<<"los Gim y pp "<<endl;
+	ImprimirNod(Gimnasios);
+	ImprimirNod(PokeParadas);
+	
 	BTSP();
 	int Cbt = CantBT;
 	double dist = MinGlobal;
@@ -94,48 +94,48 @@ void CorrerPodas(vnod gim, vnod pp, Mochila mochil, ofstream & podas){
 	cout<<"Recorrido BT ";
 	for(int i = 0; i<Solbt.size();i++) cout<< Solbt[i]<<" ";
 	cout<<endl;
-	Reset(PPAux, GAux, pocNecAux, mochil);
-	cout<<"post reset los valores son ";
-	cout<< CantBT<<" cant, "<< MinGlobal<<" minGlob, "<<MinActual<<" minActual, ";
-	cout<< GimRecorridos<<" gimRecc, "<<PPRecorridas<<" PPreco, ";
-	cout<<"los Gim y pp "<<endl;
-	ImprimirNod(Gimnasios);
-	ImprimirNod(PokeParadas);
-	
+	Reset(PPAux, GAux, mochil);
 	BTA();
 	int CbtA = CantBT;
 	double distA = MinGlobal;
 	vint SolbtA = RecorridoGlobal;
-	Reset(PPAux, GAux, pocNecAux, mochil);
+	
+	Reset(PPAux, GAux, mochil);
 	BTB();
 	int CbtB = CantBT;
 	double distB = MinGlobal;
 	vint SolbtB = RecorridoGlobal;
-	Reset(PPAux, GAux, pocNecAux, mochil);
+	
+	Reset(PPAux, GAux, mochil);
 	BTC();
 	int CbtC = CantBT;
 	double distC = MinGlobal;
 	vint SolbtC = RecorridoGlobal;
-	Reset(PPAux, GAux, pocNecAux, mochil);
+	
+	Reset(PPAux, GAux, mochil);
 	BTAB();
 	int CbtAB = CantBT;
 	double distAB = MinGlobal;
 	vint SolbtAB = RecorridoGlobal;
-	Reset(PPAux, GAux, pocNecAux, mochil);
+	
+	Reset(PPAux, GAux, mochil);
 	BTAC();
 	int CbtAC = CantBT;
 	double distAC = MinGlobal;
 	vint SolbtAC = RecorridoGlobal;
-	Reset(PPAux, GAux, pocNecAux, mochil);
+	
+	Reset(PPAux, GAux, mochil);
 	BTBC();
 	int CbtBC = CantBT;
 	double distBC = MinGlobal;
 	vint SolbtBC = RecorridoGlobal;
-	Reset(PPAux, GAux, pocNecAux, mochil);
+	
+	Reset(PPAux, GAux, mochil);
 	BTABC();
 	int CbtABC = CantBT;
 	double distABC = MinGlobal;
 	vint SolbtABC = RecorridoGlobal;
+	
 	podas<< Cbt<<" & "<<dist<<" & ";
 	Imprimir(Solbt, podas);
 	podas<<" & "<<CbtA<<" & "<<distA<<" & ";
@@ -156,20 +156,7 @@ void CorrerPodas(vnod gim, vnod pp, Mochila mochil, ofstream & podas){
 	
 }
 
-void Reset(vnod & PPAux,vnod & GAux,int pocNecAux, Mochila mochil){
-	CantBT = 0;
-	MinGlobal = MAX;
-	MinActual=0;
-	RecorridoGlobal.clear();
-	RecorridoActual.clear();
-	GimRecorridos = 0;
-	PPRecorridas = 0;
-	PocionesNecesarias = pocNecAux;
-	PokeParadas = PPAux;
-	Gimnasios = GAux;
-	moch.CambiarCapacidad(mochil.DameCapacidad());
-	moch.Restaurar(0);
-}
+
 /*
 void LecturaDatos(){
 	int n, m, k; 

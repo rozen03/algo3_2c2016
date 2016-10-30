@@ -36,6 +36,7 @@ void Correr(int rep, vnod gimnasios, vnod pokeparadas, Mochila moch, ofstream & 
 		break;*/
 		default:
 		cout<<"N invalido"<<endl;
+		res<<"\n";
 		return;
 	}
 	valor = (int) foo(gimnasios, pokeparadas, moch, sol);
