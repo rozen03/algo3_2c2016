@@ -25,7 +25,7 @@ def tirarPokeParadas(pokeParadas:list,gimnasios:list,k:int):
     res=[]
     for gym in gimnasios:
         while(suma<gym[2]):
-            if len(pokeParadas) <1:
+            if len(pokeParadas) <1:()
                 return -1
             suma+=3
             if(suma>k):
