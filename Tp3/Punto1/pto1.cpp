@@ -36,6 +36,7 @@ Nodo & BuscarNodo(int n);
 int Maximo(int a, int b);
 void LecturaDatos();
 int solu(vnod gim, vnod pp, Mochila moch, vint recorrido);
+void Reset(vnod & PP, vnod & G, Mochila mochil);
 
 
 //funciones
@@ -57,13 +58,11 @@ int main(){
 	}
 	cout<< endl;
 	return 0;
-}*/
-
-int pto1(vnod gim, vnod pp, Mochila moch, vint & recorrido){
-	MinGlobal = MAX;
-	MinActual = 0;
-	PokeParadas = pp;
-	Gimnasios = gim;
+}
+*/
+int pto1(vnod gim, vnod pp, Mochila mochil, vint & recorrido){
+	Reset(pp, gim, mochil);
+	cout << "min actual" <<MinActual<<endl;
 	BT();
 	recorrido = RecorridoGlobal;
 	int res = MinGlobal;
@@ -99,6 +98,7 @@ void LecturaDatos(){
 }
 
 void BT(){
+
 	//Quiero cortar o en el caso de que ya hay una solucion mejor o cuando ya recorri todos los gimnasios.
 	if(MinActual> MinGlobal) return;
 	if(GimRecorridos == Gimnasios.size()){
@@ -111,6 +111,7 @@ void BT(){
  	//Voy A un gimnasio o a una pokeparada.
 	for (int i = 0; i < Maximo(Gimnasios.size(), PokeParadas.size()) ; ++i){
 			//esto elige de donde salimos
+			/*
 			if(RecorridoActual.empty()){
 				if(i<PokeParadas.size()){
 					Nodo & pp = PokeParadas[i];
@@ -142,34 +143,33 @@ void BT(){
 					}
 				}
 			}
-			else{
-			if(i<Gimnasios.size()){
-				Nodo & gim = Gimnasios[i];
-				//si es posible ir con el gimnasio, marco y voy y desmarco
-				if (puedoIrG(gim)){
-					GimRecorridos++;
-					//como las pociones de un gimnasio son negativas y quiero achicar la catidad de pociones se suma
-					PocionesNecesarias += gim.DamePociones();					
-					voy(gim);
-					PocionesNecesarias -= gim.DamePociones();
-					GimRecorridos--;				
-				}
+			else{*/
+		if(i<Gimnasios.size()){
+			Nodo & gim = Gimnasios[i];
+			//si es posible ir con el gimnasio, marco y voy y desmarco
+			if (puedoIrG(gim)){
+				GimRecorridos++;
+				//como las pociones de un gimnasio son negativas y quiero achicar la catidad de pociones se suma
+				PocionesNecesarias += gim.DamePociones();					
+				voy(gim);
+				PocionesNecesarias -= gim.DamePociones();
+				GimRecorridos--;				
 			}
-			
-			//Voy a pokeparadas
-			if(i<PokeParadas.size()){
-				Nodo & pp = PokeParadas[i];
-				//Se marca afuera del if, por que el calculo de PPrecorridas se hace asumiendo que consumo esa
-				//PP, si no podia ir por que ya habia ido corta por otro lado.
-				PPRecorridas++;
-				//si es posible ir a pokeparada, marco y voy y desmarco
-				if(puedoIrPP(pp)){
-					voy(pp);
-				}
-				PPRecorridas--;
+		}
+		
+		//Voy a pokeparadas
+		if(i<PokeParadas.size()){
+			Nodo & pp = PokeParadas[i];
+			//Se marca afuera del if, por que el calculo de PPrecorridas se hace asumiendo que consumo esa
+			//PP, si no podia ir por que ya habia ido corta por otro lado.
+			PPRecorridas++;
+			//si es posible ir a pokeparada, marco y voy y desmarco
+			if(puedoIrPP(pp)){
+				voy(pp);
 			}
-		}				
-	}
+			PPRecorridas--;
+		}
+	}				
 }
 
 /* Aca se Trata e fijarse si puedo ir a una PP, es decir si ya no fui, o si vale la pena ir, es decir si la mochila ya esta llena, no vale la pena ir
@@ -201,8 +201,11 @@ bool puedoIrG(Nodo & p){
 //Aca se decide ir a un Nodo sin importar si es PP o gimnasio, basicamente se marcan los estados para que el BT funcione bien
 void voy(Nodo & p) {
 	p.Recorrer(true);
-	Nodo origen = BuscarNodo(RecorridoActual.back());
-	double dist = origen.Distancia(p);
+	double dist = 0;
+	if(!RecorridoActual.empty()){
+		 Nodo origen = BuscarNodo(RecorridoActual.back());
+		 dist = origen.Distancia(p);
+	 }
 	MinActual += dist;
 	RecorridoActual.push_back(p.DameIndice());
 	int pociones = p.DamePociones();
@@ -215,8 +218,6 @@ void voy(Nodo & p) {
 	moch.Restaurar(pocionesEnMoch);
 }
 
-
-
 Nodo & BuscarNodo(int n){
 	if(n<= Gimnasios.size()){
 		return Gimnasios[n-1];
@@ -226,7 +227,24 @@ Nodo & BuscarNodo(int n){
 	}
 }
 
-
+void Reset(vnod & PPAux,vnod & GAux, Mochila mochil){
+	CantBT = 0;
+	MinGlobal = MAX;
+	MinActual=0;
+	RecorridoGlobal.clear();
+	RecorridoActual.clear();
+	GimRecorridos = 0;
+	PPRecorridas = 0;
+	PokeParadas = PPAux;
+	Gimnasios = GAux;
+	int pocNecAux = 0;
+	for(int i = 0; i<GAux.size(); i++) pocNecAux -= GAux[i].DamePociones();
+	PocionesNecesarias = pocNecAux;
+	moch.CambiarCapacidad(mochil.DameCapacidad());
+	moch.Restaurar(0);
+	cout<<"la mochila tiene "<< moch.DameCapacidad()<<" de capacidad y tiene " << moch.DamePeso()<<" de peso" <<endl;
+	
+}
 
 //Max entre 2 valores
 int Maximo(int a, int b){

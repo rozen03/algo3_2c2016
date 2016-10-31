@@ -52,14 +52,41 @@ Formalmente, podemos caracterizar nuestras pokeparadas y  gimnasios como nodos f
 
 \subsection{Exlicación de la solución}
 
+Para modelar este problema, creamos dos clases: Nodo y Mochila.
+La clase Mochila contiene dos enteros $``capacidad"$ el cual corresponde con la capacidad de la entrada (k) y $``peso"$ en el cual se guarda la cantidad de pociones que se tiene en cada momento. 
+en el Pseudocogigo se llaman a las funciones DameCapacidad y DamePeso, las mismas devuelven estos valores.
+
+La clase Nodo tiene  un entero $``indice"$ como identificador de cada nodoy un entero $``pociones"$ en el cual se guardan las pociones que dan las pokeparadas o las que requieren los gimnasios(en este caso el valor es negativo). Ademas cuenta con un booleano para marcar si esta o no recorrido y dos enteros $``x"$ e $``y"$ para identificar las coordenadas del nodo.
+
+Nuestra solución es utiliza la técnica de Backtracking para resolver el problema. Utilizamos variables globales (las cuales estan mencionadas en el pseudocodigo) ya que las utilizamos todo el tiempo en las funciones de nuestra resolución. De esta forma evitamos pasarlas cada vez como parametros de entrada.
+
+Nuestro algoritmo de BT va formando recursivamente todas las soluciones posibles eligiendo gimnasios y pokeparas siempre que esto sea posible. El ciclo principal de la función va desde 0 hasta el Maximo entre el largo de los vectores de Nodos y pokeparadas. De esta forma vamos probando empezar con todos los nodos posibles. Cada vez que se elige un nodo para continuar se vuelve a llamar a la función BT para seguir construyendo la solución, luego se revierten los cambios para probar las demás soluciones. 
+
+En nuestro algoritmo, cortamos una posible solución en el momento que supera la solución minima encontrada hasta el momento. De esta forma evitamos seguir ejecutando el algoritmo para una solución que claramente no va a ser la mejor, y así reducimos el tiempo de cómputo.
+
+%falta cuandod devuelve -1%
+
 \subsection{Pseudocodigo}
 
-\begin{algorithm}[H]{\textbf{Solución}(mochila moch, vnod  PokeParadas, vnod Gimnasios)}
+\begin{algorithm}[H]{\textbf{variables Globales}}
+	\begin{algorithmic}[1]
+		\State real MinActual 
+		\State real MinGlobal
+		\State vector$<$ int $>$ RecorrifoGlobal
+		\State vector$<$ int $>$ RecorridoActual
+		\State vector$<$ Nodo $>$ PokeParadas
+		\State vector$<$ Nodo $>$ Gimnasios
+		\State int PokeParadasRecorridas
+		\State int PocionesNecesarias		
+		\State Mochila Moch		
+	
+	\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}[H]{\textbf{BT}()}
 	\begin{algorithmic}[1]
 		\State MinActual $\gets \infty$
 		\State MinGlobal $\gets 0$
-		\State RecorridoGlobal $\gets$ vector de enteros
-		\State RecorridoActual $\gets$ vector de enteros
 		\State Si  MinActual$>$MinGlobal  
 			 \State \quad cortar
 		\State finSi
@@ -70,29 +97,58 @@ Formalmente, podemos caracterizar nuestras pokeparadas y  gimnasios como nodos f
 		\State \quad finSi
 		\State finSi
 		\State Desde i=0 hasta i$<$Max($|$Gimnasios$|$,$|$PokeParadas$|$)
-		\State \quad Si RecorridoActual es vacio
-		\State \qquad Si i$<|$PokeParadas$|$ 
-		\State \qquad \quad Marco el nodo
-		\State \qquad \quad agrego el indice del nodo a RecorridoActual
-		\State \qquad \quad aumento el peso de la mochila a medida de que sea posible hasta tres
-		\State \qquad \quad BT(mochila moch, vnod  PokeParadas, vnod Gimnasios)
-		\State \qquad \quad revierto las modificaciones
-		\State \qquad finSi
-		\State \qquad Si
-		\State \qquad \quad Si i$< |$Gimnasios$|$
-		\State \qquad \qquad gim $\gets$ Gimnasios[i]
-		\State \qquad \qquad Si puedoIr(gim)
-		\State \qquad \qquad \quad GimRecorridos +1
-		\State \qquad \qquad \quad Marco gim
-		\State \qquad \qquad \quad Agrego el indice 
-		\State \qquad \qquad fin Si
-		\State \qquad \quad finSi
-		\State \qquad finSi  			
+	
+		\State \qquad Si i$< |$Gimnasios$|$
+		\State \qquad \quad gim $\gets$ Gimnasios[i]
+		\State \qquad \quad Si puedoIr(gim)
+		\State \qquad \qquad Voy(gim)
+ 		\State \qquad finSi	
 		\State \quad finSi
+		\State \quad Si i $< |$PokeParadas$|$
+		\State \quad pp $\gets$ Pokeparadas[i]
+		\State \quad PokeParadasRecorridas $\gets$ PokeParadasRecorridas + 1 
+		\State \qquad Si puedoIr(pp)
+		\State \qquad Voy(pp) 	
+		\State \qquad finSi
+		\State \quad PokeParadasRecorridas $\gets$ PokeParadasRecorridas - 1 
+
+		\State \quad finSi 
 		\State finDesde
-  
+  		
+		
+		
+		\State finSi
 	\end{algorithmic}
 \end{algorithm}
+
+\begin{algorithm}[H]{\textbf{Voy}(Nodo n)}
+	\begin{algorithmic}[1]
+		\State Marco n
+		\State Si RecorridoActual $ \not= \emptyset$
+		\State \quad origen $\gets$ ultimo de RecorridoActual
+		\State \quad minActual $\gets$ minActual+ Distancia(origen, p)
+		\State finSi
+		\State Agrego n a RecorridoActual
+		\State Modifico el peso de moch segun las pociones n
+		\State BT()
+		\State revierto todas las modificaciones
+	\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}[H]{\textbf{puedoIrPP}(Nodo n){bool}}
+	\begin{algorithmic}[1]
+	\State NoConsumoDeMas $\gets$ Si al entrar a esta pokeparada se tiene que descartar pokebolas que no nos dejan ganar a todos los gimnasios asigno True, si no False.
+	%terminar%
+	\State  res $\gets$  moch no esta llena y n no esta recorrido y NoConsumoDeMas
+	\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}[H]{\textbf{PuedoIrGim}(Nodo n)}
+	\begin{algorithmic}[1]
+		\state res $\gets$  n no esta recorrido y DamePeso(moch) $\geq$ -(DamePosciones(n))
+	\end{algorithmic}
+\end{algorithm}
+
 
 \subsection{Complejidad}
 
