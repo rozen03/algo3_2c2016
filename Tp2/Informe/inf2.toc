@@ -12,14 +12,14 @@
 \contentsline {subsection}{\numberline {2.2}Explicaci\IeC {\'o}n de la soluci\IeC {\'o}n}{8}
 \contentsline {subsubsection}{\numberline {2.2.1}Pseudoc\IeC {\'o}digo}{9}
 \contentsline {subsubsection}{\numberline {2.2.2}Demostraci\IeC {\'o}n de Correctitud}{9}
-\contentsline {subsubsection}{\numberline {2.2.3}Demostraci\IeC {\'o}n de Complejidad}{9}
-\contentsline {subsection}{\numberline {2.3}Experimentaci\IeC {\'o}n}{9}
-\contentsline {subsubsection}{\numberline {2.3.1}Resultados y an\IeC {\'a}lisis}{10}
-\contentsline {section}{\numberline {3}Problema 3: Escapando}{12}
-\contentsline {subsection}{\numberline {3.1}Introducci\IeC {\'o}n}{12}
-\contentsline {subsection}{\numberline {3.2}Explicaci\IeC {\'o}n de la soluci\IeC {\'o}n}{12}
-\contentsline {subsubsection}{\numberline {3.2.1}Pseudoc\IeC {\'o}digo}{13}
-\contentsline {subsubsection}{\numberline {3.2.2}Demostraci\IeC {\'o}n de Correctitud}{14}
-\contentsline {subsubsection}{\numberline {3.2.3}Demostraci\IeC {\'o}n de Complejidad}{14}
-\contentsline {subsection}{\numberline {3.3}Experimentaci\IeC {\'o}n}{15}
-\contentsline {subsubsection}{\numberline {3.3.1}Resultados y an\IeC {\'a}lisis}{15}
+\contentsline {subsubsection}{\numberline {2.2.3}Demostraci\IeC {\'o}n de Complejidad}{10}
+\contentsline {subsection}{\numberline {2.3}Experimentaci\IeC {\'o}n}{10}
+\contentsline {subsubsection}{\numberline {2.3.1}Resultados y an\IeC {\'a}lisis}{11}
+\contentsline {section}{\numberline {3}Problema 3: Escapando}{13}
+\contentsline {subsection}{\numberline {3.1}Introducci\IeC {\'o}n}{13}
+\contentsline {subsection}{\numberline {3.2}Explicaci\IeC {\'o}n de la soluci\IeC {\'o}n}{13}
+\contentsline {subsubsection}{\numberline {3.2.1}Pseudoc\IeC {\'o}digo}{14}
+\contentsline {subsubsection}{\numberline {3.2.2}Demostraci\IeC {\'o}n de Correctitud}{16}
+\contentsline {subsubsection}{\numberline {3.2.3}Demostraci\IeC {\'o}n de Complejidad}{16}
+\contentsline {subsection}{\numberline {3.3}Experimentaci\IeC {\'o}n}{17}
+\contentsline {subsubsection}{\numberline {3.3.1}Resultados y an\IeC {\'a}lisis}{17}

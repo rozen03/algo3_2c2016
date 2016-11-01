@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2016.2.24)  7 OCT 2016 18:11
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2016.3.25)  30 OCT 2016 16:42
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -502,12 +502,12 @@ Package: varwidth 2009/03/30 ver 0.92;  Variable-width minipages
 \@vwid@loff=\dimen104
 \@vwid@roff=\dimen105
 )
-(/home/javier/texmf/tex/latex/caratula/caratula.sty
+(/home/jaz/texmf/tex/latex/caratula/caratula.sty
 Package: caratula 2003/4/13 v0.1 Para componer caratulas de TPs del DC
 
 Cargando package 'caratula' v0.2 (21/4/2003)
 \intlist=\toks21
-) (/home/javier/texmf/tex/latex/aed2-tad/aed2-tad.sty
+) (/home/jaz/texmf/tex/latex/aed2-tad/aed2-tad.sty
 Package: aed2-tad 2011/04/04 - Para especificar TADs en formato AED2
 
 (/usr/share/texlive/texmf-dist/tex/latex/tools/calc.sty
@@ -523,7 +523,7 @@ LaTeX Info: Redefining \addtolength on input line 77.
 \calc@Ccount=\count95
 \calc@Cskip=\skip54
 )
-(/home/javier/texmf/tex/latex/aed2-tokenizer/aed2-tokenizer.sty
+(/home/jaz/texmf/tex/latex/aed2-tokenizer/aed2-tokenizer.sty
 Package: aed2-tokenizer 2010/03/12
 )
 Package aed2-tad Info: Cargando package 'tad' (04/04/2011) on input line 26.
@@ -547,7 +547,7 @@ Package aed2-tad Info: Cargando package 'tad' (04/04/2011) on input line 26.
 \tadAxioma@lenEquiv=\skip71
 \tadAxioma@lenDerecha=\skip72
 )
-(/home/javier/texmf/tex/latex/aed2-symb/aed2-symb.sty
+(/home/jaz/texmf/tex/latex/aed2-symb/aed2-symb.sty
 Package: aed2-symb 2004/04/17 - Para componer simbolitos frecuentemente usados 
 en AED2
 
@@ -620,7 +620,7 @@ Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
 LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
 (Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
 )))
-(/home/javier/texmf/tex/latex/aed2-itef/aed2-itef.sty
+(/home/jaz/texmf/tex/latex/aed2-itef/aed2-itef.sty
 Package: aed2-itef 2010/03/16 - if-then-else-fi en lenguaje de TADs.
 
 Cargando package 'itef' (2010/03/16)
@@ -956,93 +956,182 @@ File: paredesfijas.png Graphic file (type png)
 <use paredesfijas.png>
 Package pdftex.def Info: paredesfijas.png used on input line 213.
 (pdftex.def)             Requested size: 307.2929pt x 146.23787pt.
+ [8 <./paredesfijas.png>]
 
-
-! LaTeX Error: \mathcal allowed only in math mode.
+! LaTeX Error: There's no line here to end.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.242 ...tate \quad devolver res \Comment \mathcal
-                                                  {O}(1)
+l.236 A
+       hora, teniendo el conjunto de todos los ejes y utilizamos el algoritm...
+
 ? 
-[8 <./paredesfijas.png>] [9] <sinParedes.jpg, id=48, 803.0pt x 602.25pt>
+! Undefined control sequence.
+<recently read> \matchal 
+                         
+l.253 ...Statex \underline{Complejidad:} $\matchal
+                                                  {O}(mlog(m)) + \matchal{O}...
+
+? 
+! Undefined control sequence.
+l.253 ...ejidad:} $\matchal{O}(mlog(m)) + \matchal
+                                                  {O}(mlog(n)+n) = \matchal{...
+
+? 
+! Undefined control sequence.
+l.253 ...g(m)) + \matchal{O}(mlog(n)+n) = \matchal
+                                                  {O}(m(log(m)+log(n))+n)$
+? 
+! Undefined control sequence.
+l.260 		\State \quad Mientras j$<$n y b \comment
+                                                   $\mathcal{O}(n)$
+? 
+! Undefined control sequence.
+<recently read> \matchal 
+                         
+l.270 ...Statex \underline{Complejidad:} $\matchal
+                                                  {O}(n)$ esto le aporta el ...
+
+? 
+[9]
+
+! LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.295 P
+       rimero probaremos que podemos acotar la cantidad de ejes por la canti...
+
+? 
+[10] <sinParedes.jpg, id=51, 803.0pt x 602.25pt>
 File: sinParedes.jpg Graphic file (type jpg)
-
-<use sinParedes.jpg>
-Package pdftex.def Info: sinParedes.jpg used on input line 290.
+ <use sinParedes.jpg>
+Package pdftex.def Info: sinParedes.jpg used on input line 333.
 (pdftex.def)             Requested size: 307.2929pt x 230.47473pt.
- <soloFilas.jpg, id=49, 803.0pt x 602.25pt>
+
+Underfull \hbox (badness 10000) in paragraph at lines 338--341
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 338--341
+
+ []
+
+<soloFilas.jpg, id=52, 803.0pt x 602.25pt>
 File: soloFilas.jpg Graphic file (type jpg)
-
-<use soloFilas.jpg>
-Package pdftex.def Info: soloFilas.jpg used on input line 304.
+ <use soloFilas.jpg>
+Package pdftex.def Info: soloFilas.jpg used on input line 347.
 (pdftex.def)             Requested size: 230.46576pt x 172.84686pt.
- <soloColumnas.jpg, id=50, 803.0pt x 602.25pt>
+
+<soloColumnas.jpg, id=53, 803.0pt x 602.25pt>
 File: soloColumnas.jpg Graphic file (type jpg)
-
-<use soloColumnas.jpg>
-Package pdftex.def Info: soloColumnas.jpg used on input line 309.
+ <use soloColumnas.jpg>
+Package pdftex.def Info: soloColumnas.jpg used on input line 352.
 (pdftex.def)             Requested size: 230.46576pt x 172.84686pt.
- <2columvs4colum.jpg, id=51, 734.9859pt x 572.1375pt>
-File: 2columvs4colum.jpg Graphic file (type jpg)
 
-<use 2columvs4colum.jpg>
-Package pdftex.def Info: 2columvs4colum.jpg used on input line 321.
+Underfull \hbox (badness 10000) in paragraph at lines 358--361
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 358--361
+
+ []
+
+[11 <./sinParedes.jpg> <./soloFilas.jpg> <./soloColumnas.jpg>]
+<2columvs4colum.jpg, id=57, 734.9859pt x 572.1375pt>
+File: 2columvs4colum.jpg Graphic file (type jpg)
+ <use 2columvs4colum.jpg>
+Package pdftex.def Info: 2columvs4colum.jpg used on input line 365.
 (pdftex.def)             Requested size: 307.2929pt x 239.20483pt.
- [10 <./sinParedes.jpg>]
-<CompConexas.jpg, id=55, 803.0pt x 602.25pt>
+
+Underfull \hbox (badness 10000) in paragraph at lines 369--372
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 369--372
+
+ []
+
+<CompConexas.jpg, id=58, 803.0pt x 602.25pt>
 File: CompConexas.jpg Graphic file (type jpg)
  <use CompConexas.jpg>
-Package pdftex.def Info: CompConexas.jpg used on input line 332.
+Package pdftex.def Info: CompConexas.jpg used on input line 376.
 (pdftex.def)             Requested size: 307.2929pt x 230.47473pt.
- [11 <./soloFilas.jpg> <./soloColumnas.jpg> <./2columvs4colum.jpg>]
+ [12 <./2columvs4colum.jpg>]
 ! Undefined control sequence.
 <recently read> \comment 
                          
-l.362 ...te n $\gets$ tamaño(MatrizAdy) $\comment
-                                                  $ Comienzo de Parte 2
-? 
-! Undefined control sequence.
-<recently read> \comment 
-                         
-l.364 		\State nodosNoSeguros $\comment
-                                       $ conjunto $\{$2, ..., n$\}$
-? 
-! Missing $ inserted.
-<inserted text> 
-                $
-l.369 		\State \quad \forall
-                             \ e \ $\in$ nodos $\land$ [nodomin, e] $\in$ X
-? 
-! Missing $ inserted.
-<inserted text> 
-                $
-l.369 		\State \quad \forall \ e \ $\in
-                                       $ nodos $\land$ [nodomin, e] $\in$ X
-? 
-! Undefined control sequence.
-<recently read> \comment 
-                         
-l.379 ...$\gets$ $\pi_{1}$(MatAdy[1][n]) $\comment
-                                                  $ Fin de Parte 2 Comienzo ...
-
-? 
-[12 <./CompConexas.jpg>]
-! Undefined control sequence.
-<recently read> \comment 
-                         
-l.406 ...ate LecturaDatos(input, matAdy) $\comment
+l.405 ...ate LecturaDatos(input, matAdy) $\comment
                                                   $ Parte 1
 ? 
 ! Undefined control sequence.
 <recently read> \comment 
                          
-l.407 ...aminoMinimo(matAdy, estaciones) $\comment
+l.406 ...aminoMinimo(matAdy, estaciones) $\comment
                                                   $ Parte 2 y Parte 3
 ? 
-[13]
+[13 <./CompConexas.jpg>]
+! Missing $ inserted.
+<inserted text> 
+                $
+l.426 ...ue tomaremos es que dada una posición M_
+                                                  {ij} i es el origen y j es...
+
+? 
+! Missing $ inserted.
+<inserted text> 
+                $
+l.427 
+      
+? 
+
+Overfull \hbox (591.64813pt too wide) in paragraph at lines 426--427
+\OT1/lmr/m/n/12 M$[]\OML/lmm/m/it/12 ieselorigenyjeseldestino:Luegoenvezdesolor
+epresentarelpesodelejetambientenemosmartcadocualeselpredecesor; seinicializalos
+valoresconvaloresquenuncavamosatomarparasabersieseejepertenecealgrafoono:$ 
+ []
+
+! Undefined control sequence.
+<recently read> \comment 
+                         
+l.431 ...te n $\gets$ tamaño(MatrizAdy) $\comment
+                                                  $ Comienzo de Parte 2
+? 
+! Undefined control sequence.
+<recently read> \comment 
+                         
+l.433 		\State nodosNoSeguros $\comment
+                                       $ conjunto $\{$2, ..., n$\}$
+? 
+! Missing $ inserted.
+<inserted text> 
+                $
+l.438 		\State \quad \forall
+                             \ e \ $\in$ nodosNoSeguros $\land$ [nodomin, e]...
+
+? 
+! Missing $ inserted.
+<inserted text> 
+                $
+l.438 		\State \quad \forall \ e \ $\in
+                                       $ nodosNoSeguros $\land$ [nodomin, e]...
+
+? 
+! Undefined control sequence.
+<recently read> \comment 
+                         
+l.448 ...$\gets$ $\pi_{1}$(MatAdy[1][n]) $\comment
+                                                  $ Fin de Parte 2 Comienzo ...
+
+? 
+[14] [15]
 
 ! LaTeX Error: There's no line here to end.
 
@@ -1050,43 +1139,43 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.424 \begin
+l.475 \begin
             {description}
 ? 
-LaTeX Font Info:    Try loading font information for TS1+lmr on input line 425.
+LaTeX Font Info:    Try loading font information for TS1+lmr on input line 476.
 
 (/usr/share/texmf/tex/latex/lm/ts1lmr.fd
 File: ts1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-Underfull \hbox (badness 10000) in paragraph at lines 425--427
+Underfull \hbox (badness 10000) in paragraph at lines 476--478
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 427--429
+Underfull \hbox (badness 10000) in paragraph at lines 478--480
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 429--431
+Underfull \hbox (badness 10000) in paragraph at lines 480--482
 
  []
 
 ! Undefined control sequence.
-l.432 \tab
+l.483 \tab
            Ahora que analizamos las tres partes que podían llegar a dar com...
 
 ? 
-[14] <KnC100r3000.jpg, id=70, 803.0pt x 602.25pt>
+[16] <KnC100r3000.jpg, id=76, 803.0pt x 602.25pt>
 File: KnC100r3000.jpg Graphic file (type jpg)
  <use KnC100r3000.jpg>
-Package pdftex.def Info: KnC100r3000.jpg used on input line 453.
+Package pdftex.def Info: KnC100r3000.jpg used on input line 504.
 (pdftex.def)             Requested size: 307.2929pt x 230.47473pt.
 
-[15] <KnOptC150r3000.jpg, id=74, 803.0pt x 602.25pt>
+[17] <KnOptC150r3000.jpg, id=80, 803.0pt x 602.25pt>
 File: KnOptC150r3000.jpg Graphic file (type jpg)
  <use KnOptC150r3000.jpg>
-Package pdftex.def Info: KnOptC150r3000.jpg used on input line 463.
+Package pdftex.def Info: KnOptC150r3000.jpg used on input line 514.
 (pdftex.def)             Requested size: 307.2929pt x 230.47473pt.
 
 
@@ -1096,15 +1185,15 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.467 E
+l.518 E
        n este gráfico podemos ver como A1 mantiene su apariencia cuadratica...
 
 ? 
-[16 <./KnC100r3000.jpg>] <KnsoloOptC100r3000.jpg, id=78, 803.0pt x 602.25pt>
+[18 <./KnC100r3000.jpg>] <KnsoloOptC100r3000.jpg, id=84, 803.0pt x 602.25pt>
 File: KnsoloOptC100r3000.jpg Graphic file (type jpg)
 
 <use KnsoloOptC100r3000.jpg>
-Package pdftex.def Info: KnsoloOptC100r3000.jpg used on input line 472.
+Package pdftex.def Info: KnsoloOptC100r3000.jpg used on input line 523.
 (pdftex.def)             Requested size: 307.2929pt x 230.47473pt.
 
 
@@ -1114,30 +1203,30 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.476 C
+l.527 C
        omo Podemos observar la apariencia constante de A2 era meramente una ...
 
 ? 
-[17 <./KnOptC150r3000.jpg> <./KnsoloOptC100r3000.jpg>]
-<Conexo200ejesC150r3000.jpg, id=82, 803.0pt x 602.25pt>
+[19 <./KnOptC150r3000.jpg> <./KnsoloOptC100r3000.jpg>]
+<Conexo200ejesC150r3000.jpg, id=89, 803.0pt x 602.25pt>
 File: Conexo200ejesC150r3000.jpg Graphic file (type jpg)
 
 <use Conexo200ejesC150r3000.jpg>
-Package pdftex.def Info: Conexo200ejesC150r3000.jpg used on input line 484.
+Package pdftex.def Info: Conexo200ejesC150r3000.jpg used on input line 535.
 (pdftex.def)             Requested size: 307.2929pt x 230.47473pt.
 
-<VariasDensidades.jpg, id=83, 803.0pt x 602.25pt>
+<VariasDensidades.jpg, id=90, 803.0pt x 602.25pt>
 File: VariasDensidades.jpg Graphic file (type jpg)
  <use VariasDensidades.jpg>
-Package pdftex.def Info: VariasDensidades.jpg used on input line 494.
+Package pdftex.def Info: VariasDensidades.jpg used on input line 545.
 (pdftex.def)             Requested size: 307.2929pt x 230.47473pt.
 
-[18 <./Conexo200ejesC150r3000.jpg>]
-<VariasDensidadesSinArbol.jpg, id=87, 803.0pt x 602.25pt>
+[20 <./Conexo200ejesC150r3000.jpg>]
+<VariasDensidadesSinArbol.jpg, id=94, 803.0pt x 602.25pt>
 File: VariasDensidadesSinArbol.jpg Graphic file (type jpg)
 
 <use VariasDensidadesSinArbol.jpg>
-Package pdftex.def Info: VariasDensidadesSinArbol.jpg used on input line 502.
+Package pdftex.def Info: VariasDensidadesSinArbol.jpg used on input line 553.
 (pdftex.def)             Requested size: 307.2929pt x 230.47473pt.
 
 
@@ -1147,11 +1236,11 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.507 L
+l.558 L
        uego de demostrar que la complejidad Teórica es respaldada por la ex...
 
 ? 
-[19 <./VariasDensidades.jpg> <./VariasDensidadesSinArbol.jpg>]
+[21 <./VariasDensidades.jpg> <./VariasDensidadesSinArbol.jpg>]
 
 ! LaTeX Error: There's no line here to end.
 
@@ -1159,7 +1248,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.511 
+l.562 
       
 ? 
 
@@ -1169,7 +1258,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.513 \\
+l.564 \\
         
 ? 
 
@@ -1179,12 +1268,12 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.514 
+l.565 
       
 ? 
 
 AED: lastpage setting LastPage
-[20] (./inf2.aux
+[22] (./inf2.aux
 LaTeX Info: Redefining \. on input line 6.
 LaTeX Info: Redefining \% on input line 6.
 )
@@ -1193,13 +1282,13 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 6599 strings out of 494966
- 95238 string characters out of 6179559
+ 6608 strings out of 494966
+ 95308 string characters out of 6179559
  165092 words of memory out of 5000000
- 9616 multiletter control sequences out of 15000+600000
+ 9625 multiletter control sequences out of 15000+600000
  43745 words of font info for 45 fonts, out of 8000000 for 9000
  40 hyphenation exceptions out of 8191
- 53i,7n,92p,1226b,521s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 53i,7n,92p,1226b,517s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf/fonts/enc/dvips/lm/lm-ts1.enc}{/usr/share/texmf/fonts/enc/d
 vips/lm/lm-mathit.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathex.enc}{/usr/
 share/texmf/fonts/enc/dvips/lm/lm-rm.enc}{/usr/share/texmf/fonts/enc/dvips/lm/l
@@ -1210,10 +1299,10 @@ s/type1/public/lm/lmmi8.pfb></usr/share/texmf/fonts/type1/public/lm/lmr10.pfb><
 /usr/share/texmf/fonts/type1/public/lm/lmr12.pfb></usr/share/texmf/fonts/type1/
 public/lm/lmr8.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy10.pfb></usr/sha
 re/texmf/fonts/type1/public/lm/lmtt12.pfb>
-Output written on inf2.pdf (20 pages, 1961613 bytes).
+Output written on inf2.pdf (22 pages, 1967992 bytes).
 PDF statistics:
- 132 PDF objects out of 1000 (max. 8388607)
- 82 compressed objects within 1 object stream
+ 138 PDF objects out of 1000 (max. 8388607)
+ 86 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  76 words of extra memory for PDF output out of 10000 (max. 10000000)
 
