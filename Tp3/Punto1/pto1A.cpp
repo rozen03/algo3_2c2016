@@ -44,8 +44,6 @@ void voyAB(Nodo & p);
 void voyAC(Nodo & p);
 void voyBC(Nodo & p);
 void voyABC(Nodo & p);
-//bool puedoIrG(Nodo & p);
-//bool puedoIrPP(Nodo & p);
 bool puedoIrPPA(Nodo & p);
 bool puedoIrPPB(Nodo & p);
 bool puedoIrPPC(Nodo & p);
@@ -53,9 +51,6 @@ bool puedoIrPPAB(Nodo & p);
 bool puedoIrPPAC(Nodo & p);
 bool puedoIrPPBC(Nodo & p);
 bool puedoIrPPABC(Nodo & p);
-//Nodo & BuscarNodo(int n);
-//int Maximo(int a, int b);
-//void Reset(vnod & PP, vnod & G, Mochila mochil);
 void CorrerPodas(vnod gim, vnod pp, Mochila mochil, ofstream & podas);
 void Imprimir(vint sol, ofstream & podas);
 //funciones
@@ -65,35 +60,11 @@ void Imprimir(vint sol, ofstream & podas){
 }
 
 void CorrerPodas(vnod GAux, vnod PPAux, Mochila mochil, ofstream & podas){
-	cout<<"Entre a CorrerPodas con "<<PPAux.size()<<" pokeparadas y "<<GAux.size()<<" gimnasios"<<endl;
-	cout<<"las copias son en gim ";
-	ImprimirNod(GAux);
-	cout<<"en pp son ";
-	ImprimirNod(PPAux); 
-	
-	Reset(PPAux, GAux, mochil);
-	cout<<"antes de llamar al BT post reset";
-	cout<<"post reset los valores son ";
-	cout<< CantBT<<" cant, "<< MinGlobal<<" minGlob, "<<MinActual<<" minActual, ";
-	cout<< GimRecorridos<<" gimRecc, "<<PPRecorridas<<" PPreco, ";
-	cout<<"los Gim y pp "<<endl;
-	ImprimirNod(Gimnasios);
-	ImprimirNod(PokeParadas);
-	
 	BTSP();
 	int Cbt = CantBT;
 	double dist = MinGlobal;
 	vint Solbt = RecorridoGlobal;
-	
-	cout<<"pre reset los valores son ";
-	cout<< CantBT<<" cant, "<< MinGlobal<<" minGlob, "<<MinActual<<" minActual, ";
-	cout<< GimRecorridos<<" gimRecc, "<<PPRecorridas<<" PPreco, ";
-	cout<<"los Gim y pp "<<endl;
-	ImprimirNod(Gimnasios);
-	ImprimirNod(PokeParadas);
-	cout<<"Recorrido BT ";
-	for(int i = 0; i<Solbt.size();i++) cout<< Solbt[i]<<" ";
-	cout<<endl;
+
 	Reset(PPAux, GAux, mochil);
 	BTA();
 	int CbtA = CantBT;
@@ -152,38 +123,9 @@ void CorrerPodas(vnod GAux, vnod PPAux, Mochila mochil, ofstream & podas){
 	Imprimir(SolbtAC, podas);
 	podas<<" & "<<CbtABC<<" & "<<distABC<<" & ";
 	Imprimir(SolbtABC, podas);
-	cout<<"termine correr Podas"<<endl;
 	
 }
 
-
-/*
-void LecturaDatos(){
-	int n, m, k; 
-	int maxPos = 0;
-	cin>> n >> m >> k;
-	moch.CambiarCapacidad(k);
-	for(int i=1; i<=n; i++){
-		int x,y,p;
-		cin>> x >> y >> p;
-		PocionesNecesarias += p;
-		if(maxPos < p) maxPos = p;
-		Nodo nuevo = Nodo(-p,i,x,y);
-		Gimnasios.push_back(nuevo);		
-	}
-	if(maxPos > k || m*3 < PocionesNecesarias){
-	cout<< -1<<endl;
-	return;
-	}
-	for(int i=n+1; i<= n+m; i++){
-		int x,y;
-		cin>> x >> y;
-		Nodo nuevo= Nodo(3,i,x,y);
-		//cout<<"("<<x<<","<<y<<")"<<i<<endl;
-		PokeParadas.push_back(nuevo); 
-	}
-}
-*/
 void BTSP(){
 	CantBT++;
 	//Quiero cortar o en el caso de que ya hay una solucion mejor o cuando ya recorri todos los gimnasios.

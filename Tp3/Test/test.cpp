@@ -4,26 +4,38 @@
 #include <chrono>
 #include <limits>
 #include "../Punto1/pto1.cpp"
-#include "../Punto1/pto1A.cpp"/*
-#include "../Punto2/Punto2.cpp"
-#include "../Punto3/Punto3.cpp"
-#include "../Punto4/pto4.cpp"*/
+#include "../Punto1/pto1A.cpp"
+//#include "../Punto2/Punto2.cpp"
+//#include "../Punto3/ej3.cpp"
+//#include "../Punto4/pto4.cpp"*/
 
 using namespace std;
 
 #define ya chrono::high_resolution_clock::now
 
+void  AsignarIndices(vnod & gim, vnod & pp){
+	vnod gimAux;
+	vnod ppAux;
+	for(int i = 0; i< gim.size(); i++){
+		Nodo aux(gim[i], i+1);
+		gimAux.push_back(aux);
+	}
+	int n = gim.size();
+	for(int i = 0; i<pp.size(); i++){
+		Nodo aux(pp[i], n+i+1);
+		ppAux.push_back(aux);
+	}
+	gim = gimAux;
+	pp = ppAux;
+}
+
 void Correr(int rep, vnod gimnasios, vnod pokeparadas, Mochila moch, ofstream & res, int nroEj){
 	int valor;
 	vector<int> sol;
-	int (* foo)(vnod,vnod, Mochila,vint &);
-		cout<<"Entro a correr con "<<gimnasios.size()<<" gimansios y "<<pokeparadas.size()<<" pokeparadas"<<endl;
-		cout<<"Nro de ej "<<nroEj<<endl;
+	double (* foo)(vnod,vnod, Mochila,vint &);
 	switch(nroEj){
 		case 1:
 		foo = &pto1;
-		/*(int *)(int, int) foo;
-		foo = &;VER*/
 		break;
 		/*case 2:
 		foo = &pto2;
@@ -39,8 +51,8 @@ void Correr(int rep, vnod gimnasios, vnod pokeparadas, Mochila moch, ofstream & 
 		res<<"\n";
 		return;
 	}
-	valor = (int) foo(gimnasios, pokeparadas, moch, sol);
-	
+	valor = (double) foo(gimnasios, pokeparadas, moch, sol);
+		
 	res <<valor<<" & ";
 	for(int i = 0; i< sol.size(); i++) res<<sol[i]<< " ";
 	res <<"& ";
@@ -54,7 +66,6 @@ void Correr(int rep, vnod gimnasios, vnod pokeparadas, Mochila moch, ofstream & 
 		res<<tiempo<<" & ";
 	}
 	res<<"\n";
-	cout<<"salgo de correr con "<<gimnasios.size()<<" gimansios y "<<pokeparadas.size()<<" pokeparadas"<<endl;
 }
 
 
@@ -64,11 +75,17 @@ void PPdeMas(){}
 void RectaPPgim(int rep, int cantgim){
 	ofstream res("resultadossRectaSinMoch.txt");
 	ofstream casos("casos.txt");
+	ofstream podas("podasRectaSinMoch.txt");
 	vnod gimnasios;
 	vnod pp;
 	srand(time(NULL));
-	res<<"la idea es tener una recta tal que todas las pp que necesitas para ganar un gimnasio las tenes antes de llegar\n";
 	res<<"pto & cantidad de gimnasios & cantidad de pokeparadas & distancia & resultado & ... tiempos ...& \n";
+	podas<<"cant Gim & cant pp & cantidad de llamadas al BT sin podas & distancia & recorrido";
+	podas<<" & #BT con Poda A & distancia & recorrido & #BT con Poda B & distancia & recorrido";
+	podas<<" & #BT con Poda c & distancia & recorrido & #BT con Poda AB & distancia & recorrido";
+	podas<<" & #BT con Poda AC & distancia & recorrido & #BT con Poda BC & distancia & recorrido";
+	podas<<" & #BT con Poda ABC & distancia & recorrido\n";
+	casos<<"La idea es saber como estan conformados los casos gimansios & pp \n";
 	//indice emula como funciona el indice de los nodos en la lectura
 	int indicePP = cantgim+1;
 	int ppTotales = 0;
@@ -86,22 +103,18 @@ void RectaPPgim(int rep, int cantgim){
 			indicePP++;
 			pp.push_back(pokeparada);
 		}
-		if(11 > pp.size()+gimnasios.size()){
+		AsignarIndices(gimnasios, pp);
+		if(21 > pp.size()+gimnasios.size()){
 			for(int nroEj = 1; nroEj <= 4; nroEj++){
 				res<<nroEj<<" & "<<i << " & "<< ppTotales<<" & ";
 				Correr(rep, gimnasios, pp, moch, res, nroEj);	
 			}
-			ofstream podas("podasRectaSinMoch.txt");
 			//me va a dar numeros dependiendo de que poda use
-			podas<<"cant Gim & cant pp & cantidad de llamadas al BT sin podas & distancia & recorrido";
-			podas<<" & #BT con Poda A & distancia & recorrido & #BT con Poda B & distancia & recorrido";
-			podas<<" & #BT con Poda c & distancia & recorrido & #BT con Poda AB & distancia & recorrido";
-			podas<<" & #BT con Poda AC & distancia & recorrido & #BT con Poda BC & distancia & recorrido";
-			podas<<" & #BT con Poda ABC & distancia & recorrido\n";
-			podas << gimnasios.size() << " & "<<pp.size() << " & ";
-			CorrerPodas(gimnasios, pp, moch, podas); 
-			podas<<"\n";
-			casos<<"La idea es saber como estan conformados los casos gimansios & pp \n";
+				if(13 > pp.size()+gimnasios.size()){
+				podas << gimnasios.size() << " & "<<pp.size() << " & ";
+				CorrerPodas(gimnasios, pp, moch, podas); 
+				podas<<"\n";
+			}
 			for(int i = 0; i<gimnasios.size();i++) casos<<"("<<gimnasios[i].CordenadaX()<<","<<gimnasios[i].CordenadaY()<<")["<<gimnasios[i].DamePociones()<<"] ";
 			casos<<" & ";
 			for(int i = 0; i< pp.size();i++) casos<<"("<<pp[i].CordenadaX()<<","<<pp[i].CordenadaY()<<") ";

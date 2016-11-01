@@ -8,11 +8,18 @@
 
 using namespace std;
 
-// Tipos
+//Statics
+static double MAX = numeric_limits<double>::max();
+
+//Tipos
+typedef vector<int> vint;
+
+
 
 class Nodo {
 public:
   Nodo(int p, int i, int x, int y);
+  Nodo(Nodo n, int i);
   int DameIndice();
   int DamePociones();
   bool Recorrido();
@@ -29,6 +36,9 @@ private:
   int X;
   int Y;
 };
+
+
+typedef vector<Nodo> vnod;
 
 class Mochila {
 public:
@@ -52,6 +62,14 @@ int Nodo::DameIndice() { return indice; }
 Nodo::Nodo(int p, int i, int x, int y)
     : indice(i), pociones(p), X(x), Y(y), Recorri(false){};
 
+Nodo::Nodo( Nodo n, int i){
+	indice = i;
+	pociones = n.DamePociones();
+	X = n.CordenadaX();
+	Y = n.CordenadaY();
+	Recorri = n.Recorrido();
+}
+
 double Nodo::Distancia(Nodo &f) {
   int x = X - f.X;
   int y = Y - f.Y;
@@ -70,7 +88,6 @@ bool Nodo::EsGim() { return (pociones != 3); }
 int Nodo::CordenadaX() { return X; }
 
 int Nodo::CordenadaY() { return Y; }
-
 // funciones mochila
 
 void Mochila::CambiarCapacidad(int n) { capacidad = n; }
@@ -78,8 +95,11 @@ void Mochila::CambiarCapacidad(int n) { capacidad = n; }
 Mochila::Mochila(unsigned int n) : capacidad(n), peso(0){};
 
 int Mochila::DameCapacidad() { return capacidad; }
+
 int Mochila::DamePeso() { return peso; }
+
 bool Mochila::estaLLena() { return peso == capacidad; }
+
 void Mochila::usarMochila(int n) {
   if (peso + n > capacidad) {
     peso = capacidad;
@@ -88,12 +108,18 @@ void Mochila::usarMochila(int n) {
   }
 }
 
-typedef vector<Nodo> vnod;
+void Mochila::Restaurar(int n){ peso = n; }
 
 // da informacion sobre un vector de nodos
 void ImprimirNod(vnod &gim) {
-  for (int i = 0; i < gim.size(); i++) {
-    cout << "(" << gim[i].CordenadaX() << "," << gim[i].CordenadaY() << ") ";
+  for (unsigned int i = 0; i < gim.size(); i++) {
+    cout << "(" << gim[i].CordenadaX() << "," << gim[i].CordenadaY() << ") {"<<gim[i].DameIndice()<<"} ";
+	if(gim[i].Recorrido()){
+		cout<<"Recorrido ";
+	}
+	else{
+		cout<<"No Recorrido ";
+	}
     if (gim[i].EsGim())
       cout << "[" << -gim[i].DamePociones() << "] ";
   }
