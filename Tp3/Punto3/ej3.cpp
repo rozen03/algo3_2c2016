@@ -56,36 +56,36 @@ vvnod vecindad(vnod gimnasios) {
   }
   return res;
 }
-vector<tuple<vnod, int>> solucionesVecindad(vvnod &vecindad, vnod pokeParadas,
-                                            Mochila &mochila) {
-  vector<tuple<vnod, int>> res;
+tuple<vnod, float> solucionesVecindad(vvnod &vecindad, vnod pokeParadas,
+                                      Mochila &mochila, float valor) {
+  tuple<vnod, float> res;
+  vnod vacio;
+  res = make_tuple(vacio, valor + 1);
   for (auto gimnasios : vecindad) {
     auto sol = tirarPokeParadas(pokeParadas, gimnasios, mochila);
     if (sol == -1)
       continue;
-    auto tuplis = make_tuple(gimnasios, sol);
-
-    res.push_back(tuplis);
+    if (sol < valor) {
+      res = make_tuple(gimnasios, sol);
+    }
   }
   return res;
 }
 int pto3(vnod gimnasios, vnod pokeParadas, Mochila &mochila, vint &solucion) {
   bool mejora = true;
-  tuple<vnod, int> actual =
+  tuple<vnod, float> actual =
       make_tuple(gimnasios, tirarPokeParadas(pokeParadas, gimnasios, mochila));
   auto compararDistancia = [](auto a, auto &&b) {
     return get<1>(a) < get<1>(b);
   };
   while (mejora) {
     vvnod vecinitud = vecindad(gimnasios);
-    vector<tuple<vnod, int>> soluciones =
-        solucionesVecindad(vecinitud, pokeParadas, mochila);
+    auto minim =
+        solucionesVecindad(vecinitud, pokeParadas, mochila, get<1>(actual));
 
-    vector<tuple<vnod, int>>::iterator minim =
-        min_element(soluciones.begin(), soluciones.end(), compararDistancia);
-    mejora = get<1>(*minim) < get<1>(actual);
+    mejora = get<1>(minim) < get<1>(actual);
     if (mejora)
-      actual = *minim;
+      actual = minim;
   }
   ImprimirNod(get<0>(actual));
   vnod solucioNodos(1, Nodo(27, 27, 27, 27));
