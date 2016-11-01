@@ -26,6 +26,7 @@ int Bfs(vector<Nodo *>& nodos){
 	//que une a la iesima posicion del arreglo pred con el valor del nodo.
 	queue<tuple<int, int> > list;
 	tuple<int, int> prim(0, -3);
+	int primerFinal = -1;
 	list.push(prim);
 	int next = 0;
 	//BFS normal, salvo los if del for anidado.
@@ -40,6 +41,11 @@ int Bfs(vector<Nodo *>& nodos){
 			next++;
 			Nodo* nodin = nodos[nod];
 			vector<Eje *> ejesNodin = nodin -> ejejes;
+			//me fijo si es final, si lo es corto el bfs por que ya encontre la primer solucion y ya marque todo lo que tenia que marcar.
+			if(nodin -> esFinal){
+				primerFinal = nod;
+				break;
+			}
 			//agregamos los ejes que estan conectados
 			for(unsigned int i=0 ; i<ejesNodin.size(); i++){
 				Eje * ejeaux = ejesNodin[i];		
@@ -54,22 +60,24 @@ int Bfs(vector<Nodo *>& nodos){
 			}
 		}
 	}
-
-	int x= nodos.size()-1;
+	
+	int x= primerFinal;
 //res es los nodos que atravece, empiezo en uno por que en el while
 //no sumo el ultimo nodo.
 	int res=1;
 	int aux = 0;
 //uso un aux por que era mas facil de programar y entende, como mucho tenes que recorrer todo el grafo, n-1 nodos
 
-	while(aux < nodos.size()){
-		x= pred[x];
-		res++;
-		aux++;
-		if(x == 0 || x == -1) break;
+	if(primerFinal == -1){
+		res = -1;
 	}
-	if(x==-1){
-			res = -1;
+	else{
+		while(aux < nodos.size()){
+			x= pred[x];
+			res++;
+			aux++;
+			if(x == 0 || x == -1) break;
+		}	
 	}
 	return res;
 }
