@@ -44,12 +44,13 @@
 
 \subsection{Introducción}
 
-En este problema los viajeros encuentran un mapa de un laberinto señalando algún lugar con una x, sin embargo no todos los puntos están conectados. Ellos quisieran llegar a ese lugar caminando lo menos posible. Además, pueden esforzarse para romper una cantidad determinada de paredes. Nos piden que les informemos cuánto deben caminar de ser posible.
-%Agregue comas y cosas
-Formalmente esto equivale a modelar el problema utilzando un grafo que contiene nodos ``especiales"(las paredes). Se busca la distancia entre dos nodos, pasando como mucho por p nodos especiales.
+En este problema los viajeros encuentran un mapa de un laberinto señalando algún lugar con una x, sin embargo no todos los puntos están conectados. Ellos quisieran llegar a ese lugar caminando lo menos posible. Además, pueden esforzarse para romper una cantidad determinada de paredes. Nos piden que, de ser posible, encontremos la manera que caminen lo mínimo posible
+\\
+\\
+Formalmente podemos modelar el problema utilzando un grafo que contiene nodos ``especiales"(las paredes). Se busca la distancia entre dos nodos, pasando como mucho por p nodos especiales.
 
 \subsection{Explicación de la solución}
-Podemos dividir la resolución en tres partes: la primera, donde interpretamos la entrada y generamos un primer grafo, en el cual las habitaciones y paredes son nodos, y dos nodos son adyacentes si y sólo si sus casillas originales lo son. En la segunda parte vamos a copiar el primer grafo tantas veces como paredes se puedan romper, de manera que la acción de romper una pared esta representada por un cambio de nivel en el grafo. Así, cada nivel muestra cuantas paredes fueron atravesadas, y los $p-1$ nodos finales, los finales con p paredes atravesadas.
+Podemos dividir la resolución en tres partes: la primera, donde interpretamos la entrada y generamos un primer grafo, en el cual las habitaciones y paredes son nodos, y dos nodos son adyacentes si y sólo si sus casillas originales lo son. En la segunda parte copiaremos el primer grafo tantas veces como paredes se puedan romper, de manera que la acción de romper una pared esta representada por un cambio de nivel en el grafo. Así, cada nivel muestra cuántas paredes fueron atravesadas, y los $p+1$ nodos finales, los finales con p paredes atravesadas.
 
 
 \begin{figure}[H]
@@ -58,10 +59,11 @@ Podemos dividir la resolución en tres partes: la primera, donde interpretamos l
 \caption{imagen explicativa}
 \end{figure}
 
-%Se podrá hacer un dibujo aca? la idea es hacer como un "plano" en perspectiva del primer grafo, como si fuese una feta de queso; y varias fetas abajo. ya fue igual
 
-En la tercera parte, vamos a aplicar un bfs modificado, para calcular las distancias del nodo origen a todos los demás nodos. Entre las modificaciones se incluyen unos ``movimientos ilegales": estos son movimientos que el modelo no contempla. Por un lado, no está permitido pasar a un nivel menor al que uno se encuentra. Además, no es correcto mover de un nodo $"habitación"$ a un nodo $"pared"$ en el mismo nivel. %cambie $"movimientos ilegales"$ por movimientos ilegales. No se veia bien. Sume un par de cosas que me habia comido.
 
+En la tercera parte, vamos a aplicar un bfs modificado para calcular las distancias del nodo origen a todos los demás nodos. Entre las modificaciones se incluyen unos $``$movimientos ilegales$"$ . Por un lado, no está permitido pasar a un nivel menor al que uno se encuentra. Además, no es correcto mover de un nodo $``$habitación$"$ a un nodo $``$pared$"$ en el mismo nivel. Estas son acciones que en nuestro modelo no tienen correlación con ninguna situación del problema, y que podrían generar camínos mínimos incorrectos. 
+\\
+\\
 Por último, se calcula la distancia mínima entre todos los nodos finales copiados. Si no existe un camino posible a ninguno de los nodos finales en todos los niveles, el algoritmo devuelve -1
 
 
@@ -72,69 +74,64 @@ Por último, se calcula la distancia mínima entre todos los nodos finales copia
 
 \begin{algorithm}[H]{\textbf{solucion}(vector$<$Nodo$>$nodos, vector$<$Eje$>$ ejes, int p)}
 	\begin{algorithmic}[1]
-		\State \quad res$\gets|nodos|$
+		
 		\State \quad vector$<$Nodos$>$ aux$\gets$nodos
-		\State \quad Desde i=0 hasta i=p
-			\State\quad \quad  respar$\gets$Bfs(aux)
+		\State \quad  Desde $i=0$ hasta $i=p$
 			\State \quad \quad aux$\gets$ ClonarUltimoNivel(aux,ejes)
-			\State \quad \quad Si respar$>$0 y respar$<$res hacer
-				\State\quad \quad \quad  res$\gets$respar
-			\State\quad \quad  finSi,l
 		\State \quad finDesde
-		\State \quad Si res=$|nodos|$ hacer %agregue los pesos. no se veia bien
-			\State \quad \quad devovler -1
-		\State \quad Sino
-			\State \quad \quad  devolver res
-		\State \quad finSi
+		\State \quad res$\gets$ Bfs(aux)
+		\State \quad devolver res
 	\end{algorithmic}
 \end{algorithm}
+
+Este algoritmo llama a ClonarUltimoNivel la cantidad de paredes que se tiene permitido romper, y luego hace un bfs sobre el nuevo grafo.
 
 
 \begin{algorithm}[H]{\textbf{Bfs}(vector$<$Nodos$>$ nodos)}
 	\begin{algorithmic}[1]
 		\State \quad Para todo nodo i
-			\State \quad \quad  pred(i)$\gets$-1, order(i)$\gets$-1
+			\State \quad \quad  pred(i)$\gets$ $-1$, order(i)$\gets$ $-1$
 		\State \quad finPara
+		\State \quad final $\gets$ $-1$
 		\State \quad next$\gets$ 0
 		\State \quad list$\gets${(0,0)}
-		\State \quad Mientras list$\neq \emtyset$ hacer
+		\State \quad Mientras list $\neq \emptyset$ hacer
 			\State \quad \quad Sacar un elemento (i,padre)
 			\State \quad \quad pred(i,padre)=padre
 			\State \quad \quad Si order(i=-1) hacer
 				\State \quad \quad \quad order(i)$\gets$next
-				\State \quad \quad \quad next+1
-				\State \quad \quad \quad Para cada arista j conectada al nodo i hacer:
-					\State \quad \quad \quad \quad Si(order(j)$=-1$ y nivel(j) $\eq$ nivel(i)) hacer %le saque una g a geq... no hacia nada
+				\State \quad \quad \quad incrementar next
+				\State \quad \quad \quad Si i es un nodo final
+					\State \quad \quad \quad \quad final $\gets$i
+					\State \quad \quad \quad \quad cortar el mientras
+				\State \quad \quad \quad Para cada nodo j vecino al nodo i hacer:
+					\State \quad \quad \quad \quad Si(order(j)$=-1$ y nivel(j) $\geq$ nivel(i) y (nivel(j)$\neq$nivel(i) o j no es pared )  ) hacer
 						 \State \quad \quad \quad \quad \quad list$\cup${(j,i)}
 					\State \quad \quad \quad \quad finSi
 				\State \quad \quad \quad   finPara
 			\State \quad \quad  finSi
 		\State \quad finMientras
-		\State \quad int x $\gets$|nodos|-1, int res$\gets$2, int aux$\gets$0
-		\State \quad Mientras $< |nodos|$ hacer
-			\State \quad \quad  x$\gets$pred(x)
-			\State \quad \quad Si x$\gets0 \ o \ x\gets-1$ cortar finSi
-			\State \quad \quad res$\gets$res+1
-			\State \quad \quad aux$\gets$aux+1
+		\State \quad res$\gets$2
+		\State \quad aux$\gets$0
+		\State \quad Si final $= -1$
+		\State \quad \quad devolver $-1$
+		\State \quad finSi		
+		\State \quad Mientras  final $\neq 0 \ y \ $final $\neq -1 $ hacer
+			\State \quad \quad  final$\gets$pred(final)
+			\State \quad \quad incrementar res
+			\State \quad \quad incrementar aux
 		\State \quad finMientras
-		\State \quad Si x=-1
-			\State \quad \quad devolver -1
-		\State \quad Sino
-			\State \quad \quad  devolver res
-		\State \quad finSi
-
-
-
-
+		\State \quad devolver res
+		
 	\end{algorithmic}
 \end{algorithm}
 
 \begin{algorithm}[H]{\textbf{ClonarUltimoNivel}(aux,ejes)}
 	\begin{algorithmic}[1]
-		\State \quad n $\gets$ultimo nodo  de aux
+		\State \quad n $\gets$último nodo  de aux
 		\State \quad nivel $\gets$ el nivel del n
-		\State \quad tamanioDelUltimoNivel
-		\State \quad mientras exista n  y el nivel de n = nivel
+		\State \quad tamanioDelUltimoNivel $\gets$ 0 
+		\State \quad mientras exista n y el nivel de n = nivel
 			\State \quad \quad retrocedo un nodo
 			\State \quad \quad incremento tamanioDelUltimoNivel
 		\State \quad finMientras
@@ -143,18 +140,16 @@ Por último, se calcula la distancia mínima entre todos los nodos finales copia
 			\State \quad \quad indice del nuevoNodo$\gets$ indice de n + tamanioDelUltimoNivel
 			\State \quad \quad agrego nuevoNodo al final de aux
 		\State \quad Fin Para
-
 		\State \quad Para e en ejes
-		 	\State \quad \quad Si e tiene ambos ejes en el ultimonivel
-		 		\State \quad \quad \quad nuevoEje$\gets$copia del eje pero con los nodos del nuevo nivel
+		 	\State \quad \quad Si e tiene ambos ejes incidentes a nodos en el ultimonivel
+		 		\State \quad \quad \quad nuevoEje$\gets$copia del eje, pero incidente a los nodos del nuevo nivel
 		  		\State \quad \quad \quad  Agrego nuevoEje al final de ejes
 		 	\State \quad \quad fin Si
 		\State \quad Fin Para
-
 		\State \quad para n en nodos
 		  	\State \quad \quad  Si n es pared
-				\State \quad \quad \quad Para e en n.ejes
-					\State \quad \quad \quad \quad  nuevoEje$\gets$copia del otro nodo q conecta con n con su clon del nuevo nivel
+				\State \quad \quad \quad Para e en los ejes de n
+					\State \quad \quad \quad \quad  nuevoEje$\gets$copia del otro eje que conecta n con su clon del nuevo nivel
 					\State \quad \quad \quad \quad Agrego nuevoEje al final de ejes
 				\State \quad \quad \quad Fin Para
 			\State \quad \quad Fin Si
@@ -167,10 +162,13 @@ Por último, se calcula la distancia mínima entre todos los nodos finales copia
 
 
 \subsection{Demostración de Correctitud}
-Para demostrar que este algoritmo devuelve lo pedido, podemos ver que todos los movimientos en el tablero estan representados por la posibilidad(o no) de visitar a un vecino. De esta manera, todos los caminos posibles(y sólo esos) están considerados a la hora de hacer bfs.
-Movimientos legales:
-Moverse de una habitación a otra; corresponde a 2 nodos ``habitación" adyacentes. Como en todos los niveles creados esta adyacencia se mantiene, este movimiento siempre es posible.
-Romper una pared; corresponde a un ``cambio de nivel". Pasas de un nodo ``habitación" de nivel i a un nodo ``pared" de nivel i+1. Como existen P niveles, se pueden observar todos los caminos distintos, rompiendo las paredes en distintas situaciones. Notar que el algoritmo explícitamente prohíbe estos movimientos en el mismo nivel, para evitar falsos resultados.
+Para demostrar que este algoritmo devuelve lo pedido, podemos ver que todos los movimientos en el tablero estan representados por la posibilidad(o no) de visitar a un vecino. De esta manera, todos los caminos posibles(y sólo esos) están considerados a la hora de hacer bfs.\\
+Movimientos legales:\\
+\\
+Moverse de una habitación a otra; corresponde a 2 nodos $``$habitación$"$ adyacentes. Como en todos los niveles creados esta adyacencia se mantiene, este movimiento siempre es posible.\\
+\\
+Romper una pared; corresponde a un $``$cambio de nivel$"$. Pasas de un nodo $``$habitación$"$ de nivel i a un nodo $``$pared$"$ de nivel i+1. Como existen P niveles, se pueden observar todos los caminos distintos, rompiendo las paredes en distintas situaciones. Notar que el algoritmo explícitamente prohíbe estos movimientos en el mismo nivel, para evitar falsos resultados.\\
+\\
 Moverse de una pared a otro lado; este caso está siempre conectado en un mismo nivel, y con una guarda en el bfs para evitar la vuelta.
 
 \subsection{Demostración de Complejidad}
