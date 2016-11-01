@@ -9,7 +9,6 @@ class Eje;
 class Nodo {
 public:
     unsigned int indice;
-
     priority_queue<Eje *> ejes;
     vector<Eje *> ejejes;
     int nivel;
@@ -107,6 +106,7 @@ private:
             variable = 0;\
         }else if (aux =='x'){\
             nodos[nodos.size()-1] = new Nodo(nodos.size()-1);\
+            nodos[nodos.size() - 1]->esFinal = true;                               \
             indices[i][j] = nodos.size()-1;\
             variable = nodos.size()-1;\
         }else{\
