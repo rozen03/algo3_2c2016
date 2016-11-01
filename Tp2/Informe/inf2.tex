@@ -104,8 +104,8 @@ Este algoritmo llama a ClonarUltimoNivel la cantidad de paredes que se tiene per
 				\State \quad \quad \quad Si i es un nodo final
 					\State \quad \quad \quad \quad final $\gets$i
 					\State \quad \quad \quad \quad cortar el mientras
-				\State \quad \quad \quad Para cada arista j conectada al nodo i hacer:
-					\State \quad \quad \quad \quad Si(order(j)$=-1$ y nivel(j) $\eq$ nivel(i)) hacer
+				\State \quad \quad \quad Para cada nodo j vecino al nodo i hacer:
+					\State \quad \quad \quad \quad Si(order(j)$=-1$ y nivel(j) $\geq$ nivel(i) y (nivel(j)$\neq$nivel(i) o j no es pared )  ) hacer
 						 \State \quad \quad \quad \quad \quad list$\cup${(j,i)}
 					\State \quad \quad \quad \quad finSi
 				\State \quad \quad \quad   finPara
