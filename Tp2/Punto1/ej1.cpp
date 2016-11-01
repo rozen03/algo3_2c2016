@@ -101,7 +101,7 @@ int Solucion(vector<Nodo *>& nodos, vector<Eje *>& ejes, int p){
 	}
 	return res;
 }
-
+/*
 int main(int argc, char *argv[]) {
   std::vector<Nodo *> nodos;
   std::vector<Eje *> ejes;
@@ -113,3 +113,4 @@ int main(int argc, char *argv[]) {
 
   return 0;
  }
+*/
