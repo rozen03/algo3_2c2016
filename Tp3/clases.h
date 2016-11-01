@@ -102,42 +102,30 @@ void ImprimirNod(vnod &gim) {
 
 // Lectura de Datos
 
-typedef vector<Nodo > vnod;
-
-//da informacion sobre un vector de nodos
-void ImprimirNod( vnod & gim){
-	for(int i = 0; i< gim.size(); i++){
-		cout<<"("<<gim[i].CordenadaX()<<","<<gim[i].CordenadaY()<<") ";
-		if( gim[i].EsGim()) cout<<"["<<-gim[i].DamePociones()<<"] ";
-	}
-	cout<<endl;
-}
-
-//Lectura de Datos
-
-void Lectura(vnod& gimnasios, vnod& pokeParadas, Mochila& moch){
-	int n, m, k;
-	int maxPos = 0;
-	int totPos = 0;
-	cin>> n >> m >> k;
-	moch.CambiarCapacidad(k);
-	for(int i=1; i<=n; i++){
-		int x,y,p;
-		cin>> x >> y >> p;
-		totPos += p;
-		if(maxPos < p) maxPos = p;
-		Nodo nuevo = Nodo(-p,i,x,y);
-		gimnasios.push_back(nuevo);		
-	}
-	if(maxPos > k || m*3 < totPos) {
-	cout<< -1<<endl;
-	return;
-	}
-	for(int i=n+1; i<= n+m; i++){
-		int x,y;
-		cin>> x >> y;
-		Nodo nuevo= Nodo(3,i,x,y);
-		pokeParadas.push_back(nuevo); 
-	}
+void Lectura(vnod &gimnasios, vnod &pokeParadas, Mochila &moch) {
+  int n, m, k;
+  int maxPos = 0;
+  int totPos = 0;
+  cin >> n >> m >> k;
+  moch.CambiarCapacidad(k);
+  for (int i = 1; i <= n; i++) {
+    int x, y, p;
+    cin >> x >> y >> p;
+    totPos += p;
+    if (maxPos < p)
+      maxPos = p;
+    Nodo nuevo = Nodo(-p, i, x, y);
+    gimnasios.push_back(nuevo);
+  }
+  if (maxPos > k || m * 3 < totPos) {
+    cout << -1 << endl;
+    return;
+  }
+  for (int i = n + 1; i <= n + m; i++) {
+    int x, y;
+    cin >> x >> y;
+    Nodo nuevo = Nodo(3, i, x, y);
+    pokeParadas.push_back(nuevo);
+  }
 }
 #endif
