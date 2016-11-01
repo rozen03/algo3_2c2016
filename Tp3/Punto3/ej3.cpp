@@ -70,16 +70,6 @@ vector<tuple<vnod, int>> solucionesVecindad(vvnod &vecindad, vnod pokeParadas,
   return res;
 }
 int pto3(vnod gimnasios, vnod pokeParadas, Mochila &mochila, vint &solucion) {
-  Nodo pp1 = Nodo(0, 1, 1, 1);
-  Nodo pp2 = Nodo(0, 2, 2, 2);
-  Nodo gym1 = Nodo(-1, 3, 3, 3);
-  Nodo gym2 = Nodo(-4, 4, 4, 4);
-
-  pokeParadas.push_back(pp1);
-  pokeParadas.push_back(pp2);
-  gimnasios.push_back(gym1);
-  gimnasios.push_back(gym2);
-
   bool mejora = true;
   tuple<vnod, int> actual =
       make_tuple(gimnasios, tirarPokeParadas(pokeParadas, gimnasios, mochila));
