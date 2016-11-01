@@ -1,1 +1,9 @@
 Aca van a ir todos los cambios que hagamos. 
+
+En el informe
+	ej 1
+		Introducción
+			Se mejoró la formulación de algunas oraciones
+		Explicación de la solución
+			Antes decía p-1 nodos finales; ahora dice p+1. Hay un nodo final por cada cantidad de paredes rotas, de 0 a p.
+			La explicación de los movimientos ilegales se reformuló.
