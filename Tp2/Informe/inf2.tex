@@ -70,16 +70,16 @@ Por último, se calcula la distancia mínima entre todos los nodos finales copia
 
 \subsubsection{Pseudocódigo}
 
-\begin{algorithm}[H]{\textbf{solucion}(vector<Nodo>nodos, vector<Eje> ejes, int p)}
+\begin{algorithm}[H]{\textbf{solucion}(vector$<$Nodo$>$nodos, vector$<$Eje$>$ ejes, int p)}
 	\begin{algorithmic}[1]
 		\State \quad res$\gets|nodos|$
-		\State \quad vector$<Nodos>$ aux$\gets$nodos
+		\State \quad vector$<$Nodos$>$ aux$\gets$nodos
 		\State \quad Desde i=0 hasta i=p
 			\State\quad \quad  respar$\gets$Bfs(aux)
 			\State \quad \quad aux$\gets$ ClonarUltimoNivel(aux,ejes)
 			\State \quad \quad Si respar$>$0 y respar$<$res hacer
 				\State\quad \quad \quad  res$\gets$respar
-			\State\quad \quad  finSi
+			\State\quad \quad  finSi,l
 		\State \quad finDesde
 		\State \quad Si res=$|nodos|$ hacer %agregue los pesos. no se veia bien
 			\State \quad \quad devovler -1
@@ -90,13 +90,13 @@ Por último, se calcula la distancia mínima entre todos los nodos finales copia
 \end{algorithm}
 
 
-\begin{algorithm}[H]{\textbf{Bfs}(vector<Nodos> nodos)}
+\begin{algorithm}[H]{\textbf{Bfs}(vector$<$Nodos$>$ nodos)}
 	\begin{algorithmic}[1]
 		\State \quad Para todo nodo i
 			\State \quad \quad  pred(i)$\gets$-1, order(i)$\gets$-1
 		\State \quad finPara
-		\State \quad int next$\gets$ 0
-		\State \quad lista list$\gets${(o,0)}
+		\State \quad next$\gets$ 0
+		\State \quad list$\gets${(0,0)}
 		\State \quad Mientras list$\neq \emtyset$ hacer
 			\State \quad \quad Sacar un elemento (i,padre)
 			\State \quad \quad pred(i,padre)=padre
@@ -104,7 +104,7 @@ Por último, se calcula la distancia mínima entre todos los nodos finales copia
 				\State \quad \quad \quad order(i)$\gets$next
 				\State \quad \quad \quad next+1
 				\State \quad \quad \quad Para cada arista j conectada al nodo i hacer:
-					\State \quad \quad \quad \quad Si(order(j)$=-1$ y nivel(j)$eq$nivel(i)) hacer %le saque una g a geq... no hacia nada
+					\State \quad \quad \quad \quad Si(order(j)$=-1$ y nivel(j) $\eq$ nivel(i)) hacer %le saque una g a geq... no hacia nada
 						 \State \quad \quad \quad \quad \quad list$\cup${(j,i)}
 					\State \quad \quad \quad \quad finSi
 				\State \quad \quad \quad   finPara
@@ -179,9 +179,9 @@ Podemos ver que, por un lado, en el grafo sin clonar, cada nodo puede tener dos(
 %Si recuperamos este ejercicio(je) estaria bueno poner una representacion de esto.
 
 Una vez pasado por eso, vemos que todos los ciclos de $ClonarUltimoNivel$ tienen complejidad $O(n)$, con n siendo los nodos. Como todos los elementos de la matriz menos los bordes son nodos, es lo mismo decir que la complejidad es $\mathcal{O}$(F*C). En la solución, por un lado se aplica $ClonarUltimoNivel$ p veces (dando una complejidad de $\mathcal{O}$(F*C*P) ), y luego se aplica bfs sobre el grafo clonado. El grafo clonado tiene $n*p$ nodos, con una cantidad de ejes acotado por lo mencionado anteriormente, llegando a una complejidad de $\mathcal{O}$(F*C*P). En conclusión, el algoritmo propuesto tiene una complejidad de $\mathcal{O}$(F*C*P), cumpliendo con la cota pedida.
-\subsection{Experimentacion Resultado y analisis }
-Para en analisis de este algortimo lo que hicimos fue separar las mediciones en dos casos, teniendo fc trabado y teniendo p trabado.Esto significa que tomamos laberintos cuyo tamaño estaba fijo y fuimos midiendo el algoritmo
-aumentando el valor de P pero dejando F y C constantes.
+\subsection{Experimentación, resultado y análisis }
+Para el análisis de este algortimo lo que hicimos fue separar las mediciones en dos casos, teniendo fc y p variable.Esto significa que tomamos laberintos cuyo tamaño estaba fijo y fuimos midiendo el algoritmo
+aumentando el valor de P paulativamente.
 
 
 
@@ -191,7 +191,7 @@ aumentando el valor de P pero dejando F y C constantes.
 \caption{}
 \end{figure}
 
-Se aprecia en este grafico que si solo se varia P, obtenemos un comportamiento lineal respecto a FC dado que el cambio es la clonacion de un nivel.
+Se aprecia en este gráfico que si solo varía P, obtenemos un comportamiento lineal respecto a FC, dado que el cambio es la clonación de un nivel.
 
 
 \begin{figure}[H]
@@ -199,23 +199,30 @@ Se aprecia en este grafico que si solo se varia P, obtenemos un comportamiento l
 \includegraphics     [width=0.6\textwidth]{pfijo}
 \caption{}
 \end{figure}
-Se aprecia en este grafico que si solo se varia FC tambien obtenemos un comportamiento lineal respecto a P.
-Con esto queremos mostrar como se puede apreciar finalmente que el algoritmo tiene un comportamiento de F*C*P. Podriamos haber variado respecto a F o C respecto a las otras dos variables pero dada nuestra representacion
-por cada caracter del laberito tenemos un nodo y entonces era equivalente a variar directamente los nodos, o sea, variar F y C juntas.
+En este gráfico se ve que si sólo varía FC también obtenemos un comportamiento lineal respecto a P.
+Con esto queremos mostrar como se puede apreciar que el algoritmo tiene un comportamiento de F*C*P. Podríamos haber variado respecto a F o C respecto a las otras dos variables pero dada nuestra representación
+por cada caracter del laberinto tenemos un nodo, siendo equivalente a variar directamente los nodos, es decir, variar F y C juntas.
+
+
+\\
+\\
+\\
+\\
 
 
 
-
-
-Por ultimo, teniamos la idea de que si agregabamos mas paredes, el proceso de clonacion iba a ser "mas psado" y por ende aumentar la complejidad asi que decibimos "trabar" F C Y P e ir solamente agregandole al laberinto mas paredes
+Por último, teníamos la intuición de que si agregábamos más paredes, el proceso de clonación iba a ser ``más pesado" y por ende aumentar la complejidad, así que decidimos mantener constante F C Y P e ir solamente agregándo al laberinto más paredes
 \begin{figure}[H]
 \centering
 \includegraphics     [width=0.6\textwidth]{paredesfijas}
 \caption{}
 \end{figure}
 
-Este experimento nos dejo medio confundidos aparentemente tiene un comportamiento mas cercano a decreciente. Y lo mas cercanos que estamos a tener una deduccion posible de lo que estuvo ocurriendo  usando el ddd para ver cuando se realocaba memoria,
+%ESTO ES BASURA
+Este experimento nos dejó medio confundidos ya qye aparentemente tiene un comportamiento más cercano a decreciente. Y lo más cercanos que estamos a tener una deduccion posible de lo que estuvo ocurriendo  usando el ddd para ver cuando se realocaba memoria,
 Estuvimos reusando estructuras en cada iteracion, y se iba agraandando y agrandando en cada clonacion,  resulta ser que mas alla de que usemos vectores mas pequeños en una nueva iteracion, o de un tamanio similar, el compilador ya reservó mas meoria y entonces no tuvo la necesidad de mover la estructura a una neuva posicion con mas espacio.
+%ESTO SIGUE SIENDO BASURA
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Problema 2: Juntando piezas }
