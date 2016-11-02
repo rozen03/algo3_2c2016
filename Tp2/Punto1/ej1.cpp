@@ -102,7 +102,7 @@ int Solucion(vector<Nodo *> &nodos, vector<Eje *> &ejes, int p) {
 	for (int i = 0; i < p; i++) {
 		clonarUltimoNivel(nodos, ejes);
 	}
-	int res = Bfs(nodos);
+	res = Bfs(nodos);
 	if (res == nores) {
 		res = -1;
 	}
