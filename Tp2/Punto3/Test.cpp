@@ -208,6 +208,87 @@ int testCompConexas(int rep){
 	}
 	res.close();
 }
+
+void testDensidades(int rep){
+	ofstream res("VariasDensidades.txt");
+	res<<"Nodos & Arbol & ArbolOpt & 4/6 & 4/6Opt & 5/6 & 5/6Opt & Kn & KnOpt\n";
+	for(int i = 10; i<251; i+=10){
+		int arbol = i-1;
+		int kn =i*(i-1);
+		int cuarto = (kn-arbol)/ 3;
+		int cuatrosextos = arbol+cuarto;
+		int cincosextos = cuartosextos+cuarto;
+		vector<vector<tuple<int, int> > > matrizArb;
+		vector<vector<tuple<int, int> > > matrizCua;
+		vector<vector<tuple<int, int> > > matrizCin;
+		vector<vector<tuple<int, int> > > matrizKn;
+		vector<int> estaciones;
+		matrizArb = CrearConexo(i, arbol);
+		matrizCua = CrearConexo(i, cuatrosextos);
+		matrizCin = CrearConexo(i, cincosextos);
+		matrizKn = CrearConexo(i, kn);
+		vector<vector<tuple<int, int> > > matrizArbOpt(matrizArb);
+		vector<vector<tuple<int, int> > > matrizCuaOPt(matrizCua);
+		vector<vector<tuple<int, int> > > matrizCinOpt(matrizCin);
+		vector<vector<tuple<int, int> > > matrizKnOpt(matrizKn);
+		long solArb, solCua, solCin, solKn, solArbOpt, solCuaOpt, solCinOpt, solKnOpt;
+		solArb = solCua = solCin = solKn = solArbOpt = solCuaOpt = solCinOpt = solKnOpt = 0;
+		int valor = -3;
+		for(int j = 0; j< rep; j++){
+			long solpar = 0;
+			long solparop = 0;
+			auto start = ya();
+			valor = caminoMinimo(matrizArb, estaciones);
+			auto end= ya();
+			auto startop = ya();
+			valoropt = caminoMinimoOpt(matrizArbOpt, estaciones);
+			auto endop = ya();
+			solparop = chrono::duration_cast<chrono::nanoseconds>(endop-startop).count()/rep;
+			solpar = chrono::duration_cast<chrono::nanoseconds>(end-start).count()/rep;
+			solArbOpt += solparop;
+			solArb += solpar;
+			solpar = 0;
+			solparop = 0;
+			auto start = ya();
+			valor = caminoMinimo(matrizCua, estaciones);
+			auto end= ya();
+			auto startop = ya();
+			valoropt = caminoMinimoOpt(matrizCuaOpt, estaciones);
+			auto endop = ya();
+			solparop = chrono::duration_cast<chrono::nanoseconds>(endop-startop).count()/rep;
+			solpar = chrono::duration_cast<chrono::nanoseconds>(end-start).count()/rep;
+			solCuaOpt += solparop;
+			solCua += solpar;
+			solpar = 0;
+			solparop = 0;
+			auto start = ya();
+			valor = caminoMinimo(matrizCin, estaciones);
+			auto end= ya();
+			auto startop = ya();
+			valoropt = caminoMinimoOpt(matrizCinOpt, estaciones);
+			auto endop = ya();
+			solparop = chrono::duration_cast<chrono::nanoseconds>(endop-startop).count()/rep;
+			solpar = chrono::duration_cast<chrono::nanoseconds>(end-start).count()/rep;
+			solCinOpt += solparop;
+			solCin += solpar;
+			solpar = 0;
+			solparop = 0;
+			auto start = ya();
+			valor = caminoMinimo(matrizKn, estaciones);
+			auto end= ya();
+			auto startop = ya();
+			valoropt = caminoMinimoOpt(matrizKnOpt, estaciones);
+			auto endop = ya();
+			solparop = chrono::duration_cast<chrono::nanoseconds>(endop-startop).count()/rep;
+			solpar = chrono::duration_cast<chrono::nanoseconds>(end-start).count()/rep;
+			solKnOpt += solparop;
+			solKn += solpar;
+		}
+	}
+	res<<i<<" & "<<solArb<<" & "<<solArbOpt<<" & "<<solCua<<" & "<<solCuaOpt;
+	res<<" & "<<solCin<<" & "<<solCinOpt<<" & "<<solKn<<" & "<<solKnOpt<<"\n";
+}
+
 //Tengo que modificar digrafo para que el kkn sea mejor caso(descomentar un if)
 //Acordate que son dos, uno con camino aleatorio y otro con camino minimo de dos estaciones 1 a n.
 void testKn(int rep){

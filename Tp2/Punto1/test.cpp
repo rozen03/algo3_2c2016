@@ -651,6 +651,19 @@ void testSoloColumnasConComp(int rep, int puedoRomper){
 
 
 int main(int argc, char *argv[]) {
-  
+  MantengoValoresAumentoCantParedes(1000);
+  cout<<"1/7"<<endl;
+  MantengoValoresCambioDestino(1000);
+  cout<<"2/7"<<endl;
+  testCompConexas(1000, 1, 100);
+  cout<<"3/7"<<endl;
+  testSoloFilas(1000);
+  cout<<"4/7"<<endl;
+  testSoloFilasConComp(1000, 0);
+  cout<<"5/7"<<endl;
+  testSoloColumnas(1000);
+  cout<<"6/7"<<endl;
+  testSoloColumnasConComp(1000);
+  cout<<"7/7"<<endl;
   return 0;
 }
