@@ -113,9 +113,11 @@ private:
 bool esPiso(char coso) { return coso == '.' || coso == 'o' || coso == 'x'; }
 bool esPisoPared(char coso) { return coso == '#' || esPiso(coso); }
 
-int parsearInput(vector<Nodo *> &nodos, vector<Eje *> &ejes, int ejercicio) {
+int parsearInput(vector<Nodo *> &nodos, vector<Eje *> &ejes, int ejercicio, int & fila, int & columna) {
   int f, c, p;
   cin >> c >> f;
+  fila = f;
+  columna = c;
   if (ejercicio == 1) {
     cin >> p;
   } else {
