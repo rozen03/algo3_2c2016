@@ -52,7 +52,7 @@ void Correr(int rep, vnod gimnasios, vnod pokeparadas, Mochila moch, ofstream & 
 		return;
 	}
 	valor = (double) foo(gimnasios, pokeparadas, moch, sol);
-		
+
 	res <<valor<<" & ";
 	for(int i = 0; i< sol.size(); i++) res<<sol[i]<< " ";
 	res <<"& ";
@@ -94,7 +94,7 @@ void RectaPPgim(int rep, int cantgim){
 	for(int i = 1; i<=cantgim; i++){
 		int cantpp = rand()%10 + 1;
 		ppTotales += cantpp;
-		
+
 		Nodo gim(-3*cantpp,i , ppTotales + i-1, 0);
 		gimnasios.push_back(gim);
 		for(int j = 1; j<=cantpp; j++){
@@ -107,12 +107,12 @@ void RectaPPgim(int rep, int cantgim){
 		if(21 > pp.size()+gimnasios.size()){
 			for(int nroEj = 1; nroEj <= 4; nroEj++){
 				res<<nroEj<<" & "<<i << " & "<< ppTotales<<" & ";
-				Correr(rep, gimnasios, pp, moch, res, nroEj);	
+				Correr(rep, gimnasios, pp, moch, res, nroEj);
 			}
 			//me va a dar numeros dependiendo de que poda use
-				if(13 > pp.size()+gimnasios.size()){
+			if(13 > pp.size()+gimnasios.size()){
 				podas << gimnasios.size() << " & "<<pp.size() << " & ";
-				CorrerPodas(gimnasios, pp, moch, podas); 
+				CorrerPodas(gimnasios, pp, moch, podas);
 				podas<<"\n";
 			}
 			for(int i = 0; i<gimnasios.size();i++) casos<<"("<<gimnasios[i].CordenadaX()<<","<<gimnasios[i].CordenadaY()<<")["<<gimnasios[i].DamePociones()<<"] ";
@@ -129,6 +129,8 @@ void RectaPPgim(int rep, int cantgim){
 	}
 	res.close();
 }
+
+
 /*
 void PrimeroSeVaAlasPPyDespuesGim(){}
 
@@ -137,37 +139,56 @@ void Fibonacci(){}
 void Girasol(){}
 
 void LLenar(vnod & gim, vnod & pp, vector<Cuadrado> & zonaRest, int x, int y){
-	
+
 }
 
 
 void Buscar(int & x, int & y, const vector<Cuadrado> & zonaRest, int ppNecesaria){
-	
+
 }
 
 void PokeParadasAlLadoGimMochNoImporta(int rep, int cantgim){
-	ofstream res("ResultadosPPAlLadoSinLimiteMoch.txt");
-	vnod gimnasios;
-	vnod pp;
-	vector<Cuadrado> zonaRestringida;
-	res<<"cantidad de gimnasios & cantidad de pokeparadas & distancia & resultado & ... tiempos ...& \n";
-	res.close();
-	for(int i = 1; i<=cantgim; i++){
-		int poc =rand()% 30 + 1;
-		int ppNecesarias = poc / 3;
-		if(poc % 3 != 0) ppNecesarias++;
-		int x, y;
-		if(!zonaRestringida.empty()){
-			x = abs(rand());
-			y = abs(rand());
-			Llenar(gimnasios, pp, zonaRestringida, x, y);
-		}
-		Buscar(x, y, zonaRestringida, ppNecesarias);
-		Llenar(gimnasios, pp, zonaRestringida, x, y);
-		Correr(rep, gimansios, pp, res);
-	}
+ofstream res("ResultadosPPAlLadoSinLimiteMoch.txt");
+vnod gimnasios;
+vnod pp;
+vector<Cuadrado> zonaRestringida;
+res<<"cantidad de gimnasios & cantidad de pokeparadas & distancia & resultado & ... tiempos ...& \n";
+res.close();
+for(int i = 1; i<=cantgim; i++){
+int poc =rand()% 30 + 1;
+int ppNecesarias = poc / 3;
+if(poc % 3 != 0) ppNecesarias++;
+int x, y;
+if(!zonaRestringida.empty()){
+x = abs(rand());
+y = abs(rand());
+Llenar(gimnasios, pp, zonaRestringida, x, y);
+}
+Buscar(x, y, zonaRestringida, ppNecesarias);
+Llenar(gimnasios, pp, zonaRestringida, x, y);
+Correr(rep, gimansios, pp, res);
+}
 }
 */
+auto generadorDeEspirales(int a, int b){
+	auto espiral = [x=0,y=0,dx = 0,dy = -1,a=a,b=b]() mutable -> int{ //espiral.. girasol... lo q sea..
+		cout<<x+a<<" "<<y+b<<endl;
+		if ((x == y) or (x < 0 and x == -y) or (x > 0 and x == 1-y)){
+			int swapy=dx;
+			dx=-dy;
+			dy=swapy;
+		}
+		x = x+dx;
+		y=y+dy;
+		return 3;
+	};
+	return espiral;
+}
 int main(){
-	RectaPPgim(1, 10);
+	//RectaPPgim(1, 10);
+	auto espiral = generadorDeEspirales(20,20);
+
+	for (size_t i = 0; i < 10; i++) {
+		espiral();
+	}
 }
