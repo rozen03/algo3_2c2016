@@ -64,7 +64,10 @@ Nuestro algoritmo de BT va formando recursivamente todas las soluciones posibles
 
 En nuestro algoritmo, cortamos una posible solución en el momento que supera la solución minima encontrada hasta el momento. De esta forma evitamos seguir ejecutando el algoritmo para una solución que claramente no va a ser la mejor, y así reducimos el tiempo de cómputo.
 
-%falta cuandod devuelve -1%
+Mientras hacemos la lectura de datos, guardamos la cantidad máxima de pociones que requieren los gimnasios y el total de pociones que se requieren para ganar a todos los gimnasios. De esta forma si la capacidad de la mochila es menor al máximo de las pociones que piden los gimnasios o la cantidad de pociones que se pueden obtener (cantidad de pokeparadas multiplicado por tres) es menor a lo que se necesita para ganar a todos los gimnasios, entonces devolvemos -1 (evitando entrar en el backtracking) ya que el algoritmo no tiene solución. 
+
+
+%falta cuandod devuelve -1 salvo esos 2 casos siempre hay solucion?%
 
 \subsection{Pseudocodigo}
 
@@ -72,13 +75,14 @@ En nuestro algoritmo, cortamos una posible solución en el momento que supera la
 	\begin{algorithmic}[1]
 		\State real MinActual 
 		\State real MinGlobal
-		\State vector$<$ int $>$ RecorrifoGlobal
-		\State vector$<$ int $>$ RecorridoActual
-		\State vector$<$ Nodo $>$ PokeParadas
-		\State vector$<$ Nodo $>$ Gimnasios
+		\State vint RecorrifoGlobal
+		\State vint RecorridoActual
+		\State vnod PokeParadas
+		\State vnod Gimnasios
 		\State int PokeParadasRecorridas
 		\State int PocionesNecesarias		
-		\State Mochila Moch		
+		\State Mochila Moch	
+		\State entero GimRecorridos	
 	
 	\end{algorithmic}
 \end{algorithm}
@@ -90,7 +94,7 @@ En nuestro algoritmo, cortamos una posible solución en el momento que supera la
 		\State Si  MinActual$>$MinGlobal  
 			 \State \quad cortar
 		\State finSi
-		\State Si GimRecorridos = $|$Gimnasios$|$ % ver donde declaro  GimRecorridos%
+		\State Si GimRecorridos = $|$Gimnasios$|$ 
 		\State \quad Si MinActual $<$ Min Gobal
 		\State \qquad MinGlobal $\gets$ MinActual
 		\State \qquad RecorridoGlobal $\gets$ RecorridoAtual
@@ -159,9 +163,58 @@ En nuestro algoritmo, cortamos una posible solución en el momento que supera la
 
 \section{Heurística constructiva golosa}
 
+El metodo de heurística goloza consiste en elegir siempre la mejor opción posible para continuar y formas la solución total. En este caso el criterio para elegir una mejor opción seria la cercanía.
+
+
 \subsection{Exlicación de la solución}
 
+
+
 \subsection{Pseudocodigo}
+
+\begin{algorithm}[H]{\textbf{goloso}()}
+	\begin{algorithmic}[1]
+		\State Mientras Gimnasios $\not= \emptyset$
+		\State \quad proxLugar=GimMasCercano
+		\State \quad Si no puedo ir al gimnasio
+		\State \qquad proxLugar=PokeParadaMasCercana
+		\State \quad finSi
+		\State \quad Si No puedo ir a ningun nodo 
+		\State \qquad distanciaRecorrida=-1
+		\State \qquad Recorrido = $\emptyset$
+		\State \quad finSi
+		\State \quad moverse(proxLugar)
+		\State finMientras
+	\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}[H]{\textbf{moverse}(Nodo n)}
+	\begin{algorithmic}[1]
+		\State Modifico las mochilas según las pociones de n
+		\State Agregar atras de Recorrido a n
+		\State distanciaRecorrida + dist(n, posiciónActual)
+		\State Actualizar posición actual
+		\State Si n es gimnasio
+		\State \quad sacar a n de Gimnasios
+		\State Si No
+		\State \quad sacar a n de pokeParadas
+		\State finSi
+	\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}[H]{\textbf{ElegirPrimero}()}
+	\begin{algorithmic}[1]
+	\State Si existe un gimnasio que requiera requiera 0 pociones 
+	\State \quad Agregar Atras a el nodo a Recorrido
+	\State Si NO
+	\State \quad Si existe un gimnasio que requiere menos de 4 pociones
+	\State \qquad Elegir la pokeparada mas cercana y agregarla a Recorrido
+	\State \quad Si No 
+	\State \qquad elegir cualquier pokeparada para empezar
+	\State \quad finSi
+	\State finSi
+	\end{algorithmic}
+\end{algotihm}
 
 \subsection{Complejidad}
 
@@ -186,9 +239,47 @@ En nuestro algoritmo, cortamos una posible solución en el momento que supera la
 
 \section{Metaheurística}
 
+Como metaheurística decidimos implementar un algoritmo ``GRASP$"$.
+La técnica de este tipo de algoritmos consiste en combinar sucecivamente un algoritmo golozo randomizado para explorar nuevos espacios de soluciones y luego aplicar una busqueda local para mejorar cada solución. Al mismo tiempo se van comparando las soluciones y siempre se va eligiendo la mejor posible hasta que el algoritmo finaliza bajo algún criterio.
+
 \subsection{Exlicación de la solución}
 
+Utilizamos como criterio de terminación el tamaño del conjunto de ``entradas validas$"$. Este conjunto esta formado por Todos los gimnasios que pidan cero pociones para ser vencidos y todas las pokeparadas. Aplicamos el algoritmo golozo comenzando de cada uno de los nodos de este conjunto. 
+
+El algoritmo golozo randomizado es una variación de nuestra heuristica goloza presentada en la sección (). % insertar seccion%
+Para explorar el nuevo espacio de soluciones seleccionamos como candidatos al veinte porciento de los nodos por recorrer más cercanos a la posición actual.
+Luego le asignamos una probabilidad a cada uno de ellos. La misma utiliza el siguiente criterio:
+
+\begin{itemize}
+	\item Si el nodo es gimnasio y tengo suficientes pociones en mi mochila para ir, +30
+	\item Si el nodo es pokeparada y entran las 3 pociones en la mochila, +25
+	\item Si el nodo es pokeparada y entran 2 pociones en la mochila, +15
+	\item Si el nodo es pokeparada y entra solo 1 pocion en la mochila, +10
+	\item Se le suma a cada nodo  bajo criterio de cercania 10*$\# $MasCercanos - 10* i donde i representa la posición en ese orden.
+\end{itemize} 
+
+Guardamos el valor de la sumatoria de los valores asignados a cada nodo  y creamos un número aleatorio entre 1 y este valor. El nodo elegido será el nodo con valor mayor más proximo al número aleatorio. Estas acciones se realizan en la función que llamamos en el pseudocodigo ``ElegirProximo$"$. 
+
+Finalmente aplicamos la función de busqueda local de la sección ().
+
+
 \subsection{Pseudocodigo}
+
+\begin{algorithm}[H]{\textbf{GRASP}(vnod entradasValidas)}
+	\begin{algorithmic}[1]
+		\State solu = $\infty$
+		\State Desde i=0 hasta $|$entradasValidas$|$
+		\State \quad GolozoRand(entradasValidas[i])
+		\State \quad Blocas(RecorridoGlobal, MinGlobal)
+		\State \quad Si MinGlobal$<$solu
+		\State \qquad solu=MinGlobal
+		\State \qquad RecorridoSolu=RecorridoGlobal
+		\State \quad finSi
+		\State fin Desde
+		
+	\end{algorithmic}
+\end{algorithm}
+
 
 \subsection{Complejidad}
 
