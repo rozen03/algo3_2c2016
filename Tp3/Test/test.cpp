@@ -133,25 +133,9 @@ void RectaPPgim(int rep, int cantgim){
 
 /*
 void PrimeroSeVaAlasPPyDespuesGim(){}
-*/
-void Fibonacci(int rep, int cantgim, int a, int b){
-	ofstream res("Fibo.txt");
-	vnod gimnasios;
-	vnod pp;
-	srand(time(NULL));
-	int indicePP = cantgim+1;
-	int ppTotales = 0;
-	for(int i=1; i<=cantgim; i++){
-		double tita= PI*(rand()%2 +0);
-		double xg= a*(b**tita)*cos(tita);
-		double yg= a*(b**tita)*sen(tita);
-		int cantpos = rand()%10+0;
-		
-	}
 
+void Fibonacci(){}
 
-}
-/*
 void Girasol(){}
 
 void LLenar(vnod & gim, vnod & pp, vector<Cuadrado> & zonaRest, int x, int y){
@@ -186,6 +170,9 @@ Correr(rep, gimansios, pp, res);
 }
 }
 */
+auto gruposSeparados (vnod gym, vnod pepe){
+
+}
 auto generadorDeEspirales(int a, int b){
 	auto espiral = [x=0,y=0,dx = 0,dy = -1,a=a,b=b]() mutable -> int{ //espiral.. girasol... lo q sea..
 		cout<<x+a<<" "<<y+b<<endl;
@@ -200,6 +187,7 @@ auto generadorDeEspirales(int a, int b){
 	};
 	return espiral;
 }
+auto
 int main(){
 	//RectaPPgim(1, 10);
 	auto espiral = generadorDeEspirales(20,20);

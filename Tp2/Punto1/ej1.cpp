@@ -108,16 +108,14 @@ int Solucion(vector<Nodo *> &nodos, vector<Eje *> &ejes, int p) {
 	}
 	return res;
 }
-/*
-int main(int argc, char *argv[]) {
-  std::vector<Nodo *> nodos;
-  std::vector<Eje *> ejes;
 
-  int p = 0;
-  p = parsearInput(nodos,ejes,1);
-  int res = Solucion(nodos, ejes, p);
-  cout<<res<<endl;
-
-  return 0;
- }
-*/
+//int main(int argc, char *argv[]) {
+int main() {
+	std::vector<Nodo *> nodos;
+	std::vector<Eje *> ejes;
+	int p = 0;
+	p = parsearInput(nodos, ejes, 1);
+	int res = Solucion(nodos, ejes, p);
+	cout << res << endl;
+	return 0;
+}
