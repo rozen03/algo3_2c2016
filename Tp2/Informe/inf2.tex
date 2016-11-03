@@ -122,10 +122,11 @@ Este algoritmo llama a ClonarUltimoNivel la cantidad de paredes que se tiene per
 			\State \quad \quad incrementar aux
 		\State \quad finMientras
 		\State \quad devolver res
-		
+
+
 	\end{algorithmic}
 \end{algorithm}
-
+Este algoritmo es un bfs clásico, con dos agregados. Por un lado, en la línea 13 preguntamos si el nodo en el que estamos es un nodo final (la habitación a la que queremos llegar. Recordemos que vamos a copiar el nodo p veces, entonces existirán p+1 nodos finales). Por otro lado la guarda de la línea 17 no sólo contempla que no haya visitado el nodo vecino antes en el bfs (order(j)=$-1$), si no que suma las condiciones mencionadas anteriormente: que esté en el mismo nivel o, si está en uno menor, que  no sea pared (nivel(j) $\geq$ nivel(i) y (nivel(j)$\neq$nivel(i)).
 \begin{algorithm}[H]{\textbf{ClonarUltimoNivel}(aux,ejes)}
 	\begin{algorithmic}[1]
 		\State \quad n $\gets$último nodo  de aux
@@ -217,7 +218,7 @@ Por último, teníamos la intuición de que si agregábamos más paredes, el pro
 \end{figure}
 
 %ESTO ES BASURA
-Este experimento nos dejó medio confundidos ya qye aparentemente tiene un comportamiento más cercano a decreciente. Y lo más cercanos que estamos a tener una deduccion posible de lo que estuvo ocurriendo  usando el ddd para ver cuando se realocaba memoria,
+Este experimento nos dejó medio confundidos ya que aparentemente tiene un comportamiento más cercano a decreciente. Y lo más cercanos que estamos a tener una deduccion posible de lo que estuvo ocurriendo  usando el ddd para ver cuando se realocaba memoria,
 Estuvimos reusando estructuras en cada iteracion, y se iba agraandando y agrandando en cada clonacion,  resulta ser que mas alla de que usemos vectores mas pequeños en una nueva iteracion, o de un tamanio similar, el compilador ya reservó mas meoria y entonces no tuvo la necesidad de mover la estructura a una neuva posicion con mas espacio.
 %ESTO SIGUE SIENDO BASURA
 
