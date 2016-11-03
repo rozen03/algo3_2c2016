@@ -22,6 +22,7 @@ def parse(f):
 			resto = l.split('&')
 			#partimos los tiempos por espacios
 			ns = resto[0]
+
 			t1s = resto[1]
 			t2s = resto[2]
 			t3s = resto[3]
@@ -29,22 +30,24 @@ def parse(f):
 			t5s = resto[5]
 			t6s = resto[6]
 			t7s = resto[7]
-			t8s = resto[8]
-			ns = ns.split()
-			t1s = t1s.split()
-			t2s = t2s.split()
+			t8s = resto[8]			ns = ns.split()
+			#t1s = t1s.split()
+			#t2s = t2s.split()
 			t3s = t3s.split()
+
 			t4s = t4s.split()
 			t5s = t5s.split()
 			t6s = t6s.split()
 			t7s = t7s.split()
 			t8s = t8s.split()
+
 			#parseamos el n del caso
 			n = int(ns[0])
 			#convertimos a int los tiempos
-			t1 = int(t1s[0])
-			t2 = int(t2s[0])
+			#t1 = int(t1s[0])
+			#t2 = int(t2s[0])
 			t3 = int(t3s[0])
+
 			t4 = int(t4s[0])
 			t5 = int(t5s[0])
 			t6 = int(t6s[0])
@@ -58,19 +61,20 @@ def main(output, show=False, labels=None):
 	text = open("VariasDensidades2.txt")
 	#para cada archivo, vamos a plotear sus datos como una serie diferente
 	Xs, Ys9, Ys8, Ys7, Ys6, Ys5, Ys4, Ys3, Ys2, Ys1 =[], [], [], [], [], [], [], [], [], []
+
 	#abrimos el archivo de datos con with...: para que no quede abierto innecesariamente
 	#lo abrimos para lectura (no pasamos argumentos extra a open)
 	tiempos = parse(text)
 	text.close()
 	#print tiempos
+
 	ns, n2, ts1, ts2, ts3, ts4, ts5, ts6, ts7, ts8 =[], [], [], [], [], [], [], [], [], [] 
 	for (n, t1, t2, t3, t4, t5, t6, t7, t8) in tiempos:
 		n2.append((250*n*n)+115000)		
+
 		ns.append(n)
-		ts1.append(t1)
-		ts2.append(t2)
 		ts3.append(t3)
-		ts4.append(t4)
+	ts4.append(t4)
 		ts5.append(t5)
 		ts6.append(t6)
 		ts7.append(t7)
@@ -87,10 +91,11 @@ def main(output, show=False, labels=None):
 	Ys8.append(list(ts7))
 	Ys9.append(list(ts8))
 	plot = myPlot(Xs, Ys1, Ys2, Ys3, Ys4, Ys5, Ys6, Ys7, Ys8, Ys9,
+
 		labels=labels,
-		xlabel= u"Cantidad de nodos en los grafos", 	#rotulamos los ejes
+		xlabel= u"Cantidad de nodos en el Kn", 	#rotulamos los ejes
 		ylabel=u"Tiempo de ejecución (ns)", 	#empezamos los stings con u" para que use unicode y podamos poner ó, ñ...	
-		title = u"Grafos conexos  con distinta densidad de ejes.",		#ponemos título!
+		title = u"Tiempo de ejecución para grafos Kn, con el camino más corto es el eje (1,n).",		#ponemos título!
 		plotter = pplot, 		#usamos el pplot
 		ylog = False				
 		)
@@ -106,6 +111,7 @@ def main(output, show=False, labels=None):
 	plot.savefig(output)
 	if show:
 		plot.show()
+
 
 def myPlot(Xs, Ys1, Ys2, Ys3, Ys4, Ys5, Ys6, Ys7, Ys8, Ys9 , labels, xlabel, ylabel, title, plotter, ylog=False):
 	"""Plotea una curva para cada x, y, tomándolos en orden de Xs e Ys"""
@@ -130,6 +136,7 @@ def myPlot(Xs, Ys1, Ys2, Ys3, Ys4, Ys5, Ys6, Ys7, Ys8, Ys9 , labels, xlabel, yla
 		#plotter.plot(x, y6,label = l6, marker='1', linestyle = '--')
 		plotter.plot(x, y7,label = l7, marker='s', linestyle = '.')
 		#plotter.plot(x, y8,label = l8, marker='s', linestyle = '.')
+
 		plotter.xlabel(xlabel)
 		plotter.ylabel(ylabel)
 		plotter.title(title)

@@ -72,7 +72,7 @@ vector<vector<tuple<int,int> > > CrearConexo(int nodos, int ejes){
 				tiempo = rand()%1000+1;
 				tuple<int, int> elem(tiempo, origen);
 				tuple<int, int> elem2(0, origen);
-				//if(origen == 1&& destino == nodos) elem = elem2;
+				if(origen == 1&& destino == nodos) elem = elem2;
 				int val = get<0>(filaycolum[origen][destino]);
 				filaycolum[origen][destino] = elem;
 				i++;
