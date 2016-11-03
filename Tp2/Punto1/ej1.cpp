@@ -102,19 +102,22 @@ int Solucion(vector<Nodo *> &nodos, vector<Eje *> &ejes, int p) {
 	for (int i = 0; i < p; i++) {
 		clonarUltimoNivel(nodos, ejes);
 	}
-	int res = Bfs(nodos);
+	res = Bfs(nodos);
 	if (res == nores) {
 		res = -1;
 	}
 	return res;
 }
-
+/*
 int main(int argc, char *argv[]) {
-	std::vector<Nodo *> nodos;
-	std::vector<Eje *> ejes;
-	int p = 0;
-	p = parsearInput(nodos, ejes, 1);
-	int res = Solucion(nodos, ejes, p);
-	cout << res << endl;
-	return 0;
-}
+  std::vector<Nodo *> nodos;
+  std::vector<Eje *> ejes;
+
+  int p = 0;
+  p = parsearInput(nodos,ejes,1);
+  int res = Solucion(nodos, ejes, p);
+  cout<<res<<endl;
+
+  return 0;
+ }
+*/
