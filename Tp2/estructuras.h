@@ -113,11 +113,9 @@ private:
 bool esPiso(char coso) { return coso == '.' || coso == 'o' || coso == 'x'; }
 bool esPisoPared(char coso) { return coso == '#' || esPiso(coso); }
 
-int parsearInput(vector<Nodo *> &nodos, vector<Eje *> &ejes, int ejercicio, int & fila, int & columna) {
+int parsearInput(vector<Nodo *> &nodos, vector<Eje *> &ejes, int ejercicio) {
   int f, c, p;
   cin >> c >> f;
-  fila = f;
-  columna = c;
   if (ejercicio == 1) {
     cin >> p;
   } else {
@@ -340,15 +338,11 @@ void clonarUltimoNivel(vector<Nodo *> &nodos, vector<Eje *> &ejes) {
     tam--;
     tamanioNivel++;
   }
-  // tamanioNivel++;
-  // nodos.resize(tamanioNodos+tamanioNivel,NULL);
-  // ejes.resize(2*tamanioEjes,NULL);
-
   for (int i = 0; i < tamanioNivel; i++) {
     Nodo *n = nodos[tamanioNodos - tamanioNivel + i];
     Nodo *nuevo = new Nodo(tamanioNodos + n->indice, nivelNuevo, n->esPared);
     nuevo->esFinal = n->esFinal;
-    // nodos[tamanioNodos+n->indice]= nuevo;
+    nodos[tamanioNodos+n->indice]= nuevo;
     nodos.push_back(nuevo);
   }
 
