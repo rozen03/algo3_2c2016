@@ -504,7 +504,7 @@ Tambien vale aclarar que no tenemos muchas restricciones sobre los parámetros d
 \\Cada instancia de los experimentos fue iteradada 3000 veces, y se calculó el promedio.
 \subsubsection{Resultados y análisis}
 
-En nuestro primer experimento corrimos el algoritmo con diferentes grafos Kn, donde el n empieza en 10, se incrementa de a 10 y termina en 250 y los pesos de los ejes se generan de forma aleatoria. Creamos estos parámetros para tener una primera impresión de como variaba, dependiendo solamente de los nodos, ya que los ejes dependen de la cantidad de nodos. Nuestra expectativa era que A1 tenga un comportamiento cuadrático y que A2 tenga un comportamiento errático, pero parecido a una función cuadrática, ya que no sabíamos como iban a afectar la interrupciones que introducimos en el algoritmo, esperábamos mejoras en algunas iteraciones.
+En nuestro primer experimento corrimos el algoritmo con diferentes grafos Kn, donde el n empieza en 10, se incrementa de a 10 terminando en 250. Los pesos de los ejes se generan de forma aleatoria. Creamos estos parámetros para tener una primera impresión de como variaba, dependiendo solamente de los nodos, ya que los ejes dependen de la cantidad de nodos. Nuestra expectativa era que A1 tenga un comportamiento cuadrático y que A2 tenga un comportamiento errático, pero parecido a una función cuadrática, ya que no sabíamos como iban a afectar la interrupciones que introducimos en el algoritmo, esperábamos mejoras en algunas iteraciones.
 
 \begin{figure}[H]
 \centering
@@ -512,8 +512,12 @@ En nuestro primer experimento corrimos el algoritmo con diferentes grafos Kn, do
 \caption{}
 \end{figure}
 
-Como se puede ver en el gráfico, nuestras expectativas fueron cumplidas, A1 tiene un tendencia cuadrática y A2, aunque no muestra una tendencia clara, está por debajo de A1. Como explicamos anteriormente este comportamiento errático responde a que A2 termina cuando encuentra el camino mínimo para n y no sigue ejecutando para otros nodos, esto quiere decir que cuanto más cerca esta A1 de A2  el camino mínimo de n es uno de los últimos en computarse y análogamente si están lejos es que n es uno de los primeros en computarse.
+Como se puede ver en el gráfico, nuestras expectativas fueron cumplidas, A1 tiene un tendencia cuadrática y A2, aunque no muestra una tendencia clara, en muchos casos el tiempo de ejecución es menor que el de A1. Como explicamos anteriormente este comportamiento errático responde a que A2 termina cuando encuentra el camino mínimo para n y no sigue ejecutando para otros nodos, esto quiere decir que cuanto más cerca esta A1 de A2,  el camino mínimo de n es uno de los últimos en computarse y análogamente si están lejos es que n es uno de los primeros en computarse.
 \\
+
+\\ 
+
+
 Al encontar respaldo empírico sobre como nuestro algoritmo cumple con las complejidades teóricas, decidimos evaluar como respondía A1 y A2 sobre el mejor caso, este sería que el camino mínimo sea el eje que va desde 1 hasta n, ya que A2 corta en cuanto encuentra la solución para n. Nuestra complejidad, despues de leer el input es lineal. Lo que creamos es un test que nos crea grafos Kn y que tienen la particularidad de que el eje (1,n) pesa cero, haciendolo el camino mínimo. Debajo se encuentran dos gráficos que modelan este test.
 
 \begin{figure}[H]
@@ -522,7 +526,7 @@ Al encontar respaldo empírico sobre como nuestro algoritmo cumple con las compl
 \caption{}
 \end{figure}
 \\
-En este gráfico podemos ver como A1 mantiene su apariencia cuadratica, pero nos hace pensar que A2 tiene una forma constante, lo cual no nos resulto coherente por lo que sabemos de la implementación, la busqueda lineal del mínimo tiene que seguir ocurriendo. Por eso decidimos mirar solo la línea de A2 para ver que a que función se asemejaba.
+En este gráfico podemos ver como A1 mantiene su apariencia cuadratica, pero nos hace pensar que A2 tiene una forma constante. Esto se debe a la escala que estamos utilizando. El tiempo de ejecución de A2 es mucho menor que el de A1, al punto de que siempre se mantiene por debajo de 1000000 nanosegundos. Por eso decidimos mirar solo la línea de A2 para ver que a que función se asemejaba.
 
 
 \begin{figure}[H]
@@ -531,7 +535,16 @@ En este gráfico podemos ver como A1 mantiene su apariencia cuadratica, pero nos
 \caption{}
 \end{figure}
 \\
-Como Podemos observar la apariencia constante de A2 era meramente una apariencia por las escalas que tenía la figura 10. Ahora se nota claramente que A2 en el mejor caso es lineal.
+Como Podemos observar la apariencia constante de A2 era meramente una apariencia por las escalas que tenía la figura 10. Sin embargo no podemos percibir una tendencia lineal como esperabamos. Como parece estabilizarse un poco luego de los 100 nodos decidimos repetir el test con hasta 500 nodos para ver si efectivamente podíamos apreciar una tendencia un poco más lineal. 
+\\
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.6\textwidth]{KnSinInterrup}
+\caption{}
+\end{figure}
+
+Efectivamente en este grafico se puede apreciar una semejanza con la funci{on lineal. Las primeras instancias siguen siendo un poco conflictivas pero pasando los 100 nodos es mucho más estable.
+
 \\
 Al finalizar estos experimentos, nos dimos cuenta que modificar la cantidad de nodos y que la cantidad de ejes está en función a la cantidad de nodos nos reducía el univierso de posibles grafos y probablemente habían dependencias en términos de complejidad que nosotros no cubríamos.
 \\
@@ -543,7 +556,7 @@ Al finalizar estos experimentos, nos dimos cuenta que modificar la cantidad de n
 \caption{}
 \end{figure}
 
-Aunque se pueden ver unas tendencias cuadráticas en el gráfico, y que está por debajo de la cota dada, también podemos ver que la figura 9 tiene los datos de A1 más regulares que en la figura 2. Nuestras hipótesis es que, cuanto más denso es el grafo, más regular quedan las mediciones y cuanto menos denso las mediciones tienden a ser irregulares. Entonces decidimos experimentar sobre grafos menos densos y ver como quedaban las mediciones.
+Aunque se pueden ver unas tendencias cuadráticas en el gráfico, y que está por debajo de la cota dada, también podemos ver que la figura 9 tiene los datos de A1 más regulares que en la figura 13. Nuestras hipótesis es que, cuanto más denso es el grafo, más regular quedan las mediciones y cuanto menos denso las mediciones tienden a ser irregulares. Entonces decidimos experimentar sobre grafos menos densos y ver como quedaban las mediciones.
 \\
 A fin de lo antes mencionado creamos una prueba, que dada una cierta cantidad de nodos, nos generaba cuatro grafos. Definimos el concepto D, como una símil densidad, donde la densidad está definida como la cantidad de ejes en un grafo dado, cuanto más denso el grafo más ejes tiene. D funciona sólo para grafos conexos, 0 es un árbol y 100 es el Kn.
 
@@ -557,7 +570,7 @@ Como se puede observar en el gráfico no se respalda nuestra hipótesis, y nos g
 
 \begin{figure}[H]
 \centering
-\includegraphics     [width=0.6\textwidth]{VariasDensidadesSinArbol}
+\includegraphics     [width=0.6\textwidth]{VariasDensidades}
 \caption{}
 \end{figure}
 

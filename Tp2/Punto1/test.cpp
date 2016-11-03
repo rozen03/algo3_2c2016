@@ -234,6 +234,7 @@ int parsearInputAux(vector<Nodo *> &nodos, vector<Eje *> &ejes, int ejercicio, s
 }
 
 void Correr(int rep, ofstream & res, string test, int c, int f, int p){
+
 	uint64_t begin, end, elapsed_secs, elapsed_final;
 	elapsed_secs = 0;
 	res<<c << " & "<< f<<" & "<<p;
@@ -269,6 +270,8 @@ void MantengoValoresCambioDestino(int rep){
 	 * #234#
 	 * #####
 	 */
+
+
 	 
 	 int f, c, p;
 	 f = c = 50;
@@ -277,9 +280,11 @@ void MantengoValoresCambioDestino(int rep){
 	 string ts = "inputMVCD.txt";
 	 ofstream caso(ts);
 	 for(int i = 1; i<= c+f; i++){
+
 		 int x, y;
 		 ElegirDiagonal(i,x,y,f,c);
 		 for(int j = -1; j<=c; j++){
+
 			 for(int l = -1; l<= f; l++){
 				 if(l== -1 || l == f || j == -1 || j == c){
 					 caso <<"#";
@@ -297,7 +302,9 @@ void MantengoValoresCambioDestino(int rep){
 			 }
 			 caso<<"\n";
 		 }
+
 		 Correr(rep, res, ts,c ,f, p);
+
 	 }
 	 
 }
@@ -651,19 +658,19 @@ void testSoloColumnasConComp(int rep, int puedoRomper){
 
 
 int main(int argc, char *argv[]) {
-  MantengoValoresAumentoCantParedes(1000);
+  MantengoValoresAumentoCantParedes(500);
   cout<<"1/7"<<endl;
-  MantengoValoresCambioDestino(1000);
+  //MantengoValoresCambioDestino(10);
   cout<<"2/7"<<endl;
-  testCompConexas(1000, 1, 100);
+  testCompConexas(500, 1, 100);
   cout<<"3/7"<<endl;
-  testSoloFilas(1000);
+  testSoloFilas(500);
   cout<<"4/7"<<endl;
-  testSoloFilasConComp(1000, 0);
+  testSoloFilasConComp(500, 0);
   cout<<"5/7"<<endl;
-  testSoloColumnas(1000);
+  testSoloColumnas(500);
   cout<<"6/7"<<endl;
-  testSoloColumnasConComp(1000);
+  testSoloColumnasConComp(500,0);
   cout<<"7/7"<<endl;
   return 0;
 }

@@ -9,12 +9,14 @@ En el informe
 			La explicación de los movimientos ilegales se reformuló.
 
 
+	ej2		
+	modificaciones en pseudocodigo, explicación de la solución, y demostración de complejidad 
+
+	ej 3
+
+	Se corrigio experimentación. Se cambio el utltimo grafico y se agrego la figura 12.
+
 Código punto 1:
 En el Bfs creamos un int nodofinal ya que como cambiamos la estructura del grafo para tener todos los nodos finales en un mismo grafo y no iteramos por piso, lo que uqremos saber es cuando llegamos a uno de los p-1 nodos finales, en cuanto llegamos sabemosx que tenemos la solución ya que es un bfs y queremos llegar por el camino mas corto. mejor explicado en el informe, que tambien va a ser modificado
 En la solucion, en vez de hacer un nivel por vez, creamos el grafo con todos los niveles y de ahi buscamos la solución.
-
-
-punto 2:
-Correciones en informe, modificaciones en pseudocodigo, explicación de la solución, y demostración de complejidad 
-.
 
