@@ -148,6 +148,19 @@ int Solucion(vector<Nodo *> &nodos, vector<Eje *> &ejes, int p, int f, int c) {
 		//mostrarNiveles(nodos,p, f, c);
 		clonarUltimoNivel(nodos, ejes);
 	}
+	int bajan=0;
+	for(auto nod : nodos){
+	//auto nod = nodos[0];
+		for(auto eje: nod->ejejes){
+			//if (eje->n1->nivel != eje->n2->nivel){
+				cout<<"nudus "<<eje->n1->indice<<"->"<< eje->n2->indice<<" ";
+				cout<<"luvuls "<<eje->n1->nivel<<" "<< eje->n2->nivel<<endl;
+			//	bajan++;
+
+			//}
+		}
+	}
+	cout<<"Bajan="<<bajan<<endl;
 	res = Bfs(nodos);
 	if (res == nores) {
 		res = -1;
@@ -158,13 +171,13 @@ int Solucion(vector<Nodo *> &nodos, vector<Eje *> &ejes, int p, int f, int c) {
 int main(int argc, char *argv[]) {
   std::vector<Nodo *> nodos;
   std::vector<Eje *> ejes;
-  int f;
-  int c;
-  int p = 0;
-  p = parsearInput(nodos,ejes,1, f, c);
-  cout<< f <<" "<<c<<endl;
+  int f=0;
+  int c=0;
+  int p = 1;
+  p = parsearInput(nodos,ejes,1);
+  //cout<< f <<" "<<c<<endl;
   int res = Solucion(nodos, ejes, p, f, c);
   cout<<res<<endl;
-
   return 0;
  }
+//

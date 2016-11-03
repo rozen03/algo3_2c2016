@@ -338,11 +338,12 @@ void clonarUltimoNivel(vector<Nodo *> &nodos, vector<Eje *> &ejes) {
     tam--;
     tamanioNivel++;
   }
+  cout<<"tamanio ultimo nivel: "<<tamanioNivel<<endl;
+
   for (int i = 0; i < tamanioNivel; i++) {
     Nodo *n = nodos[tamanioNodos - tamanioNivel + i];
     Nodo *nuevo = new Nodo(tamanioNodos + n->indice, nivelNuevo, n->esPared);
     nuevo->esFinal = n->esFinal;
-    nodos[tamanioNodos+n->indice]= nuevo;
     nodos.push_back(nuevo);
   }
 
@@ -380,6 +381,7 @@ void clonarUltimoNivel(vector<Nodo *> &nodos, vector<Eje *> &ejes) {
       }
     }
   }
+ 
 }
 
 #endif
