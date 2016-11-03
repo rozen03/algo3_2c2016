@@ -11,6 +11,13 @@ En el informe
 			Al cambiar el código, cambiamos el pseudocodigo, tambien habia cosas que faltaban.
 
 
+	ej2		
+	modificaciones en pseudocodigo, explicación de la solución, y demostración de complejidad 
+
+	ej 3
+
+	Se corrigio experimentación. Se cambio el utltimo grafico y se agrego la figura 12.
+
 Código punto 1:
 Nos dimos cuenta que el algoritmo presentado no cumplia la complejidad pedida, ya que hacia un bfs por cada clonación, en vez de clonar p veces y hacer el bfs sobre todo el grafo.
 En el Bfs creamos un int nodofinal ya que como cambiamos la estructura del grafo para tener todos los nodos finales en un mismo grafo y no iteramos por piso, lo que uqremos saber es cuando llegamos a uno de los p-1 nodos finales, en cuanto llegamos sabemosx que tenemos la solución ya que es un bfs y queremos llegar por el camino mas corto. mejor explicado en el informe, que tambien va a ser modificado

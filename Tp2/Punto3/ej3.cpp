@@ -139,7 +139,7 @@ void lecturaDatos(vector<vector<tuple<int,int> > >& matrizAdyacencia){
 	}
 	matrizAdyacencia = filaycolum;
 }
-
+/*
 int main(int argc, char *argv[]){
 	vector<vector<tuple<int,int> > > matriz;
 	vector<int> estaciones;
@@ -157,4 +157,5 @@ int main(int argc, char *argv[]){
 	return 0;
 }
 
+*/
 
