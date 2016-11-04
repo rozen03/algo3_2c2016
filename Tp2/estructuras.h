@@ -361,7 +361,7 @@ void clonarUltimoNivel(vector<Nodo *> &nodos, vector<Eje *> &ejes) {
     }
   }
   for (int i = 0; i < tamanioNivel; i++) {
-    Nodo *n = nodos[i];
+    Nodo *n = nodos[tamanioNodos-tamanioNivel+i];
 
     if (n->esPared) {
       for (int j = 0; j < n->ejejes.size(); j++) {
