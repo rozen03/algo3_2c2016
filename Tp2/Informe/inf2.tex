@@ -50,7 +50,13 @@ En este problema los viajeros encuentran un mapa de un laberinto señalando alg�
 Formalmente podemos modelar el problema utilzando un grafo que contiene nodos ``especiales"(las paredes). Se busca la distancia entre dos nodos, pasando como mucho por p nodos especiales.
 
 \subsection{Explicación de la solución}
-Podemos dividir la resolución en tres partes: la primera, donde interpretamos la entrada y generamos un primer grafo, en el cual las habitaciones y paredes son nodos, y dos nodos son adyacentes si y sólo si sus casillas originales lo son. En la segunda parte copiaremos el primer grafo tantas veces como paredes se puedan romper, de manera que la acción de romper una pared esta representada por un cambio de nivel en el grafo. Así, cada nivel muestra cuántas paredes fueron atravesadas, y los $p+1$ nodos finales, los finales con p paredes atravesadas.
+
+La entrada de nuestro problema es una matriz con ``.$"$ , ``\#$"$ , una ``o$"$ marcando el origen  y una ``x$"$ marcando el destino. 
+
+Podemos dividir la resolución en tres partes: la primera, donde interpretamos la entrada (una matriz) y generamos un primer grafo, que tiene cada coordenada de la matriz como nodo. Nuestra clase nodo tiene un booleano para distinguir si un nodo es pared o no. Entre dos nodos (sean de tipo pared o no) consecutivos, siempre habra un eje. Ademas los nodos cuentan con un entero que es indicador de a que nivel pertencen. Al inciar todos los nodos son de nivel 0.
+
+En la segunda parte copiaremos el primer grafo tantas veces como paredes se puedan romper, de manera que la acción de romper una pared esta representada por un cambio de nivel en el grafo. Así, cada nivel muestra cuántas paredes fueron atravesadas, y los $p+1$ nodos finales, los finales con p paredes atravesadas.
+ 
 
 
 \begin{figure}[H]
@@ -176,49 +182,72 @@ Podemos ver que, por un lado, en el grafo sin clonar, cada nodo puede tener dos(
 %Si recuperamos este ejercicio(je) estaria bueno poner una representacion de esto.
 
 Una vez pasado por eso, vamos a analizar la función $clonarUltimoNivel$. Como todos los elementos de la matriz menos los bordes son nodos, es lo mismo decir que la complejidad es $\mathcal{O}$(F*C). En la solución, por un lado se aplica $ClonarUltimoNivel$ p veces (dando una complejidad de $\mathcal{O}$(F*C*P) ), y luego se aplica bfs sobre el grafo clonado. El grafo clonado tiene $n*p$ nodos, con una cantidad de ejes acotado por lo mencionado anteriormente, 	llegando a una complejidad de $\mathcal{O}$(F*C*P). En conclusión, el algoritmo propuesto tiene una complejidad de $\mathcal{O}$(F*C*P), cumpliendo con la cota pedida.
+
+
 \subsection{Experimentación, resultado y análisis }
-Para el análisis de este algortimo lo que hicimos fue separar las mediciones en dos casos, teniendo fc y p variable.Esto significa que tomamos laberintos cuyo tamaño estaba fijo y fuimos midiendo el algoritmo
-aumentando el valor de P paulativamente.
+
+
+
+En los primeros dos gráficos utilizamos instancias muy similares. En el primero fuimos variando la cantidad de columnas, manteniendo constante la cantidad de filas, empezando con 10 filas, terminando con 250 y aumentando de 10 en 10. En el segundo realizamos la instancia análoga manteniendo contante las columnas. La ``X$"$ siempre se encuentra en el extremo opuesto a la  ``o". 
+  
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.6\textwidth]{SoloCol}
+\caption{}
+\end{figure}
 
 
 
 \begin{figure}[H]
 \centering
-\includegraphics     [width=0.6\textwidth]{fcfijo}
+\includegraphics[width=0.6\textwidth]{SoloFil}
 \caption{}
 \end{figure}
 
-Se aprecia en este gráfico que si solo varía P, obtenemos un comportamiento lineal respecto a FC, dado que el cambio es la clonación de un nivel.
+Podemos observar que ambos gráficos tienen tendencia lineal. También notamos que tienen el mismo rango de tiempo de ejecución. Podemos concluir que el algoritmo no es afectado por la cantidad de filas y columnas en sí, si no por la cantidad de nodos.
+
+
+
+\\
+
+\\
+
+En los siguientes dos gráficos utilizamos una instancia similar a la anterior. La única diferencia es que aumentamos la cantidad de componentes conexas, alternando filas o columnas de ``\#$"$ con las de ``.$"$. Decimos que son componentes conexas, ya que tenemos p=0, o sea, no podemos romper ninguna pared, entonces esos nodos nunca podrán ser conectados.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.6\textwidth]{SoloColsConComp}
+\caption{}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.6\textwidth]{SoloFilasConComp}
+\caption{}
+\end{figure}
+
+
+Igual que antes podemos observar que ambos casos tienen comportamientos similares. Sin embargo a diferencia de los casos sin mas de una componente conexa, 
+
+\\
+\\
+
+
+
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+En este experimento mantuvimos f y c constantes mientras variamos p.Esto significa que tomamos laberintos cuyo tamaño estaba fijo y fuimos midiendo el algoritmo aumentando el valor de P paulatinamente.
+
 
 
 \begin{figure}[H]
 \centering
-\includegraphics     [width=0.6\textwidth]{pfijo}
-\caption{}
-\end{figure}
-En este gráfico se ve que si sólo varía FC también obtenemos un comportamiento lineal respecto a P.
-Con esto queremos mostrar como se puede apreciar que el algoritmo tiene un comportamiento de F*C*P. Podríamos haber variado respecto a F o C respecto a las otras dos variables pero dada nuestra representación
-por cada caracter del laberinto tenemos un nodo, siendo equivalente a variar directamente los nodos, es decir, variar F y C juntas.
-
-
-\\
-\\
-\\
-\\
-
-
-
-Por último, teníamos la intuición de que si agregábamos más paredes, el proceso de clonación iba a ser ``más pesado" y por ende aumentar la complejidad, así que decidimos mantener constante F C Y P e ir solamente agregándo al laberinto más paredes
-\begin{figure}[H]
-\centering
-\includegraphics     [width=0.6\textwidth]{paredesfijas}
+\includegraphics     [width=0.6\textwidth]{Paredes1}
 \caption{}
 \end{figure}
 
-%ESTO ES BASURA
-Este experimento nos dejó medio confundidos ya que aparentemente tiene un comportamiento más cercano a decreciente. Y lo más cercanos que estamos a tener una deduccion posible de lo que estuvo ocurriendo  usando el ddd para ver cuando se realocaba memoria,
-Estuvimos reusando estructuras en cada iteracion, y se iba agraandando y agrandando en cada clonacion,  resulta ser que mas alla de que usemos vectores mas pequeños en una nueva iteracion, o de un tamanio similar, el compilador ya reservó mas meoria y entonces no tuvo la necesidad de mover la estructura a una neuva posicion con mas espacio.
-%ESTO SIGUE SIENDO BASURA
+Estabamos esperando un comportamiento lineal, sin embargo podemos ver en este gráfico que no lo es. No tenemos una hipotesis válida para esta experimentación ya que al leer los algoritmos seguimos convencidos de que el comportamiento tendría que ser lineal. Nuestra intuición es que cuando se clona un nivel de el grafo en realidad estabamos clonando todo el grafo y aumentando el tamaño de forma exponencial, pero al imprimir el grafo por cada instancia de clonación los nodos que tenemos son la cantidad del nodos inciales por la cantidad de veces que se llamo a la función clonar. Luego analizamos el BFS pero este tampoco demuestra un comportamiento exponencial. Por lo cual quedamos con poco tiempo y ninguna explicación que nos satisfaga.
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
