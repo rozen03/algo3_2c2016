@@ -311,27 +311,25 @@ Sin embargo podemos acotar $d(v_{i}) \leq 4$ ya que como mucho los nodos del med
 \\
  Luego $1/2  \sum_{1}^{n}{d(v_{i})} \leq 1/2 \sum_{1}^{n}{4} = 2n$.
 \\
- Entonces $m \leq 2n$ y $\mathcal{O}(m) \leq \mathcal{O}(2n) \mathcal{O}(n)$.
-\\
+ Entonces $m \leq 2n$ y $\mathcal{O}(m) \leq \mathcal{O}(2n) \ \mathcal{O}(n)$.
+\\	
 Ahora veremos que la complejidad de nuestro algoritmo es la pedida:
 \\
-Por lo anterior tenemos que $\mathcal{O}(m(log(m)+log(n))+n)= \mathcal{O}(n(2log(n)+1)) = \mathcal{O}(nlog(n))$.
+Por lo anterior tenemos que $\mathcal{O}(m(log(m)+log(n))+n) \in \mathcal{O}(n(2log(n)+1)) \in \mathcal{O}(nlog(n))$.
 \\
 La cantidad de nodos que tengamos depende directamente de F y C. la máxima cantidad de nodos que podemos tener es F-1*C-1 (la matriz sin paredes descartando los bordes) 
 \\
-Luego $\mathcal{O}(nlog(n)) = \mathcal{O}(FClog(FC))$
+Luego $\mathcal{O}(nlog(n)) \in \mathcal{O}(FClog(FC))$
 
 
 \subsection{Experimentación}
 
-La complejidad requerida para este algoritmo es $\mathcal{O}(FClog(FC))$ y en la sección anterior probamos que esto es equivalente a  $\mathcal{O}(nlog(n))$.
+La complejidad requerida para este algoritmo es $\mathcal{O}(FClog(FC))$, y en la sección anterior probamos que esto es equivalente a  $\mathcal{O}(nlog(n))$.
 Realizamos una serie de experimentos para respaldar empíricamente este hecho.
 
-Los mismos consisten principalmente en variar las dimensiones del mapa, es decir, modificar F y C. Esperamos que estas variaciones afecten la cantidad de nodos, aumentando o disminuyendo la complejidad a corde de $\mathcal{O}(FClog(FC))$ manteniendo la misma tendencia.
+Los mismos consisten principalmente en variar las dimensiones del mapa, es decir, modificar F y C. Esperamos que estas variaciones afecten la cantidad de nodos, aumentando o disminuyendo la complejidad acorde de $\mathcal{O}(FClog(FC))$ manteniendo la misma tendencia.
 
-Creemos que nuestro algoritmo será un poco más rápido a la cota pedida ya que la cantidad de nodos es un poco menor a FC.
-
-Nuestro algoritmo devuelve -1 cuando se tiene más de una componenete conexa, es decir cuando no se pueden recorrer todas las salas. Decimdimos hacer un test para ver que ocurría en estos casos. al disminuir las componentes conexas tambien disminuimos la cantidad de nodos, por esta razón suponemos que debe tardar menos. si no las disminuyeramos creemos que el tiempo sería el mismo.
+Nuestro algoritmo devuelve -1 cuando se tiene más de una componenete conexa, es decir, cuando no se pueden acceder todas las salas. Decimdimos hacer un test para ver que ocurría en estos casos. al disminuir las componentes conexas también disminuimos la cantidad de nodos, por esta razón suponemos que debe tardar menos. Si no las disminuyéramos creemos que el tiempo sería el mismo.
 \\
 Cada instancia de los experimentos fue iteradada 3000 veces, y se calculó el promedio.
 
@@ -366,7 +364,7 @@ En este experimento mantuvimos, o bien constante el número de filas, para aumen
     \end{subfigure}
 \end{figure}
 
-Podemos ver que estos gráficos son practicamente iguales. con esto podemos mostrar que el algoritmo no depende en realidad de la cantidad de filas o columnas sino de los nodos. La razón por la cual nuestros gáficos son iguales es que mantienen la misma cantidad de nodos. la única diferencia en nustros mapas sería que uno es vertical y otro horizontal pero eso no afecta la cantidad de nodos.
+Podemos ver que estos gráficos son prácticamente iguales. Con esto podemos mostrar que el algoritmo no depende en realidad de la cantidad de filas o columnas sino de sus nodos. La razón por la cual nuestros gráficos son iguales es que mantienen la misma cantidad de nodos. la única diferencia en nustros mapas sería que uno es vertical y otro horizontal, pero eso no afecta la cantidad de nodos.
 \\
 \\
 
@@ -388,9 +386,7 @@ En este experimentos tomamos un mapa con F=C=31 y fuimos aumentando las componen
 \caption{Aumento de las componentes conexas del grafo}
 \end{figure}
 
-Como podemos observar en esta figura el tiempo de ejecución disminuye a medida que aumentan las componentes conexas. Creemos que esto se debe principalmente a la disminusión de la cantidad de nodos.
-
-
+Como podemos observar en esta figura el tiempo de ejecución disminuye a medida que aumentan las componentes conexas. Creemos que esto se debe principalmente a la disminución de la cantidad de nodos.
 
 
 
@@ -399,15 +395,15 @@ Como podemos observar en esta figura el tiempo de ejecución disminuye a medida 
 
 \subsection{Introducción}
 
-En este problema, los exploradores se encuentran en un dilema, luego de romper varias paredes la fortaleza se esta derrumbando. Por suerte ellos se encuentran en una habitación que tiene varios carritos y un mapa que les indica que estaciones estan conectadas y cuanto tardan en llegar de estación a estación. Lo que quieren es la forma más rápida de llegar desde el lugar en donde estan hasta la salida, que sería la última estación.
+En este problema, los exploradores se encuentran en un dilema, luego de romper varias paredes la fortaleza se está derrumbando. Por suerte ellos se encuentran en una habitación que tiene varios carritos y un mapa que les indica qué estaciones están conectadas y cuánto tardan en llegar de estación a estación. Lo que quieren es la forma más rápida de llegar desde el lugar en donde están hasta la salida, que sería la última estación.
 
 Formalmente, tenemos un digrafo rotulado, con peso en los ejes, y cada nodo esta identificado por un número desde el uno hasta la cantidad de nodos. Nuestro objetivo es encontrar el camino mínimo, devolviendo el tiempo y su conjunto de nodos.
 
 
 \subsection{Explicación de la solución}
 
-   En esta sección explicaremos por que el problema dado se puede adapatar al algoritmo de camino mínimo de Dijkstra.
- La precondición que el algoritmo pide es que no tenga ejes negativos. Como el peso de los ejes esta definido como el tiempo que se tarda de llegar del nodo de origen al nodo de llegada podemos asegurarnos que nunca vamos a tener una entrada, que nos importe, que tenga un eje con peso negativo.
+   Explicaremos por qué el problema dado se puede adapatar al algoritmo de camino mínimo de Dijkstra.
+ La precondición que el algoritmo pide es que no tenga ejes negativos. Como el peso de los ejes está definido como el tiempo que se tarda de llegar del nodo origen al nodo llegada podemos asegurarnos que nunca vamos a tener una entrada de datos válida que tenga un eje con peso negativo.
 
 \subsubsection{Pseudocódigo}
 
@@ -434,7 +430,7 @@ Formalmente, tenemos un digrafo rotulado, con peso en los ejes, y cada nodo esta
 	\end{algorithmic}
 \end{algorithm}
 
-	Como no se sabe mucho de que input acepta el algoritmo, es decir, puede perfectamente un digrafo decidimos que era importante aclarar con el pseudocodigo de la lectura de datos como creamos la matriz de adyacencia. Como es un digrafo la convencion que tomaremos es que dada una posición M$_{ij}$ i es el origen y j es el destino. Luego en vez de solo representar el peso del eje tambien tenemos martcado cual es el predecesor, se inicializa los valores con valores que nunca vamos a tomar para saber si ese eje pertenece al grafo o no.
+	Como no se sabe mucho de qué input acepta el algoritmo, es decir, puede perfectamente ser un digrafo, decidimos que era importante aclarar con el pseudocódigo de la lectura de datos como creamos la matriz de adyacencia. Como es un digrafo la convención que tomaremos es que dada una posición M$_{ij}$ i es el origen y j es el destino. Luego en vez de sólo representar el peso del eje también tenemos marcado cuál es el predecesor. Se inicializa los valores con valores que nunca vamos a tomar para saber si ese eje pertenece al grafo o no.
 
 \begin{algorithm}[H]{\textbf{CaminoMinimo}(MatrizAdy: Matriz(Nat, Nat) , estaciones: vector$<$Nat$>$)}
 	\begin{algorithmic}[1]
