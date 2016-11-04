@@ -246,9 +246,17 @@ void Correr(int rep, ofstream & res, string test, int c, int f, int p){
 		Solucion(nodos, ejes, paredes);
 		end = rdtsc();
 		elapsed_secs += end - begin;
-		ejes.clear();
-		nodos.clear();
-		res<<" & "<<elapsed_secs;
+        res<<" & "<<elapsed_secs;
+        for(auto eje: ejes){
+            delete eje;
+        }
+        for (auto nodo: nodos){
+            delete nodo;
+        }
+        ejes.clear();
+        nodos.clear();
+        nodos.shrink_to_fit();
+        ejes.shrink_to_fit();
 	}
 	res<<"\n";
 }
@@ -311,14 +319,13 @@ void MantengoValoresCambioDestino(int rep){
 		 Correr(rep, res, ts,c ,f, p);
 
 	 }
-
 }
 
 void MantengoValoresAumentoCantParedes(int rep){
 	int f, c, p;
 	ofstream res("SolucionesAumentoParedesConstante.txt");
 	f = c = 20;
-	p = 50;
+	p = 15;
 	vector<Nodo *> nodos;
 	vector<Eje *> ejes;
 	for(int i = p; i< (f-2)*(c-2)-3; i++){
@@ -330,8 +337,16 @@ void MantengoValoresAumentoCantParedes(int rep){
 			Solucion(nodos, ejes, paredes);
 			end = rdtsc();
 			elapsed_secs += end - begin;
+            for(auto eje: ejes){
+                delete eje;
+            }
+            for (auto nodo: nodos){
+                delete nodo;
+            }
 			ejes.clear();
 			nodos.clear();
+            nodos.shrink_to_fit();
+            ejes.shrink_to_fit();
 			}
 		elapsed_final = elapsed_secs / rep;
 		res << f << '|' << c << '|' << p + i << '|' << elapsed_final << endl;
@@ -402,8 +417,16 @@ void testCompConexas(int rep, int puedoRomper, int cantCompCon){
 			sol = sol +solpar;
 		}
 		res<<sol<<" \n";
-		nodos.clear();
-		ejes.clear();
+        for(auto eje: ejes){
+            delete eje;
+        }
+        for (auto nodo: nodos){
+            delete nodo;
+        }
+        ejes.clear();
+        nodos.clear();
+        nodos.shrink_to_fit();
+        ejes.shrink_to_fit();
 
 	}
 }
@@ -456,8 +479,16 @@ void testSoloFilas(int rep){
 			sol = sol +solpar;
 		}
 		res<<sol<<" \n";
-		nodos.clear();
-		ejes.clear();
+        for(auto eje: ejes){
+            delete eje;
+        }
+        for (auto nodo: nodos){
+            delete nodo;
+        }
+        ejes.clear();
+        nodos.clear();
+        nodos.shrink_to_fit();
+        ejes.shrink_to_fit();
 
 	}
 }
@@ -527,8 +558,16 @@ void testSoloFilasConComp(int rep, int puedoRomper){
 			sol = sol +solpar;
 		}
 		res<<sol<<" \n";
-		nodos.clear();
-		ejes.clear();
+        for(auto eje: ejes){
+            delete eje;
+        }
+        for (auto nodo: nodos){
+            delete nodo;
+        }
+        ejes.clear();
+        nodos.clear();
+        nodos.shrink_to_fit();
+        ejes.shrink_to_fit();
 
 	}
 }
@@ -582,8 +621,16 @@ void testSoloColumnas(int rep){
 			sol = sol +solpar;
 		}
 		res<<sol<<" \n";
-		nodos.clear();
-		ejes.clear();
+        for(auto eje: ejes){
+            delete eje;
+        }
+        for (auto nodo: nodos){
+            delete nodo;
+        }
+        ejes.clear();
+        nodos.clear();
+        nodos.shrink_to_fit();
+        ejes.shrink_to_fit();
 
 	}
 
@@ -654,8 +701,16 @@ void testSoloColumnasConComp(int rep, int puedoRomper){
 			sol = sol +solpar;
 		}
 		res<<sol<<" \n";
-		nodos.clear();
-		ejes.clear();
+        for(auto eje: ejes){
+            delete eje;
+        }
+        for (auto nodo: nodos){
+            delete nodo;
+        }
+        ejes.clear();
+        nodos.clear();
+        nodos.shrink_to_fit();
+        ejes.shrink_to_fit();
 
 	}
 }
@@ -664,13 +719,13 @@ void testSoloColumnasConComp(int rep, int puedoRomper){
 
 int main(int argc, char *argv[]) {
 
-  MantengoValoresAumentoCantParedes(1);
-  cout<<"1/7"<<endl;
-  MantengoValoresCambioDestino(1);
-  cout<<"2/7"<<endl;
-  testCompConexas(1, 1, 100);
+  //MantengoValoresAumentoCantParedes(10);
+  //cout<<"1/7"<<endl;
+//MantengoValoresCambioDestino(30);
+ // cout<<"2/7"<<endl;
+  testCompConexas(5, 10, 50);
   cout<<"3/7"<<endl;
- testSoloFilas(1);
+ /*testSoloFilas(1);
   cout<<"4/7"<<endl;
   testSoloFilasConComp(1, 0);
   cout<<"5/7"<<endl;
@@ -679,5 +734,6 @@ int main(int argc, char *argv[]) {
   testSoloColumnasConComp(1, 0);
 
   cout<<"7/7"<<endl;
+  */
   return 0;
 }

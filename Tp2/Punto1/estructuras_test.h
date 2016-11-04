@@ -56,7 +56,10 @@ public:
         ejejes.push_back(e);
         contadorDeEjes++;
     };
-
+    ~Nodo(){
+        ejejes.clear();
+        ejejes.shrink_to_fit();
+    };
 private:
     int contadorDeEjes;
 };
@@ -346,7 +349,7 @@ void clonarUltimoNivel(vector<Nodo *> &nodos, vector<Eje *> &ejes) {
   int nivelAnterior = nodos.back()->nivel;
   int nivelNuevo = nivelAnterior + 1;
   int tam = nodos.size() - 1;
-  int indices = nodos.size() + tamanioNivel;
+  //int indices = nodos.size() + tamanioNivel;
   int tamanioNodos = nodos.size();
   int tamanioEjes = ejes.size();
   while (tam > -1 && nodos[tam]->nivel == nivelAnterior) {
@@ -354,45 +357,46 @@ void clonarUltimoNivel(vector<Nodo *> &nodos, vector<Eje *> &ejes) {
     tamanioNivel++;
   }
 
-  for (int i = 0; i < tamanioNivel; i++) {
+  for (register  int i = 0; i < tamanioNivel; i++) {
     Nodo *n = nodos[tamanioNodos - tamanioNivel + i];
     Nodo *nuevo = new Nodo(tamanioNivel + n->indice, nivelNuevo, n->esPared);
     nuevo->esFinal = n->esFinal;
     nodos.push_back(nuevo);
   }
 
-  for (int i = 0; i < tamanioEjes; i++) {
+  for (register  int i = 0; i < tamanioEjes; i++) {
     Eje *e = ejes[i];
     if (e->n1->nivel == e->n2->nivel && e->n1->nivel == nivelAnterior) {
       Eje *nuevoEje =
           new Eje(tamanioEjes + i, e->peso, nodos[tamanioNivel + e->n1->indice],
                   nodos[tamanioNivel + e->n2->indice]);
-      nodos[nuevoEje->n1->indice]->ejes.push(nuevoEje);
+//      nodos[nuevoEje->n1->indice]->ejes.push(nuevoEje);
       nodos[nuevoEje->n1->indice]->pushearEje(nuevoEje);
-      nodos[nuevoEje->n2->indice]->ejes.push(nuevoEje);
+//      nodos[nuevoEje->n2->indice]->ejes.push(nuevoEje);
       nodos[nuevoEje->n2->indice]->pushearEje(nuevoEje);
       ejes.push_back(nuevoEje);
     }
   }
-  for (int i = 0; i < tamanioNivel; i++) {
+  for (register int i = 0; i < tamanioNivel; i++) {
     Nodo *n = nodos[tamanioNodos-tamanioNivel+i];
     if (n->esPared) {
-      for (int j = 0; j < n->ejejes.size(); j++) {
+      for (register  int j = 0; j < n->ejejes.size(); j++) {
         Eje *e = n->ejejes[j];
         if (e->n1->nivel == e->n2->nivel && e->n1->nivel == nivelAnterior) {
           Nodo *otroNodo = e->dameElOtroNodoPorfa(n);
           Eje *nuevoEje =
               new Eje(tamanioEjes + tamanioEjes + i, e->peso, nodos[tamanioNivel + n->indice],
                        otroNodo);
-          nodos[nuevoEje->n1->indice]->ejes.push(nuevoEje);
+//          nodos[nuevoEje->n1->indice]->ejes.push(nuevoEje);
           nodos[nuevoEje->n1->indice]->pushearEje(nuevoEje);
-          nodos[nuevoEje->n2->indice]->ejes.push(nuevoEje);
+//          nodos[nuevoEje->n2->indice]->ejes.push(nuevoEje);
           nodos[nuevoEje->n2->indice]->pushearEje(nuevoEje);
           ejes.push_back(nuevoEje);
         }
       }
     }
   }
-
+  nodos.shrink_to_fit();
+  ejes.shrink_to_fit();
 }
         #endif

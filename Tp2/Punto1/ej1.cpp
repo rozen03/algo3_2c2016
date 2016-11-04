@@ -42,6 +42,7 @@ int Bfs(vector<Nodo *> &nodos) {
 	list.push(prim);
 	int next = 0;
 	// BFS normal, salvo los if del for anidado.
+	vector<Eje *> ejesNodin;
 	while (!list.empty()) {
 		tuple<int, int> aux = list.front();
 		list.pop();
@@ -55,7 +56,7 @@ int Bfs(vector<Nodo *> &nodos) {
 			//cout<<"quiero ver cual es el nodo que estoy actualizando"<<endl;
 			//cout<<DarLetra(nodin)<<" su indice "<<nodin -> indice << " su nivel "<<nodin -> nivel;
 			//cout<<" es final? "<< nodin -> esFinal << " esPared? "<< nodin -> esPared<<endl;
-			vector<Eje *> ejesNodin = nodin->ejejes;
+			ejesNodin = nodin->ejejes;
 			// me fijo si es final, si lo es corto el bfs por que ya encontre la
 			// primer solucion y ya marque todo lo que tenia que marcar.
 			if (nodin->esFinal) {
@@ -105,6 +106,14 @@ int Bfs(vector<Nodo *> &nodos) {
 			break;
 		}
 	}
+
+//	ejesNodin.clear();
+//	ejesNodin.shrink_to_fit();
+//	pred.clear();
+//	orden.clear();
+//	pred.shrink_to_fit();
+//	orden.shrink_to_fit();
+
 	return res;
 }
 
@@ -144,7 +153,7 @@ int Solucion(vector<Nodo *> &nodos, vector<Eje *> &ejes, int p) {
 	// not not not // como res va a ir cambiando creo una copia, si es igual no
 	// había solucion.
 	int nores = res;
-	for (int i = 0; i < p; i++) {
+	for (register int i = 0; i < p; i++) {
 		//mostrarNiveles(nodos,p, f, c);
 		clonarUltimoNivel(nodos, ejes);
 	}
