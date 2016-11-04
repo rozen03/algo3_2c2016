@@ -137,7 +137,7 @@ Este algoritmo es un bfs clásico, con dos agregados. Por un lado, en la línea 
 			\State \quad \quad incremento tamanioDelUltimoNivel
 		\State \quad finMientras
 		\State \quad Para i desde 0 hasta tamanioDelUltimoNivel
-		  	\State \quad \quad nuevoNodo $\gets$copia de n
+		  	\State \quad \quad nuevoNodo $\gets$copia de n+i
 			\State \quad \quad indice del nuevoNodo$\gets$ indice de n + tamanioDelUltimoNivel
 			\State \quad \quad agrego nuevoNodo al final de aux
 		\State \quad Fin Para
@@ -158,24 +158,24 @@ Este algoritmo es un bfs clásico, con dos agregados. Por un lado, en la línea 
 	\end{algorithmic}
 \end{algorithm}
 
-
+El objetivo de este algoritmo es clonar el grafo de manera particular, de modo de terminar con un grafo que simule la acción de romper una pared, pasando a otro nivel. El primer ciclo (línea 4) cuenta cuántos nodos tiene el grafo original. Luego arma un nuevo nivel copiando los nodos del nivel anterior, y agregándolos a la lista de nodos. En los siguientes ciclos se copian los ejes. Si en el nivel anterior dos nodos estaba conectados entre si, lo estarán e el nuevo nivel. Si uno de ellos es pared, se conecta la habitación del nivel anterior con la pared del nuevo nivel.
 
 \subsection{Demostración de Correctitud}
-Para demostrar que este algoritmo devuelve lo pedido, podemos ver que todos los movimientos en el tablero estan representados por la posibilidad(o no) de visitar a un vecino. De esta manera, todos los caminos posibles(y sólo esos) están considerados a la hora de hacer bfs.\\
+Para demostrar que este algoritmo devuelve lo pedido, podemos ver que todos los movimientos entre habitaciones están representados por la posibilidad(o no) de visitar a un vecino. De esta manera, todos los caminos posibles(y sólo esos) están considerados a la hora de hacer bfs.\\
 Movimientos legales:\\
 \\
 Moverse de una habitación a otra; corresponde a 2 nodos $``$habitación$"$ adyacentes. Como en todos los niveles creados esta adyacencia se mantiene, este movimiento siempre es posible.\\
 \\
-Romper una pared; corresponde a un $``$cambio de nivel$"$. Pasas de un nodo $``$habitación$"$ de nivel i a un nodo $``$pared$"$ de nivel i+1. Como existen P niveles, se pueden observar todos los caminos distintos, rompiendo las paredes en distintas situaciones. Notar que el algoritmo explícitamente prohíbe estos movimientos en el mismo nivel, para evitar falsos resultados.\\
+Romper una pared; corresponde a un $``$cambio de nivel$"$. Se pasa de un nodo $``$habitación$"$ de nivel i a un nodo $``$pared$"$ de nivel i+1. Como existen P niveles, se pueden observar todos los caminos distintos, rompiendo las paredes en distintas situaciones. Notar que el algoritmo explícitamente prohíbe moverse a una pared en el mismo nivel, para evitar falsos resultados.\\
 \\
-Moverse de una pared a otro lado; este caso está siempre conectado en un mismo nivel, y con una guarda en el bfs para evitar la vuelta.
+Moverse de una pared a otro lado; este caso está siempre conectado en un mismo nivel, y con una guarda en el bfs para evitar la vuelta meniconada en el caso anterior.
 
 \subsection{Demostración de Complejidad}
 Para poder probar que este algoritmo cumple la complejidad pedida, vamos a demostrar que en el grafo final(luego de la clonación) los ejes son, como mucho, ocho veces la cantidad de nodos.
 Podemos ver que, por un lado, en el grafo sin clonar, cada nodo puede tener dos(si está en una de las cuatro esquinas del tablero) tres(en los bordes) o cuatro(en el medio) ejes. Además, a la hora de clonar, creas un nuevo eje si y sólo si los adyacentes son distintos. Es decir, una habitación y una pared. De esta manera, el caso máximo de vecinos que puede tener un nodo es si todos sus vecinos son del otro tipo, tanto si es una habitación rodeada de paredes, o una pared rodeada de habitaciones.
 %Si recuperamos este ejercicio(je) estaria bueno poner una representacion de esto.
 
-Una vez pasado por eso, vemos que todos los ciclos de $ClonarUltimoNivel$ tienen complejidad $O(n)$, con n siendo los nodos. Como todos los elementos de la matriz menos los bordes son nodos, es lo mismo decir que la complejidad es $\mathcal{O}$(F*C). En la solución, por un lado se aplica $ClonarUltimoNivel$ p veces (dando una complejidad de $\mathcal{O}$(F*C*P) ), y luego se aplica bfs sobre el grafo clonado. El grafo clonado tiene $n*p$ nodos, con una cantidad de ejes acotado por lo mencionado anteriormente, 	llegando a una complejidad de $\mathcal{O}$(F*C*P). En conclusión, el algoritmo propuesto tiene una complejidad de $\mathcal{O}$(F*C*P), cumpliendo con la cota pedida.
+Una vez pasado por eso, vamos a analizar la función $clonarUltimoNivel$. Como todos los elementos de la matriz menos los bordes son nodos, es lo mismo decir que la complejidad es $\mathcal{O}$(F*C). En la solución, por un lado se aplica $ClonarUltimoNivel$ p veces (dando una complejidad de $\mathcal{O}$(F*C*P) ), y luego se aplica bfs sobre el grafo clonado. El grafo clonado tiene $n*p$ nodos, con una cantidad de ejes acotado por lo mencionado anteriormente, 	llegando a una complejidad de $\mathcal{O}$(F*C*P). En conclusión, el algoritmo propuesto tiene una complejidad de $\mathcal{O}$(F*C*P), cumpliendo con la cota pedida.
 \subsection{Experimentación, resultado y análisis }
 Para el análisis de este algortimo lo que hicimos fue separar las mediciones en dos casos, teniendo fc y p variable.Esto significa que tomamos laberintos cuyo tamaño estaba fijo y fuimos midiendo el algoritmo
 aumentando el valor de P paulativamente.
