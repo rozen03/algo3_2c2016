@@ -47,7 +47,7 @@
 En este problema los viajeros encuentran un mapa de un laberinto señalando algún lugar con una x, sin embargo no todos los puntos están conectados. Ellos quisieran llegar a ese lugar caminando lo menos posible. Además, pueden esforzarse para romper una cantidad determinada de paredes. Nos piden que, de ser posible, encontremos la manera que caminen lo mínimo posible
 \\
 \\
-Formalmente podemos modelar el problema utilzando un grafo que contiene nodos ``especiales"(las paredes). Se busca la distancia entre dos nodos, pasando como mucho por p nodos especiales.
+Formalmente podemos modelar el problema utilzando un grafo que contiene nodos ``especiales"(las paredes). Se busca la distancia mínima entre dos nodos pasando como mucho por p nodos especiales.
 
 \subsection{Explicación de la solución}
 Podemos dividir la resolución en tres partes: la primera, donde interpretamos la entrada y generamos un primer grafo, en el cual las habitaciones y paredes son nodos, y dos nodos son adyacentes si y sólo si sus casillas originales lo son. En la segunda parte copiaremos el primer grafo tantas veces como paredes se puedan romper, de manera que la acción de romper una pared esta representada por un cambio de nivel en el grafo. Así, cada nivel muestra cuántas paredes fueron atravesadas, y los $p+1$ nodos finales, los finales con p paredes atravesadas.
@@ -61,7 +61,7 @@ Podemos dividir la resolución en tres partes: la primera, donde interpretamos l
 
 
 
-En la tercera parte, vamos a aplicar un bfs modificado para calcular las distancias del nodo origen a todos los demás nodos. Entre las modificaciones se incluyen unos $``$movimientos ilegales$"$ . Por un lado, no está permitido pasar a un nivel menor al que uno se encuentra. Además, no es correcto mover de un nodo $``$habitación$"$ a un nodo $``$pared$"$ en el mismo nivel. Estas son acciones que en nuestro modelo no tienen correlación con ninguna situación del problema, y que podrían generar camínos mínimos incorrectos. 
+En la tercera parte, vamos a aplicar un bfs modificado para calcular las distancias del nodo origen a todos los demás nodos. Entre las modificaciones se incluyen unos $``$movimientos ilegales$"$ . Por un lado, no está permitido pasar a un nivel menor al que uno se encuentra. Además, no es posible mover de un nodo $``$habitación$"$ a un nodo $``$pared$"$ en el mismo nivel. Estas son acciones que en nuestro modelo no tienen correlación con ninguna situación del problema, y que podrían generar caminos mínimos incorrectos. 
 \\
 \\
 Por último, se calcula la distancia mínima entre todos los nodos finales copiados. Si no existe un camino posible a ninguno de los nodos finales en todos los niveles, el algoritmo devuelve -1
@@ -233,26 +233,26 @@ Estuvimos reusando estructuras en cada iteracion, y se iba agraandando y agranda
 
 En este problema nuestros arqueólogos quieren recorrer todas las salas, para ello pueden romper las paredes. Sin embargo, romperlas no cuesta el mismo esfuerzo para todas. Teniendo un mapa con los esfuerzos cuantificados del 1 al 9 desean saber cuál es el mínimo esfuerzo que deben hacer para cumplir su objetivo.
 
-Formalmente, podemos modelar este problema con grafos. Teniendo un grafo con peso se desea encontrar el árbol generador mínimo y devolver la sumatoria del peso de todos sus ejes.
+Formalmente, podemos modelar este problema con grafos: teniendo un grafo con pesos en los ejes se desea encontrar el árbol generador mínimo y devolver la sumatoria del peso de todos sus ejes.
 
 \subsection{Explicación de la solución}
 
-Nuestra entrada es un ``mapa" que contiene `` . ", $``\# "$ y números, es decir una matriz que en cada posición tiene alguno de esos simbolos. los puntos representan lugares caminables. Cada punto lo representamos con un nodo. los números son las paredes que se pueden romper y los numerales son las paredes irrompibles. Los nodos pueden conectarse a otros nodos que estén vertical o horizontalmente al mismo sí son continuos o tienen una pared rompible en el medio.
+Nuestra entrada es un mapa que contiene `` . ", $``\# "$ y números. Es decir una matriz que en cada posición tiene alguno de esos simbolos. los puntos representan lugares caminables. Cada punto lo representamos con un nodo. Los números son las paredes que se pueden romper y los numerales son las paredes irrompibles. Los nodos pueden conectarse a otros nodos que estén vertical o horizontalmente al mismo si son continuos o tienen una pared rompible en el medio.
 
-Definimos una clase eje que tiene como propiedad punteros a los nodos de cada extremo y un peso que representa cuanto cuesta romper la pared que existe entre ellos. Si dos salas son continuas, es decir no tienen un número o numeral en el medio el eje que las une tendrá peso cero. Sí entre dos nodos hay un número, ese será el peso del eje que los une. De haber un numeral, como esa pared es irrompible, no habrá un eje que una a esos nodos.
+Definimos al eje que tiene como propiedad punteros a los nodos de cada extremo y un peso que representa cuánto cuesta romper la pared que existe entre ellos. Si dos salas son continuas, es decir no tienen un número o numeral en el medio el eje que las une, tendrá peso cero. Si entre dos nodos hay un número, ese será el peso del eje que los une. De haber un numeral, como esa pared es irrompible, no habrá un eje que una a esos nodos.
 
 \\
-Ahora, teniendo el conjunto de todos los ejes y utilizamos el algoritmo de Kruskal para obtener el árbol generador mínimo, y retornar el valor total del mismo. 
+Ahora, teniendo el conjunto de todos los ejes utilizamos el algoritmo de Kruskal para obtener el árbol generador mínimo, y retornar el valor total del mismo. 
 \\
-Para implementar Kruskal, utilizamos la implementación de dsu vista en clase. De esta forma agregamos dos modificaciones:
-guardamos un entero en el cual ir sumando el peso de cada arista elegida para devolver como resultado y utilizamos las funciones de DSU para poder identificar cuando no hay resultado y devolver -1. Presentaremos ese fragmento del algoritmo en el pseudocodigo ya que lo consideramos relevante.
+Para implementar Kruskal, utilizamos la implementación de DSU vista en clase. Agregamos dos modificaciones:
+guardamos un entero en el cual ir sumando el peso de cada arista elegida para devolver como resultado, y utilizamos las funciones de DSU para poder identificar cuando no hay resultado y devolver -1. Presentaremos ese fragmento del algoritmo en el pseudocódigo ya que lo consideramos relevante.
 
 \subsubsection{Pseudocódigo}
 
 \begin{algorithm}[H]{\textbf{solucion}(int n, vecor$<$ejes$>$ arist)}
 	\begin{algorithmic}[1]
 		\State \quad ColaDePrioidad$<$ejes$>$ aristas \Comment $\mathcal{O}(1)$
-		\State \quad Mientras aristas $!= \emptyset $ \Comment $\mathcal{O}(m)$
+		\State \quad Mientras aristas $\not = \emptyset $ \Comment $\mathcal{O}(m)$
 		\State \qquad Tomar cada eje de arist e insertarlo en aristas \Comment $\mathcal{O}(log(m))$ esta es la complejidad que toma en c++ el ordenamiento.
 		\State \quad finMientras
 		\State \quad int res= Kruskal(aristas,n)  \Comment $\mathcal{O}(mlog(n) + n)$
@@ -282,14 +282,14 @@ guardamos un entero en el cual ir sumando el peso de cada arista elegida para de
 
 \subsubsection{Demostración de Correctitud}
 
-Este problema lo modelamos con grafos de modo tal que cada habitación caminable es un nodo conectado a otros mediante sus ejes. Los mismos, de haber una pared en el medio tendrán peso igual al costo de destruirla y, de no haber pared, tendrán peso cero. Si entre dos nodos hay una pared indestructible esos nodos no podrán conectarse, es decir no existe una arista entre ellos.
+Este problema lo modelamos de modo tal que cada habitación caminable es un nodo conectado a otros mediante sus ejes. Los mismos, de haber una pared en el medio tendrán peso igual al costo de destruirla y, de no haber pared, tendrán peso cero. Si entre dos nodos hay una pared indestructible esos nodos no podrán conectarse, es decir no existe una arista entre ellos.
 \\
-Un arbol generador mínimo de un grafo es un subgrafo que contiene todos los nodos del mismo y es un árbol  que cumple que la sumatoria de los pesos de sus ejes es la menor posible. Es decir, no existe otro arbol generador tal que la sumatoria del peso de sus ejes sea mayor que la del AGM.
-También podemos garantizar que es mejor que cualquier subgrafo no arbol, ya que implicaría que tiene circuitos, y esto siempre agregaría peso de más ya que habría aristas de más.
+Un árbol generador mínimo de un grafo es un subgrafo que contiene todos los nodos del mismo y es un árbol que cuya sumatoria de los pesos de sus ejes es la menor posible. Es decir, no existe otro arbol generador tal que la sumatoria del peso de sus ejes sea menor que la del AGM.
+También podemos garantizar que es mejor que cualquier subgrafo no árbol, ya que implicaría que tiene circuitos, y esto siempre agregaría peso de más habiendo aristas innecesarias.
 \\
-En este problema nos piden que demos el esfuerzo minimo que nos cuesta acceder a todas las habitaciones. Por como modelamos el problema y las definiciones previas, esto es equivalente a encontrar el conjunto de aristas que conectan todos los nodos tal que minimzen la sumatoria de sus pesos.
-Como los ejes que conectan nuestros nodos continuos tienen peso cero, entonces no gregan peso a nuestro resultado. Es decir, que el resultado será el mismo que si las consideraramos como una sola sala.  
- Entonces podemos ver que lo que nos están pidiendo es un AGM. Si el problema tiene solución, para encontrar el AGM del grafo utilizamos el algoritmo Kruskal. La demostración de correctitud de este algoritmo puede encontrase en el paper de  J.B. Kruskal, ``On the shortest spanning subtree of a graph and the traveling salesman problem. Proceedings of the American Mathematical Society, Volume 7, pp. 48-50, 1956".
+Nos piden que demos el esfuerzo mínimo que nos cuesta tener acceso a todas las habitaciones. Por como modelamos el problema y las definiciones previas, esto es equivalente a encontrar el conjunto de aristas que conectan todos los nodos tal que minimzen la sumatoria de sus pesos.
+Como los ejes que conectan nuestros nodos continuos tienen peso cero, entonces no agregan peso a nuestro resultado. Es decir, que el resultado será el mismo que si las consideraramos como una sola sala.  
+ Entonces podemos ver que lo que se nos está pidiendo es un AGM. Si el problema tiene solución, para encontrar el AGM del grafo utilizamos el algoritmo Kruskal. La demostración de correctitud de este algoritmo puede encontrase en el paper de  J.B. Kruskal, ``On the shortest spanning subtree of a graph and the traveling salesman problem. Proceedings of the American Mathematical Society, Volume 7, pp. 48-50, 1956".
 \\
 En caso de que el problema no tenga solución utilizamos las funciones de dsu para devolver -1. Basicamente, si no existe un AGM posible es porque el grafo no es conexo. En este caso exisitrán un par de nodos que al finalizar el kruskal no tendrán el mismo nodo padre. 
 
