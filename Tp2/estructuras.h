@@ -340,10 +340,6 @@ void clonarUltimoNivel(vector<Nodo *> &nodos, vector<Eje *> &ejes) {
     tam--;
     tamanioNivel++;
   }
-  // tamanioNivel++;
-  // nodos.resize(tamanioNodos+tamanioNivel,NULL);
-  // ejes.resize(2*tamanioEjes,NULL);
-
   //suma al tamaño de este nivel los nodos que estaban en el nivel 
   //anterior ya que tambien forman parte del neuvo nivel
   for (int i = 0; i < tamanioNivel; i++) {
@@ -372,13 +368,10 @@ void clonarUltimoNivel(vector<Nodo *> &nodos, vector<Eje *> &ejes) {
       ejes[tamanioEjes + i] = nuevoEje;
     }
   }
-
-
 //conecto la capa anterior con la nueva
-
-  for (int i = 0; i < tamanioNivel; i++) {
-    Nodo *n = nodos[i];
  //si es pared  tengo que juntar?
+  for (int i = 0; i < tamanioNivel; i++) {
+    Nodo *n = nodos[tamanioNodos-tamanioNivel+i];
     if (n->esPared) {
       //recorro los ejes de ese nodo 
 
@@ -386,15 +379,13 @@ void clonarUltimoNivel(vector<Nodo *> &nodos, vector<Eje *> &ejes) {
         Eje *e = n->ejejes[j];
         if (e->n1->nivel == e->n2->nivel && e->n1->nivel == nivelAnterior) {
           Nodo *otroNodo = e->dameElOtroNodoPorfa(n);
-          int nuevaPared= tamanioNodos +i;
-          int viejaCosa= tamanioNodos-tamanioNivel+ otroNodo->indice;
-          
-          //eje(indice, peso, n1,n2 )
-           Eje *nuevoEje = new Eje(tamanioEjes + tamanioEjes + i, e->peso, nodos[nuevaPared],nodos[viejaCosa]);
-          nodos[nuevaPared]->ejes.push(nuevoEje);
-          nodos[nuevaPared]->pushearEje(nuevoEje);
-          nodos[viejaCosa]->ejes.push(nuevoEje);
-          nodos[viejaCosa]->pushearEje(nuevoEje);
+          Eje *nuevoEje =
+              new Eje(tamanioEjes + tamanioEjes + i, e->peso, nodos[tamanioNivel + n->indice],
+                       otroNodo);
+          nodos[nuevoEje->n1->indice]->ejes.push(nuevoEje);
+          nodos[nuevoEje->n1->indice]->pushearEje(nuevoEje);
+          nodos[nuevoEje->n2->indice]->ejes.push(nuevoEje);
+          nodos[nuevoEje->n2->indice]->pushearEje(nuevoEje);
           ejes.push_back(nuevoEje);
           // cout<<ejes.size()<<endl;
         }
