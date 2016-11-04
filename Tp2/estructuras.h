@@ -353,11 +353,11 @@ void clonarUltimoNivel(vector<Nodo *> &nodos, vector<Eje *> &ejes) {
       Eje *nuevoEje =
           new Eje(tamanioEjes + i, e->peso, nodos[tamanioNivel + e->n1->indice],
                   nodos[tamanioNivel + e->n2->indice]);
-      nodos[ nuevoEje->n1->indice]->ejes.push(nuevoEje);
-      nodos[ nuevoEje->n1->indice]->pushearEje(nuevoEje);
-      nodos[ nuevoEje->n2->indice]->ejes.push(nuevoEje);
-      nodos[ nuevoEje->n2->indice]->pushearEje(nuevoEje);
-      ejes[tamanioEjes + i] = nuevoEje;
+      nodos[nuevoEje->n1->indice]->ejes.push(nuevoEje);
+      nodos[nuevoEje->n1->indice]->pushearEje(nuevoEje);
+      nodos[nuevoEje->n2->indice]->ejes.push(nuevoEje);
+      nodos[nuevoEje->n2->indice]->pushearEje(nuevoEje);
+      ejes.push_back(nuevoEje);
     }
   }
   for (int i = 0; i < tamanioNivel; i++) {
