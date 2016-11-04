@@ -14,7 +14,7 @@ En el informe
 			Se profundizó la explicación sobre la funcion clonarUltimoNivel.
 
 	ej2		
-	modificaciones en pseudocodigo, explicación de la solución, y demostración de complejidad 
+	Correcciones de ortografía en el informe, modificaciones en pseudocodigo, explicación de la solución, y demostración de complejidad 
 
 	ej 3
 
@@ -26,5 +26,3 @@ En el Bfs creamos un int nodofinal ya que como cambiamos la estructura del grafo
 En la solucion, en vez de hacer un nivel por vez, creamos el grafo con todos los niveles y de ahi buscamos la solución.
 
 
-punto 2:
-Correciones en informe, modificaciones en pseudocodigo, explicación de la solución, y demostración de complejidad.
