@@ -338,7 +338,6 @@ void clonarUltimoNivel(vector<Nodo *> &nodos, vector<Eje *> &ejes) {
     tam--;
     tamanioNivel++;
   }
-  cout<<"tamanio ultimo nivel: "<<tamanioNivel<<endl;
 
   for (int i = 0; i < tamanioNivel; i++) {
     Nodo *n = nodos[tamanioNodos - tamanioNivel + i];
@@ -362,17 +361,14 @@ void clonarUltimoNivel(vector<Nodo *> &nodos, vector<Eje *> &ejes) {
   }
   for (int i = 0; i < tamanioNivel; i++) {
     Nodo *n = nodos[tamanioNodos-tamanioNivel+i];
-
     if (n->esPared) {
       for (int j = 0; j < n->ejejes.size(); j++) {
         Eje *e = n->ejejes[j];
         if (e->n1->nivel == e->n2->nivel && e->n1->nivel == nivelAnterior) {
           Nodo *otroNodo = e->dameElOtroNodoPorfa(n);
           Eje *nuevoEje =
-              new Eje(tamanioEjes + tamanioEjes + i, e->peso, n,
-                      nodos[tamanioNivel + otroNodo->indice]);
-          //nodos[tamanioNivel + e->n1->indice]->ejes.push(nuevoEje);
-          //nodos[tamanioNivel + e->n1->indice]->pushearEje(nuevoEje);
+              new Eje(tamanioEjes + tamanioEjes + i, e->peso, nodos[tamanioNivel + n->indice],
+                       otroNodo);
           nodos[nuevoEje->n1->indice]->ejes.push(nuevoEje);
           nodos[nuevoEje->n1->indice]->pushearEje(nuevoEje);
           nodos[nuevoEje->n2->indice]->ejes.push(nuevoEje);

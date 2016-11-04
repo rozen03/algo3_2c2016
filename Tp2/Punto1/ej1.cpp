@@ -148,19 +148,7 @@ int Solucion(vector<Nodo *> &nodos, vector<Eje *> &ejes, int p, int f, int c) {
 		//mostrarNiveles(nodos,p, f, c);
 		clonarUltimoNivel(nodos, ejes);
 	}
-	int bajan=0;
-	//for(auto nod : nodos){
-	auto nod = nodos[0];
-		for(auto eje: nod->ejejes){
-			//if (eje->n1->nivel != eje->n2->nivel){
-				cout<<"nudus "<<eje->n1->indice<<"->"<< eje->n2->indice<<" ";
-				cout<<"luvuls "<<eje->n1->nivel<<" "<< eje->n2->nivel<<endl;
-			//	bajan++;
 
-			//}
-		}
-	//}
-	cout<<"Bajan="<<bajan<<endl;
 	res = Bfs(nodos);
 	if (res == nores) {
 		res = -1;
