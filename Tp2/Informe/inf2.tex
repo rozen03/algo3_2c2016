@@ -141,11 +141,9 @@ Este algoritmo es un bfs clásico, con dos agregados. Por un lado, en la línea 
 			\State \quad \quad indice del nuevoNodo$\gets$ indice de n + tamanioDelUltimoNivel
 			\State \quad \quad agrego nuevoNodo al final de aux
 		\State \quad Fin Para
-		\State \quad Para e en ejes
-		 	\State \quad \quad Si e tiene ambos ejes incidentes a nodos en el ultimonivel
-		 		\State \quad \quad \quad nuevoEje$\gets$copia del eje, pero incidente a los nodos del nuevo nivel
-		  		\State \quad \quad \quad  Agrego nuevoEje al final de ejes
-		 	\State \quad \quad fin Si
+		\State \quad Para e en ejes  incidentes a nodos en el último nivel
+		 	\State \quad \quad nuevoEje$\gets$copia del eje, pero incidente a los nodos del nuevo nivel
+		  	\State \quad \quad Agrego nuevoEje al final de ejes
 		\State \quad Fin Para
 		\State \quad Para n en nodos
 		  	\State \quad \quad  Si n es pared
@@ -176,10 +174,13 @@ Podemos ver que, por un lado, en el grafo sin clonar, cada nodo puede tener dos(
 %Si recuperamos este ejercicio(je) estaria bueno poner una representacion de esto.
 \\
 \\
-Una vez pasado por eso, vamos a analizar la función $clonarUltimoNivel$. Mirando el pseudocodigo vemos varios ciclos:
+Una vez pasado por eso, vamos a analizar la función $clonarUltimoNivel$. Todas las operaciones excepto los ciclos son $\mathcal{O}$(1). Mirando el pseudocodigo vemos varios ciclos:
 \\Mientras exista n y el nivel de n=nivel. Como cada nivel esta conformado por una copia del grafo original, esto es $\mathcal{O}$(n) \\
-  Para i desde 0 hasta tamanioDelUltimoNivel. Recíen vimos como el primer ciclo hace como mucho n iteraciones. Además, ese ciclo incrementa en 1 a tamanioDeUltimoNivel. Entonces este ciclo también tiene complejidad $\mathcal{O}$(n)
- Siempre que miramos Como todos los elementos de la matriz menos los bordes son nodos, es lo mismo decir que la complejidad es $\mathcal{O}$(F*C). En la solución, por un lado se aplica $ClonarUltimoNivel$ p veces (dando una complejidad de $\mathcal{O}$(F*C*P) ), y luego se aplica bfs sobre el grafo clonado. El grafo clonado tiene $n*p$ nodos, con una cantidad de ejes acotado por lo mencionado anteriormente, 	llegando a una complejidad de $\mathcal{O}$(F*C*P). En conclusión, el algoritmo propuesto tiene una complejidad de $\mathcal{O}$(F*C*P), cumpliendo con la cota pedida.
+  Para i desde 0 hasta tamanioDelUltimoNivel. Recíen vimos como el primer ciclo hace como mucho n iteraciones. Además, ese ciclo incrementa en 1 a tamanioDeUltimoNivel. Entonces este ciclo también tiene complejidad $\mathcal{O}$(n)\\
+  Para e en ejes. Como demostramos, los ejes están acotados por los nodos, y este ciclo recorre todos los ejes del último nivel. Entonces, la complejidad de este ciclo es $\mathcal{O}$(n)\\
+  El último ciclo anidado nos haría pensar en una complejidad $\mathcal{O}$(n*e). Sin embargo, los vecinos de n son como mucho 8, por lo demostrado previamente. Entonces este ciclo comparte la misma complejidad que los demas: $\mathcal{O}$(n)\\
+Como todos los ciclos son $\mathcal{O}$(n), y las operaciones son $\mathcal{O}$(1), la complejidad de todo el algortmo es $\mathcal{O}$(n). \\
+ Podemos ver que la cantidad de nodos de nuestro grafo esta acotada por la cantidad de columnas y filas en la matriz original, entonces podemos decir que $\mathcal{O}$(n) $\in$ $\mathcal{O}$(F*C). En la solución, por un lado se aplica $ClonarUltimoNivel$ p veces (dando una complejidad de $\mathcal{O}$(F*C*P) ), y luego se aplica bfs sobre el grafo clonado. El grafo clonado tiene $n*p$ nodos, con una cantidad de ejes acotado por lo mencionado anteriormente, 	llegando a una complejidad de $\mathcal{O}$(F*C*P). En conclusión, el algoritmo propuesto tiene una complejidad de $\mathcal{O}$(F*C*P), cumpliendo con la cota pedida.
 \subsection{Experimentación, resultado y análisis }
 Para el análisis de este algortimo lo que hicimos fue separar las mediciones en dos casos, teniendo fc y p variable.Esto significa que tomamos laberintos cuyo tamaño estaba fijo y fuimos midiendo el algoritmo
 aumentando el valor de P paulativamente.

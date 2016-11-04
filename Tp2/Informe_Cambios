@@ -3,13 +3,15 @@ Aca van a ir todos los cambios que hagamos.
 En el informe
 	ej 1
 		Introducción
-			sSe mejoró la formulación de algunas oraciones
+			Se mejoró la formulación de algunas oraciones
 		Explicación de la solución
 			Antes decía p-1 nodos finales; ahora dice p+1. Hay un nodo final por cada cantidad de paredes rotas, de 0 a p.
 			La explicación de los movimientos ilegales se reformuló.
 		Pseudocódigos
 			Al cambiar el código, cambiamos el pseudocodigo, tambien habia cosas que faltaban.
-
+			Se añadió una pequeña explicación del pseudocódigo.
+		Demostración complejidad:
+			Se profundizó la explicación sobre la funcion clonarUltimoNivel.
 
 	ej2		
 	modificaciones en pseudocodigo, explicación de la solución, y demostración de complejidad 
@@ -25,4 +27,4 @@ En la solucion, en vez de hacer un nivel por vez, creamos el grafo con todos los
 
 
 punto 2:
-Correciones en informe, modificaciones en pseudocodigo, explicación de la solución, y demostración de complejidad
+Correciones en informe, modificaciones en pseudocodigo, explicación de la solución, y demostración de complejidad.
