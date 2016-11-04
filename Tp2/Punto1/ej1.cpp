@@ -52,9 +52,9 @@ int Bfs(vector<Nodo *> &nodos) {
 			orden[nod] = next;
 			next++;
 			Nodo *nodin = nodos[nod];
-			cout<<"quiero ver cual es el nodo que estoy actualizando"<<endl;
-			cout<<DarLetra(nodin)<<" su indice "<<nodin -> indice << " su nivel "<<nodin -> nivel;
-			cout<<" es final? "<< nodin -> esFinal << " esPared? "<< nodin -> esPared<<endl;
+			//cout<<"quiero ver cual es el nodo que estoy actualizando"<<endl;
+			//cout<<DarLetra(nodin)<<" su indice "<<nodin -> indice << " su nivel "<<nodin -> nivel;
+			//cout<<" es final? "<< nodin -> esFinal << " esPared? "<< nodin -> esPared<<endl;
 			vector<Eje *> ejesNodin = nodin->ejejes;
 			// me fijo si es final, si lo es corto el bfs por que ya encontre la
 			// primer solucion y ya marque todo lo que tenia que marcar.
@@ -66,9 +66,9 @@ int Bfs(vector<Nodo *> &nodos) {
 			for (unsigned int i = 0; i < ejesNodin.size(); i++) {
 				Eje *ejeaux = ejesNodin[i];
 				Nodo *nodoaux = ejeaux->dameElOtroNodoPorfa(nodin);
-				cout<<"quiero ver que nodos agrego o no "<<endl;
-			    cout<<DarLetra(nodoaux)<<" su indice "<<nodoaux -> indice << " su nivel "<<nodoaux -> nivel;
-			    cout<<" es final? "<< nodoaux -> esFinal << " esPared? "<< nodoaux -> esPared<<endl;
+				//cout<<"quiero ver que nodos agrego o no "<<endl;
+			    //cout<<DarLetra(nodoaux)<<" su indice "<<nodoaux -> indice << " su nivel "<<nodoaux -> nivel;
+			    //cout<<" es final? "<< nodoaux -> esFinal << " esPared? "<< nodoaux -> esPared<<endl;
 				int acomp = nodoaux->indice;
 				// si ya lo tagee o estoy bajando a una instancia invalida, reconstruir
 				// una pared
@@ -78,11 +78,11 @@ int Bfs(vector<Nodo *> &nodos) {
 				// subir de nivel
 				if (nodoaux->nivel == nodin->nivel && nodoaux->esPared)
 				continue;
-				cout<<"agregue al nodo "<<acomp<<endl;
+				//cout<<"agregue al nodo "<<acomp<<endl;
 				tuple<int, int> arist(acomp, nod);
 				list.push(arist);
 			}
-			cout<<"Voy al prox elemento de la lista"<<endl;
+			//cout<<"Voy al prox elemento de la lista"<<endl;
 		}
 	}
 
@@ -149,8 +149,8 @@ int Solucion(vector<Nodo *> &nodos, vector<Eje *> &ejes, int p, int f, int c) {
 		clonarUltimoNivel(nodos, ejes);
 	}
 	int bajan=0;
-	for(auto nod : nodos){
-	//auto nod = nodos[0];
+	//for(auto nod : nodos){
+	auto nod = nodos[0];
 		for(auto eje: nod->ejejes){
 			//if (eje->n1->nivel != eje->n2->nivel){
 				cout<<"nudus "<<eje->n1->indice<<"->"<< eje->n2->indice<<" ";
@@ -159,7 +159,7 @@ int Solucion(vector<Nodo *> &nodos, vector<Eje *> &ejes, int p, int f, int c) {
 
 			//}
 		}
-	}
+	//}
 	cout<<"Bajan="<<bajan<<endl;
 	res = Bfs(nodos);
 	if (res == nores) {

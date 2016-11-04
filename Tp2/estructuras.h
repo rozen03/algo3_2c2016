@@ -342,7 +342,7 @@ void clonarUltimoNivel(vector<Nodo *> &nodos, vector<Eje *> &ejes) {
 
   for (int i = 0; i < tamanioNivel; i++) {
     Nodo *n = nodos[tamanioNodos - tamanioNivel + i];
-    Nodo *nuevo = new Nodo(tamanioNodos + n->indice, nivelNuevo, n->esPared);
+    Nodo *nuevo = new Nodo(tamanioNivel + n->indice, nivelNuevo, n->esPared);
     nuevo->esFinal = n->esFinal;
     nodos.push_back(nuevo);
   }
@@ -351,12 +351,12 @@ void clonarUltimoNivel(vector<Nodo *> &nodos, vector<Eje *> &ejes) {
     Eje *e = ejes[i];
     if (e->n1->nivel == e->n2->nivel && e->n1->nivel == nivelAnterior) {
       Eje *nuevoEje =
-          new Eje(tamanioEjes + i, e->peso, nodos[tamanioNodos + e->n1->indice],
-                  nodos[tamanioNodos + e->n2->indice]);
-      nodos[tamanioNodos + e->n1->indice]->ejes.push(nuevoEje);
-      nodos[tamanioNodos + e->n1->indice]->pushearEje(nuevoEje);
-      nodos[tamanioNodos + e->n2->indice]->ejes.push(nuevoEje);
-      nodos[tamanioNodos + e->n2->indice]->pushearEje(nuevoEje);
+          new Eje(tamanioEjes + i, e->peso, nodos[tamanioNivel + e->n1->indice],
+                  nodos[tamanioNivel + e->n2->indice]);
+      nodos[ nuevoEje->n1->indice]->ejes.push(nuevoEje);
+      nodos[ nuevoEje->n1->indice]->pushearEje(nuevoEje);
+      nodos[ nuevoEje->n2->indice]->ejes.push(nuevoEje);
+      nodos[ nuevoEje->n2->indice]->pushearEje(nuevoEje);
       ejes[tamanioEjes + i] = nuevoEje;
     }
   }
@@ -369,19 +369,20 @@ void clonarUltimoNivel(vector<Nodo *> &nodos, vector<Eje *> &ejes) {
         if (e->n1->nivel == e->n2->nivel && e->n1->nivel == nivelAnterior) {
           Nodo *otroNodo = e->dameElOtroNodoPorfa(n);
           Eje *nuevoEje =
-              new Eje(tamanioEjes + tamanioEjes + i, e->peso, nodos[j],
-                      nodos[tamanioNodos + otroNodo->indice]);
-          nodos[tamanioNodos + e->n1->indice]->ejes.push(nuevoEje);
-          nodos[tamanioNodos + e->n1->indice]->pushearEje(nuevoEje);
-          nodos[tamanioNodos + e->n2->indice]->ejes.push(nuevoEje);
-          nodos[tamanioNodos + e->n2->indice]->pushearEje(nuevoEje);
+              new Eje(tamanioEjes + tamanioEjes + i, e->peso, n,
+                      nodos[tamanioNivel + otroNodo->indice]);
+          //nodos[tamanioNivel + e->n1->indice]->ejes.push(nuevoEje);
+          //nodos[tamanioNivel + e->n1->indice]->pushearEje(nuevoEje);
+          nodos[nuevoEje->n1->indice]->ejes.push(nuevoEje);
+          nodos[nuevoEje->n1->indice]->pushearEje(nuevoEje);
+          nodos[nuevoEje->n2->indice]->ejes.push(nuevoEje);
+          nodos[nuevoEje->n2->indice]->pushearEje(nuevoEje);
           ejes.push_back(nuevoEje);
-          // cout<<ejes.size()<<endl;
         }
       }
     }
   }
- 
+
 }
 
 #endif
