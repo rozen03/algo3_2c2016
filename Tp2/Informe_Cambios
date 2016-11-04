@@ -1,6 +1,7 @@
 Aca van a ir todos los cambios que hagamos. 
 
 En el informe
+	Correciones de ortografía.
 	ej 1
 		Introducción
 			Se mejoró la formulación de algunas oraciones
@@ -12,13 +13,15 @@ En el informe
 			Se añadió una pequeña explicación del pseudocódigo.
 		Demostración complejidad:
 			Se profundizó la explicación sobre la funcion clonarUltimoNivel.
+		Experimentación:
+			Se realizaron más test. Gráficos nuevos. Más explicaciones.	
 
 	ej2		
-	Correcciones de ortografía en el informe, modificaciones en pseudocodigo, explicación de la solución, y demostración de complejidad 
+		Modificaciones en pseudocodigo, explicación de la solución, y demostración de complejidad 
 
 	ej 3
 
-	Se corrigio experimentación. Se cambio el utltimo grafico y se agrego la figura 12.
+		Se corrigio experimentación. Se cambio el utltimo grafico y se agrego la figura 12.
 
 Código punto 1:
 Nos dimos cuenta que el algoritmo presentado no cumplia la complejidad pedida, ya que hacia un bfs por cada clonación, en vez de clonar p veces y hacer el bfs sobre todo el grafo.
