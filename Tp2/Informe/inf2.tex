@@ -430,8 +430,8 @@ Formalmente, tenemos un digrafo rotulado, con peso en los ejes, y cada nodo esta
 	\end{algorithmic}
 \end{algorithm}
 
-	Como no se sabe mucho de qué input acepta el algoritmo, es decir, puede perfectamente ser un digrafo, decidimos que era importante aclarar con el pseudocódigo de la lectura de datos como creamos la matriz de adyacencia. Como es un digrafo la convención que tomaremos es que dada una posición M$_{ij}$ i es el origen y j es el destino. Luego en vez de sólo representar el peso del eje también tenemos marcado cuál es el predecesor. Se inicializa los valores con valores que nunca vamos a tomar para saber si ese eje pertenece al grafo o no.
-
+	Como no se sabe mucho de qué input acepta el algoritmo, es decir, puede perfectamente ser un digrafo, decidimos que era importante aclarar con el pseudocódigo de la lectura de datos cómo creamos la matriz de adyacencia. Como es un digrafo la convención que tomaremos es que dada una posición M$_{ij}$ i es el origen y j es el destino. Luego en vez de sólo representar el peso del eje también tenemos marcado cuál es el predecesor. Se inicializa los valores con valores que nunca vamos a tomar para saber si ese eje pertenece al grafo o no.
+\\
 \begin{algorithm}[H]{\textbf{CaminoMinimo}(MatrizAdy: Matriz(Nat, Nat) , estaciones: vector$<$Nat$>$)}
 	\begin{algorithmic}[1]
 
@@ -462,7 +462,7 @@ Formalmente, tenemos un digrafo rotulado, con peso en los ejes, y cada nodo esta
  	\end{algorithmic}
 \end{algorithm}
 
-	CaminoMinimo en la parte 2 es dijkstra y en la parte 3 es recorrer la matriz para saber cuales son las estaciones que recorre el camino mínimo.
+	CaminoMinimo en la segunda parte implementa dijkstra y en la tercera parte recorre la matriz para saber cuáles son las estaciones que recorre el camino mínimo.
 
 
 
@@ -471,18 +471,18 @@ Formalmente, tenemos un digrafo rotulado, con peso en los ejes, y cada nodo esta
 \newpage
 
 \subsubsection{Demostración de Correctitud}
-Como podemos apreciar el pseudocódigo es el algoritmo Dijsktra, entonces su correctitud se desprende de la demostración de correctitud de dijkstra que se puede encontrar en varios libros de algoritmos, en nuestro caso vamos a referenciar al libro titulado ``Introduction to Algorithms, Second Edition"  de Thomas H Cormen, Charles E. Leiserson, entre otros. La demostracion se encuentra en el capítulo 24, subsección 3 bajo el título ``Theorem 24.6: (Correctness of Dijkstra's algorithm)".
+Como podemos apreciar el pseudocódigo es el algoritmo Dijsktra, entonces su correctitud se desprende de la demostración de correctitud de Dijkstra que se puede encontrar en varios libros de algoritmos, en nuestro caso vamos a referenciar al libro titulado ``Introduction to Algorithms, Second Edition"  de Thomas H Cormen, Charles E. Leiserson, entre otros. La demostracion se encuentra en el capítulo 24, subsección 3 bajo el título ``Theorem 24.6: (Correctness of Dijkstra's algorithm)".
 
 \subsubsection{Demostración de Complejidad}
 
 %No pude tabular, ni con \quad ni con \tab ni con $\>$ ni con $\-$ pero parece ser un problema de el salto de linea.
-Si analizamos con atención el pseudocódigo, tenemos tres secciones que se pueden analizar por separado y sumando sus complejidades obtendremos la complejidad total del algoritmo. La primer parte y la segunda parte combinadas son Dijkstra, la primera es la creación de la matriz y la segunda son los cálculos, la tercera parte es poner la información del camino mínimo. En los próximos párrafos nos vamos a referir a la cantidad de nodos en el gráfico como N.
+Si analizamos con atención el pseudocódigo, tenemos tres secciones que se pueden analizar por separado; y combinando sus complejidades obtendremos la complejidad total del algoritmo. La primer parte y la segunda parte combinadas son Dijkstra, la primera es la creación de la matriz y la segunda son los cálculos, la tercera parte es colocar la información del camino mínimo. En los próximos párrafos nos vamos a referir a la cantidad de nodos en el gráfico como N.
 
 \\
 \begin{description}
 \item[Parte 1] La primera parte a analizar es la creación de la matriz, al ser una matriz de adyacencia, la cantidad de filas es N y la cantidad de columnas es N, actualizar todos los valores es recorrer toda la matriz haciendo que la complejidad sea $\Theta$(N²)
 \\
-\item[Parte 2] En esta sección se encuentran dos ciclos anidados, podemos observar que el ciclo exterior hace N iteraciones ya que termina cuando el conjunto de nodos del grafo tiene el mismo cardinal que el conjunto de ``nodosSeguros'' y este último aumenta en uno por cada iteración. Dentro del ciclo principal tenemos dos operaciones que debemos tener en cuenta; sacar el nodo de la lista de ``nodosNoSeguros'' y el ciclo interno. Sacar un nodo de la lista nos va a costar encontrar el nodo y luego eliminarlo. Por la estructura que utlizamos eliminarlo no nos aporta complejidad, pero encontrar el nodo es una búsqueda lineal, es decir $\mathcal{O}$(N). La última parte que nos falta analizar para poder determinar la complejidad de los ciclos anidados es el ciclo interno. Cada iteración recorre N posiciones de la matriz, aquellas que podrían ser un eje válido, aunque hace distintas cosas dependiendo de si es un eje válido o no, el interior del ciclo aporta una complejidad constante. Reuniendo toda la información, el interior del ciclo externo nos aporta una complejidad $\mathcal{O}$(N) e itera N veces, es decir que la complejidad de la segunda parte es $\mathcal{O}$(N²).
+\item[Parte 2] En esta sección se encuentran dos ciclos anidados, podemos observar que el ciclo exterior hace N iteraciones ya que termina cuando el conjunto de nodos del grafo tiene el mismo cardinal que el conjunto de ``nodosSeguros'', y este último aumenta en uno por cada iteración. Dentro del ciclo principal tenemos dos operaciones que debemos tener en cuenta; sacar el nodo de la lista de ``nodosNoSeguros'' y el ciclo interno. Sacar un nodo de la lista nos va a costar encontrar el nodo y luego eliminarlo. Por la estructura que utlizamos eliminarlo no nos aporta complejidad, pero encontrar el nodo es una búsqueda lineal, es decir $\mathcal{O}$(N). La última parte que nos falta analizar para poder determinar la complejidad de los ciclos anidados es el ciclo interno. Cada iteración recorre N posiciones de la matriz, aquellas que podrían ser un eje válido, aunque hace distintas cosas dependiendo de si es un eje válido o no, el interior del ciclo aporta una complejidad constante. Reuniendo toda la información, el interior del ciclo externo nos aporta una complejidad $\mathcal{O}$(N) e itera N veces, es decir que la complejidad de la segunda parte es $\mathcal{O}$(N²).
 \\
 \item[Parte 3] Nos encontramos un ciclo que lee los datos de la matriz y guarda en un conjunto los nodos que tenemos que atravezar para tener el camino mínimo. La cantidad máxima de iteraciones que hace este ciclo es N, el razonamiento detrás de esta afirmación es que los ejes no tienen pesos negativos, si existe un camino mínimo, este no va a tener ciclos ya que pasar por un ciclo solo aumentaría el peso total del camino, y un camino sin ciclos en un grafo con n nodos tiene a lo sumo n-1 ejes, ya que el camino puede llegar a pasar por todos los nodos. Podemos concluir que el ciclo hace n iteraciones en el peor caso, es decir que la tercer parte es $\mathcal{O}$(N)
 \\
