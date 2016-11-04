@@ -169,8 +169,6 @@ int Solucion(vector<Nodo *> &nodos, vector<Eje *> &ejes, int p) {
 		MostrarCopia(nodos);
 		clonarUltimoNivel(nodos, ejes);
 	}
-	cout<<"el nivel es "<<p<<endl;
-	MostrarCopia(nodos);
 	res = Bfs(nodos);
 	if (res == nores) {
 		res = -1;
@@ -185,6 +183,6 @@ int main(int argc, char *argv[]) {
   p = parsearInput(nodos,ejes,1);
   int res = Solucion(nodos, ejes, p);
   cout<<res<<endl;
-
   return 0;
  }
+//

@@ -10,6 +10,8 @@
 
 using namespace std;
 
+/*
+
 void testConexo1camino(int rep){
 	ofstream res("Conexo1cam.txt");
 	for(int j = 10; j<251; j+= 10){
@@ -145,7 +147,7 @@ void testConexoVariosCaminos(int rep){
 	}
 	res.close();
 }
-*/
+
 
 void test200ejes(int rep){
 	int kn = (199*198)/2;
@@ -288,12 +290,12 @@ void testDensidades(int rep){
 	res<<i<<" & "<<solArb<<" & "<<solArbOpt<<" & "<<solCua<<" & "<<solCuaOpt;
 	res<<" & "<<solCin<<" & "<<solCinOpt<<" & "<<solKn<<" & "<<solKnOpt<<"\n";
 }
-
+*/
 //Tengo que modificar digrafo para que el kkn sea mejor caso(descomentar un if)
 //Acordate que son dos, uno con camino aleatorio y otro con camino minimo de dos estaciones 1 a n.
 void testKn(int rep){
 	ofstream res("Kn.txt");
-	for(int i = 10; i<251; i += 10){
+	for(int i = 10; i<501; i += 10){
 		vector<vector<tuple<int, int> > > matriz;
 		vector<int> estaciones;
 		matriz = CrearConexo(i, (i*i)-i);
@@ -321,11 +323,12 @@ void testKn(int rep){
 	res.close();
 }
 
+
 int main(){
  //testConexo1camino(1);
  //testNoConexo(1);
  //testConexoVariosCaminos(1);
  //testCompConexas(1);
  //test200ejes(1);
-   testKn(1);
+   testKn(300);
 }
