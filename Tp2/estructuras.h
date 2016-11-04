@@ -326,8 +326,6 @@ int parsearInput(vector<Nodo *> &nodos, vector<Eje *> &ejes, int ejercicio) {
   }
   return min(p, countParedes);
 }
-
-// nodos tiene todos los nodos del grafo, ejes tiene todos los ejes del grafo
 void clonarUltimoNivel(vector<Nodo *> &nodos, vector<Eje *> &ejes) {
   int tamanioNivel = 0;
   int nivelAnterior = nodos.back()->nivel;
@@ -340,42 +338,31 @@ void clonarUltimoNivel(vector<Nodo *> &nodos, vector<Eje *> &ejes) {
     tam--;
     tamanioNivel++;
   }
-  //suma al tamaño de este nivel los nodos que estaban en el nivel 
-  //anterior ya que tambien forman parte del neuvo nivel
+
   for (int i = 0; i < tamanioNivel; i++) {
     Nodo *n = nodos[tamanioNodos - tamanioNivel + i];
-    Nodo *nuevo = new Nodo(tamanioNodos + n->indice, nivelNuevo, n->esPared);
+    Nodo *nuevo = new Nodo(tamanioNivel + n->indice, nivelNuevo, n->esPared);
     nuevo->esFinal = n->esFinal;
-    // nodos[tamanioNodos+n->indice]= nuevo;
     nodos.push_back(nuevo);
   }
 
-  //creo los nodos de este nivel copiamdo la informacion de los 
-  //nodos menos los ejes y le modifico el nivel 
-
   for (int i = 0; i < tamanioEjes; i++) {
     Eje *e = ejes[i];
-    //si el eje conecta a dos nodos del mismo nivel, y ademas son del 
-    //nivel anterior copia el eje entre ellos
     if (e->n1->nivel == e->n2->nivel && e->n1->nivel == nivelAnterior) {
       Eje *nuevoEje =
-          new Eje(tamanioEjes + i, e->peso, nodos[tamanioNodos + e->n1->indice],
-                  nodos[tamanioNodos + e->n2->indice]);
-      nodos[tamanioNodos + e->n1->indice]->ejes.push(nuevoEje);
-      nodos[tamanioNodos + e->n1->indice]->pushearEje(nuevoEje);
-      nodos[tamanioNodos + e->n2->indice]->ejes.push(nuevoEje);
-      nodos[tamanioNodos + e->n2->indice]->pushearEje(nuevoEje);
-      ejes[tamanioEjes + i] = nuevoEje;
+          new Eje(tamanioEjes + i, e->peso, nodos[tamanioNivel + e->n1->indice],
+                  nodos[tamanioNivel + e->n2->indice]);
+      nodos[nuevoEje->n1->indice]->ejes.push(nuevoEje);
+      nodos[nuevoEje->n1->indice]->pushearEje(nuevoEje);
+      nodos[nuevoEje->n2->indice]->ejes.push(nuevoEje);
+      nodos[nuevoEje->n2->indice]->pushearEje(nuevoEje);
+      ejes.push_back(nuevoEje);
     }
   }
-//conecto la capa anterior con la nueva
- //si es pared  tengo que juntar?
   for (int i = 0; i < tamanioNivel; i++) {
     Nodo *n = nodos[tamanioNodos-tamanioNivel+i];
     if (n->esPared) {
-      //recorro los ejes de ese nodo 
-
-      for (int j = 0; j < n->ejejes.size(); j++){
+      for (int j = 0; j < n->ejejes.size(); j++) {
         Eje *e = n->ejejes[j];
         if (e->n1->nivel == e->n2->nivel && e->n1->nivel == nivelAnterior) {
           Nodo *otroNodo = e->dameElOtroNodoPorfa(n);
@@ -387,11 +374,11 @@ void clonarUltimoNivel(vector<Nodo *> &nodos, vector<Eje *> &ejes) {
           nodos[nuevoEje->n2->indice]->ejes.push(nuevoEje);
           nodos[nuevoEje->n2->indice]->pushearEje(nuevoEje);
           ejes.push_back(nuevoEje);
-          // cout<<ejes.size()<<endl;
         }
       }
     }
   }
+
 }
 
 #endif
