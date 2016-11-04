@@ -134,7 +134,7 @@ void mostrarNiveles(vector<Nodo *> nodos, int p, int f, int c){
 	}
 }
 
-int Solucion(vector<Nodo *> &nodos, vector<Eje *> &ejes, int p, int f, int c) {
+int Solucion(vector<Nodo *> &nodos, vector<Eje *> &ejes, int p) {
 	int res = p * 2 * nodos.size();
 	// quiero una res que sea lo mas grande posible, probablemente no tengo
 	// que multiplicar por p para tener algo lo suficientemente grande pero por
@@ -156,16 +156,16 @@ int Solucion(vector<Nodo *> &nodos, vector<Eje *> &ejes, int p, int f, int c) {
 	return res;
 }
 
-int main(int argc, char *argv[]) {
+int moin(int argc, char *argv[]) {
   std::vector<Nodo *> nodos;
   std::vector<Eje *> ejes;
   int f=0;
   int c=0;
   int p = 1;
-  p = parsearInput(nodos,ejes,1);
+  //p = parsearInput(nodos,ejes,1);
   //cout<< f <<" "<<c<<endl;
-  int res = Solucion(nodos, ejes, p, f, c);
-  cout<<res<<endl;
+  //int res = Solucion(nodos, ejes, p);
+  //cout<<res<<endl;
   return 0;
  }
 //
