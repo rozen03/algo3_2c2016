@@ -60,11 +60,14 @@ La clase Nodo tiene  un entero $``indice"$ como identificador de cada nodoy un e
 
 Nuestra solución es utiliza la técnica de Backtracking para resolver el problema. Utilizamos variables globales (las cuales estan mencionadas en el pseudocodigo) ya que las utilizamos todo el tiempo en las funciones de nuestra resolución. De esta forma evitamos pasarlas cada vez como parametros de entrada.
 
-Nuestro algoritmo de BT va formando recursivamente todas las soluciones posibles eligiendo gimnasios y pokeparas siempre que esto sea posible. El ciclo principal de la función va desde 0 hasta el Maximo entre el largo de los vectores de Nodos y pokeparadas. De esta forma vamos probando empezar con todos los nodos posibles. Cada vez que se elige un nodo para continuar se vuelve a llamar a la función BT para seguir construyendo la solución, luego se revierten los cambios para probar las demás soluciones. 
+Nuestro algoritmo de BT va formando recursivamente todas las soluciones posibles eligiendo gimnasios y pokeparas siempre que esto sea posible. Estas soluciones "parciales" son guardades en una variable que siempre es comparada con una variable de solución "global". En la misma se guarda siempre el mejor resultado obtenido hasta el momento. El ciclo principal de la función va desde 0 hasta el Maximo entre el largo de los vectores de Nodos y pokeparadas. De esta forma vamos probando empezar con todos los nodos posibles. Cada vez que se elige un nodo para continuar se vuelve a llamar a la función BT para seguir construyendo la solución, luego se revierten los cambios para probar las demás soluciones. 
 
-En nuestro algoritmo, cortamos una posible solución en el momento que supera la solución minima encontrada hasta el momento. De esta forma evitamos seguir ejecutando el algoritmo para una solución que claramente no va a ser la mejor, y así reducimos el tiempo de cómputo.
+En nuestro algoritmo, cortamos una posible solución en el momento que supera la solución global encontrada hasta el momento. De esta forma evitamos seguir ejecutando el algoritmo para una solución que claramente no va a ser la mejor, y así reducimos el tiempo de cómputo.
+
+Actualizamos la solución global, unicamente si logramos recorrer todos los gimnasios. Podemos saber esto, ya que guardamos un entero contando los gimnasios recorridos. De esta forma si la solución queda vacia, sabemos que no existe solución para el problema y podemos devolver -1.
 
 Mientras hacemos la lectura de datos, guardamos la cantidad máxima de pociones que requieren los gimnasios y el total de pociones que se requieren para ganar a todos los gimnasios. De esta forma si la capacidad de la mochila es menor al máximo de las pociones que piden los gimnasios o la cantidad de pociones que se pueden obtener (cantidad de pokeparadas multiplicado por tres) es menor a lo que se necesita para ganar a todos los gimnasios, entonces devolvemos -1 (evitando entrar en el backtracking) ya que el algoritmo no tiene solución. 
+
 
 
 %falta cuandod devuelve -1 salvo esos 2 casos siempre hay solucion?%
@@ -118,6 +121,11 @@ Mientras hacemos la lectura de datos, guardamos la cantidad máxima de pociones 
 
 		\State \quad finSi 
 		\State finDesde
+		\State Si RecorridoGlobal $= \emptyset$
+		\State \quad Devovler -1
+		\State Si no
+		\State \quad Devolver MinGlobal
+		\State finSi
   		
 		
 		
