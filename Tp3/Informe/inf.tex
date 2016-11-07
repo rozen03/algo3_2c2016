@@ -42,9 +42,9 @@
 
 
 \section{Introducción}
-En nuestro problema Brian quiere convertirse en "maestro pokemon" en el menor tiempo posible. Para lograr este objetivo debe ir a todos los "gimnasios" y conquistarlos. Para poder hacerlo, cada gimnasio requiere una cantidad determinada de pociones. Estas pociones pueden obtenerse en las "pokeparadas". Las pokeparadas solo pueden visitarse una vez y de cada visita obtenemos tres pociones.
+En nuestro problema Brian quiere convertirse en ``maestro pokemon'' en el menor tiempo posible. Para lograr este objetivo debe ir a todos los ``gimnasios'' y conquistarlos. Para poder hacerlo, cada gimnasio requiere una cantidad determinada de pociones. Estas pociones pueden obtenerse en las ``pokeparadas''. Las pokeparadas sólo pueden visitarse una vez y de cada visita obtenemos tres pociones.
 
-Formalmente, podemos caracterizar nuestras pokeparadas y  gimnasios como nodos formando un grafo completo, es decir que existen aristas para unir cualquier par de nodo. nuestras aristas deben tener peso, que equivalga a la distancia entre dos nodos. entonces queremos encontrar el camino mínimo que une todo los nodos gimnasios y los nodos pokeparada que hagan falta para poder conquistar todos los gimnasios. 
+Formalmente, podemos caracterizar nuestras pokeparadas y  gimnasios como nodos formando un grafo completo, es decir que existen aristas para unir cualquier par de nodo. nuestras aristas deben tener peso equivalente a la distancia entre dos nodos. Queremos encontrar el camino mínimo que une todos los nodos gimnasios y los nodos pokeparada que sean necesarios para poder conquistar todos los gimnasios. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -53,18 +53,18 @@ Formalmente, podemos caracterizar nuestras pokeparadas y  gimnasios como nodos f
 \subsection{Exlicación de la solución}
 
 Para modelar este problema, creamos dos clases: Nodo y Mochila.
-La clase Mochila contiene dos enteros $``capacidad"$ el cual corresponde con la capacidad de la entrada (k) y $``peso"$ en el cual se guarda la cantidad de pociones que se tiene en cada momento. 
-en el Pseudocogigo se llaman a las funciones DameCapacidad y DamePeso, las mismas devuelven estos valores.
+La clase Mochila contiene dos enteros ``capacidad'' el cual corresponde con la capacidad de la entrada (k) y ``peso'' en el cual se guarda la cantidad de pociones que se tiene en cada momento. 
+en el Pseudocódigo se llaman a las funciones DameCapacidad y DamePeso, las mismas devuelven estos valores.
+\\
+La clase Nodo tiene  un entero ``índice'' como identificador de cada nodoy un entero ``pociones'' en el cual se guardan las pociones que dan las pokeparadas o las que requieren los gimnasios(en este caso el valor es negativo). Además cuenta con un booleano para marcar si ya fue recorrido y dos enteros ``x'' e ``y'' para identificar las coordenadas del nodo.
 
-La clase Nodo tiene  un entero $``indice"$ como identificador de cada nodoy un entero $``pociones"$ en el cual se guardan las pociones que dan las pokeparadas o las que requieren los gimnasios(en este caso el valor es negativo). Ademas cuenta con un booleano para marcar si esta o no recorrido y dos enteros $``x"$ e $``y"$ para identificar las coordenadas del nodo.
+Nuestra solución utiliza la técnica de Backtracking para resolver el problema. Utilizamos variables globales (las cuales estan mencionadas en el pseudocodigo) ya que las necesitamos en todo momento en las funciones de nuestra resolución. De esta forma evitamos copiarlas cada vez como parámetros de entrada.
 
-Nuestra solución es utiliza la técnica de Backtracking para resolver el problema. Utilizamos variables globales (las cuales estan mencionadas en el pseudocodigo) ya que las utilizamos todo el tiempo en las funciones de nuestra resolución. De esta forma evitamos pasarlas cada vez como parametros de entrada.
-
-Nuestro algoritmo de BT va formando recursivamente todas las soluciones posibles eligiendo gimnasios y pokeparas siempre que esto sea posible. Estas soluciones "parciales" son guardades en una variable que siempre es comparada con una variable de solución "global". En la misma se guarda siempre el mejor resultado obtenido hasta el momento. El ciclo principal de la función va desde 0 hasta el Maximo entre el largo de los vectores de Nodos y pokeparadas. De esta forma vamos probando empezar con todos los nodos posibles. Cada vez que se elige un nodo para continuar se vuelve a llamar a la función BT para seguir construyendo la solución, luego se revierten los cambios para probar las demás soluciones. 
+Nuestro algoritmo de BT va formando recursivamente todas las soluciones posibles eligiendo gimnasios y pokeparas siempre que esto sea posible. Estas soluciones ``parciales'' son guardades en una variable que siempre es comparada con una variable de solución ``global''. En la misma se guarda siempre el mejor resultado obtenido hasta el momento. El ciclo principal de la función va desde 0 hasta el máximo entre el largo de los vectores de Nodos y pokeparadas. De esta forma vamos probando empezar con todos los nodos posibles. Cada vez que se elige un nodo para continuar se vuelve a llamar a la función BT para seguir construyendo la solución, luego se revierten los cambios para probar las demás soluciones. 
 
 En nuestro algoritmo, cortamos una posible solución en el momento que supera la solución global encontrada hasta el momento. De esta forma evitamos seguir ejecutando el algoritmo para una solución que claramente no va a ser la mejor, y así reducimos el tiempo de cómputo.
 
-Actualizamos la solución global, unicamente si logramos recorrer todos los gimnasios. Podemos saber esto, ya que guardamos un entero contando los gimnasios recorridos. De esta forma si la solución queda vacia, sabemos que no existe solución para el problema y podemos devolver -1.
+Actualizamos la solución global, únicamente si logramos recorrer todos los gimnasios. Podemos saber esto ya que guardamos un entero contando los gimnasios recorridos. De esta forma si la solución queda vacia, sabemos que no existe solución para el problema y podemos devolver -1.
 
 Mientras hacemos la lectura de datos, guardamos la cantidad máxima de pociones que requieren los gimnasios y el total de pociones que se requieren para ganar a todos los gimnasios. De esta forma si la capacidad de la mochila es menor al máximo de las pociones que piden los gimnasios o la cantidad de pociones que se pueden obtener (cantidad de pokeparadas multiplicado por tres) es menor a lo que se necesita para ganar a todos los gimnasios, entonces devolvemos -1 (evitando entrar en el backtracking) ya que el algoritmo no tiene solución. 
 
@@ -105,19 +105,19 @@ Mientras hacemos la lectura de datos, guardamos la cantidad máxima de pociones 
 		\State finSi
 		\State Desde i=0 hasta i$<$Max($|$Gimnasios$|$,$|$PokeParadas$|$)
 	
-		\State \qquad Si i$< |$Gimnasios$|$
-		\State \qquad \quad gim $\gets$ Gimnasios[i]
-		\State \qquad \quad Si puedoIr(gim)
-		\State \qquad \qquad Voy(gim)
- 		\State \qquad finSi	
+		\State \quad Si i$< |$Gimnasios$|$
+		\State \quad \quad gim $\gets$ Gimnasios[i]
+		\State \quad \quad Si puedoIr(gim)
+		\State \quad \quad \quad Voy(gim)
+ 		\State \quad \quad finSi	
 		\State \quad finSi
 		\State \quad Si i $< |$PokeParadas$|$
-		\State \quad pp $\gets$ Pokeparadas[i]
-		\State \quad PokeParadasRecorridas $\gets$ PokeParadasRecorridas + 1 
+		\State \qquad pp $\gets$ Pokeparadas[i]
+		\State \qquad PokeParadasRecorridas $\gets$ PokeParadasRecorridas + 1 
 		\State \qquad Si puedoIr(pp)
-		\State \qquad Voy(pp) 	
+		\State \qquad \quad Voy(pp) 	
 		\State \qquad finSi
-		\State \quad PokeParadasRecorridas $\gets$ PokeParadasRecorridas - 1 
+		\State \qquad PokeParadasRecorridas $\gets$ PokeParadasRecorridas - 1 
 
 		\State \quad finSi 
 		\State finDesde
@@ -129,7 +129,7 @@ Mientras hacemos la lectura de datos, guardamos la cantidad máxima de pociones 
   		
 		
 		
-		\State finSi
+		\State finSi %%Este me parece que no va
 	\end{algorithmic}
 \end{algorithm}
 
