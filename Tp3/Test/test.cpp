@@ -3,6 +3,7 @@
 #include <fstream>
 #include <chrono>
 #include <limits>
+#include <tuple>
 #include "../Punto1/pto1.cpp"
 #include "../Punto1/pto1A.cpp"
 //#include "../Punto2/Punto2.cpp"
@@ -174,8 +175,8 @@ auto gruposSeparados (vnod gym, vnod pepe){
 
 }
 auto generadorDeEspirales(int a, int b){
-	auto espiral = [x=0,y=0,dx = 0,dy = -1,a=a,b=b]() mutable -> int{ //espiral.. girasol... lo q sea..
-		cout<<x+a<<" "<<y+b<<endl;
+	auto espiral = [x=0,y=0,dx = 0,dy = -1,a=a,b=b]() mutable{ //espiral.. girasol... lo q sea..
+		//cout<<x+a<<" "<<y+b<<endl;
 		if ((x == y) or (x < 0 and x == -y) or (x > 0 and x == 1-y)){
 			int swapy=dx;
 			dx=-dy;
@@ -183,16 +184,19 @@ auto generadorDeEspirales(int a, int b){
 		}
 		x = x+dx;
 		y=y+dy;
-		return 3;
+		return make_tuple(x,y);
 	};
 	return espiral;
 }
-auto
+
 int main(){
 	//RectaPPgim(1, 10);
+	std::vector<tuple<int,int> > v;
 	auto espiral = generadorDeEspirales(20,20);
-
-	for (size_t i = 0; i < 10; i++) {
-		espiral();
+	for (size_t i = 0; i < 100000000; i++) {
+	//	espiral();
+	v.push_back(espiral());
 	}
+	cout<<v.size()<<endl;
+
 }
