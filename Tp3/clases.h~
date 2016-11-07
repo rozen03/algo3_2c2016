@@ -19,7 +19,7 @@ typedef vector<int> vint;
 class Nodo {
 public:
   Nodo(int p, int i, int x, int y);
-  Nodo(Nodo n);
+  Nodo(Nodo n, int i);
   int DameIndice();
   int DamePociones();
   bool Recorrido();

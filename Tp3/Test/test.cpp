@@ -5,13 +5,145 @@
 #include <limits>
 #include "../Punto1/pto1.cpp"
 #include "../Punto1/pto1A.cpp"
-//#include "../Punto2/Punto2.cpp"
+#include "../Punto2/Punto2.cpp"
 //#include "../Punto3/ej3.cpp"
 //#include "../Punto4/pto4.cpp"*/
+
+//Funciones Auxiliares
+//basicamente hace correr y correr podas, guarda el caso en casos.
+void CorrerGeneral(int rep, vnod gim, vnod pp, Mochila moch,ofstream & res, ofstream & casos, ofstream & podas);
+
+//Este correr se encarga de ejecutar los casos con todos los ejercicios
+void Correr(int rep, vnod gim, vnod pokeparadas, Mochila moch, ofstream & res, int nroEj);
+
+//Esto nos deja crear los gimnasios y los nodos sin preocpuarnos por los indices, ya que esta funcion se encarga
+void AsignarIndices(vnod & gim, vnod & pp);
+
+/*esto te dice cuantas pokeparadas te sobran o necesitas, sabiendo cuantas tenes y la capacidad de la mochila.
+pociones de gim tiene cuantas pociones necesita cada gimnasio.
+negativo cuantas te sobran positivo cuantas necesitas.
+*/
+int ElegirSoloNecesarias(vint pocionesDeGim, int cantPP, int capMoch);
+
+//Generadores de casos
+//hace una recta no importa la mochila y el camino mas corrto es caminar la recta.
+void RectaPPgim(int rep, int cantgim);
+
+//Hace una recta, pero la mochila si importa, ya que la cantidad de pokeparadas esta ajustada al maximo.
+void SoloPokeparadasNecesariasRecta(int rep, int cantgim);
 
 using namespace std;
 
 #define ya chrono::high_resolution_clock::now
+
+int ElegirSoloNecesarias(vint pocionesDeGim, int cantPP, int capMoch){
+	//la idea de bucket es ordenar la cantidad de pociones de Gim dependiendo cuantas se requiere.
+	/*
+	 Esto es para sacar bien cuantas se necesita.
+	 capMoch = 5
+	 ej = [1,2,3,1,0]
+	 si lo hago bruto se necesita 8 pokeparadas.
+	 pero se que en la posicion 2 tengo las que necesitan 3, entonces ahi no tengo otra opcion que poner 1 pokeparada.
+	 despues es la posicion 0 necesito 1 ( los que necesitan 0 no tengo que ni pensarlos) y en la 1 necesto 2 pociones, entonces
+	 puedo aparear de a pares, entonces se que tengo que poner 1 por cada par + 1 por el restante (pero tambien esta bueno saber que me quedaron de sobra), es decir solo 2 pokeparadas.
+	 en la posicion 3 necesito 4 pociones, pero por como estuve haciendo las cuentas no necesito dos pp necesito una sola, me sobro una pocion del los pares.
+	 3+2+1 = 6 en un caso chico se reduce poco, pero en mas grandes se tendria que reducir mas, y esto seguro que caga heuristicas.
+	 */
+	vector<int> bucket(capMoch, 0);
+	//meto en el bucket
+	cerr<<"la capacidad es "<<capMoch<<endl;
+	for(int i = 0; i < pocionesDeGim.size(); i++){
+		int pocAux = pocionesDeGim[i];
+		if(pocAux > 0) bucket[pocAux-1]++;
+	}
+	
+	for(int i = 0; i<bucket.size();i++){
+		cerr<<bucket[i]<<" ";
+	}
+	cerr<<endl;
+	/*la deconstruccion del bucket la hago de mas grande a mas chico, ya que es mejor achicar esos casos imaginarse un gimnasio 8, otro 7, otro 2 y otro
+	  1 y 9 de capacidad, si apareo primero el 2 y el 1 necesito 3 para el 8 y 3 para el 7 y 1 para el 2,1 eso nos deja en 7
+	  si apareamos el 1 con el 8 y el 2 con el 7 solo usamos 6 pp y no desperdiciamos ninguna pokebola
+	*/
+	//ppDemas en realidad es cuantas ppnecesitamos, despues hacemos una resta y listo
+	int ppDemas = 0;
+	//primero saco todos los pares que existan
+	for(int i = bucket.size()-1; i >= 0; i--){
+		//va a ser dificil pensarlo con un desplazamiento asi que prefiero tenerlo en su forma original, si... con un poco de cerebro se hace igual, pero no quiero debuggear al pedo
+		int pociones = i+1;
+		int ppNec = pociones /3;
+		if(bucket[i]==0) continue;
+		//se separa en 3 casos, dependiendo del resto
+		if(pociones % 3 == 0){
+			//voy uno a la vez
+			for(int j = 1; j <=bucket[i]; j++) ppDemas += ppNec;
+			cerr<<"modulo 3 agrego "<<ppDemas<<endl;
+			//estas siempre van a llegar a 0 en este for, por que no se acomplan con nadie.
+			bucket[i] = 0;
+		}
+		
+		if(pociones % 3 == 2){
+			//como es division entera, esto me dejaria por debajo de las que necesito, como en este for solo voy a
+			//buscar parejas voy a necesitar la division entera mas 1.
+			ppNec++;
+			//busco los modulo uno que se puedan acoplar, como voy de mas grande a mas chico
+			//nunca va a haber un j mayor que un i que se pueda acoplar.
+			//si esa cantidad de pociones como suma es mas grande que la mochila tambien corta
+			//como voy reduciendo que hay en cada bucket, si termino de achicar i, listo
+			for(int j = 0; j<i && j+1+pociones <=capMoch && bucket[i] != 0; i+=3){
+				//voy hasta que me quede sin j o me quede sin i (lo que hay en i/j)
+				while(bucket[i]>0 && bucket[j]>0){
+					cerr<<"2/3"<<2/3<<" ppNec "<<ppNec;
+					ppDemas += ppNec;
+					cerr<<"voy metiendo por ser modulo 2"<<endl;
+					bucket[i]--;
+					bucket[j]--;
+				}
+			}
+		}
+		
+		if(pociones % 3 == 1){
+			//como es division entera, esto me dejaria por debajo de las que necesito, como en este for solo voy a
+			//buscar parejas voy a necesitar la division entera mas 1.
+			ppNec++;
+			//busco los modulo uno que se puedan acoplar, como voy de mas grande a mas chico
+			//nunca va a haber un j mayor que un i que se pueda acoplar.
+			//si esa cantidad de pociones como suma es mas grande que la mochila tambien corta
+			//como voy reduciendo que hay en cada bucket, si termino de achicar i, listo
+			for(int j = 1; j<i && j+1+pociones <=capMoch && bucket[i] != 0; i+=3){
+				//voy hasta que me quede sin j o me quede sin i (lo que hay en i/j)
+				while(bucket[i]>0 && bucket[j]>0){
+					cerr<<"voy metiendo por ser modulo 1"<<endl;
+					ppDemas += ppNec;
+					bucket[i]--;
+					bucket[j]--;
+				}
+			}
+		}
+	}
+	
+	//Ahora solo quedan cosas que no tienen pares que sumen modulo 3, no se si voy a poder hacerlo tal que me queden las pp justas y necesarias pero bue...
+	int pocQuedan = 0;
+	for(int i = 0; i<bucket.size(); i++){
+		cerr<<"Estoy asignando los no pares, i: "<<i<<endl;
+		for(int j = 1; j <=bucket[i]; j++){
+			cerr<<"cuantos elementos hay en bucket[i]"<<bucket[i]<<endl;
+			if(pocQuedan < i+1){
+				cerr<<"Necesito agregar pp"<<endl;
+				int necesito = ((i+1 - pocQuedan) / 3) + 1;
+				ppDemas += necesito;
+				pocQuedan = 3-i+1;
+			}
+			else{
+				//me sobran pero todavia puedo gastarlas
+				pocQuedan -= i+1;
+			}
+		}
+	}
+	//Ya tengo todas las pp que necesito y todas las que tengo, una resta y estamos
+	cerr<<"las pp que voy a asignar son "<<ppDemas-cantPP<<endl;
+	return ppDemas-cantPP;
+}
 
 void  AsignarIndices(vnod & gim, vnod & pp){
 	vnod gimAux;
@@ -29,6 +161,33 @@ void  AsignarIndices(vnod & gim, vnod & pp){
 	pp = ppAux;
 }
 
+void CorrerGeneral(int rep, vnod gim, vnod pp, Mochila moch, ofstream & res, ofstream & casos, ofstream & podas){
+	int gimTotales = gim.size();
+	int ppTotales = pp.size();
+	if(21 > ppTotales+gimTotales){
+			for(int nroEj = 1; nroEj <= 4; nroEj++){
+				res<<nroEj<<" & "<<gimTotales << " & "<< ppTotales<<" & ";
+				Correr(rep, gim, pp, moch, res, nroEj);
+			}
+			//me va a dar numeros dependiendo de que poda use
+			if(13 > ppTotales+gimTotales){
+				podas << gimTotales << " & "<<ppTotales << " & ";
+				CorrerPodas(gim, pp, moch, podas);
+				podas<<"\n";
+			}
+			for(int i = 0; i<gimTotales;i++) casos<<"("<<gim[i].CordenadaX()<<","<<gim[i].CordenadaY()<<")["<<gim[i].DamePociones()<<"] ";
+			casos<<" & ";
+			for(int i = 0; i< ppTotales;i++) casos<<"("<<pp[i].CordenadaX()<<","<<pp[i].CordenadaY()<<") ";
+			casos<<"\n";
+		}
+		else{
+			for(int nroEj = 2; nroEj <= 4; nroEj++){
+				res<<nroEj<<" & "<<gimTotales << " & "<< ppTotales<<" & ";
+				Correr(rep, gim, pp, moch, res, nroEj);
+			}
+		}
+}
+
 void Correr(int rep, vnod gimnasios, vnod pokeparadas, Mochila moch, ofstream & res, int nroEj){
 	int valor;
 	vector<int> sol;
@@ -37,10 +196,10 @@ void Correr(int rep, vnod gimnasios, vnod pokeparadas, Mochila moch, ofstream & 
 		case 1:
 		foo = &pto1;
 		break;
-		/*case 2:
+		case 2:
 		foo = &pto2;
 		break;
-		case 3:
+		/*case 3:
 		foo = &pto3;
 		break;
 		case 4:
@@ -104,32 +263,51 @@ void RectaPPgim(int rep, int cantgim){
 			pp.push_back(pokeparada);
 		}
 		AsignarIndices(gimnasios, pp);
-		if(21 > pp.size()+gimnasios.size()){
-			for(int nroEj = 1; nroEj <= 4; nroEj++){
-				res<<nroEj<<" & "<<i << " & "<< ppTotales<<" & ";
-				Correr(rep, gimnasios, pp, moch, res, nroEj);
-			}
-			//me va a dar numeros dependiendo de que poda use
-			if(13 > pp.size()+gimnasios.size()){
-				podas << gimnasios.size() << " & "<<pp.size() << " & ";
-				CorrerPodas(gimnasios, pp, moch, podas);
-				podas<<"\n";
-			}
-			for(int i = 0; i<gimnasios.size();i++) casos<<"("<<gimnasios[i].CordenadaX()<<","<<gimnasios[i].CordenadaY()<<")["<<gimnasios[i].DamePociones()<<"] ";
-			casos<<" & ";
-			for(int i = 0; i< pp.size();i++) casos<<"("<<pp[i].CordenadaX()<<","<<pp[i].CordenadaY()<<") ";
-			casos<<"\n";
-		}
-		else{
-			for(int nroEj = 2; nroEj <= 4; nroEj++){
-				res<<nroEj<<" & "<<i << " & "<< ppTotales<<" & ";
-				Correr(rep, gimnasios, pp, moch, res, nroEj);
-			}
-		}
+		
+		CorrerGeneral(rep, gimnasios, pp, moch, res, casos, podas);
 	}
-	res.close();
 }
 
+void SoloPokeparadasNecesariasRecta(int rep, int cantgim){
+	ofstream res("resultadosRectaPPNec.txt");
+	ofstream casos("casosRectaPPNec.txt");
+	ofstream podas("podasRectaPPNec.txt");
+	res<<"pto & cantidad de gimnasios & cantidad de pokeparadas & distancia & resultado & ... tiempos ...& \n";
+	podas<<"cant Gim & cant pp & cantidad de llamadas al BT sin podas & distancia & recorrido";
+	podas<<" & #BT con Poda A & distancia & recorrido & #BT con Poda B & distancia & recorrido";
+	podas<<" & #BT con Poda c & distancia & recorrido & #BT con Poda AB & distancia & recorrido";
+	podas<<" & #BT con Poda AC & distancia & recorrido & #BT con Poda BC & distancia & recorrido";
+	podas<<" & #BT con Poda ABC & distancia & recorrido\n";
+	casos<<"La idea es saber como estan conformados los casos gimansios & pp \n";
+	vnod gim;
+	vnod pp;
+	vint pocionesDeGim;
+	srand(time(NULL));
+	int ppTotales = 0;
+	int capMoch = 15;
+	for(int i = 1; i<=cantgim;i++){
+		int pociones = rand()%capMoch +1;
+		pocionesDeGim.push_back(pociones);
+		int pokeparadas;
+		int gimAgregados = gim.size();
+		int ppAgregadas = pp.size();
+		cerr<<"las pociones que agrego "<<pociones<<" en el gimnasio "<<i<<endl;
+		pokeparadas = ElegirSoloNecesarias(pocionesDeGim, pp.size(), capMoch);
+		cerr<<"las pokeparadas que le voy a asignar son "<<pokeparadas<<endl;
+		int cantidadEnRecta= 0;
+		for(int j = 1; j<= pokeparadas; j++){
+			cantidadEnRecta = gimAgregados + ppAgregadas + j - 1 ;
+			//el Indice no me importa, se reasigna despues.
+			Nodo aux(3, 42, cantidadEnRecta, 0);
+			pp.push_back(aux);
+		}
+		cantidadEnRecta++;
+		Nodo gimAux(-pociones, 42, cantidadEnRecta, 0);
+		gim.push_back(gimAux);
+		AsignarIndices(gim, pp);
+		CorrerGeneral(rep, gim, pp, moch, res, casos, podas);
+	}
+}
 
 /*
 void PrimeroSeVaAlasPPyDespuesGim(){}
@@ -170,6 +348,8 @@ Correr(rep, gimansios, pp, res);
 }
 }
 */
+
+/*
 auto gruposSeparados (vnod gym, vnod pepe){
 
 }
@@ -188,11 +368,17 @@ auto generadorDeEspirales(int a, int b){
 	return espiral;
 }
 auto
+*/
+
 int main(){
 	//RectaPPgim(1, 10);
+	
+	SoloPokeparadasNecesariasRecta(1, 30);
+	
+	/*
 	auto espiral = generadorDeEspirales(20,20);
 
 	for (size_t i = 0; i < 10; i++) {
 		espiral();
-	}
+	}*/
 }

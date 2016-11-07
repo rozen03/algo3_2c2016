@@ -14,11 +14,8 @@ typedef vector<int> vint;
 typedef vector<Nodo > vnod;
 
 //Variables
-Mochila moch(0);
 vint Recorrido;
 double distanciaRecorrida;
-vnod PokeParadas;
-vnod Gimnasios;
 int xactual;
 int yactual;
 //funciones
@@ -30,12 +27,31 @@ void sacar(vnod &vect, int ind);
 void goloso();
 void elegirPrimero();
 void solucion();
+double pto2(vnod gim, vnod pp, Mochila, vint & sol);
 
-
+/*
 int main(){
 	Lectura(Gimnasios, PokeParadas, moch);
 	solucion();
 	return 0;
+}
+*/
+double pto2(vnod gim, vnod pp, Mochila mochil, vint & sol){
+	//Primero reseteo las variables globales
+	moch.CambiarCapacidad(mochil.DameCapacidad());
+	moch.Restaurar(0);
+	Recorrido.clear();
+	distanciaRecorrida = 0;
+	PokeParadas = pp;
+	Gimnasios = gim;
+	xactual = 0;
+	yactual = 0;
+	
+	//despues llamo a lo que seria solucion, pero sin los couts molestos
+	elegirPrimero();
+	goloso();
+	sol = Recorrido;
+	return distanciaRecorrida;
 }
 
 void solucion(){
