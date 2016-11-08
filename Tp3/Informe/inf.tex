@@ -72,7 +72,7 @@ Mientras hacemos la lectura de datos, guardamos la cantidad máxima de pociones 
 
 %falta cuandod devuelve -1 salvo esos 2 casos siempre hay solucion?%
 
-\subsection{Pseudocodigo}
+\subsection{Pseudocódigo}
 
 \begin{algorithm}[H]{\textbf{variables Globales}}
 	\begin{algorithmic}[1]
@@ -171,35 +171,42 @@ Mientras hacemos la lectura de datos, guardamos la cantidad máxima de pociones 
 
 \section{Heurística constructiva golosa}
 
-El metodo de heurística goloza consiste en elegir siempre la mejor opción posible para continuar y formas la solución total. En este caso el criterio para elegir una mejor opción seria la cercanía.
+El metodo de heurística goloza consiste en elegir siempre la mejor opción posible para continuar y formar la solución total. En este caso el criterio para elegir una mejor opción sería la cercanía. Bus
 
 
 \subsection{Exlicación de la solución}
 
 
 
-\subsection{Pseudocodigo}
+\subsection{Pseudocódigo}
 
 \begin{algorithm}[H]{\textbf{goloso}()}
 	\begin{algorithmic}[1]
+		\State distanciaRecorrida $\gets$ 0
+		\State Recorrido $\gets$ $\emptyset$
+		\State ElegirPrimero
 		\State Mientras Gimnasios $\not= \emptyset$
-		\State \quad proxLugar=GimMasCercano
-		\State \quad Si no puedo ir al gimnasio
+		\State \quad Si puedo ganarle al gimnasio más cercano
+		\State \qquad proxLugar=GimMasCercano
+		\State \quad Si No quedan pokeparadas 
+		\State \qquad distanciaRecorrida $\gets$ -1
+		\State \qquad Recorrido $\gets$ $\emptyset$
+		\State \qquad Cortar mientras
+		\State \quad Si No
 		\State \qquad proxLugar=PokeParadaMasCercana
-		\State \quad finSi
-		\State \quad Si No puedo ir a ningun nodo 
-		\State \qquad distanciaRecorrida=-1
-		\State \qquad Recorrido = $\emptyset$
 		\State \quad finSi
 		\State \quad moverse(proxLugar)
 		\State finMientras
+		\State Devolver distanciaRecorrida y Recorrido 
 	\end{algorithmic}
 \end{algorithm}
+
+Esta es la función principal. Si puede vencer al gimnasio más cercano, lo hace. Si no, intenta ir a la pokeparada más cercana. Si ya no existen pokeparadas, devuelve -1.
 
 \begin{algorithm}[H]{\textbf{moverse}(Nodo n)}
 	\begin{algorithmic}[1]
 		\State Modifico las mochilas según las pociones de n
-		\State Agregar atras de Recorrido a n
+		\State Agregar atrás de Recorrido a n
 		\State distanciaRecorrida + dist(n, posiciónActual)
 		\State Actualizar posición actual
 		\State Si n es gimnasio
@@ -210,13 +217,15 @@ El metodo de heurística goloza consiste en elegir siempre la mejor opción posi
 	\end{algorithmic}
 \end{algorithm}
 
+Dado un nodo n este algoritmo actualiza las variables posición actual, distanciaRecorrida y Recorrido, y depende del tipo de nodo, lo elimina de la lista correspondiente.
+
 \begin{algorithm}[H]{\textbf{ElegirPrimero}()}
 	\begin{algorithmic}[1]
 	\State Si existe un gimnasio que requiera requiera 0 pociones 
-	\State \quad Agregar Atras a el nodo a Recorrido
-	\State Si NO
+	\State \quad Agregar atrás el nodo a Recorrido
+	\State Si no
 	\State \quad Si existe un gimnasio que requiere menos de 4 pociones
-	\State \qquad Elegir la pokeparada mas cercana y agregarla a Recorrido
+	\State \qquad Elegir la pokeparada más cercana y agregarla a Recorrido
 	\State \quad Si No 
 	\State \qquad elegir cualquier pokeparada para empezar
 	\State \quad finSi
@@ -224,6 +233,7 @@ El metodo de heurística goloza consiste en elegir siempre la mejor opción posi
 	\end{algorithmic}
 \end{algotihm}
 
+Este algoritmo es una manera de elegir el nodo inicial. Si existe un gimnasio trivial(necesita 0 pociones) lo elijo como nodo inicial, si no, busco un 
 \subsection{Complejidad}
 
 \subsection{Experimentación y análisis de resultados}
@@ -236,7 +246,7 @@ El metodo de heurística goloza consiste en elegir siempre la mejor opción posi
 
 \subsection{Exlicación de la solución}
 
-\subsection{Pseudocodigo}
+\subsection{Pseudocódigo}
 
 \subsection{Complejidad}
 
@@ -247,12 +257,12 @@ El metodo de heurística goloza consiste en elegir siempre la mejor opción posi
 
 \section{Metaheurística}
 
-Como metaheurística decidimos implementar un algoritmo ``GRASP$"$.
+Como metaheurística decidimos implementar un algoritmo ``GRASP''
 La técnica de este tipo de algoritmos consiste en combinar sucecivamente un algoritmo golozo randomizado para explorar nuevos espacios de soluciones y luego aplicar una busqueda local para mejorar cada solución. Al mismo tiempo se van comparando las soluciones y siempre se va eligiendo la mejor posible hasta que el algoritmo finaliza bajo algún criterio.
 
 \subsection{Exlicación de la solución}
 
-Utilizamos como criterio de terminación el tamaño del conjunto de ``entradas validas$"$. Este conjunto esta formado por Todos los gimnasios que pidan cero pociones para ser vencidos y todas las pokeparadas. Aplicamos el algoritmo golozo comenzando de cada uno de los nodos de este conjunto. 
+Utilizamos como criterio de terminación el tamaño del conjunto de ``entradas validas''. Este conjunto esta formado por Todos los gimnasios que pidan cero pociones para ser vencidos y todas las pokeparadas. Aplicamos el algoritmo golozo comenzando de cada uno de los nodos de este conjunto. 
 
 El algoritmo golozo randomizado es una variación de nuestra heuristica goloza presentada en la sección (). % insertar seccion%
 Para explorar el nuevo espacio de soluciones seleccionamos como candidatos al veinte porciento de los nodos por recorrer más cercanos a la posición actual.
@@ -266,12 +276,12 @@ Luego le asignamos una probabilidad a cada uno de ellos. La misma utiliza el sig
 	\item Se le suma a cada nodo  bajo criterio de cercania 10*$\# $MasCercanos - 10* i donde i representa la posición en ese orden.
 \end{itemize} 
 
-Guardamos el valor de la sumatoria de los valores asignados a cada nodo  y creamos un número aleatorio entre 1 y este valor. El nodo elegido será el nodo con valor mayor más proximo al número aleatorio. Estas acciones se realizan en la función que llamamos en el pseudocodigo ``ElegirProximo$"$. 
+Guardamos el valor de la sumatoria de los valores asignados a cada nodo  y creamos un número aleatorio entre 1 y este valor. El nodo elegido será el nodo con valor mayor más proximo al número aleatorio. Estas acciones se realizan en la función que llamamos en el pseudocódigo ``ElegirProximo''. 
 
 Finalmente aplicamos la función de busqueda local de la sección ().
 
 
-\subsection{Pseudocodigo}
+\subsection{Pseudocódigo}
 
 \begin{algorithm}[H]{\textbf{GRASP}(vnod entradasValidas)}
 	\begin{algorithmic}[1]
