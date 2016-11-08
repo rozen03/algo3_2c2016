@@ -171,7 +171,7 @@ Correr(rep, gimansios, pp, res);
 }
 }
 */
-auto gruposSeparados (vnod gym, vnod pepe){
+void gruposSeparados (vnod& gym, vnod& pepe, const int &a, const int &b ){
 
 }
 auto generadorDeEspirales(int a, int b){
