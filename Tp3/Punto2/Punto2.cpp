@@ -133,6 +133,7 @@ void goloso(){
 		if(proxLugar==0){
 		distanciaRecorrida=-1;
 		Recorrido.clear();
+		break;
 		}
 		moverse(proxLugar);
 
