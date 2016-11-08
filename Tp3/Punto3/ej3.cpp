@@ -124,7 +124,7 @@ double tirarPokeParadas(vnod pokeParadas, vnod &gimnasios, Mochila mochila, vnod
             return valor;
         }
     }
-
+/*
     int main() {
         //inicializo
         vnod pokeParadas;
@@ -137,3 +137,7 @@ double tirarPokeParadas(vnod pokeParadas, vnod &gimnasios, Mochila mochila, vnod
         }
         cout << endl;
     }
+
+*/
+
+

@@ -6,9 +6,9 @@
 #include <tuple>
 #include "../Punto1/pto1.cpp"
 #include "../Punto1/pto1A.cpp"
-#include "../Punto2/Punto2.cpp"
-//#include "../Punto3/ej3.cpp"
-//#include "../Punto4/pto4.cpp"*/
+//#include "../Punto2/Punto2.cpp"
+#include "../Punto3/ej3.cpp"
+#include "../Punto4/pto4.cpp"
 
 //Funciones Auxiliares
 //basicamente hace correr y correr podas, guarda el caso en casos.
@@ -208,18 +208,21 @@ void Correr(int rep, vnod gimnasios, vnod pokeparadas, Mochila moch, ofstream & 
 	vector<int> sol;
 	double (* foo)(vnod,vnod, Mochila,vint &);
 	switch(nroEj){
+
 		case 1:
 		foo = &pto1;
 		break;
+		/*
 		case 2:
 		foo = &pto2;
 		break;
-		/*case 3:
+		case 3:
 		foo = &pto3;
 		break;
+*/
 		case 4:
 		foo = &pto4;
-		break;*/
+		break;
 		default:
 		cout<<"N invalido"<<endl;
 		res<<"\n";
@@ -363,7 +366,7 @@ Correr(rep, gimansios, pp, res);
 }
 }
 */
-
+/*
 void gruposSeparados (vnod& gym, vnod& pepe, const int &a, const int &b ){
 
 auto generadorDeEspirales(int a, int b){
@@ -381,11 +384,11 @@ auto generadorDeEspirales(int a, int b){
 	return espiral;
 }
 
-
+*/
 int main(){
-	//RectaPPgim(1, 10);
+	RectaPPgim(1, 10);
 
-	SoloPokeparadasNecesariasRecta(1, 30);
+	//SoloPokeparadasNecesariasRecta(1, 30);
 
 	/*
 	std::vector<tuple<int,int> > v;
