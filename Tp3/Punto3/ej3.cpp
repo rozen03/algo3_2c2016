@@ -61,7 +61,7 @@ double tirarPokeParadas(vnod pokeParadas, vnod &gimnasios, Mochila mochila, vnod
         for (auto gimnasios : vecindad) {
             auto sol = tirarPokeParadas(pokeParadas, gimnasios, mochila);
             if (sol == -1)
-                continue;
+            continue;
             //vint &solucion
             if (sol < valor) {
                 res = make_tuple(gimnasios, sol);
@@ -107,7 +107,10 @@ double tirarPokeParadas(vnod pokeParadas, vnod &gimnasios, Mochila mochila, vnod
         }
         return res;
     }
-double pto3(vnod gimnasios, vnod pokeParadas, Mochila &mochila, vint &solucion) {}
+    double pto3(vnod gimnasios, vnod &pokeParadas, Mochila &mochila, vint &solucion) {
+        sort(gimnasios.begin(), gimnasios.end(),[](Nodo a, Nodo b){return a.DamePociones()<b.DamePociones();});
+        return mejorarSolucion(gimnasios,pokeParadas, mochila, solucion);
+    }
 
     double BusquedaLocal(vnod &gimnasios, vnod &pokeParadas, Mochila &mochila, vint &solucion, int valor){
         vnod nuevosGimnasios = dameGimnasios(gimnasios,solucion);
@@ -128,7 +131,6 @@ double pto3(vnod gimnasios, vnod pokeParadas, Mochila &mochila, vint &solucion) 
         vnod gimnasios;
         Mochila mochila = Mochila(100);
         vint solucion;
-        sort(gimnasios.begin(), gimnasios.end(),[](Nodo a, Nodo b){return a.DamePociones()<b.DamePociones();});
         pto3(gimnasios, pokeParadas, mochila, solucion);
         for (auto val : solucion) {
             cout << val << ",";
