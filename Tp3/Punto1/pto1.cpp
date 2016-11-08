@@ -30,6 +30,7 @@ Nodo & BuscarNodo(unsigned int n);
 unsigned int Maximo(unsigned int a,unsigned int b);
 void LecturaDatos();
 double pto1(vnod gim, vnod pp, Mochila moch, vint & recorrido);
+bool PodaPokeparadaMochila(vnod & gim, int cantPP, int capMoch);
 void Reset(vnod & PP, vnod & G, Mochila mochil);
 
 
@@ -82,18 +83,24 @@ int main(){
 	/*MinGlobal = MAX;
 	MinActual=0;
 	LecturaDatos();
-	BT();
-	cout<<"cant BT "<<CantBT<<endl;
-	if(RecorridoGlobal.size() != 0){
-		cout<< MinGlobal << " "<< RecorridoGlobal.size() <<" ";
-		for(unsigned int i=0; i<RecorridoGlobal.size(); i++){
-			cout<< RecorridoGlobal[i] << " ";	
-		} 
+	bool superPoda = PodaPokeparadaMochila(gim, pp.size(), mochil.Capacidad());
+	if(superPoda){
+		BT();
+		cout<<"cant BT "<<CantBT<<endl;
+		if(RecorridoGlobal.size() != 0){
+			cout<< MinGlobal << " "<< RecorridoGlobal.size() <<" ";
+			for(unsigned int i=0; i<RecorridoGlobal.size(); i++){
+				cout<< RecorridoGlobal[i] << " ";	
+			} 
+		}
+		else{
+			cout<< -1;
+		}
+		cout<< endl;
 	}
 	else{
-		cout<< -1;
+		cout<<-1<<endl;
 	}
-	cout<< endl;
 	return 0;
 }*/
 
@@ -114,11 +121,32 @@ void Reset(vnod & PPAux,vnod & GAux, Mochila mochil){
 	moch.Restaurar(0);
 }
 
+
+bool PodaPokeparadaMochila(vnod & gim, int cantPP, int capMoch){
+	int sumaTotal;
+	int max = 0;
+	for(int i = 0; i< gim.size(); i++){
+		int poc = - gim[i].DamePociones();
+		if(poc > max) max = poc;
+		suma += poc;
+	}
+	int cantMin cantPP+1;
+	if(capMoch >= max + (max % 3)){
+		double aux  = suma / 3;
+		cantMin = floor(aux);
+	}
+	return cantMin <= cantPP;
+}
+
 double pto1(vnod gim, vnod pp, Mochila mochil, vint & recorrido){
 	Reset(pp, gim, mochil);
-	BT();
-	recorrido = RecorridoGlobal;
-	double res = MinGlobal;
+	bool superPoda = PodaPokeparadaMochila(gim, pp.size(), mochil.Capacidad());
+	double res = -1;
+	if(superPoda){
+		BT();
+		recorrido = RecorridoGlobal;
+		res = MinGlobal;
+	}
 	if(recorrido.empty()) res = -1;
 	return res;
 }

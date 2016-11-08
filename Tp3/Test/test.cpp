@@ -12,13 +12,13 @@
 
 //Funciones Auxiliares
 //basicamente hace correr y correr podas.
-void CorrerGeneral(int rep, vnod gim, vnod pp, Mochila moch,ofstream & res, ofstream & podas);
+void CorrerGeneral(int rep, vnod gim, vnod pp, Mochila moch,ofstream & res, ofstream & meta, ofstream & podas);
 
 //imprime los casos en un archivo separado.
 void ImprimirCasos(vnod & gim, vnod & pp, ofstream & casos);
 
 //Este correr se encarga de ejecutar los casos con todos los ejercicios
-void Correr(int rep, vnod gim, vnod pokeparadas, Mochila moch, ofstream & res, int nroEj);
+void Correr(int rep, vnod gim, vnod pokeparadas, Mochila moch, ofstream & res, ofstream & meta, int nroEj);
 
 //Esto nos deja crear los gimnasios y los nodos sin preocpuarnos por los indices, ya que esta funcion se encarga
 void AsignarIndices(vnod & gim, vnod & pp);
@@ -47,17 +47,11 @@ int ElegirSoloNecesarias(vint pocionesDeGim, int cantPP, int capMoch){
 	 */
 	vector<int> bucket(capMoch, 0);
 	//meto en el bucket
-	cerr<<"la capacidad es "<<capMoch<<" empece con "<<cantPP<<" PokeParadas"<<endl;
 	for(int i = 0; i < pocionesDeGim.size(); i++){
 		int pocAux = pocionesDeGim[i];
 		if(pocAux > 0) bucket[pocAux-1]++;
 	}
-
-	for(int i = 0; i<bucket.size();i++){
-		cerr<<bucket[i]<<" ";
-	}
-	cerr<<endl;
-	/*
+    /*
 	 La deconstruccion va de menor a mayor, ya que asi voy metiendo solo lo necesario y supuestamene guardo
 	 cuantas pociones uso, para no meter pp de mas.
 	*/
@@ -91,12 +85,9 @@ int ElegirSoloNecesarias(vint pocionesDeGim, int cantPP, int capMoch){
 			}
 			necesito = necesitofor;
 		}
-		cerr<<"("<<i+1<<","<< necesito<<")["<<pocQuedan<<"] ";
 		ppDemas += necesito;
 	}
-	cerr<<"\n"<<ppDemas<<endl;
 	//Ya tengo todas las pp que necesito y todas las que tengo, una resta y estamos
-	cerr<<"las pp que voy a asignar son "<<ppDemas-cantPP<<endl;
 	return ppDemas-cantPP;
 }
 
@@ -124,13 +115,13 @@ void ImprimirCasos(vnod & gim, vnod & pp, ofstream & casos){
 			casos.close();
 }
 
-void CorrerGeneral(int rep, vnod gim, vnod pp, Mochila moch, ofstream & res, ofstream & podas){
+void CorrerGeneral(int rep, vnod gim, vnod pp, Mochila moch, ofstream & res, ofstream & podas, ofstream & meta){
 	int gimTotales = gim.size();
 	int ppTotales = pp.size();
 	if(21 > ppTotales+gimTotales){
 			for(int nroEj = 1; nroEj <= 4; nroEj++){
 				res<<nroEj<<" & "<<gimTotales << " & "<< ppTotales<<" & ";
-				Correr(rep, gim, pp, moch, res, nroEj);
+				Correr(rep, gim, pp, moch, res, meta, nroEj);
 			}
 			//me va a dar numeros dependiendo de que poda use
 			if(13 > ppTotales+gimTotales){
@@ -142,12 +133,12 @@ void CorrerGeneral(int rep, vnod gim, vnod pp, Mochila moch, ofstream & res, ofs
 		else{
 			for(int nroEj = 2; nroEj <= 4; nroEj++){
 				res<<nroEj<<" & "<<gimTotales << " & "<< ppTotales<<" & ";
-				Correr(rep, gim, pp, moch, res, nroEj);
+				Correr(rep, gim, pp, moch, res, meta, nroEj);
 			}
 		}
 }
 
-void Correr(int rep, vnod gimnasios, vnod pokeparadas, Mochila moch, ofstream & res, int nroEj){
+void Correr(int rep, vnod gimnasios, vnod pokeparadas, Mochila moch, ofstream & res, ofstream & meta, int nroEj){
 	int valor;
 	vector<int> sol;
 	double (* foo)(vnod,vnod, Mochila,vint &);
@@ -170,20 +161,46 @@ void Correr(int rep, vnod gimnasios, vnod pokeparadas, Mochila moch, ofstream & 
 		return;
 	}
 	valor = (double) foo(gimnasios, pokeparadas, moch, sol);
-
-	res <<valor<<" & ";
-	for(int i = 0; i< sol.size(); i++) res<<sol[i]<< " ";
-	res <<"& ";
-	for(int i = 0; i < rep; i++){
-		sol.clear();
-		long tiempo = 0;
-		auto start = ya();
-		foo(gimnasios, pokeparadas, moch, sol);
-		auto end = ya();
-		tiempo = chrono::duration_cast<chrono::nanoseconds>(end-start).count();
-		res<<tiempo<<" & ";
+	
+	if(nroEj == 4){ 
+		res <<valor<<" & ";
+		meta << valor<<" & ";
+		for(int i = 0; i< sol.size(); i++){
+			res<<sol[i]<< " ";
+			meta<<sol[i]<<" ";
+		}
+		meta<<"& ";
+		res <<"& ";
+		for(int i = 0; i < rep; i++){
+			sol.clear();
+			long tiempo = 0;
+			auto start = ya();
+			valor = foo(gimnasios, pokeparadas, moch, sol);
+			auto end = ya();
+			tiempo = chrono::duration_cast<chrono::nanoseconds>(end-start).count();
+			meta<<valor<<" & ";
+			for(int i = 0; i<sol.size(); i++) meta<<sol[i]<<" ";
+			meta<<"& ";
+			res<<tiempo<<" & ";
+		}
+		meta<<"\n";
+		res<<"\n";
 	}
-	res<<"\n";
+	else{
+		res <<valor<<" & ";
+		for(int i = 0; i< sol.size(); i++) res<<sol[i]<< " ";
+		res <<"& ";
+		for(int i = 0; i < rep; i++){
+			sol.clear();
+			long tiempo = 0;
+			auto start = ya();
+			foo(gimnasios, pokeparadas, moch, sol);
+			auto end = ya();
+			tiempo = chrono::duration_cast<chrono::nanoseconds>(end-start).count();
+			res<<tiempo<<" & ";
+		}
+		res<<"\n";		
+	}
 }
 
 
@@ -191,12 +208,15 @@ void Correr(int rep, vnod gimnasios, vnod pokeparadas, Mochila moch, ofstream & 
 void PPdeMas(){}
 */
 void RectaPPgim(int rep, int cantgim){
-	ofstream res("resultadossRectaSinMoch.txt");
-	ofstream casos("casos.txt");
+	ofstream res("resultadosRectaSinMoch.txt");
+	ofstream meta("resultadosRSMmeta.txt");
+	ofstream casos("casosRSM.txt");
 	ofstream podas("podasRectaSinMoch.txt");
 	vnod gimnasios;
 	vnod pp;
 	srand(time(NULL));
+	for(int i = 0; i<=rep;i++) meta<<"valor & sol &";
+	meta<<"\n";
 	res<<"pto & cantidad de gimnasios & cantidad de pokeparadas & distancia & resultado & ... tiempos ...& \n";
 	podas<<"cant Gim & cant pp & cantidad de llamadas al BT sin podas & distancia & recorrido";
 	podas<<" & #BT con Poda A & distancia & recorrido & #BT con Poda B & distancia & recorrido";
@@ -223,7 +243,7 @@ void RectaPPgim(int rep, int cantgim){
 		}
 		AsignarIndices(gimnasios, pp);
 		ImprimirCasos(gimnasios, pp, casos);
-		CorrerGeneral(rep, gimnasios, pp, moch, res, podas);
+		CorrerGeneral(rep, gimnasios, pp, moch, res, podas, meta);
 	}
 }
 
@@ -231,6 +251,9 @@ void SoloPokeparadasNecesariasRecta(int rep, int cantgim){
 	ofstream res("resultadosRectaPPNec.txt");
 	ofstream casos("casosRectaPPNec.txt");
 	ofstream podas("podasRectaPPNec.txt");
+	ofstream meta("resultadosPPNecmeta.txt");
+	for(int i = 0; i<=rep;i++) meta<<"valor & sol &";
+	meta<<"\n";
 	res<<"pto & cantidad de gimnasios & cantidad de pokeparadas & distancia & resultado & ... tiempos ...& \n";
 	podas<<"cant Gim & cant pp & cantidad de llamadas al BT sin podas & distancia & recorrido";
 	podas<<" & #BT con Poda A & distancia & recorrido & #BT con Poda B & distancia & recorrido";
@@ -250,9 +273,7 @@ void SoloPokeparadasNecesariasRecta(int rep, int cantgim){
 		int pokeparadas;
 		int gimAgregados = gim.size();
 		int ppAgregadas = pp.size();
-		cerr<<"las pociones que agrego "<<pociones<<" en el gimnasio "<<i<<endl;
 		pokeparadas = ElegirSoloNecesarias(pocionesDeGim, pp.size(), capMoch);
-		cerr<<"las pokeparadas que le voy a asignar son "<<pokeparadas<<endl;
 		int cantidadEnRecta= 0;
 		for(int j = 1; j<= pokeparadas; j++){
 			cantidadEnRecta = gimAgregados + ppAgregadas + j - 1 ;
@@ -265,7 +286,7 @@ void SoloPokeparadasNecesariasRecta(int rep, int cantgim){
 		gim.push_back(gimAux);
 		AsignarIndices(gim, pp);
 		ImprimirCasos(gim, pp, casos);
-		CorrerGeneral(rep, gim, pp, moch, res, podas);
+		CorrerGeneral(rep, gim, pp, moch, res, podas, meta);
 	}
 }
 
