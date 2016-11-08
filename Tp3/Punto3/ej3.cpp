@@ -88,7 +88,7 @@ double tirarPokeParadas(vnod pokeParadas, vnod &gimnasios, Mochila mochila, vnod
     tuple<vnod, double> actualInicial(vnod gimnasios, vnod pokeParadas, Mochila &mochila){
         return make_tuple(gimnasios, tirarPokeParadas(pokeParadas, gimnasios, mochila));
     }
-    double pto3(vnod gimnasios, vnod pokeParadas, Mochila &mochila, vint &solucion) {
+    double mejorarSolucion (vnod gimnasios, vnod pokeParadas, Mochila &mochila, vint &solucion) {
         bool mejora = true;
         auto actual =actualInicial(gimnasios, pokeParadas, mochila);
         while (mejora) {
@@ -107,12 +107,13 @@ double tirarPokeParadas(vnod pokeParadas, vnod &gimnasios, Mochila mochila, vnod
         }
         return res;
     }
+double pto3(vnod gimnasios, vnod pokeParadas, Mochila &mochila, vint &solucion) {}
 
     double BusquedaLocal(vnod &gimnasios, vnod &pokeParadas, Mochila &mochila, vint &solucion, int valor){
         vnod nuevosGimnasios = dameGimnasios(gimnasios,solucion);
         vint solucion_posible;
         int res_posible;
-        res_posible= pto3( nuevosGimnasios, pokeParadas,mochila,  solucion_posible);
+        res_posible= mejorarSolucion( nuevosGimnasios, pokeParadas,mochila,  solucion_posible);
         if(res_posible<valor){
             solucion=solucion_posible;
             return res_posible;
@@ -127,7 +128,7 @@ double tirarPokeParadas(vnod pokeParadas, vnod &gimnasios, Mochila mochila, vnod
         vnod gimnasios;
         Mochila mochila = Mochila(100);
         vint solucion;
-        sort(gimnasios.begin(), gimnasios.end(),[](Nodo a, Nodo b){a.DamePociones()<b.DamePociones()});
+        sort(gimnasios.begin(), gimnasios.end(),[](Nodo a, Nodo b){return a.DamePociones()<b.DamePociones();});
         pto3(gimnasios, pokeParadas, mochila, solucion);
         for (auto val : solucion) {
             cout << val << ",";

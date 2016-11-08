@@ -11,11 +11,8 @@ double MinGlobal;
 double MinActual;
 vint RecorridoGlobal;
 vint RecorridoActual;
-vnod PokeParadas;
-vnod Gimnasios;
 unsigned int GimRecorridos;
 int PPRecorridas;
-Mochila moch(0);
 int PocionesNecesarias;
 int CantBT;
 
