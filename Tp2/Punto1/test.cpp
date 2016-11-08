@@ -1,4 +1,4 @@
-ut //#include "../estructuras.h"
+//#include "../estructuras.h"
 #include "estructuras_test.h"
 #include <iostream>
 #include <fstream>

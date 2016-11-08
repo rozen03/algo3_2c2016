@@ -42,9 +42,9 @@
 
 
 \section{Introducción}
-En nuestro problema Brian quiere convertirse en "maestro pokemon" en el menor tiempo posible. Para lograr este objetivo debe ir a todos los "gimnasios" y conquistarlos. Para poder hacerlo, cada gimnasio requiere una cantidad determinada de pociones. Estas pociones pueden obtenerse en las "pokeparadas". Las pokeparadas solo pueden visitarse una vez y de cada visita obtenemos tres pociones.
+En nuestro problema Brian quiere convertirse en ``maestro pokemon'' en el menor tiempo posible. Para lograr este objetivo debe ir a todos los ``gimnasios'' y conquistarlos. Para poder hacerlo, cada gimnasio requiere una cantidad determinada de pociones. Estas pociones pueden obtenerse en las ``pokeparadas''. Las pokeparadas sólo pueden visitarse una vez y de cada visita obtenemos tres pociones.
 
-Formalmente, podemos caracterizar nuestras pokeparadas y  gimnasios como nodos formando un grafo completo, es decir que existen aristas para unir cualquier par de nodo. nuestras aristas deben tener peso, que equivalga a la distancia entre dos nodos. entonces queremos encontrar el camino mínimo que une todo los nodos gimnasios y los nodos pokeparada que hagan falta para poder conquistar todos los gimnasios. 
+Formalmente, podemos caracterizar nuestras pokeparadas y  gimnasios como nodos formando un grafo completo, es decir que existen aristas para unir cualquier par de nodo. nuestras aristas deben tener peso equivalente a la distancia entre dos nodos. Queremos encontrar el camino mínimo que une todos los nodos gimnasios y los nodos pokeparada que sean necesarios para poder conquistar todos los gimnasios. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -53,18 +53,18 @@ Formalmente, podemos caracterizar nuestras pokeparadas y  gimnasios como nodos f
 \subsection{Exlicación de la solución}
 
 Para modelar este problema, creamos dos clases: Nodo y Mochila.
-La clase Mochila contiene dos enteros $``capacidad"$ el cual corresponde con la capacidad de la entrada (k) y $``peso"$ en el cual se guarda la cantidad de pociones que se tiene en cada momento. 
-en el Pseudocogigo se llaman a las funciones DameCapacidad y DamePeso, las mismas devuelven estos valores.
+La clase Mochila contiene dos enteros ``capacidad'' el cual corresponde con la capacidad de la entrada (k) y ``peso'' en el cual se guarda la cantidad de pociones que se tiene en cada momento. 
+en el Pseudocódigo se llaman a las funciones DameCapacidad y DamePeso, las mismas devuelven estos valores.
+\\
+La clase Nodo tiene  un entero ``índice'' como identificador de cada nodoy un entero ``pociones'' en el cual se guardan las pociones que dan las pokeparadas o las que requieren los gimnasios(en este caso el valor es negativo). Además cuenta con un booleano para marcar si ya fue recorrido y dos enteros ``x'' e ``y'' para identificar las coordenadas del nodo.
 
-La clase Nodo tiene  un entero $``indice"$ como identificador de cada nodoy un entero $``pociones"$ en el cual se guardan las pociones que dan las pokeparadas o las que requieren los gimnasios(en este caso el valor es negativo). Ademas cuenta con un booleano para marcar si esta o no recorrido y dos enteros $``x"$ e $``y"$ para identificar las coordenadas del nodo.
+Nuestra solución utiliza la técnica de Backtracking para resolver el problema. Utilizamos variables globales (las cuales estan mencionadas en el pseudocodigo) ya que las necesitamos en todo momento en las funciones de nuestra resolución. De esta forma evitamos copiarlas cada vez como parámetros de entrada.
 
-Nuestra solución es utiliza la técnica de Backtracking para resolver el problema. Utilizamos variables globales (las cuales estan mencionadas en el pseudocodigo) ya que las utilizamos todo el tiempo en las funciones de nuestra resolución. De esta forma evitamos pasarlas cada vez como parametros de entrada.
-
-Nuestro algoritmo de BT va formando recursivamente todas las soluciones posibles eligiendo gimnasios y pokeparas siempre que esto sea posible. Estas soluciones "parciales" son guardades en una variable que siempre es comparada con una variable de solución "global". En la misma se guarda siempre el mejor resultado obtenido hasta el momento. El ciclo principal de la función va desde 0 hasta el Maximo entre el largo de los vectores de Nodos y pokeparadas. De esta forma vamos probando empezar con todos los nodos posibles. Cada vez que se elige un nodo para continuar se vuelve a llamar a la función BT para seguir construyendo la solución, luego se revierten los cambios para probar las demás soluciones. 
+Nuestro algoritmo de BT va formando recursivamente todas las soluciones posibles eligiendo gimnasios y pokeparas siempre que esto sea posible. Estas soluciones ``parciales'' son guardades en una variable que siempre es comparada con una variable de solución ``global''. En la misma se guarda siempre el mejor resultado obtenido hasta el momento. El ciclo principal de la función va desde 0 hasta el máximo entre el largo de los vectores de Nodos y pokeparadas. De esta forma vamos probando empezar con todos los nodos posibles. Cada vez que se elige un nodo para continuar se vuelve a llamar a la función BT para seguir construyendo la solución, luego se revierten los cambios para probar las demás soluciones. 
 
 En nuestro algoritmo, cortamos una posible solución en el momento que supera la solución global encontrada hasta el momento. De esta forma evitamos seguir ejecutando el algoritmo para una solución que claramente no va a ser la mejor, y así reducimos el tiempo de cómputo.
 
-Actualizamos la solución global, unicamente si logramos recorrer todos los gimnasios. Podemos saber esto, ya que guardamos un entero contando los gimnasios recorridos. De esta forma si la solución queda vacia, sabemos que no existe solución para el problema y podemos devolver -1.
+Actualizamos la solución global, únicamente si logramos recorrer todos los gimnasios. Podemos saber esto ya que guardamos un entero contando los gimnasios recorridos. De esta forma si la solución queda vacia, sabemos que no existe solución para el problema y podemos devolver -1.
 
 Mientras hacemos la lectura de datos, guardamos la cantidad máxima de pociones que requieren los gimnasios y el total de pociones que se requieren para ganar a todos los gimnasios. De esta forma si la capacidad de la mochila es menor al máximo de las pociones que piden los gimnasios o la cantidad de pociones que se pueden obtener (cantidad de pokeparadas multiplicado por tres) es menor a lo que se necesita para ganar a todos los gimnasios, entonces devolvemos -1 (evitando entrar en el backtracking) ya que el algoritmo no tiene solución. 
 
@@ -72,7 +72,7 @@ Mientras hacemos la lectura de datos, guardamos la cantidad máxima de pociones 
 
 %falta cuandod devuelve -1 salvo esos 2 casos siempre hay solucion?%
 
-\subsection{Pseudocodigo}
+\subsection{Pseudocódigo}
 
 \begin{algorithm}[H]{\textbf{variables Globales}}
 	\begin{algorithmic}[1]
@@ -105,19 +105,19 @@ Mientras hacemos la lectura de datos, guardamos la cantidad máxima de pociones 
 		\State finSi
 		\State Desde i=0 hasta i$<$Max($|$Gimnasios$|$,$|$PokeParadas$|$)
 	
-		\State \qquad Si i$< |$Gimnasios$|$
-		\State \qquad \quad gim $\gets$ Gimnasios[i]
-		\State \qquad \quad Si puedoIr(gim)
-		\State \qquad \qquad Voy(gim)
- 		\State \qquad finSi	
+		\State \quad Si i$< |$Gimnasios$|$
+		\State \quad \quad gim $\gets$ Gimnasios[i]
+		\State \quad \quad Si puedoIr(gim)
+		\State \quad \quad \quad Voy(gim)
+ 		\State \quad \quad finSi	
 		\State \quad finSi
 		\State \quad Si i $< |$PokeParadas$|$
-		\State \quad pp $\gets$ Pokeparadas[i]
-		\State \quad PokeParadasRecorridas $\gets$ PokeParadasRecorridas + 1 
+		\State \qquad pp $\gets$ Pokeparadas[i]
+		\State \qquad PokeParadasRecorridas $\gets$ PokeParadasRecorridas + 1 
 		\State \qquad Si puedoIr(pp)
-		\State \qquad Voy(pp) 	
+		\State \qquad \quad Voy(pp) 	
 		\State \qquad finSi
-		\State \quad PokeParadasRecorridas $\gets$ PokeParadasRecorridas - 1 
+		\State \qquad PokeParadasRecorridas $\gets$ PokeParadasRecorridas - 1 
 
 		\State \quad finSi 
 		\State finDesde
@@ -129,7 +129,7 @@ Mientras hacemos la lectura de datos, guardamos la cantidad máxima de pociones 
   		
 		
 		
-		\State finSi
+		\State finSi %%Este me parece que no va
 	\end{algorithmic}
 \end{algorithm}
 
@@ -171,35 +171,42 @@ Mientras hacemos la lectura de datos, guardamos la cantidad máxima de pociones 
 
 \section{Heurística constructiva golosa}
 
-El metodo de heurística goloza consiste en elegir siempre la mejor opción posible para continuar y formas la solución total. En este caso el criterio para elegir una mejor opción seria la cercanía.
+El metodo de heurística goloza consiste en elegir siempre la mejor opción posible para continuar y formar la solución total. En este caso el criterio para elegir una mejor opción sería la cercanía. Bus
 
 
 \subsection{Exlicación de la solución}
 
 
 
-\subsection{Pseudocodigo}
+\subsection{Pseudocódigo}
 
 \begin{algorithm}[H]{\textbf{goloso}()}
 	\begin{algorithmic}[1]
+		\State distanciaRecorrida $\gets$ 0
+		\State Recorrido $\gets$ $\emptyset$
+		\State ElegirPrimero
 		\State Mientras Gimnasios $\not= \emptyset$
-		\State \quad proxLugar=GimMasCercano
-		\State \quad Si no puedo ir al gimnasio
+		\State \quad Si puedo ganarle al gimnasio más cercano
+		\State \qquad proxLugar=GimMasCercano
+		\State \quad Si No quedan pokeparadas 
+		\State \qquad distanciaRecorrida $\gets$ -1
+		\State \qquad Recorrido $\gets$ $\emptyset$
+		\State \qquad Cortar mientras
+		\State \quad Si No
 		\State \qquad proxLugar=PokeParadaMasCercana
-		\State \quad finSi
-		\State \quad Si No puedo ir a ningun nodo 
-		\State \qquad distanciaRecorrida=-1
-		\State \qquad Recorrido = $\emptyset$
 		\State \quad finSi
 		\State \quad moverse(proxLugar)
 		\State finMientras
+		\State Devolver distanciaRecorrida y Recorrido 
 	\end{algorithmic}
 \end{algorithm}
+
+Esta es la función principal. Si puede vencer al gimnasio más cercano, lo hace. Si no, intenta ir a la pokeparada más cercana. Si ya no existen pokeparadas, devuelve -1.
 
 \begin{algorithm}[H]{\textbf{moverse}(Nodo n)}
 	\begin{algorithmic}[1]
 		\State Modifico las mochilas según las pociones de n
-		\State Agregar atras de Recorrido a n
+		\State Agregar atrás de Recorrido a n
 		\State distanciaRecorrida + dist(n, posiciónActual)
 		\State Actualizar posición actual
 		\State Si n es gimnasio
@@ -210,13 +217,15 @@ El metodo de heurística goloza consiste en elegir siempre la mejor opción posi
 	\end{algorithmic}
 \end{algorithm}
 
+Dado un nodo n este algoritmo actualiza las variables posición actual, distanciaRecorrida y Recorrido, y depende del tipo de nodo, lo elimina de la lista correspondiente.
+
 \begin{algorithm}[H]{\textbf{ElegirPrimero}()}
 	\begin{algorithmic}[1]
 	\State Si existe un gimnasio que requiera requiera 0 pociones 
-	\State \quad Agregar Atras a el nodo a Recorrido
-	\State Si NO
+	\State \quad Agregar atrás el nodo a Recorrido
+	\State Si no
 	\State \quad Si existe un gimnasio que requiere menos de 4 pociones
-	\State \qquad Elegir la pokeparada mas cercana y agregarla a Recorrido
+	\State \qquad Elegir la pokeparada más cercana y agregarla a Recorrido
 	\State \quad Si No 
 	\State \qquad elegir cualquier pokeparada para empezar
 	\State \quad finSi
@@ -224,6 +233,7 @@ El metodo de heurística goloza consiste en elegir siempre la mejor opción posi
 	\end{algorithmic}
 \end{algotihm}
 
+Este algoritmo es una manera de elegir el nodo inicial. Si existe un gimnasio trivial(necesita 0 pociones) lo elijo como nodo inicial, si no, busco un 
 \subsection{Complejidad}
 
 \subsection{Experimentación y análisis de resultados}
@@ -236,7 +246,7 @@ El metodo de heurística goloza consiste en elegir siempre la mejor opción posi
 
 \subsection{Exlicación de la solución}
 
-\subsection{Pseudocodigo}
+\subsection{Pseudocódigo}
 
 \subsection{Complejidad}
 
@@ -247,12 +257,12 @@ El metodo de heurística goloza consiste en elegir siempre la mejor opción posi
 
 \section{Metaheurística}
 
-Como metaheurística decidimos implementar un algoritmo ``GRASP$"$.
+Como metaheurística decidimos implementar un algoritmo ``GRASP''
 La técnica de este tipo de algoritmos consiste en combinar sucecivamente un algoritmo golozo randomizado para explorar nuevos espacios de soluciones y luego aplicar una busqueda local para mejorar cada solución. Al mismo tiempo se van comparando las soluciones y siempre se va eligiendo la mejor posible hasta que el algoritmo finaliza bajo algún criterio.
 
 \subsection{Exlicación de la solución}
 
-Utilizamos como criterio de terminación el tamaño del conjunto de ``entradas validas$"$. Este conjunto esta formado por Todos los gimnasios que pidan cero pociones para ser vencidos y todas las pokeparadas. Aplicamos el algoritmo golozo comenzando de cada uno de los nodos de este conjunto. 
+Utilizamos como criterio de terminación el tamaño del conjunto de ``entradas validas''. Este conjunto esta formado por Todos los gimnasios que pidan cero pociones para ser vencidos y todas las pokeparadas. Aplicamos el algoritmo golozo comenzando de cada uno de los nodos de este conjunto. 
 
 El algoritmo golozo randomizado es una variación de nuestra heuristica goloza presentada en la sección (). % insertar seccion%
 Para explorar el nuevo espacio de soluciones seleccionamos como candidatos al veinte porciento de los nodos por recorrer más cercanos a la posición actual.
@@ -266,12 +276,12 @@ Luego le asignamos una probabilidad a cada uno de ellos. La misma utiliza el sig
 	\item Se le suma a cada nodo  bajo criterio de cercania 10*$\# $MasCercanos - 10* i donde i representa la posición en ese orden.
 \end{itemize} 
 
-Guardamos el valor de la sumatoria de los valores asignados a cada nodo  y creamos un número aleatorio entre 1 y este valor. El nodo elegido será el nodo con valor mayor más proximo al número aleatorio. Estas acciones se realizan en la función que llamamos en el pseudocodigo ``ElegirProximo$"$. 
+Guardamos el valor de la sumatoria de los valores asignados a cada nodo  y creamos un número aleatorio entre 1 y este valor. El nodo elegido será el nodo con valor mayor más proximo al número aleatorio. Estas acciones se realizan en la función que llamamos en el pseudocódigo ``ElegirProximo''. 
 
 Finalmente aplicamos la función de busqueda local de la sección ().
 
 
-\subsection{Pseudocodigo}
+\subsection{Pseudocódigo}
 
 \begin{algorithm}[H]{\textbf{GRASP}(vnod entradasValidas)}
 	\begin{algorithmic}[1]
