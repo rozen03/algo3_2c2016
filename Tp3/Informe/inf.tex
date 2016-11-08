@@ -171,7 +171,7 @@ Mientras hacemos la lectura de datos, guardamos la cantidad máxima de pociones 
 
 \section{Heurística constructiva golosa}
 
-El metodo de heurística goloza consiste en elegir siempre la mejor opción posible para continuar y formar la solución total. En este caso el criterio para elegir una mejor opción sería la cercanía. Bus
+El metodo de heurística golosa consiste en elegir siempre la mejor opción posible para continuar y formar la solución total. En este caso el criterio para elegir una mejor opción sería la cercanía. Bus
 
 
 \subsection{Exlicación de la solución}
@@ -205,7 +205,7 @@ Esta es la función principal. Si puede vencer al gimnasio más cercano, lo hace
 
 \begin{algorithm}[H]{\textbf{moverse}(Nodo n)}
 	\begin{algorithmic}[1]
-		\State Modifico las mochilas según las pociones de n
+		\State Modifico la mochila según las pociones de n
 		\State Agregar atrás de Recorrido a n
 		\State distanciaRecorrida + dist(n, posiciónActual)
 		\State Actualizar posición actual
@@ -233,8 +233,16 @@ Dado un nodo n este algoritmo actualiza las variables posición actual, distanci
 	\end{algorithmic}
 \end{algotihm}
 
-Este algoritmo es una manera de elegir el nodo inicial. Si existe un gimnasio trivial(necesita 0 pociones) lo elijo como nodo inicial, si no, busco un 
+Este algoritmo es una manera de elegir el nodo inicial. Si existe un gimnasio trivial(necesita 0 pociones) lo elijo como nodo inicial, si no, busco un gimnasio que sólo necesite una visita a una pokeparada (3 pociones o menos) y elijo la pokeparada como nodo incial. Si no existe ninguno de estos, elijo una pokeparada al azar como nodo inicial.
+
+
 \subsection{Complejidad}
+Vamos a demostrar que la complejidad de esta heurística es $\mathcal{O}$(n*m) donde n es la cantidad de gimnasios y m la cantidad de pokeparadas.
+Por un lado, vamos a analizar las funciones auxiliares. La función $moverse$ usa todas operaciones en $\mathcal{O}$(1) y no contiene ciclos. Entonces su complejidad es $\mathcal{O}$(1).
+Luego, ElegirPrimero recorre los gimnasios en busca de uno trivial ($\mathcal{O}$(n)), luego recorre nuevamente los gimnasios en busca de uno ``fácil'', y si lo encuentra busca la pokeparada más cercana ($\mathcal{O}$(n+m)), y por último elije una pokeparada cualquiera ($\mathcal{O}$(1)). En resumen, esta función auxiliar tiene complejidad $\mathcal{O}$(n+m)
+\\
+Viendo el algoritmo
+
 
 \subsection{Experimentación y análisis de resultados}
 
@@ -272,8 +280,8 @@ Luego le asignamos una probabilidad a cada uno de ellos. La misma utiliza el sig
 	\item Si el nodo es gimnasio y tengo suficientes pociones en mi mochila para ir, +30
 	\item Si el nodo es pokeparada y entran las 3 pociones en la mochila, +25
 	\item Si el nodo es pokeparada y entran 2 pociones en la mochila, +15
-	\item Si el nodo es pokeparada y entra solo 1 pocion en la mochila, +10
-	\item Se le suma a cada nodo  bajo criterio de cercania 10*$\# $MasCercanos - 10* i donde i representa la posición en ese orden.
+	\item Si el nodo es pokeparada y entra sólo 1 pocion en la mochila, +10
+	\item Se le suma a cada nodo  bajo criterio de cercanía 10*$\# $MasCercanos - 10* i donde i representa la posición en ese orden.
 \end{itemize} 
 
 Guardamos el valor de la sumatoria de los valores asignados a cada nodo  y creamos un número aleatorio entre 1 y este valor. El nodo elegido será el nodo con valor mayor más proximo al número aleatorio. Estas acciones se realizan en la función que llamamos en el pseudocódigo ``ElegirProximo''. 
