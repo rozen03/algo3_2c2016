@@ -7,15 +7,19 @@
 using namespace std;
 
 //variables globales
-double MinGlobal;
-double MinActual;
-vint RecorridoGlobal;
-vint RecorridoActual;
 unsigned int GimRecorridos;
 int PPRecorridas;
 int PocionesNecesarias;
 int CantBT;
-
+/*
+vnod PokeParadas;
+vnod Gimnasios;
+Mochila moch(0);
+double MinGlobal;
+double MinActual;
+vint RecorridoGlobal;
+vint RecorridoActual;
+*/
 
 //declaracion de funciones
 void BT();

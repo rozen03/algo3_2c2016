@@ -1,6 +1,6 @@
 #include "../clases.h"
 #include "../Punto2/Punto2.cpp"
-#include "../Punto3/pto3.cpp"
+//#include "../Punto3/ej3.cpp"
 #include <iostream>
 #include <limits>
 #include <stdio.h>
@@ -15,27 +15,35 @@ typedef vector<Nodo > vnod;
 typedef vector<Nodo * > vpnod;
 
 //variables globales
-int solu;
-vint RecorridoSolu;
 vnod GimDeCero;
-Mochila moch(0);
-vint Recorrido;
-double distanciaRecorrida;
+
+/*
 vnod PokeParadas;
 vnod Gimnasios;
+Mochila moch(0);
 int xactual;
 int yactual;
+double MinGlobal;
+double MinActual;
+vint RecorridoGlobal;
+vint RecorridoActual;
+ */
 
 //funciones
 void grasp();
-void GolozoRand();
+void GolozoRand(Nodo comienzo);
+int PuntajeAnodo(Nodo & n);
+void Filtro(vpnod & vect);
+void SacarPunteros(vpnod & vector, int elem);
+Nodo * ElegirElNodo(vpnod & vect);
+void ResetGlobalesPto4();
 
-void main(){
+int main(){
   srand (time(NULL));
-  Lectura();
+  Lectura(Gimnasios, PokeParadas, moch);
   for (int i=0; i < Gimnasios.size();i++) {
     Nodo aux= Gimnasios[i];
-    if (aux.DamePociones==0) {
+    if (aux.DamePociones()==0) {
       GimDeCero.push_back(aux);
     }
   }
@@ -44,11 +52,11 @@ void main(){
 }
 
 void grasp(){
-solu=  MAX;
+ResetGlobalesPto4();
 vnod entradasValidas;
 for (int i=0; i < GimDeCero.size();i++) {
   Nodo aux= GimDeCero[i];
-  if (aux.DamePociones==0) {
+  if (aux.DamePociones()==0) {
     entradasValidas.push_back(aux);
   }
 }
@@ -58,17 +66,19 @@ for (int i = 0; i < PokeParadas.size(); i++) {
 int j= entradasValidas.size();
 for (int i = 0; i < j; i++) {
     GolozoRand(entradasValidas[i]);
-    BLocal(RecorridoGlobal,MinGlobal);
-    if (MinGlobal<solu) {
-      solu=MinGlobal;
-      RecorridoSolu=RecorridoGlobal;
+  //  BusquedaLocal(Gimnasios, PokeParadas, moch, RecorridoActual,MinActual);
+    if (MinActual < MinGlobal) {
+      MinGlobal = MinActual;
+      RecorridoGlobal = RecorridoActual;
     }
+    RecorridoActual.clear();
+    MinActual = 0;
 }
 
 }
 
-void GolozoRand(){
-  Nodo* proxLugar=0;
+void GolozoRand(Nodo comienzo){
+  Nodo* proxLugar=&comienzo;
   while(!Gimnasios.empty()){//mientras sigan existiendo gimnasios que no pasaron
   //cout <<"Gimnasios"<< Gimnasios.size()<< endl;
   //cout <<"PokeParadaMasCercana"<< PokeParadaMasCercana.size()<< endl;
@@ -85,7 +95,7 @@ void GolozoRand(){
       sacar(Gimnasios, auxg->DameIndice());
     }
     for (int i = 0; i < losMasCercanos.size(); i++) {
-      Nodo aux= &losMasCercanos[i];
+      Nodo aux= *losMasCercanos[i];
       if(aux.EsGim()){
         Gimnasios.push_back(aux);
       }
@@ -94,7 +104,7 @@ void GolozoRand(){
       }
     }
     // me quedo solo con los 4 mas cercanos
-    filro(losMasCercanos);
+    Filtro(losMasCercanos);
 
     proxLugar = ElegirElNodo(losMasCercanos);
     if(proxLugar==0){ //no le puedo ganar al gimnasio mas cercano
@@ -109,8 +119,7 @@ void GolozoRand(){
     }
 }
 
-
-int puntajeAnodo(Nodo n){
+int PuntajeAnodo(Nodo & n){
   int res=0;
   if(n.EsGim() && moch.DamePeso()>=n.DamePociones()) res+=30;
   if(!n.EsGim() && !moch.estaLLena()){
@@ -121,18 +130,18 @@ int puntajeAnodo(Nodo n){
   }
 }
 
-void filtro(vpnod & vect ){
+void Filtro(vpnod & vect ){
   vpnod aux;
   Nodo * GimMin;
   bool hayGim = false;
   for (int i = 0; i < ceil(vect.size()/2); i++) {
     Nodo* min=vect[0];
-    if(vect[i]->esGim() && GimMin == NULL) GimMin=vect[i];
+    if(vect[i]->EsGim() && GimMin == NULL) GimMin=vect[i];
     if(GimMin != NULL && dist(vect[i]) < dist(GimMin) ) GimMin=vect[i];
-    for ( j = 1; j < vect.size(); j++) {
-      if dist(min)>dist(vect[j]) min=vect[j];
+    for(int j = 1; j < vect.size(); j++) {
+      if(dist(min)>dist(vect[j])) min=vect[j];
     }
-    if(min -> esGim()) hayGim = true;
+    if(min -> EsGim()) hayGim = true;
     aux.push_back(min);
     SacarPunteros(vect, min->DameIndice());
   }
@@ -140,8 +149,7 @@ void filtro(vpnod & vect ){
   vect=aux;
 }
 
-
-void sacarPunteros(vpnod &vector,int elem){
+void SacarPunteros(vpnod &vector,int elem){
 
 	for(int i = 0; i<vector.size();i++){
 		int indiceAux = vector[i]->DameIndice();
@@ -154,13 +162,13 @@ void sacarPunteros(vpnod &vector,int elem){
 	}
 }
 
-Nodo* ElegirElNodo(vpnod vect){
+Nodo* ElegirElNodo(vpnod & vect){
   Nodo* res;
   vint valorNodos;
   int suma=0;
   for(int i=0; i<vect.size(); i++){
     int aux= vect.size()*10-i*10;
-    aux += puntajeAnodo(&vect[i]);
+    aux += PuntajeAnodo(*vect[i]);
     suma+=aux;
     valorNodos.push_back(suma);
   }
@@ -171,3 +179,17 @@ Nodo* ElegirElNodo(vpnod vect){
       }
     }
   }
+
+//si hay un shift de 42 en algun lado es por que tengo que resetear mejor
+void ResetGlobalesPto4(){
+PokeParadas.clear();
+Gimnasios.clear();
+RecorridoGlobal.clear();
+RecorridoActual.clear();
+moch.CambiarCapacidad(0);
+moch.Restaurar(0);
+xactual = 42;
+yactual = 42;
+MinGlobal = MAX;
+MinActual = 42;
+}

@@ -13,11 +13,17 @@ using namespace std;
 typedef vector<int> vint;
 typedef vector<Nodo > vnod;
 
-//Variables
-vint Recorrido;
-double distanciaRecorrida;
+//Variables Estan todas en Clase.h
+/*
+vnod PokeParadas;
+vnod Gimnasios;
+Mochila moch(0);
 int xactual;
 int yactual;
+vint Recorrido;
+double distanciaRecorrida;
+*/
+
 //funciones
 Nodo *	GimMasCercano(); //devuelve el  gimnasio mas cercano. Si devuelve 0 es porque no se le puede ganar
 Nodo *	PokeParadaMasCercana(); //devuelve el id de la pokeparada mas cercana.
