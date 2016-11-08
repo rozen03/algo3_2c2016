@@ -52,7 +52,7 @@ int ElegirSoloNecesarias(vint pocionesDeGim, int cantPP, int capMoch){
 	 */
 	vector<int> bucket(capMoch, 0);
 	//meto en el bucket
-	cerr<<"la capacidad es "<<capMoch<<endl;
+	cerr<<"la capacidad es "<<capMoch<<" empece con "<<cantPP<<" PokeParadas"<<endl;
 	for(int i = 0; i < pocionesDeGim.size(); i++){
 		int pocAux = pocionesDeGim[i];
 		if(pocAux > 0) bucket[pocAux-1]++;
@@ -69,6 +69,7 @@ int ElegirSoloNecesarias(vint pocionesDeGim, int cantPP, int capMoch){
 	//ppDemas en realidad es cuantas ppnecesitamos, despues hacemos una resta y listo
 	int ppDemas = 0;
 	//primero saco todos los pares que existan
+	/*
 	for(int i = bucket.size()-1; i >= 0; i--){
 		//va a ser dificil pensarlo con un desplazamiento asi que prefiero tenerlo en su forma original, si... con un poco de cerebro se hace igual, pero no quiero debuggear al pedo
 		int pociones = i+1;
@@ -122,25 +123,38 @@ int ElegirSoloNecesarias(vint pocionesDeGim, int cantPP, int capMoch){
 			}
 		}
 	}
-
+	*/
+	
 	//Ahora solo quedan cosas que no tienen pares que sumen modulo 3, no se si voy a poder hacerlo tal que me queden las pp justas y necesarias pero bue...
 	int pocQuedan = 0;
 	for(int i = 0; i<bucket.size(); i++){
-		cerr<<"Estoy asignando los no pares, i: "<<i<<endl;
-		for(int j = 1; j <=bucket[i]; j++){
-			cerr<<"cuantos elementos hay en bucket[i]"<<bucket[i]<<endl;
-			if(pocQuedan < i+1){
-				cerr<<"Necesito agregar pp"<<endl;
-				int necesito = ((i+1 - pocQuedan) / 3) + 1;
-				ppDemas += necesito;
-				pocQuedan = 3-i+1;
-			}
-			else{
-				//me sobran pero todavia puedo gastarlas
-				pocQuedan -= i+1;
+		int necesito = 0;
+		if((i+1) % 3 == 0){
+			necesito = ((i+1)/3 * bucket[i]); 
+		}
+		else{
+			for(int j = 1; j <=bucket[i]; j++){
+				if(pocQuedan < i+1){
+					int pocionesNec = i+1-pocQuedan;
+					float div = pocionesNec/3;
+					necesito = floor(div);
+					if(pocionesNec % 3 != 0) necesito++;
+					//aca hago funcion modulo, i+1 es la cantidad
+					//de p que necesita para ganar, si hago esa cuenta queda bien piola y no negativos
+					pocQuedan = (3-(i+1)) % 3;
+					//la funcion MODULO en realidad da el resto puto el bjarne
+					if(pocQuedan < 0) pocQuedan +=3;
+				}
+				else{
+					//me sobran pero todavia puedo gastarlas
+					pocQuedan -= i+1;
+				}
 			}
 		}
+		cerr<<"("<<i+1<<","<< necesito<<")["<<pocQuedan<<"] ";
+		ppDemas += necesito;
 	}
+	cerr<<endl;
 	//Ya tengo todas las pp que necesito y todas las que tengo, una resta y estamos
 	cerr<<"las pp que voy a asignar son "<<ppDemas-cantPP<<endl;
 	return ppDemas-cantPP;

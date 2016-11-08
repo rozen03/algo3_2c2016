@@ -241,7 +241,7 @@ Vamos a demostrar que la complejidad de esta heurística es $\mathcal{O}$(n*m) d
 Por un lado, vamos a analizar las funciones auxiliares. La función $moverse$ usa todas operaciones en $\mathcal{O}$(1) y no contiene ciclos. Entonces su complejidad es $\mathcal{O}$(1).
 Luego, ElegirPrimero recorre los gimnasios en busca de uno trivial ($\mathcal{O}$(n)), luego recorre nuevamente los gimnasios en busca de uno ``fácil'', y si lo encuentra busca la pokeparada más cercana ($\mathcal{O}$(n+m)), y por último elije una pokeparada cualquiera ($\mathcal{O}$(1)). En resumen, esta función auxiliar tiene complejidad $\mathcal{O}$(n+m)
 \\
-
+Viendo el algoritmo
 
 
 \subsection{Experimentación y análisis de resultados}

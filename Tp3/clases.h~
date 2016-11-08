@@ -11,10 +11,7 @@ using namespace std;
 //Statics
 static double MAX = numeric_limits<double>::max();
 
-//Tipos
-typedef vector<int> vint;
-
-
+//hay variables declarada post la declaracion delas clases.
 
 class Nodo {
 public:
@@ -38,7 +35,6 @@ private:
 };
 
 
-typedef vector<Nodo> vnod;
 
 class Mochila {
 public:
@@ -54,6 +50,19 @@ private:
   int capacidad;
   int peso;
 };
+
+//Tipos
+typedef vector<int> vint;
+typedef vector<Nodo> vnod;
+
+//variables interpuntos
+vnod PokeParadas;
+vnod Gimnasios;
+Mochila moch(0);
+int xactual;
+int yactual;
+vint Recorrido;
+double distanciaRecorrida;
 
 // funciones nodo
 

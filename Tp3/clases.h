@@ -59,6 +59,14 @@ typedef vector<Nodo> vnod;
 vnod PokeParadas;
 vnod Gimnasios;
 Mochila moch(0);
+double MinGlobal;
+double MinActual;
+vint RecorridoGlobal;
+vint RecorridoActual;
+int xactual;
+int yactual;
+vint Recorrido;
+double distanciaRecorrida;
 
 // funciones nodo
 
