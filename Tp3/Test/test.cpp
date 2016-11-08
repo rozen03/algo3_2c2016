@@ -57,7 +57,7 @@ int ElegirSoloNecesarias(vint pocionesDeGim, int cantPP, int capMoch){
 		int pocAux = pocionesDeGim[i];
 		if(pocAux > 0) bucket[pocAux-1]++;
 	}
-	
+
 	for(int i = 0; i<bucket.size();i++){
 		cerr<<bucket[i]<<" ";
 	}
@@ -82,7 +82,7 @@ int ElegirSoloNecesarias(vint pocionesDeGim, int cantPP, int capMoch){
 			//estas siempre van a llegar a 0 en este for, por que no se acomplan con nadie.
 			bucket[i] = 0;
 		}
-		
+
 		if(pociones % 3 == 2){
 			//como es division entera, esto me dejaria por debajo de las que necesito, como en este for solo voy a
 			//buscar parejas voy a necesitar la division entera mas 1.
@@ -102,7 +102,7 @@ int ElegirSoloNecesarias(vint pocionesDeGim, int cantPP, int capMoch){
 				}
 			}
 		}
-		
+
 		if(pociones % 3 == 1){
 			//como es division entera, esto me dejaria por debajo de las que necesito, como en este for solo voy a
 			//buscar parejas voy a necesitar la division entera mas 1.
@@ -122,7 +122,7 @@ int ElegirSoloNecesarias(vint pocionesDeGim, int cantPP, int capMoch){
 			}
 		}
 	}
-	
+
 	//Ahora solo quedan cosas que no tienen pares que sumen modulo 3, no se si voy a poder hacerlo tal que me queden las pp justas y necesarias pero bue...
 	int pocQuedan = 0;
 	for(int i = 0; i<bucket.size(); i++){
@@ -264,7 +264,7 @@ void RectaPPgim(int rep, int cantgim){
 			pp.push_back(pokeparada);
 		}
 		AsignarIndices(gimnasios, pp);
-		
+
 		CorrerGeneral(rep, gimnasios, pp, moch, res, casos, podas);
 	}
 }
@@ -350,10 +350,8 @@ Correr(rep, gimansios, pp, res);
 }
 */
 
-/*
-auto gruposSeparados (vnod gym, vnod pepe){
+void gruposSeparados (vnod& gym, vnod& pepe, const int &a, const int &b ){
 
-}
 auto generadorDeEspirales(int a, int b){
 	auto espiral = [x=0,y=0,dx = 0,dy = -1,a=a,b=b]() mutable{ //espiral.. girasol... lo q sea..
 		//cout<<x+a<<" "<<y+b<<endl;
@@ -368,15 +366,13 @@ auto generadorDeEspirales(int a, int b){
 	};
 	return espiral;
 }
-<<<<<<< HEAD
-auto
-*/
+
 
 int main(){
 	//RectaPPgim(1, 10);
-	
+
 	SoloPokeparadasNecesariasRecta(1, 30);
-	
+
 	/*
 	std::vector<tuple<int,int> > v;
 	auto espiral = generadorDeEspirales(20,20);
