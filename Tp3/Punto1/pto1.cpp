@@ -30,7 +30,7 @@ Nodo & BuscarNodo(unsigned int n);
 unsigned int Maximo(unsigned int a,unsigned int b);
 void LecturaDatos();
 double pto1(vnod gim, vnod pp, Mochila moch, vint & recorrido);
-bool PodaPokeparadaMochila(vnod & gim, int cantPP, int capMoch);
+//bool PodaPokeparadaMochila(vnod & gim, int cantPP, int capMoch);
 void Reset(vnod & PP, vnod & G, Mochila mochil);
 
 
@@ -68,14 +68,14 @@ int main(){
     PPRecorridas = 100;
 	PocionesNecesarias = -100;
 	CantBT = 15;
-	
+
 	vint recorrido;
 	double res = pto1(gimAux, ppAux, mochAux, recorrido);
 	cout<<res<<" "<<recorrido.size()<<" ";
 	if(res != -1){
 		for(unsigned int i=0; i<RecorridoGlobal.size(); i++){
-			cout<< RecorridoGlobal[i] << " ";	
-		} 
+			cout<< RecorridoGlobal[i] << " ";
+		}
 	}
 	else{
 		cout<< -1;
@@ -90,8 +90,8 @@ int main(){
 		if(RecorridoGlobal.size() != 0){
 			cout<< MinGlobal << " "<< RecorridoGlobal.size() <<" ";
 			for(unsigned int i=0; i<RecorridoGlobal.size(); i++){
-				cout<< RecorridoGlobal[i] << " ";	
-			} 
+				cout<< RecorridoGlobal[i] << " ";
+			}
 		}
 		else{
 			cout<< -1;
@@ -121,7 +121,7 @@ void Reset(vnod & PPAux,vnod & GAux, Mochila mochil){
 	moch.Restaurar(0);
 }
 
-
+/*
 bool PodaPokeparadaMochila(vnod & gim, int cantPP, int capMoch){
 	int sumaTotal;
 	int max = 0;
@@ -137,10 +137,10 @@ bool PodaPokeparadaMochila(vnod & gim, int cantPP, int capMoch){
 	}
 	return cantMin <= cantPP;
 }
-
+*/
 double pto1(vnod gim, vnod pp, Mochila mochil, vint & recorrido){
 	Reset(pp, gim, mochil);
-	bool superPoda = PodaPokeparadaMochila(gim, pp.size(), mochil.Capacidad());
+	bool superPoda = true ;//PodaPokeparadaMochila(gim, pp.size(), mochil.Capacidad());
 	double res = -1;
 	if(superPoda){
 		BT();
@@ -164,7 +164,7 @@ void LecturaDatos(){
 		PocionesNecesarias += p;
 		if(maxPos < p) maxPos = p;
 		Nodo nuevo = Nodo(-p,i,x,y);
-		Gimnasios.push_back(nuevo);		
+		Gimnasios.push_back(nuevo);
 	}
 	if(maxPos > k || m*PocionesQueDaPP < PocionesNecesarias) {
 	cout<< -1<<endl;
@@ -174,7 +174,7 @@ void LecturaDatos(){
 		int x,y;
 		cin>> x >> y;
 		Nodo nuevo= Nodo(3,i,x,y);
-		PokeParadas.push_back(nuevo); 
+		PokeParadas.push_back(nuevo);
 	}
 }
 
@@ -196,13 +196,13 @@ void BT(){
 			if (puedoIrG(gim)){
 				GimRecorridos++;
 				//como las pociones de un gimnasio son negativas y quiero achicar la catidad de pociones se suma
-				PocionesNecesarias += gim.DamePociones();					
+				PocionesNecesarias += gim.DamePociones();
 				voy(gim);
 				PocionesNecesarias -= gim.DamePociones();
-				GimRecorridos--;				
+				GimRecorridos--;
 			}
 		}
-		
+
 		//Voy a pokeparadas
 		if(i<PokeParadas.size()){
 			Nodo & pp = PokeParadas[i];
@@ -215,12 +215,12 @@ void BT(){
 			}
 			PPRecorridas--;
 		}
-	}				
+	}
 }
 
 /* Aca se Trata e fijarse si puedo ir a una PP, es decir si ya no fui, o si vale la pena ir, es decir si la mochila ya esta llena, no vale la pena ir
  *  ya que gasto esas pociones, si consumo de mas, es decir que si al ir a la PP tengo que tirar una pocion y esa pocion era necesaria para la solucion.
- * 
+ *
  * Aca Hay dos Podas, si la Mochila esta LLena, y si Consumo de mas. a simple vista se puede pensar que la mochila este llena es abarcado por consumir de mas,
  * pero no, puedo tener situaciones donde descartar 3 pociones no me lleva a una instancia donde no tego forma de completar todos los gimnasios, ej PP>>gim
  */
@@ -235,7 +235,7 @@ bool puedoIrPP( Nodo & p){
 	if(moch.DameCapacidad()<3) pocionesQueDa = moch.DameCapacidad();
 	int PPRestantes = PokeParadas.size() - PPRecorridas;
 	if(MochilaPost + (pocionesQueDa*PPRestantes) < PocionesNecesarias) NoConsumoDemas = false;
-	
+
 	return !moch.estaLLena() && (p.Recorrido() == false) && NoConsumoDemas;
 }
 
@@ -283,4 +283,3 @@ unsigned int Maximo(unsigned int a,unsigned int b){
 	}
 	return a;
 }
-

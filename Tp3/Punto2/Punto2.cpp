@@ -145,7 +145,7 @@ void goloso(){
 Nodo* GimMasCercano(){//AAAAA NO SE SI USAR PUNTEROS
 	Nodo * min = 0;
 	for (int i = 0; i < Gimnasios.size(); ++i){
-		if(moch.DamePeso()>=Gimnasios[i].DamePociones()){//verifico que puedo vencer este gimnacio 
+		if(moch.DamePeso()>=-Gimnasios[i].DamePociones()){//verifico que puedo vencer este gimnacio 
 			if(min==0){
 				min = &Gimnasios[i];
 			}
@@ -197,8 +197,11 @@ void moverse(Nodo * lugar){
 	moch.usarMochila(lugar->DamePociones());
 
 	//lo agrego al recorrido  y la distancia que estoy haciendo
+	if(!Recorrido.empty()){
+		distanciaRecorrida =+ dist(lugar);
+	}
 	Recorrido.push_back(lugar->DameIndice());
-	distanciaRecorrida =+ dist(lugar);
+	
 
 	//actualizo x e y
 	xactual = lugar->CordenadaX();

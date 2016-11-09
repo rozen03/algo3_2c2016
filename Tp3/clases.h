@@ -18,8 +18,10 @@ public:
   Nodo(int p, int i, int x, int y);
   Nodo(Nodo n, int i);
   int DameIndice();
+  //los gims tienen este valor en negativo
   int DamePociones();
   bool Recorrido();
+  //para marcar que la recorriste poner true
   void Recorrer(bool b);
   double Distancia(Nodo &y);
   bool EsGim();
