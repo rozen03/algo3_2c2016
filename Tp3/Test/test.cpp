@@ -1,4 +1,4 @@
-//#include "../clases.h"
+#include "../clases.h"
 #include <iostream>
 #include <fstream>
 #include <chrono>
@@ -7,7 +7,7 @@
 #include "../Punto1/pto1.cpp"
 #include "../Punto1/pto1A.cpp"
 //#include "../Punto2/Punto2.cpp"
-#include "../Punto3/ej3.cpp"
+#include "../Punto3/ej3.h"
 #include "../Punto4/pto4.cpp"
 
 //Funciones Auxiliares
@@ -144,19 +144,18 @@ void Correr(int rep, vnod gimnasios, vnod pokeparadas, Mochila moch, ofstream & 
 	double (* foo)(vnod,vnod, Mochila,vint &);
 	switch(nroEj){
 
-		case 1:
+/*		case 1:
 		foo = &pto1;
 		break;
-		/*
 		case 2:
 		foo = &pto2;
 		break;
 		case 3:
 		foo = &pto3;
 		break;
-		case 4:
+	*/	case 4:
 		foo = &pto4;
-		break;*/
+		break;
 		default:
 		cout<<"N invalido"<<endl;
 		res<<"\n";

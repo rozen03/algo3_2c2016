@@ -180,7 +180,7 @@ Nodo* PokeParadaMasCercana(){
 
 double dist(Nodo* f) {
 	int x = xactual - f->CordenadaX();
-	int y = xactual - f->CordenadaY();
+	int y = yactual - f->CordenadaY();
 	int pre = pow(x, 2) + pow(y, 2);
 	return sqrt(pre); //esto NO devuelve un int....
 }
@@ -198,7 +198,7 @@ void moverse(Nodo * lugar){
 
 	//lo agrego al recorrido  y la distancia que estoy haciendo
 	if(!Recorrido.empty()){
-		distanciaRecorrida =+ dist(lugar);
+		distanciaRecorrida += dist(lugar);
 	}
 	Recorrido.push_back(lugar->DameIndice());
 	
