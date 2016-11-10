@@ -1,4 +1,4 @@
-//#include "../clases.h"
+#include "../clases.h"
 #include <iostream>
 #include <fstream>
 #include <chrono>
@@ -8,7 +8,7 @@
 #include "../Punto1/pto1.cpp"
 #include "../Punto1/pto1A.cpp"
 //#include "../Punto2/Punto2.cpp"
-#include "../Punto3/ej3.cpp"
+#include "../Punto3/ej3.h"
 #include "../Punto4/pto4.cpp"
 
 //Funciones Auxiliares
@@ -145,18 +145,16 @@ void Correr(int rep, vnod gimnasios, vnod pokeparadas, Mochila moch, ofstream & 
 	double (* foo)(vnod,vnod, Mochila,vint &);
 	switch(nroEj){
 
-		case 1:
+/*		case 1:
 		foo = &pto1;
 		break;
-		/*
 		case 2:
 		foo = &pto2;
 		break;
 		case 3:
 		foo = &pto3;
 		break;
-*/
-		case 4:
+	*/	case 4:
 		foo = &pto4;
 		break;
 		default:
@@ -221,13 +219,15 @@ void RectaPPgim(int rep, int cantgim){
 	srand(time(NULL));
 	for(int i = 0; i<=rep;i++) meta<<"valor & sol &";
 	meta<<"\n";
-	res<<"pto & cantidad de gimnasios & cantidad de pokeparadas & distancia & resultado & ... tiempos ...& \n";
-	podas<<"cant Gim & cant pp & cantidad de llamadas al BT sin podas & distancia & recorrido";
-	podas<<" & #BT con Poda A & distancia & recorrido & #BT con Poda B & distancia & recorrido";
-	podas<<" & #BT con Poda c & distancia & recorrido & #BT con Poda AB & distancia & recorrido";
-	podas<<" & #BT con Poda AC & distancia & recorrido & #BT con Poda BC & distancia & recorrido";
-	podas<<" & #BT con Poda ABC & distancia & recorrido\n";
-	casos<<"La idea es saber como estan conformados los casos gimansios & pp \n";
+	res<<"pto &i &j & d & r &";
+	for(int i = 1; i<=rep; i++)res<<"t"<<i<<" &";
+	res<<"\n";
+	podas<<"i &j &SP &dp &rp";
+	podas<<" &A & da & ra &B &db &rb";
+	podas<<" &C &dc &rc &AB &dab &rab";
+	podas<<" &AC & dac &rac &BC &dbc &rbc";
+	podas<<" &ABC &dabc &rabc \n";
+	casos<<"i &j \n";
 	//indice emula como funciona el indice de los nodos en la lectura
 	int indicePP = cantgim+1;
 	int ppTotales = 0;
@@ -258,13 +258,15 @@ void SoloPokeparadasNecesariasRecta(int rep, int cantgim){
 	ofstream meta("resultadosPPNecmeta.txt");
 	for(int i = 0; i<=rep;i++) meta<<"valor & sol &";
 	meta<<"\n";
-	res<<"pto & cantidad de gimnasios & cantidad de pokeparadas & distancia & resultado & ... tiempos ...& \n";
-	podas<<"cant Gim & cant pp & cantidad de llamadas al BT sin podas & distancia & recorrido";
-	podas<<" & #BT con Poda A & distancia & recorrido & #BT con Poda B & distancia & recorrido";
-	podas<<" & #BT con Poda c & distancia & recorrido & #BT con Poda AB & distancia & recorrido";
-	podas<<" & #BT con Poda AC & distancia & recorrido & #BT con Poda BC & distancia & recorrido";
-	podas<<" & #BT con Poda ABC & distancia & recorrido\n";
-	casos<<"La idea es saber como estan conformados los casos gimansios & pp \n";
+	res<<"pto &i &j & d & r &";
+	for(int i = 1; i<=rep; i++)res<<"t"<<i<<" &";
+	res<<"\n";
+	podas<<"i&j&SP&dp&rp";
+	podas<<"&A&da&ra&B&db&rb";
+	podas<<"&C&dc&rc&AB&dab&rab";
+	podas<<"&AC&dac&rac&BC&dbc&rbc";
+	podas<<"&ABC&dabc&rabc\n";
+	casos<<"i &j \n";
 	vnod gim;
 	vnod pp;
 	vint pocionesDeGim;

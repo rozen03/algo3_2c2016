@@ -1,5 +1,5 @@
-#include "../eje.h"
-#include "../estructuras.h"
+#include "eje.h"
+#include "estructuras.h"
 #include <iostream>
 #include <queue>
 #include <tuple>
@@ -165,16 +165,16 @@ int Solucion(vector<Nodo *> &nodos, vector<Eje *> &ejes, int p) {
 	return res;
 }
 
-int moin(int argc, char *argv[]) {
+int main(int argc, char *argv[]) {
   std::vector<Nodo *> nodos;
   std::vector<Eje *> ejes;
   int f=0;
   int c=0;
   int p = 1;
-  //p = parsearInput(nodos,ejes,1);
+  p = parsearInput(nodos,ejes,1);
   //cout<< f <<" "<<c<<endl;
-  //int res = Solucion(nodos, ejes, p);
-  //cout<<res<<endl;
+  int res = Solucion(nodos, ejes, p);
+  cout<<res<<endl;
   return 0;
  }
 //

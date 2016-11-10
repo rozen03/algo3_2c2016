@@ -1,4 +1,4 @@
-#include "../clases.h"
+#include "ej3.h"
 typedef vector<int> vint;
 typedef std::vector<vnod> vvnod;
 double tirarPokeParadas(vnod pokeParadas, vnod &gimnasios, Mochila mochila, vnod &solucion) {
@@ -112,10 +112,10 @@ double tirarPokeParadas(vnod pokeParadas, vnod &gimnasios, Mochila mochila, vnod
         return mejorarSolucion(gimnasios,pokeParadas, mochila, solucion);
     }
 
-    double BusquedaLocal(vnod &gimnasios, vnod &pokeParadas, Mochila &mochila, vint &solucion, int valor){
+    double BusquedaLocal(vnod &gimnasios, vnod &pokeParadas, Mochila &mochila, vint &solucion, double valor){
         vnod nuevosGimnasios = dameGimnasios(gimnasios,solucion);
         vint solucion_posible;
-        int res_posible;
+        double res_posible;
         res_posible= mejorarSolucion( nuevosGimnasios, pokeParadas,mochila,  solucion_posible);
         if(res_posible<valor){
             solucion=solucion_posible;
