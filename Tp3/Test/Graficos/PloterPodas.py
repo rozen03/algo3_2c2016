@@ -10,15 +10,19 @@ def main(output, show=False, labels = None):
 	
 	df ="podasRectaSinMoch.csv"
 	podas = pd.read_csv(df, sep ='&')
+	podas['i+j'] = podas['i ']+podas['j ']
+	indice = pd.DataFrame(data = podas, columns=['i+j'])
+	print podas['i+j']
+	soloBt = pd.DataFrame(data=podas,index = indice,columns=['SP ','A ','B ','C ','AB ','AC ','BC ', 'ABC '])
+	
 	print podas
-	podasble = podas.filter(['i ','j ','SP ','A ','B ','C ','AB ','AC ','BC ', 'ABC ']);
 	print "ola"
-	print podasble
+	print soloBt
 	print "asd"
 	print podas
 	print "bla"
-	print podas['i ']
-	plt.barplot(x='i '+'j ', y=")
+	soloBt.plot(kind='bar')
+	plt.show()	
 	plt.hist(podas['i '] + podas['j '])
 	plt.show()
 	
