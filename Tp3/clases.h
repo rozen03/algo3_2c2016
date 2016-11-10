@@ -18,6 +18,7 @@ public:
   Nodo(int p, int i, int x, int y);
   Nodo(Nodo n, int i);
   int DameIndice();
+  void asignarCantidadPociones(int p);
   //los gims tienen este valor en negativo
   int DamePociones();
   bool Recorrido();
@@ -91,7 +92,9 @@ double Nodo::Distancia(Nodo &f) {
   int pre = pow(x, 2) + pow(y, 2);
   return sqrt(pre);
 }
-
+void Nodo::asignarCantidadPociones(int p){
+    pociones = p;
+}
 int Nodo::DamePociones() { return pociones; }
 
 bool Nodo::Recorrido() { return Recorri; }

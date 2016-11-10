@@ -8,7 +8,7 @@
 #include "../Punto1/pto1.cpp"
 #include "../Punto1/pto1A.cpp"
 //#include "../Punto2/Punto2.cpp"
-#include "../Punto3/ej3.h"
+#include "../Punto3/ej3.cpp"
 #include "../Punto4/pto4.cpp"
 
 //Funciones Auxiliares
@@ -335,7 +335,6 @@ Correr(rep, gimansios, pp, res);
 }
 }
 */
-//void gruposSeparados (vnod& gym, vnod& pepe, const int &a, const int &b ){
 
 std::function<tuple<int,int>()> generadorDeEspirales(int a, int b){
 	int x=0;
@@ -350,27 +349,66 @@ std::function<tuple<int,int>()> generadorDeEspirales(int a, int b){
 		}
 		x = x+dx;
 		y=y+dy;
-		return make_tuple(x,y);
+		return make_tuple(x+a,y+b);
 	};
-
 }
 
 
+int dameX(tuple<int,int> tupla){
+	return get<0>(tupla);
+}
+int dameY(tuple<int,int> tupla){
+	return get<1>(tupla);
+}
+void gruposSeparados (vnod& gyms, vnod& pepes, const int &cant_gym, const int &cant_pp ){
+	auto espiral_gyms =generadorDeEspirales(0, 0);
+	auto espiral_pp   =generadorDeEspirales(2*(cant_gym+cant_pp),2*(cant_gym+cant_pp));//pongo el otro BIEN LEJOS
+for (size_t i = 0; i < cant_gym; i++) {
+	auto coordenadas = espiral_gyms();
+	gyms.push_back(Nodo(0,0,dameX(coordenadas),dameY(coordenadas)));
+}
 
+for (size_t i = 0; i < cant_pp; i++) {
+	auto coordenadas = espiral_pp();
+	pepes.push_back(Nodo(0,0,dameX(coordenadas),dameY(coordenadas)));
+}
 
-int main(){
-	RectaPPgim(1, 10);
+}
+void asignarPocionesDeFormaCreciente(vnod & gyms){
+for (size_t i = 0; i < gyms.size(); i++) {
+	gyms[i].asignarCantidadPociones(i);
 
-	//SoloPokeparadasNecesariasRecta(1, 30);
+}
 
-	/*
-	std::vector<tuple<int,int> > v;
-	auto espiral = generadorDeEspirales(20,20);
-	for (size_t i = 0; i < 100000000; i++) {
-	//	espiral();
-	v.push_back(espiral());
+}
+void casoGruposSeparadosPocionesCreciente(vnod& gyms, vnod& pepes, const int &cant_gym, const int &cant_pp ){
+	gruposSeparados (gyms, pepes,cant_gym, cant_pp);
+	asignarPocionesDeFormaCreciente(gyms);
+	AsignarIndices(gyms,pepes);
+}
+void casoEspiralPrimeroPepesPocionesCreciente(vnod& gyms, vnod& pepes, const int &cant_gym, const int &cant_pp ){
+	auto espiral =generadorDeEspirales(0, 0);
+	for (size_t i = 0; i < cant_gym; i++) {
+		auto coordenadas = espiral();
+		gyms.push_back(Nodo(0,0,dameX(coordenadas),dameY(coordenadas)));
 	}
-	cout<<v.size()<<endl;
-	}*/
 
+	for (size_t i = 0; i < cant_pp; i++) {
+		auto coordenadas = espiral();
+		pepes.push_back(Nodo(0,0,dameX(coordenadas),dameY(coordenadas)));
+	}
+	asignarPocionesDeFormaCreciente(gyms);
+	AsignarIndices(gyms,pepes);
+}
+int main(){
+//	RectaPPgim(1, 10);
+//SoloPokeparadasNecesariasRecta(1, 30);
+vnod gyms;
+vnod pepes;
+casoGruposSeparadosPocionesCreciente(gyms,pepes,10,20);
+ImprimirNod(gyms);
+gyms.clear();
+pepes.clear();
+casoEspiralPrimeroPepesPocionesCreciente(gyms,pepes,10,20);
+ImprimirNod(gyms);
 }
