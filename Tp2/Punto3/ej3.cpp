@@ -69,7 +69,7 @@ int caminoMinimoOpt(vector<vector<tuple<int,int> > >& matAdy, vector<int>& estac
 			}
 		}
 	}
-	
+
 	int tiempo = get<0>(matAdy[1][n]);
 	int pred = n;
 	while(pred != 1 && pred != 0){//O(n) como mucho tiene que ir a n estaciones
@@ -80,9 +80,9 @@ int caminoMinimoOpt(vector<vector<tuple<int,int> > >& matAdy, vector<int>& estac
 	std::reverse(estaciones.begin(), estaciones.end());
 	return tiempo;
 /*
- *tanto 1, 2, 3 son lo que pesan en el ciclo, el while es n^2 ya que 1,2,3 se hace n^2 de veces... es una sumatoria de gauss que es O(n^2) 
- * 
- *  
+ *tanto 1, 2, 3 son lo que pesan en el ciclo, el while es n^2 ya que 1,2,3 se hace n^2 de veces... es una sumatoria de gauss que es O(n^2)
+ *
+ *
  */
 }
 //este calcula todos los minimos Es Igual que el Opt pero con una leve modificacion.
@@ -109,7 +109,7 @@ int caminoMinimo(vector<vector<tuple<int,int> > >& matAdy, vector<int>& estacion
 			}
 		}
 	}
-	
+
 	int tiempo = get<0>(matAdy[1][n]);
 	int pred = n;
 	while(pred != 1 && pred != 0){
@@ -139,7 +139,7 @@ void lecturaDatos(vector<vector<tuple<int,int> > >& matrizAdyacencia){
 	}
 	matrizAdyacencia = filaycolum;
 }
-/*
+
 int main(int argc, char *argv[]){
 	vector<vector<tuple<int,int> > > matriz;
 	vector<int> estaciones;
@@ -156,6 +156,3 @@ int main(int argc, char *argv[]){
 	cout<<endl;
 	return 0;
 }
-
-*/
-
