@@ -76,9 +76,9 @@ Mientras hacemos la lectura de datos, guardamos la cantidad máxima de pociones 
 
 \begin{algorithm}[H]{\textbf{variables Globales}}
 	\begin{algorithmic}[1]
-		\State real MinActual 
-		\State real MinGlobal
-		\State vint RecorrifoGlobal
+		\State real MinActual $\gets \infty$
+		\State real MinGlobal $\gets 0$
+		\State vint RecorridoGlobal
 		\State vint RecorridoActual
 		\State vnod PokeParadas
 		\State vnod Gimnasios
@@ -92,44 +92,37 @@ Mientras hacemos la lectura de datos, guardamos la cantidad máxima de pociones 
 
 \begin{algorithm}[H]{\textbf{BT}()}
 	\begin{algorithmic}[1]
-		\State MinActual $\gets \infty$
-		\State MinGlobal $\gets 0$
 		\State Si  MinActual$>$MinGlobal  
 			 \State \quad cortar
 		\State finSi
 		\State Si GimRecorridos = $|$Gimnasios$|$ 
-		\State \quad Si MinActual $<$ Min Gobal
-		\State \qquad MinGlobal $\gets$ MinActual
-		\State \qquad RecorridoGlobal $\gets$ RecorridoAtual
-		\State \quad finSi
+			\State \quad Si MinActual $<$ Min Gobal
+				\State \qquad MinGlobal $\gets$ MinActual
+				\State \qquad RecorridoGlobal $\gets$ RecorridoAtual
+			\State \quad finSi
 		\State finSi
 		\State Desde i=0 hasta i$<$Max($|$Gimnasios$|$,$|$PokeParadas$|$)
-	
-		\State \quad Si i$< |$Gimnasios$|$
-		\State \quad \quad gim $\gets$ Gimnasios[i]
-		\State \quad \quad Si puedoIr(gim)
-		\State \quad \quad \quad Voy(gim)
- 		\State \quad \quad finSi	
-		\State \quad finSi
-		\State \quad Si i $< |$PokeParadas$|$
-		\State \qquad pp $\gets$ Pokeparadas[i]
-		\State \qquad PokeParadasRecorridas $\gets$ PokeParadasRecorridas + 1 
-		\State \qquad Si puedoIr(pp)
-		\State \qquad \quad Voy(pp) 	
-		\State \qquad finSi
-		\State \qquad PokeParadasRecorridas $\gets$ PokeParadasRecorridas - 1 
-
-		\State \quad finSi 
+			\State \quad Si i$< |$Gimnasios$|$
+				\State \quad \quad gim $\gets$ Gimnasios[i]
+				\State \quad \quad Si puedoIr(gim)
+					\State \quad \quad \quad Voy(gim)
+		 		\State \quad \quad finSi	
+			\State \quad finSi
+			\State \quad Si i $< |$PokeParadas$|$
+				\State \qquad pp $\gets$ Pokeparadas[i]
+				\State \qquad PokeParadasRecorridas $\gets$ PokeParadasRecorridas + 1 
+				\State \qquad Si puedoIr(pp)
+					\State \qquad \quad Voy(pp) 	
+				\State \qquad finSi
+				\State \qquad PokeParadasRecorridas $\gets$ PokeParadasRecorridas - 1 
+			\State \quad finSi 
 		\State finDesde
 		\State Si RecorridoGlobal $= \emptyset$
-		\State \quad Devovler -1
+			\State \quad Devolver -1
 		\State Si no
-		\State \quad Devolver MinGlobal
+			\State \quad Devolver MinGlobal
 		\State finSi
-  		
-		
-		
-		\State finSi %%Este me parece que no va
+ 
 	\end{algorithmic}
 \end{algorithm}
 
