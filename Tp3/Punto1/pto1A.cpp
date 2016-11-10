@@ -107,21 +107,21 @@ void CorrerPodas(vnod GAux, vnod PPAux, Mochila mochil, ofstream & podas){
 	double distABC = MinGlobal;
 	vint SolbtABC = RecorridoGlobal;
 	
-	podas<< Cbt<<" & "<<dist<<" & ";
+	podas<< Cbt<<"&"<<dist<<"&";
 	Imprimir(Solbt, podas);
-	podas<<" & "<<CbtA<<" & "<<distA<<" & ";
+	podas<<"&"<<CbtA<<"&"<<distA<<"&";
 	Imprimir(SolbtA, podas);
-	podas<<" & "<<CbtB<<" & "<<distB<<" & ";
+	podas<<"&"<<CbtB<<"&"<<distB<<"&";
 	Imprimir(SolbtB, podas);
-	podas<<" & "<<CbtC<<" & "<<distC<<" & ";
+	podas<<"&"<<CbtC<<"&"<<distC<<"&";
 	Imprimir(SolbtC, podas);
-	podas<<" & "<<CbtAB<<" & "<<distAB<<" & ";
+	podas<<" &"<<CbtAB<<"&"<<distAB<<"&";
 	Imprimir(SolbtAB, podas);
-	podas<<" & "<<CbtAC<< " & "<< distAC<<" & ";
+	podas<<"&"<<CbtAC<< "&"<< distAC<<"&";
 	Imprimir(SolbtAC, podas);
-	podas<<" & "<<CbtBC<<" & "<<distBC<<" & ";
+	podas<<"&"<<CbtBC<<"&"<<distBC<<"&";
 	Imprimir(SolbtAC, podas);
-	podas<<" & "<<CbtABC<<" & "<<distABC<<" & ";
+	podas<<"&"<<CbtABC<<"&"<<distABC<<"&";
 	Imprimir(SolbtABC, podas);
 	
 }
