@@ -7,14 +7,14 @@
 using namespace std;
 
 //variables globales
-unsigned int GimRecorridos;
-int PPRecorridas;
-int PocionesNecesarias;
 int CantBT;
-/*
+/* declaradas en clase.h
 vnod PokeParadas;
 vnod Gimnasios;
 Mochila moch(0);
+int PocionesNecesarias;
+int PPRecorridas;
+int GimRecorridos;
 double MinGlobal;
 double MinActual;
 vint RecorridoGlobal;

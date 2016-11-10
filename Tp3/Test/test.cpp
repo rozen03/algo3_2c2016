@@ -7,7 +7,7 @@
 #include "../Punto1/pto1.cpp"
 #include "../Punto1/pto1A.cpp"
 //#include "../Punto2/Punto2.cpp"
-#include "../Punto3/ej3.h"
+//#include "../Punto3/ej3.h"
 #include "../Punto4/pto4.cpp"
 
 //Funciones Auxiliares
