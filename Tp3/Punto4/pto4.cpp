@@ -190,7 +190,7 @@ int PuntajeAnodo(Nodo & n){
   return res;
 }
 
-vpnod Filtro(vpnod & vect ){
+vpnod Filtro(vpnod & vect, int porcentaje ){
   vpnod aux;
   Nodo * GimMin=NULL;
   bool hayGim = false;
