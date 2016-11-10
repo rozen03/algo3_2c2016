@@ -4,6 +4,7 @@
 #include <chrono>
 #include <limits>
 #include <tuple>
+#include <functional>
 #include "../Punto1/pto1.cpp"
 #include "../Punto1/pto1A.cpp"
 //#include "../Punto2/Punto2.cpp"
@@ -43,7 +44,7 @@ using namespace std;
 int ElegirSoloNecesarias(vint pocionesDeGim, int cantPP, int capMoch){
 	//la idea de bucket es ordenar la cantidad de pociones de Gim dependiendo cuantas se requiere.
 	/*
-	La idea es de menor a mayor, fijarse cuantas pociones me sobran en la mochila e ir agregando solo lo necesario.	
+	La idea es de menor a mayor, fijarse cuantas pociones me sobran en la mochila e ir agregando solo lo necesario.
 	 */
 	vector<int> bucket(capMoch, 0);
 	//meto en el bucket
@@ -62,7 +63,7 @@ int ElegirSoloNecesarias(vint pocionesDeGim, int cantPP, int capMoch){
 	for(int i = 0; i<bucket.size(); i++){
 		int necesito = 0;
 		if((i+1) % 3 == 0){
-			necesito = ((i+1)/3 * bucket[i]); 
+			necesito = ((i+1)/3 * bucket[i]);
 		}
 		else{
 			int necesitofor = 0;
@@ -164,8 +165,8 @@ void Correr(int rep, vnod gimnasios, vnod pokeparadas, Mochila moch, ofstream & 
 		return;
 	}
 	valor = (double) foo(gimnasios, pokeparadas, moch, sol);
-	
-	if(nroEj == 4){ 
+
+	if(nroEj == 4){
 		res <<valor<<" & ";
 		meta << valor<<" & ";
 		for(int i = 0; i< sol.size(); i++){
@@ -202,7 +203,7 @@ void Correr(int rep, vnod gimnasios, vnod pokeparadas, Mochila moch, ofstream & 
 			tiempo = chrono::duration_cast<chrono::nanoseconds>(end-start).count();
 			res<<tiempo<<" & ";
 		}
-		res<<"\n";		
+		res<<"\n";
 	}
 }
 
@@ -332,12 +333,14 @@ Correr(rep, gimansios, pp, res);
 }
 }
 */
-/*
-void gruposSeparados (vnod& gym, vnod& pepe, const int &a, const int &b ){
+//void gruposSeparados (vnod& gym, vnod& pepe, const int &a, const int &b ){
 
-auto generadorDeEspirales(int a, int b){
-	auto espiral = [x=0,y=0,dx = 0,dy = -1,a=a,b=b]() mutable{ //espiral.. girasol... lo q sea..
-		//cout<<x+a<<" "<<y+b<<endl;
+std::function<tuple<int,int>()> generadorDeEspirales(int a, int b){
+	int x=0;
+	int y=0;
+	int dx = 0;
+	int dy = -1;
+	return [=]() mutable{ //espiral.. girasol... lo q sea..
 		if ((x == y) or (x < 0 and x == -y) or (x > 0 and x == 1-y)){
 			int swapy=dx;
 			dx=-dy;
@@ -347,11 +350,11 @@ auto generadorDeEspirales(int a, int b){
 		y=y+dy;
 		return make_tuple(x,y);
 	};
-	return espiral;
+
 }
 
 
-*/
+
 
 int main(){
 	RectaPPgim(1, 10);
