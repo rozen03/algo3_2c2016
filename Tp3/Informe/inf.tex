@@ -50,7 +50,7 @@ Formalmente, podemos caracterizar nuestras pokeparadas y  gimnasios como nodos f
 
 \section{Algoritmo exacto}
 
-\subsection{Exlicación de la solución}
+\subsection{Explicación de la solución}
 
 Para modelar este problema, creamos dos clases: Nodo y Mochila.
 La clase Mochila contiene dos enteros ``capacidad'' el cual corresponde con la capacidad de la entrada (k) y ``peso'' en el cual se guarda la cantidad de pociones que se tiene en cada momento. 
@@ -237,11 +237,12 @@ Este algoritmo es una manera de elegir el nodo inicial. Si existe un gimnasio tr
 
 
 \subsection{Complejidad}
-Vamos a demostrar que la complejidad de esta heurística es $\mathcal{O}$(n*m) donde n es la cantidad de gimnasios y m la cantidad de pokeparadas.
-Por un lado, vamos a analizar las funciones auxiliares. La función $moverse$ usa todas operaciones en $\mathcal{O}$(1) y no contiene ciclos. Entonces su complejidad es $\mathcal{O}$(1).
-Luego, ElegirPrimero recorre los gimnasios en busca de uno trivial ($\mathcal{O}$(n)), luego recorre nuevamente los gimnasios en busca de uno ``fácil'', y si lo encuentra busca la pokeparada más cercana ($\mathcal{O}$(n+m)), y por último elije una pokeparada cualquiera ($\mathcal{O}$(1)). En resumen, esta función auxiliar tiene complejidad $\mathcal{O}$(n+m)
+Vamos a demostrar que la complejidad de esta heurística es $\mathcal{O}$($(n+m)^2$) donde n es la cantidad de gimnasios y m la cantidad de pokeparadas.
+Por un lado, vamos a analizar las funciones auxiliares. La función $moverse$ usa todas operaciones en $\mathcal{O}$($1$) y no contiene ciclos. Entonces su complejidad es $\mathcal{O}$($1$).
+Luego, ElegirPrimero recorre los gimnasios en busca de uno trivial ($\mathcal{O}$($n$)), luego recorre nuevamente los gimnasios en busca de uno ``fácil'', y si lo encuentra busca la pokeparada más cercana ($\mathcal{O}$($n+m$)), y por último elige una pokeparada cualquiera ($\mathcal{O}$($1$)). En resumen, esta función auxiliar tiene complejidad $\mathcal{O}$($n+m$)
 \\
-Viendo el algoritmo
+Viendo el algoritmo principal vemos que cada iteración de la función toma dos posibilidades: o se mueve a un gimnasio o a una pokeparada. En el peor caso el algoritmo va a hacer $\mathcal{O}$($n+m$) iteraciones. Cada iteración primero calcula el gimnasio más cercano, y luego la pokeparada más cercana. Todas las demas operaciones son $\mathcal{O}$(1). En conclusión, cada iteración tiene complejidad  ($\mathcal{O}$($n+m$)).
+Finalmente vemos que el algoritmo tiene complejidad $\mathcal{O}$($(n+m)^2$).
 
 
 \subsection{Experimentación y análisis de resultados}
