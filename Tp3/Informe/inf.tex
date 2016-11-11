@@ -178,15 +178,36 @@ El algoritmo cuenta con una variable global que guarda la solución mínima enco
 \end{itemize}
 
 \subsection{Complejidad y demostración}
-Sea N la cantidad total de nodos, es decir N=n+m donde n es la cantidad de gimnasios y m la cantidad de pokeparadas.
+Sea t la cantidad total de nodos, es decir t=n+m donde n es la cantidad de gimnasios y m la cantidad de pokeparadas.
 Proponemos que la complejidad de nuestro algoritmo es t! y lo demostraremos a continuación:
 
-Podemos visualizar a nuestro algoritmo como un arbol de soluciones. para elegir el primer nodo realizamos un ciclo de n iteraciones. de ahi obtenemos el primer nivel del arol que tiene n hojas. Ahora por cada una de esas hojas tenemos que elegir un nodo entre los N-1 restantes. esto nos cuesta N(N-1).
-Asi hasta llegar a elegir el ultimo nodo, esto nos costará n!. 
+Podemos visualizar a nuestro algoritmo como un árbol de soluciones. Podemos ver que en el peor caso, el camino recorre todos los nodos, tanto gimnasios como pokeparadas. 
+para elegir el primer nodo realizamos un ciclo de t iteraciones. de ahi obtenemos el primer nivel del árbol que tiene t hojas. Ahora por cada una de esas hojas tenemos que elegir un nodo entre los t-1 restantes. 
+asique nuestra complejidad asciende a t(t-1).
+Así hasta llegar a elegir el ultimo nodo, esto nos costará \[
+\prod_{i=0}^{t-1}t-i=t\cdot(t-1)\cdot(t-2)\cdot \ \ \cdot 1  = t!\] 
 
-Entonces nuestra complejidad $ \mathcal$(N!)  
+Entonces nuestra complejidad resulta $ \mathcal{O}$(t!)  
 
-Vamos a ver que este algoritmo tiene complejidad $\mathcal{O}$($(n+m)!$). Podemos ver que en el peor caso, el camino recorre todos los nodos, tanto gimnasios como pokeparadas. Además, el backtracking recorre todos los casos posibles. Por último, podemos ver que todas las operaciones y funciones auxiliares tienen complejidad $\mathcal{O}$($1$), sin ningún ciclo.
+\subsection{Podas y Estrategias}
+Para nuestro algoritmo implementamos tres podas y las nombramos con letras. Mantendremos esta notación más adelante en la sección de experimentación.
+\begin{itemize}
+	\item Poda A:
+Esta poda se encuentra en la sección 2.2 en el alogoritmo BT en las lineas 1 a 3.
+Basicamente, mientras se esta buscando una posible solución, nos permite cortar una rama en el momento inmediato que supera la solución mínima encontrada hasta el momento. 
+
+	\item Poda B
+Esta poda se encuentra en la sección 2.2 en el algoritmo puedoIrPP linea 2. 
+Esta poda permite no recorrer pokeparadas una vez que la mochila esta llena, ya que recorrerlas no traería ningún beneficio ya que recorreríamos más distancia sin ningún beneficio, porque no podemos obtener pociones.
+
+	\item Poda C
+Esta poda se encuentra en la sección 2.2 en el algoritmo puedoIrPP linea 1. 
+A diferencia de la poda B esta poda sirve para los casos en los que en la mochila quedan 1 o 2 lugares libres. Entonces Si al desperdiciar esas pociones, ya no se puede ganarle a los gimnasios que quedan por recorrer evita ir a pokeparadas.
+
+\end{itemize}
+
+Solo encontramos una estrategia:
+Al iterar, recorremos primero las pokeparadas y después los gimnasios ya que consideramos que por lo general, es más probable que la solución se obtenga de empezar por una pokeparada.  
 
 \subsection{Experimentación y análisis de resultados}
 
