@@ -57,15 +57,15 @@ La clase Mochila contiene dos enteros ``capacidad'' el cual corresponde con la c
 \\
 En el Pseudocódigo se llaman a las funciones DameCapacidad y DamePeso, las mismas devuelven estos valores.
 \\
-La clase Nodo tiene  un entero ``índice'' como identificador de cada nodoy un entero ``pociones'' en el cual se guardan las pociones que dan las pokeparadas o las que requieren los gimnasios(en este caso el valor es negativo). Además cuenta con un booleano para marcar si ya fue recorrido y dos enteros ``x'' e ``y'' para identificar las coordenadas del nodo.
+La clase Nodo tiene  un entero ``índice'' como identificador de cada nodo y un entero ``pociones'' en el cual se guardan las pociones que dan las pokeparadas o las que requieren los gimnasios(en este caso el valor es negativo). Además cuenta con un booleano para marcar si ya fue recorrido y dos enteros ``x'' e ``y'' para identificar las coordenadas del nodo.
 \\
-Nuestra solución utiliza la técnica de Backtracking para resolver el problema. Utilizamos variables globales (las cuales estan mencionadas en el pseudocodigo) ya que las necesitamos en todo momento en las funciones de nuestra resolución. De esta forma evitamos copiarlas cada vez, como parámetros de entrada.
+Nuestra solución utiliza la técnica de Backtracking para resolver el problema. Utilizamos variables globales (las cuales están mencionadas en el pseudocódigo) ya que las necesitamos en todo momento en las funciones de nuestra resolución. De esta forma evitamos copiarlas cada recursión como parámetros de entrada.
 
-Nuestro algoritmo de BT va formando recursivamente todas las soluciones posibles eligiendo gimnasios y pokeparas siempre que esto sea posible. Estas soluciones ``parciales'' son guardades en una variable que siempre es comparada con una variable de solución ``global''. En la misma se guarda siempre el mejor resultado obtenido hasta el momento. El ciclo principal de la función va desde 0 hasta el máximo entre el largo de los vectores de Nodos y pokeparadas. De esta forma vamos probando empezar con todos los nodos posibles. Cada vez que se elige un nodo para continuar se vuelve a llamar a la función BT para seguir construyendo la solución, luego se revierten los cambios para probar las demás soluciones. 
+Nuestro algoritmo de BT va formando recursivamente todas las soluciones posibles eligiendo gimnasios y pokeparadas siempre que esto sea posible. Estas soluciones ``parciales'' son guardadas en una variable que siempre es comparada con una variable de solución ``global''. En la misma se guarda siempre el mejor resultado obtenido hasta el momento. El ciclo principal de la función va desde 0 hasta el máximo entre el largo de los vectores de Nodos y pokeparadas. De esta forma vamos probando empezar con todos los nodos posibles. Cada vez que se elige un nodo para continuar se vuelve a llamar a la función BT para seguir construyendo la solución, luego se revierten los cambios para probar las demás soluciones. 
 
 En nuestro algoritmo, cortamos una posible solución en el momento que supera la solución global encontrada hasta el momento. De esta forma evitamos seguir ejecutando el algoritmo para una solución que claramente no va a ser la mejor, y así reducimos el tiempo de cómputo.
 
-Actualizamos la solución global, únicamente si logramos recorrer todos los gimnasios. Podemos saber esto ya que guardamos un entero contando los gimnasios recorridos. De esta forma si la solución queda vacia, sabemos que no existe solución para el problema y podemos devolver -1.
+Actualizamos la solución global únicamente si logramos recorrer todos los gimnasios. Podemos saber esto ya que guardamos un entero contando los gimnasios recorridos. De esta forma si la solución queda vacía, sabemos que no existe solución para el problema y podemos devolver -1.
 
 Mientras hacemos la lectura de datos, guardamos la cantidad máxima de pociones que requieren los gimnasios y el total de pociones que se requieren para ganar a todos los gimnasios. De esta forma si la capacidad de la mochila es menor al máximo de las pociones que piden los gimnasios o la cantidad de pociones que se pueden obtener (cantidad de pokeparadas multiplicado por tres) es menor a lo que se necesita para ganar a todos los gimnasios, entonces devolvemos -1 (evitando entrar en el backtracking) ya que el algoritmo no tiene solución. 
 
@@ -165,7 +165,7 @@ Simplemente analiza si lo puede vencer.
 
 \subsection{Demostración de Correctitud}
 
-Para mostrar la correctitud de nnuestro algoritmo queremos ver tre cosas: que el algoritmo termina, que analiza todos los casos posibles, y que deveulve la solución óptima.
+Para mostrar la correctitud de nuestro algoritmo queremos ver tre cosas: que el algoritmo termina, que analiza todos los casos posibles, y que deveulve la solución óptima.
 
 \begin{itemize}
 	\item El algoritmo termina:
@@ -178,6 +178,7 @@ El algoritmo cuenta con una variable global que guarda la solución mínima enco
 \end{itemize}
 
 \subsection{Complejidad y demostración}
+
 Sea t la cantidad total de nodos, es decir t=n+m donde n es la cantidad de gimnasios y m la cantidad de pokeparadas.
 Proponemos que la complejidad de nuestro algoritmo es t! y lo demostraremos a continuación:
 
@@ -208,6 +209,8 @@ A diferencia de la poda B esta poda sirve para los casos en los que en la mochil
 
 Solo encontramos una estrategia:
 Al iterar, recorremos primero las pokeparadas y después los gimnasios ya que consideramos que por lo general, es más probable que la solución se obtenga de empezar por una pokeparada.  
+
+
 
 \subsection{Experimentación y análisis de resultados}
 
@@ -284,17 +287,17 @@ Dado un nodo n este algoritmo actualiza las variables posición actual, distanci
 	\State \quad finSi
 	\State finSi
 	\end{algorithmic}
-\end{algotihm}
+\end{algorithm}
 
 Este algoritmo es una manera de elegir el nodo inicial. Si existe un gimnasio trivial(necesita 0 pociones) lo elijo como nodo inicial, si no, busco un gimnasio que sólo necesite una visita a una pokeparada (3 pociones o menos) y elijo la pokeparada como nodo incial. Si no existe ninguno de estos, elijo una pokeparada al azar como nodo inicial.
 
 
 \subsection{Complejidad}
-Vamos a demostrar que la complejidad de esta heurística es $\mathcal{O}$($(n+m)^2$) donde n es la cantidad de gimnasios y m la cantidad de pokeparadas.
-Por un lado, vamos a analizar las funciones auxiliares. La función $moverse$ usa todas operaciones en $\mathcal{O}$($1$) y no contiene ciclos. Entonces su complejidad es $\mathcal{O}$($1$).
-Luego, ElegirPrimero recorre los gimnasios en busca de uno trivial ($\mathcal{O}$($n$)), luego recorre nuevamente los gimnasios en busca de uno ``fácil'', y por cada uno que encuentre busca la pokeparada más cercana ($\mathcal{O}$($n*m$)), y por último elige una pokeparada cualquiera ($\mathcal{O}$($1$)). En resumen, esta función auxiliar tiene complejidad $\mathcal{O}$($n*m$)
+Vamos a demostrar que la complejidad de esta heurística es $\mathcal{O}$($(n+m)^2$) donde n es la cantidad de gimnasios y m la cantidad de pokeparadas.\\
+Por un lado, vamos a analizar las funciones auxiliares. La función $moverse$ usa todas operaciones en $\mathcal{O}$($1$) y no contiene ciclos. Entonces su complejidad es $\mathcal{O}$($1$).\\
+Luego, ElegirPrimero recorre los gimnasios en busca de uno trivial ($\mathcal{O}$($n$)), luego recorre nuevamente los gimnasios en busca de uno ``fácil'', y por cada uno que encuentre busca la pokeparada más cercana ($\mathcal{O}$($n*m$)), y por último elige una pokeparada cualquiera ($\mathcal{O}$($1$)). En resumen, esta función auxiliar tiene complejidad $\mathcal{O}$($n*m$).\\
 \\
-Viendo el algoritmo principal vemos que cada iteración de la función toma dos posibilidades: o se mueve a un gimnasio o a una pokeparada. En el peor caso el algoritmo va a hacer $\mathcal{O}$($n+m$) iteraciones. Cada iteración primero calcula el gimnasio más cercano, y luego la pokeparada más cercana. Todas las demas operaciones son $\mathcal{O}$(1). En conclusión, cada iteración tiene complejidad  ($\mathcal{O}$($n+m$)).
+Viendo el algoritmo principal vemos que cada iteración de la función toma dos posibilidades: o se mueve a un gimnasio o a una pokeparada. En el peor caso el algoritmo va a hacer $n+m$ iteraciones. Cada iteración primero calcula el gimnasio más cercano, y luego la pokeparada más cercana. Todas las demas operaciones son $\mathcal{O}$(1). En conclusión, cada iteración tiene complejidad  ($\mathcal{O}$($n+m$)).
 Finalmente vemos que el algoritmo tiene complejidad $\mathcal{O}$($(n+m)^2$).
 
 
@@ -328,7 +331,7 @@ Una vez calculados todos los vecinos posibles, se queda con el mínimo entre el 
 	\State res $\gets$ Min(todos los caminos de vecindad, el camino de sol)
 	\State devolver res
 	\end{algorithmic}
-\end{algotihm}
+\end{algorithm}
 
 \begin{algorithm}[H]{\textbf{Vecindades}(vnod sol)}
 	\begin{algorithmic}[1]
@@ -339,9 +342,10 @@ Una vez calculados todos los vecinos posibles, se queda con el mínimo entre el 
 	\State Fin Desde
 	Devolver res
 	\end{algorithmic}
-\end{algotihm}
+\end{algorithm}
 
 \subsection{Complejidad}
+La complejidad de este algortimo es $\mathcal{O}$($n^{2}+m$) donde n es la cantidad de pokeparadas y m la cantidad de gimnasios. Esto es así porque calcular todas las vecindades posibles es $\mathcal{O}$($n^{2}$), mientras que calcular el recorrido de una solución es $\mathcal{O}$($n+m$). Estas dos complejidades están incluídas en $\mathcal{O}$($n^{2}+m$)
 
 \subsection{Experimentación y análisis de resultados}
 
@@ -351,13 +355,13 @@ Una vez calculados todos los vecinos posibles, se queda con el mínimo entre el 
 \section{Metaheurística}
 
 Como metaheurística decidimos implementar un algoritmo ``GRASP''
-La técnica de este tipo de algoritmos consiste en combinar sucecivamente un algoritmo golozo randomizado para explorar nuevos espacios de soluciones y luego aplicar una busqueda local para mejorar cada solución. Al mismo tiempo se van comparando las soluciones y siempre se va eligiendo la mejor posible hasta que el algoritmo finaliza bajo algún criterio.
+La técnica de este tipo de algoritmos consiste en combinar sucesivamente un algoritmo golozo randomizado para explorar nuevos espacios de soluciones y luego aplicar una búsqueda local para mejorar cada solución. Al mismo tiempo se van comparando las soluciones y siempre se va eligiendo la mejor posible hasta que el algoritmo finaliza bajo algún criterio.
 
 \subsection{Explicación de la solución}
 
-Utilizamos como criterio de terminación el tamaño del conjunto de ``entradas validas''. Este conjunto esta formado por Todos los gimnasios que pidan cero pociones para ser vencidos y todas las pokeparadas. Aplicamos el algoritmo golozo comenzando de cada uno de los nodos de este conjunto. 
+Utilizamos como criterio de terminación el tamaño del conjunto de ``entradas válidas''. Este conjunto está formado por todos los gimnasios que pidan cero pociones para ser vencidos y todas las pokeparadas. Aplicamos el algoritmo golozo comenzando de cada uno de los nodos de este conjunto. 
 
-El algoritmo golozo randomizado es una variación de nuestra heuristica goloza presentada en la sección (). % insertar seccion%
+El algoritmo golozo randomizado es una variación de nuestra heuristica goloza presentada en la sección (3). % insertar seccion%
 Para explorar el nuevo espacio de soluciones seleccionamos como candidatos al veinte porciento de los nodos por recorrer más cercanos a la posición actual.
 Luego le asignamos una probabilidad a cada uno de ellos. La misma utiliza el siguiente criterio:
 
@@ -371,7 +375,7 @@ Luego le asignamos una probabilidad a cada uno de ellos. La misma utiliza el sig
 
 Guardamos el valor de la sumatoria de los valores asignados a cada nodo  y creamos un número aleatorio entre 1 y este valor. El nodo elegido será el nodo con valor mayor más proximo al número aleatorio. Estas acciones se realizan en la función que llamamos en el pseudocódigo ``ElegirProximo''. 
 
-Finalmente aplicamos la función de busqueda local de la sección ().
+Finalmente aplicamos la función de búsqueda local de la sección ().
 
 
 \subsection{Pseudocódigo}
