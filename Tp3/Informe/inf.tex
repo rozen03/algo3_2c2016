@@ -289,6 +289,27 @@ Finalmente vemos que el algoritmo tiene complejidad $\mathcal{O}$($(n+m)^2$).
 
 \subsection{Pseudocódigo}
 
+%\quad
+\begin{algorithm}[H]{\textbf{BusquedaLocal}()}
+	\begin{algorithmic}[1]
+	\State sol $\gets$ ordenar los gimnasios por fuerza, y poner en el medio las pokeparadas necesarias para vencerlo
+	\State vecindad $\gets$ Vecindades(sol)
+	\State res $\gets$ Min(todos los caminos de vecindad, sol)
+	\State devolver res
+	\end{algorithmic}
+\end{algotihm}
+
+\begin{algorithm}[H]{\textbf{Vecindades}(vnod sol)}
+	\begin{algorithmic}[1]
+	\State res $\gets$ 
+	\State Desde i,j=0, hasta i,j= $|$pokeparadas$|$, mientras i $\neq$ j
+		\State \quad vecino $\gets$ intercambiar en sol pokeparadas[i] con pokeparadas[j]
+		\State \quad guardar vecino en res
+	\State Fin Desde
+	Devolver res
+	\end{algorithmic}
+\end{algotihm}
+
 \subsection{Complejidad}
 
 \subsection{Experimentación y análisis de resultados}
