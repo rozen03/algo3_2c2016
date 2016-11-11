@@ -27,7 +27,7 @@
 \materia{Algoritmos y Estructuras de Datos III}
 \author{Grupo  \\Alvarez Vico Jazm\'in\\Cortés Conde Titó Javier María\\Pedraza Marcelo \\ Rozenberg Uriel Jonathan}
 
-\integrante {Jazmín Alvazer Vico}{75/15}{jazminalvarezvico@gmail.com}
+\integrante {Jazmín Alvarez Vico}{75/15}{jazminalvarezvico@gmail.com}
 \integrante {Marcelo Pedraza}{393/14}{marcelopedraza314@gmail.com}
 \integrante {Uriel Jonathan Rozenberg}{838/12}{rozenberguriel@gmail.com}
 \integrante {Javier María Cortés Conde Titó}{252/15}{javiercortescondetito@gmail.com}
@@ -54,11 +54,12 @@ Formalmente, podemos caracterizar nuestras pokeparadas y  gimnasios como nodos f
 
 Para modelar este problema, creamos dos clases: Nodo y Mochila.
 La clase Mochila contiene dos enteros ``capacidad'' el cual corresponde con la capacidad de la entrada (k) y ``peso'' en el cual se guarda la cantidad de pociones que se tiene en cada momento. 
-en el Pseudocódigo se llaman a las funciones DameCapacidad y DamePeso, las mismas devuelven estos valores.
+\\
+En el Pseudocódigo se llaman a las funciones DameCapacidad y DamePeso, las mismas devuelven estos valores.
 \\
 La clase Nodo tiene  un entero ``índice'' como identificador de cada nodoy un entero ``pociones'' en el cual se guardan las pociones que dan las pokeparadas o las que requieren los gimnasios(en este caso el valor es negativo). Además cuenta con un booleano para marcar si ya fue recorrido y dos enteros ``x'' e ``y'' para identificar las coordenadas del nodo.
-
-Nuestra solución utiliza la técnica de Backtracking para resolver el problema. Utilizamos variables globales (las cuales estan mencionadas en el pseudocodigo) ya que las necesitamos en todo momento en las funciones de nuestra resolución. De esta forma evitamos copiarlas cada vez como parámetros de entrada.
+\\
+Nuestra solución utiliza la técnica de Backtracking para resolver el problema. Utilizamos variables globales (las cuales estan mencionadas en el pseudocodigo) ya que las necesitamos en todo momento en las funciones de nuestra resolución. De esta forma evitamos copiarlas cada vez, como parámetros de entrada.
 
 Nuestro algoritmo de BT va formando recursivamente todas las soluciones posibles eligiendo gimnasios y pokeparas siempre que esto sea posible. Estas soluciones ``parciales'' son guardades en una variable que siempre es comparada con una variable de solución ``global''. En la misma se guarda siempre el mejor resultado obtenido hasta el momento. El ciclo principal de la función va desde 0 hasta el máximo entre el largo de los vectores de Nodos y pokeparadas. De esta forma vamos probando empezar con todos los nodos posibles. Cada vez que se elige un nodo para continuar se vuelve a llamar a la función BT para seguir construyendo la solución, luego se revierten los cambios para probar las demás soluciones. 
 
@@ -154,8 +155,28 @@ Mientras hacemos la lectura de datos, guardamos la cantidad máxima de pociones 
 	\end{algorithmic}
 \end{algorithm}
 
+\subsection{Demostración de Correctitud}
 
-\subsection{Complejidad}
+Para mostrar la correctitud de nnuestro algoritmo queremos ver tre cosas: que el algoritmo termina, que analiza todos los casos posibles, y que deveulve la solución óptima.
+
+\begin{itemize}
+	\item El algoritmo termina:
+Podemos ver que la cantidad de nodos en nuestro grafo es finita. Además mientras se está buscando la solución, no se puede recorrer dos veces el mismo nodo, entonces no puede recorrer dos veces la misma instancia ni desarrollarse algún ciclo infinito. Las llamadas recurisivas del algoritmo dependen de la cantidad de nodos del grafo. Puesto, que establecimos que esta cantidad era finita, podemos concluir que la cantidad de llamadas lo será también.
+	\item El algoritmo analiza todos los casos:
+Como explicamos en la sección 2.1, nuestro algoritmo itera sobre todos los nodos, probando empezar por cada uno de ellos siempre y cuando sea posible. Cada vez que se elige un nodo se vuelve a llamar al backtracking para continuar armando la solución y luego se revierten los cambios (se deselige) para poder probar otras soluciones eligiendo los demás nodos. Este proceso se realiza hasta que no queden más nodos para probar.
+	\item El algoritmo devuelve  la solución óptima:
+El algoritmo cuenta con una variable global que guarda la solución mínima encontrada hasta el momento. Cada vez que se encuentra otra posible solución, estas se comparan acutalizando la solución global de ser necesario. Como probamos que el algoritmo analiza todos los casos, podemos garatizar que devolvemos la solución óptima.    
+
+\end{itemize}
+
+\subsection{Complejidad y demostración}
+Sea N la cantidad total de nodos, es decir N=n+m donde n es la cantidad de gimnasios y m la cantidad de pokeparadas.
+Proponemos que la complejidad de nuestro algoritmo es t! y lo demostraremos a continuación:
+
+Podemos visualizar a nuestro algoritmo como un arbol de soluciones. para elegir el primer nodo realizamos un ciclo de n iteraciones. de ahi obtenemos el primer nivel del arol que tiene n hojas. Ahora por cada una de esas hojas tenemos que elegir un nodo entre los N-1 restantes. esto nos cuesta N(N-1).
+Asi hasta llegar a elegir el ultimo nodo, esto nos costará n!. 
+
+Entonces nuestra complejidad $ \mathcal$(N!)  
 
 \subsection{Experimentación y análisis de resultados}
 
