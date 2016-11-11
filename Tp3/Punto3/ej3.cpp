@@ -112,7 +112,7 @@ double tirarPokeParadas(vnod pokeParadas, vnod &gimnasios, Mochila mochila, vnod
         return mejorarSolucion(gimnasios,pokeParadas, mochila, solucion);
     }
 
-    double BusquedaLocal(vnod &gimnasios, vnod &pokeParadas, Mochila &mochila, vint &solucion, double valor){
+double BusquedaLocal(vnod &gimnasios, vnod &pokeParadas, Mochila &mochila, vint &solucion, double valor){
         vnod nuevosGimnasios = dameGimnasios(gimnasios,solucion);
         vint solucion_posible;
         double res_posible;
@@ -139,5 +139,3 @@ double tirarPokeParadas(vnod pokeParadas, vnod &gimnasios, Mochila mochila, vnod
     }
 
 */
-
-

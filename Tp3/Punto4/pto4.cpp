@@ -30,7 +30,7 @@ double MinGlobal;
 double MinActual;
 vint RecorridoGlobal;
 vint RecorridoActual;
-*/ 
+*/
 
 //funciones
 double dist(Nodo* f);
@@ -83,7 +83,7 @@ double pto4(vnod gim,vnod pp, Mochila mochil,vint & sol){
 	grasp();
 	sol=RecorridoGlobal;
 	double res = MinGlobal;
-	
+
 	return res;
 }
 
@@ -135,15 +135,15 @@ void GolozoRand(Nodo & comienzo){
     int  porcentaje = ceil(porcAux);
     for (int i = 0; i < porcentaje; i++) {
       Nodo* aux=PokeParadaMasCercana();
-      if (aux != NULL) {      	
-		losMasCercanos.push_back(aux);	
-      	aux->Recorrer(true);      	
+      if (aux != NULL) {
+		losMasCercanos.push_back(aux);
+      	aux->Recorrer(true);
   	  }
       Nodo* auxg=GimMasCercano();
-      if(auxg!=NULL) {      	
+      if(auxg!=NULL) {
 		losMasCercanos.push_back(auxg);
       	auxg->Recorrer(true);
-  	  }	
+  	  }
     }
     for (int i = 0; i < losMasCercanos.size(); i++) {
 	  Nodo * aux= losMasCercanos[i];
@@ -158,7 +158,7 @@ void GolozoRand(Nodo & comienzo){
       break;
       }
       else{
-      	 proxLugar->Recorrer(true);	
+      	 proxLugar->Recorrer(true);
       	 moverse(proxLugar);
   		 if(proxLugar->EsGim()){
       	 	GimRecorridos++;
@@ -175,7 +175,7 @@ void GolozoRand(Nodo & comienzo){
    //Restauro los valores de las pokeparadas y gimnasios
    for(int i = 0;i <PokeParadas.size(); i++) PokeParadas[i].Recorrer(false);
    for(int i = 0;i <Gimnasios.size(); i++) Gimnasios[i].Recorrer(false);
-   	
+
 }
 
 int PuntajeAnodo(Nodo & n){
@@ -197,7 +197,6 @@ vpnod Filtro(vpnod & vect, int porcentaje ){
   double capacidadvect = (double) vect.size()/2;
   int mitadPorcentaje= ceil(capacidadvect );
   for (int i = 0; i < mitadPorcentaje; i++) {
-  	
     Nodo* min=vect[0];
 
     if(vect[i]->EsGim() && GimMin == NULL) GimMin=vect[i];
@@ -229,6 +228,7 @@ void SacarPunteros(vpnod &vector,int elem){
 }
 
 Nodo* ElegirElNodo(vpnod & vect){
+<<<<<<< HEAD
 	Nodo* res = NULL;
 	vint valorNodos;
 	int suma=0;
@@ -248,6 +248,29 @@ Nodo* ElegirElNodo(vpnod & vect){
 		}
 	}
 	return res;
+=======
+  Nodo* res;
+  vint valorNodos;
+  int suma=0;
+
+  for(int i=0; i<vect.size(); i++){
+
+    int aux= vect.size()*10-i*10;
+
+    aux += PuntajeAnodo(*vect[i]);
+
+    suma+=aux;
+    valorNodos.push_back(suma);
+  }
+    int random = rand() % suma +1;
+    for (int i = 0; i < valorNodos.size(); i++) {
+      if (random <= valorNodos[i]){
+        res= vect[i];
+        break;
+      }
+    }
+    return res;
+>>>>>>> c95deaf63d75a3ef67399a86e3d06451caeaa5bd
 }
 
 //si hay un shift de 42 en algun lado es por que tengo que resetear mejor
@@ -273,8 +296,8 @@ double dist(Nodo* f) {
 }
 
 void moverse(Nodo * lugar){
-	
-	/*	Lo que hace esta funcion: 
+
+	/*	Lo que hace esta funcion:
 		Actualizar x e y
 		eliminar del vector correspondiente el lugar al que voy
 		actualizar recorrido actual y distancia actual
@@ -288,24 +311,24 @@ void moverse(Nodo * lugar){
 		MinActual += dist(lugar);
 	}
 	RecorridoActual.push_back(lugar->DameIndice());
-	
+
 
 	//actualizo x e y
 	xactual = lugar->CordenadaX();
 	yactual = lugar->CordenadaY();
-	
+
 	//elimino el Nodo de la lista correspondiente
 	lugar->Recorrer(true);
 }
 
 void sacar(vnod &vector,int elem){
-	
+
 	for(int i = 0; i<vector.size();i++){
 		int indiceAux = vector[i].DameIndice();
 		if(indiceAux == elem){
 			vector[i] = vector.back();
 			vector.pop_back();
-			
+
 			return;
 		}
 	}
@@ -314,13 +337,13 @@ void sacar(vnod &vector,int elem){
 Nodo* GimMasCercano(){//AAAAA NO SE SI USAR PUNTEROS
 	Nodo * min = NULL;
 	for (int i = 0; i < Gimnasios.size(); ++i){
-		if( !Gimnasios[i].Recorrido() && moch.DamePeso()>= - Gimnasios[i].DamePociones()){//verifico que puedo vencer este gimnacio 
+		if( !Gimnasios[i].Recorrido() && moch.DamePeso()>= - Gimnasios[i].DamePociones()){//verifico que puedo vencer este gimnacio
 			if(min==NULL){
 				min = &Gimnasios[i];
 			}
 			else{
 				if(!Gimnasios[i].Recorrido() && dist(min)>dist(&Gimnasios[i])){
-					min = &Gimnasios[i];		
+					min = &Gimnasios[i];
 				}
 			}
 		}
@@ -339,7 +362,7 @@ Nodo* PokeParadaMasCercana(){
 		}
 		else{
 			if((min != NULL &&dist(min)>dist(&PokeParadas[i])) && !PokeParadas[i].Recorrido()){
-				min = &PokeParadas[i];	
+				min = &PokeParadas[i];
 			}
 		}
 	}
