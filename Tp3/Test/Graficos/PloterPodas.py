@@ -3,10 +3,8 @@ import os, sys, io
 import matplotlib.pyplot as plt
 import pandas as pd
 import seaborn as sns
-import random
 
-def main(output, show=False, labels = None):
-	labels = []
+def main(output):
 	
 	df ="podasRectaPPNec.csv"
 	resP =output+"podas"
