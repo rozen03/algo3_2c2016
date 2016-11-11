@@ -1,14 +1,12 @@
-La idea es tener ploters para cada cosa en particular.
-PloterPodas pide como parametros el nombre del archivo de donde leer la info
-	y un nombre caracteristico para todos los outputs que genere.(por ahora
-	son el grafico con las distintas llamadas al BT y un mapa con la distribucion
-	gimnasio pokeparada).
-PloterTiempos pide como parametros el nombre del archivo de donde leer la info y
-	un nombre caracteristico para todos los outpus que genere.(por ahora son
-	un grafico con todas las heuristicas juntas, otro con solo el BT y un ultimo con
-	todos los tiempos).
-PloterDistancias pide como parametros los nombres de los archivos (el res y el meta) de donde
-	leer la info y un nombre caracteristico para todos los outputs que genere.(por ahora
+La idea es tener ploters para cada cosa en particular.[En realidad no pide el nombre de los parametros de donde leer la info, eso se hardcodea, por que soy vago]
+PloterPodas pide como parametro un nombre caracteristico para todos los outputs que genere.(por ahora
+	son el grafico con las distintas llamadas al BT, el grafico con el tiempo de BT y un mapa con la distribucion
+	gimnasio pokeparada)[no tira el mapa todavia].
+PloterTiempo pide como parametro un nombre caracteristico para todos los outputs que genere.(por ahora son la linea del tiempo de ese archivo,
+	con una linea guia que se tiene que hardcodear igual que el nombre del input)
+PloterTiempos pide como parametro un nombre caracteristico para todos los outputs que genere.(por ahora son
+	un grafico con todas las heuristicas juntas y un ultimo con todos los tiempos).
+PloterDistancias pide como parametro un nombre caracteristico para todos los outputs que genere.(por ahora
 	son un grafico que tenga comparación de distancias con el bt o la mejor sol encontrada,
 	 uno que te diga en porcentaje cual da las mejores respuestas y un mapa con la ultima
 	distribucion de gimnasios pokeparadas). 
