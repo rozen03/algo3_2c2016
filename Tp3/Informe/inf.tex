@@ -179,12 +179,12 @@ El algoritmo cuenta con una variable global que guarda la solución mínima enco
 
 \subsection{Complejidad y demostración}
 Sea N la cantidad total de nodos, es decir N=n+m donde n es la cantidad de gimnasios y m la cantidad de pokeparadas.
-Proponemos que la complejidad de nuestro algoritmo es t! y lo demostraremos a continuación:
+Proponemos que la complejidad de nuestro algoritmo es N! y lo demostraremos a continuación:
 
-Podemos visualizar a nuestro algoritmo como un arbol de soluciones. para elegir el primer nodo realizamos un ciclo de n iteraciones. de ahi obtenemos el primer nivel del arol que tiene n hojas. Ahora por cada una de esas hojas tenemos que elegir un nodo entre los N-1 restantes. esto nos cuesta N(N-1).
-Asi hasta llegar a elegir el ultimo nodo, esto nos costará n!. 
+Podemos visualizar a nuestro algoritmo como un árbol de soluciones. Para elegir el primer nodo realizamos un ciclo de n iteraciones. De ahí obtenemos el primer nivel del árbol que tiene n hojas. Por cada una de esas hojas tenemos que elegir un nodo entre los N-1 restantes. Esto nos cuesta N(N-1).
+Asi hasta llegar a elegir el último nodo, esto nos costará n!. 
 
-Entonces nuestra complejidad $ \mathcal$(N!)  
+Entonces nuestra complejidad $ \mathcal{O}$($N!$)  
 
 Vamos a ver que este algoritmo tiene complejidad $\mathcal{O}$($(n+m)!$). Podemos ver que en el peor caso, el camino recorre todos los nodos, tanto gimnasios como pokeparadas. Además, el backtracking recorre todos los casos posibles. Por último, podemos ver que todas las operaciones y funciones auxiliares tienen complejidad $\mathcal{O}$($1$), sin ningún ciclo.
 
