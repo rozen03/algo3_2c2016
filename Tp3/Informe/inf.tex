@@ -286,7 +286,17 @@ Finalmente vemos que el algoritmo tiene complejidad $\mathcal{O}$($(n+m)^2$).
 \section{Heurística de búsqueda local}
 
 \subsection{Explicación de la solución}
-
+Este algoritmo ordena los gimnasios por fuerza de menor a mayor, y luego ``rellena'' con las pokeparadas necesarias cada espacio entre gimnasios, de manera que en cada gimnasio se tienen las pociones necesarias para ser derrotado.
+Luego, define su vecindad de soluciones como todas las soluciones que tengan un intercambio de pokeparadas. Supongamos que se tiene la solución \\
+\\
+ $P_{1}, P_{2} , G_{1}, P_{3}, P_{4}, P_{5}, G_{2}.$ \\
+ \\
+  Un vecino de esta solución es\\
+  $P_{4}, P_{2} , G_{1}, P_{3}, P_{1}, P_{5}, G_{2}.$\\
+  \\
+  Intercambiando  $P_{1}$ con $P_{4}$\\
+\\
+Una vez calculados todos los vecinos posibles, se queda con el mínimo entre el conjunto de vecinos y la solución original. 
 \subsection{Pseudocódigo}
 
 %\quad
@@ -294,7 +304,7 @@ Finalmente vemos que el algoritmo tiene complejidad $\mathcal{O}$($(n+m)^2$).
 	\begin{algorithmic}[1]
 	\State sol $\gets$ ordenar los gimnasios por fuerza, y poner en el medio las pokeparadas necesarias para vencerlo
 	\State vecindad $\gets$ Vecindades(sol)
-	\State res $\gets$ Min(todos los caminos de vecindad, sol)
+	\State res $\gets$ Min(todos los caminos de vecindad, el camino de sol)
 	\State devolver res
 	\end{algorithmic}
 \end{algotihm}
