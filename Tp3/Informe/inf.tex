@@ -263,7 +263,7 @@ Dado un nodo n este algoritmo actualiza las variables posición actual, distanci
 	\State \quad finSi
 	\State finSi
 	\end{algorithmic}
-\end{algotihm}
+\end{algorithm}
 
 Este algoritmo es una manera de elegir el nodo inicial. Si existe un gimnasio trivial(necesita 0 pociones) lo elijo como nodo inicial, si no, busco un gimnasio que sólo necesite una visita a una pokeparada (3 pociones o menos) y elijo la pokeparada como nodo incial. Si no existe ninguno de estos, elijo una pokeparada al azar como nodo inicial.
 
@@ -307,7 +307,7 @@ Una vez calculados todos los vecinos posibles, se queda con el mínimo entre el 
 	\State res $\gets$ Min(todos los caminos de vecindad, el camino de sol)
 	\State devolver res
 	\end{algorithmic}
-\end{algotihm}
+\end{algorithm}
 
 \begin{algorithm}[H]{\textbf{Vecindades}(vnod sol)}
 	\begin{algorithmic}[1]
@@ -318,9 +318,10 @@ Una vez calculados todos los vecinos posibles, se queda con el mínimo entre el 
 	\State Fin Desde
 	Devolver res
 	\end{algorithmic}
-\end{algotihm}
+\end{algorithm}
 
 \subsection{Complejidad}
+La complejidad de este algortimo es $\mathcal{O}$($n^{2}+m$) donde n es la cantidad de pokeparadas y m la cantidad de gimnasios. Esto es así porque calcular todas las vecindades posibles es $\mathcal{O}$($n^{2}$), mientras que calcular el recorrido de una solución es $\mathcal{O}$($n+m$). Estas dos complejidades están incluídas en $\mathcal{O}$($n^{2}+m$)
 
 \subsection{Experimentación y análisis de resultados}
 
