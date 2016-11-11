@@ -70,7 +70,7 @@ Mientras hacemos la lectura de datos, guardamos la cantidad máxima de pociones 
 
 
 
-%falta cuandod devuelve -1 salvo esos 2 casos siempre hay solucion?%
+%falta cuando devuelve -1 salvo esos 2 casos siempre hay solucion?%
 
 \subsection{Pseudocódigo}
 
@@ -104,14 +104,14 @@ Mientras hacemos la lectura de datos, guardamos la cantidad máxima de pociones 
 		\State Desde i=0 hasta i$<$Max($|$Gimnasios$|$,$|$PokeParadas$|$)
 			\State \quad Si i$< |$Gimnasios$|$
 				\State \quad \quad gim $\gets$ Gimnasios[i]
-				\State \quad \quad Si puedoIr(gim)
+				\State \quad \quad Si puedoIrGim(gim)
 					\State \quad \quad \quad Voy(gim)
 		 		\State \quad \quad finSi	
 			\State \quad finSi
 			\State \quad Si i $< |$PokeParadas$|$
 				\State \qquad pp $\gets$ Pokeparadas[i]
 				\State \qquad PokeParadasRecorridas $\gets$ PokeParadasRecorridas + 1 
-				\State \qquad Si puedoIr(pp)
+				\State \qquad Si puedoIrPP(pp)
 					\State \qquad \quad Voy(pp) 	
 				\State \qquad finSi
 				\State \qquad PokeParadasRecorridas $\gets$ PokeParadasRecorridas - 1 
@@ -126,6 +126,8 @@ Mientras hacemos la lectura de datos, guardamos la cantidad máxima de pociones 
 	\end{algorithmic}
 \end{algorithm}
 
+
+
 \begin{algorithm}[H]{\textbf{Voy}(Nodo n)}
 	\begin{algorithmic}[1]
 		\State Marco n
@@ -134,28 +136,35 @@ Mientras hacemos la lectura de datos, guardamos la cantidad máxima de pociones 
 		\State \quad minActual $\gets$ minActual+ Distancia(origen, p)
 		\State finSi
 		\State Agrego n a RecorridoActual
-		\State Modifico el peso de moch segun las pociones n
+		\State Modifico el peso de moch según las pociones n
 		\State BT()
 		\State revierto todas las modificaciones
 	\end{algorithmic}
 \end{algorithm}
 
+Esta función actualiza los valores antes de hacer el llamado recursivo, y luego revierte las modificaciones locales(RecorridoActual, nodos recorridos, minActual).
+
+
 \begin{algorithm}[H]{\textbf{puedoIrPP}(Nodo n){bool}}
 	\begin{algorithmic}[1]
-	\State NoConsumoDeMas $\gets$ Si al entrar a esta pokeparada se tiene que descartar pokebolas que no nos dejan ganar a todos los gimnasios asigno True, si no False.
+	\State NoConsumoDeMas $\gets$ Si al entrar a esta pokeparada se tiene que descartar pociones que no nos dejan ganar a todos los gimnasios asigno True, si no False.
 	%terminar%
-	\State  res $\gets$  moch no esta llena y n no esta recorrido y NoConsumoDeMas
+	\State  res $\gets$  moch no está llena y n no está recorrido y NoConsumoDeMas
 	\end{algorithmic}
 \end{algorithm}
+Esto es una poda; calcula si esta pokeparada genera un estado sin solución trivial: las pokeparadas restantes y las pociones en la mochila no alcanzan para ganar los gimnasios que quedan.
 
 \begin{algorithm}[H]{\textbf{PuedoIrGim}(Nodo n)}
 	\begin{algorithmic}[1]
-		\state res $\gets$  n no está recorrido y DamePeso(moch) $\geq$ -(DamePosciones(n))
+		\state res $\gets$  n no está recorrido y DamePeso(moch) $\geq$ -(DamePociones(n))
 	\end{algorithmic}
 \end{algorithm}
 
+Simplemente analiza si lo puede vencer.
 
 \subsection{Complejidad}
+
+Vamos a ver que este algoritmo tiene complejidad $\mathcal{O}$($(n+m)!$). Podemos ver que en el peor caso, el camino recorre todos los nodos, tanto gimnasios como pokeparadas. Además, el backtracking recorre todos los casos posibles. Por último, podemos ver que todas las operaciones y funciones auxiliares tienen complejidad $\mathcal{O}$($1$), sin ningún ciclo.
 
 \subsection{Experimentación y análisis de resultados}
 
@@ -167,7 +176,15 @@ Mientras hacemos la lectura de datos, guardamos la cantidad máxima de pociones 
 El metodo de heurística golosa consiste en elegir siempre la mejor opción posible para continuar y formar la solución total. En este caso el criterio para elegir una mejor opción sería la cercanía. Bus
 
 
-\subsection{Exlicación de la solución}
+\subsection{Explicación de la solución}
+Vamos a dividir la solución en dos partes: por un lado, está la elección del primer nodo a visitar; por el otro, la estrategia para visitar todos los gimnasios.
+
+\begin{itemize}
+	\item Elegir el primero: como se explica en el pseudocódigo, primero buscamos empezar en gimnasios triviales; estos son gimnasios de fuerza 0, que no requieren ninguna poción. Si no encuentra ninguno, busca gimnasios ``fáciles''; que sólo requieran una pokeparada previa para vencerlos. En caso de existir alguno, empezamos en la pokeparada mas cercana (la estrategia es luego dentro del algoritmo dirigirse a este gimnasio fácil). Si nuevamente estamos sin suerte, empezamos desde una pokeparada cualquiera. En esta implementación seleccionaremos al primero de la lista.
+	\item Una vez elegido el primero, siempre mira lo más cercano: primero analiza si puede ganar el gimnasio más cercano, de ser imposible, se dirige a la pokeparada más cercana. Una vez efectivizado el movimiento, itera hasta que no haya gimnasios para vencer, o no queden pokeparadas para recargar.
+	
+\end{itemize} 
+
 
 
 
@@ -232,7 +249,7 @@ Este algoritmo es una manera de elegir el nodo inicial. Si existe un gimnasio tr
 \subsection{Complejidad}
 Vamos a demostrar que la complejidad de esta heurística es $\mathcal{O}$($(n+m)^2$) donde n es la cantidad de gimnasios y m la cantidad de pokeparadas.
 Por un lado, vamos a analizar las funciones auxiliares. La función $moverse$ usa todas operaciones en $\mathcal{O}$($1$) y no contiene ciclos. Entonces su complejidad es $\mathcal{O}$($1$).
-Luego, ElegirPrimero recorre los gimnasios en busca de uno trivial ($\mathcal{O}$($n$)), luego recorre nuevamente los gimnasios en busca de uno ``fácil'', y si lo encuentra busca la pokeparada más cercana ($\mathcal{O}$($n+m$)), y por último elige una pokeparada cualquiera ($\mathcal{O}$($1$)). En resumen, esta función auxiliar tiene complejidad $\mathcal{O}$($n+m$)
+Luego, ElegirPrimero recorre los gimnasios en busca de uno trivial ($\mathcal{O}$($n$)), luego recorre nuevamente los gimnasios en busca de uno ``fácil'', y por cada uno que encuentre busca la pokeparada más cercana ($\mathcal{O}$($n*m$)), y por último elige una pokeparada cualquiera ($\mathcal{O}$($1$)). En resumen, esta función auxiliar tiene complejidad $\mathcal{O}$($n*m$)
 \\
 Viendo el algoritmo principal vemos que cada iteración de la función toma dos posibilidades: o se mueve a un gimnasio o a una pokeparada. En el peor caso el algoritmo va a hacer $\mathcal{O}$($n+m$) iteraciones. Cada iteración primero calcula el gimnasio más cercano, y luego la pokeparada más cercana. Todas las demas operaciones son $\mathcal{O}$(1). En conclusión, cada iteración tiene complejidad  ($\mathcal{O}$($n+m$)).
 Finalmente vemos que el algoritmo tiene complejidad $\mathcal{O}$($(n+m)^2$).
@@ -246,7 +263,7 @@ Finalmente vemos que el algoritmo tiene complejidad $\mathcal{O}$($(n+m)^2$).
 
 \section{Heurística de búsqueda local}
 
-\subsection{Exlicación de la solución}
+\subsection{Explicación de la solución}
 
 \subsection{Pseudocódigo}
 
@@ -262,7 +279,7 @@ Finalmente vemos que el algoritmo tiene complejidad $\mathcal{O}$($(n+m)^2$).
 Como metaheurística decidimos implementar un algoritmo ``GRASP''
 La técnica de este tipo de algoritmos consiste en combinar sucecivamente un algoritmo golozo randomizado para explorar nuevos espacios de soluciones y luego aplicar una busqueda local para mejorar cada solución. Al mismo tiempo se van comparando las soluciones y siempre se va eligiendo la mejor posible hasta que el algoritmo finaliza bajo algún criterio.
 
-\subsection{Exlicación de la solución}
+\subsection{Explicación de la solución}
 
 Utilizamos como criterio de terminación el tamaño del conjunto de ``entradas validas''. Este conjunto esta formado por Todos los gimnasios que pidan cero pociones para ser vencidos y todas las pokeparadas. Aplicamos el algoritmo golozo comenzando de cada uno de los nodos de este conjunto. 
 
