@@ -329,13 +329,13 @@ La complejidad de este algortimo es $\mathcal{O}$($n^{2}+m$) donde n es la canti
 \section{Metaheurística}
 
 Como metaheurística decidimos implementar un algoritmo ``GRASP''
-La técnica de este tipo de algoritmos consiste en combinar sucesivamente un algoritmo golozo randomizado para explorar nuevos espacios de soluciones y luego aplicar una búsqueda local para mejorar cada solución. Al mismo tiempo se van comparando las soluciones y siempre se va eligiendo la mejor posible hasta que el algoritmo finaliza bajo algún criterio.
+La técnica de este tipo de algoritmos consiste en combinar sucesivamente un algoritmo goloso randomizado para explorar nuevos espacios de soluciones y luego aplicar una búsqueda local para mejorar cada solución. Al mismo tiempo se van comparando las soluciones y siempre se va eligiendo la mejor posible hasta que el algoritmo finaliza bajo algún criterio.
 
 \subsection{Explicación de la solución}
 
-Utilizamos como criterio de terminación el tamaño del conjunto de ``entradas válidas''. Este conjunto está formado por todos los gimnasios que pidan cero pociones para ser vencidos y todas las pokeparadas. Aplicamos el algoritmo golozo comenzando de cada uno de los nodos de este conjunto. 
+Utilizamos como criterio de terminación el tamaño del conjunto de ``entradas válidas''. Este conjunto está formado por todos los gimnasios que pidan cero pociones para ser vencidos y todas las pokeparadas. Aplicamos el algoritmo goloso comenzando de cada uno de los nodos de este conjunto. 
 
-El algoritmo golozo randomizado es una variación de nuestra heuristica goloza presentada en la sección (3). % insertar seccion%
+El algoritmo goloso randomizado es una variación de nuestra heuristica goloza presentada en la sección (3). % insertar seccion%
 Para explorar el nuevo espacio de soluciones seleccionamos como candidatos al veinte porciento de los nodos por recorrer más cercanos a la posición actual.
 Luego le asignamos una probabilidad a cada uno de ellos. La misma utiliza el siguiente criterio:
 
@@ -358,7 +358,7 @@ Finalmente aplicamos la función de búsqueda local de la sección ().
 	\begin{algorithmic}[1]
 		\State solu = $\infty$
 		\State Desde i=0 hasta $|$entradasValidas$|$
-		\State \quad GolozoRand(entradasValidas[i])
+		\State \quad GolosoRand(entradasValidas[i])
 		\State \quad Blocas(RecorridoGlobal, MinGlobal)
 		\State \quad Si MinGlobal$<$solu
 		\State \qquad solu=MinGlobal
