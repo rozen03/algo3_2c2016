@@ -1,6 +1,6 @@
 #include "../clases.h"
-//#include "../Punto2/Punto2.cpp"
-//#include "../Punto3/ej3.h"
+#include "../Punto2/Punto2.cpp"
+#include "../Punto3/ej3.cpp"
 #include <iostream>
 #include <limits>
 #include <stdio.h>
@@ -33,11 +33,9 @@ vint RecorridoActual;
 */
 
 //funciones
-double dist(Nodo* f);
-void moverse(Nodo * lugar);
-void sacar(vnod &vector,int elem);
-Nodo* PokeParadaMasCercana();
-Nodo* GimMasCercano();
+void moversePto4(Nodo * lugar);
+Nodo* PokeParadaMasCercanaPto4();
+Nodo* GimMasCercanoPto4();
 void grasp();
 void GolozoRand(Nodo & comienzo);
 int PuntajeAnodo(Nodo & n);
@@ -49,7 +47,7 @@ void ResetGlobalesPto4();
 
 
 
-
+/*
 int main(){
     srand (time(NULL));
     ResetGlobalesPto4();
@@ -62,13 +60,12 @@ int main(){
     }
 
     grasp();
-	cerr<<MinGlobal<<" ";
+	cout<<MinGlobal<<" ";
 	for (int i = 0; i < RecorridoGlobal.size(); ++i){
-		cerr<< RecorridoGlobal[i]<<" ";
+		cout<< RecorridoGlobal[i]<<" ";
 	}
 }
-
-
+*/
 double pto4(vnod gim,vnod pp, Mochila mochil,vint & sol){
 	PokeParadas = pp;
 	Gimnasios =gim;
@@ -89,11 +86,7 @@ double pto4(vnod gim,vnod pp, Mochila mochil,vint & sol){
 
 
 void grasp(){
-	cerr<<"Gimnasios y Pokeparadas "<<endl;
-	for(int i = 0; i<Gimnasios.size();i++) cerr<<Gimnasios[i].DameIndice()<<" ";
-	cerr<<endl;
-	for(int i = 0;i<PokeParadas.size();i++) cerr<<PokeParadas[i].DameIndice()<<" ";
-	cerr<<endl;
+	srand(time(NULL));
 	vnod entradasValidas;
 	for (int i=0; i < GimDeCero.size();i++) {
 	  Nodo aux= GimDeCero[i];
@@ -108,10 +101,8 @@ void grasp(){
 	int j= entradasValidas.size();
 
 	for (int i = 0; i < j; i++) {
-		cerr<<"Empiezo con "<<entradasValidas[i].DameIndice()<<endl;
-	    GolozoRand(entradasValidas[i]);
-	    //BusquedaLocal(Gimnasios, PokeParadas, moch, RecorridoActual,MinActual);
-	    cerr<<"El minActual es "<<MinActual<<" contra el MinGlobal "<<MinGlobal<<endl;
+	   GolozoRand(entradasValidas[i]);
+	    BusquedaLocal(Gimnasios, PokeParadas, moch, RecorridoActual,MinActual);
 	    if (MinActual < MinGlobal) {
 	      MinGlobal = MinActual;
 	      RecorridoGlobal = RecorridoActual;
@@ -123,10 +114,10 @@ void grasp(){
 }
 
 void GolozoRand(Nodo & comienzo){
-  gimRecorridos=0;
+  int gimRecorridos=0;
   int indice = comienzo.DameIndice();
   Nodo* proxLugar= DameNodo(indice);
-  moverse(proxLugar);
+  moversePto4(proxLugar);
   while(gimRecorridos!=Gimnasios.size()){
   //mientras sigan existiendo gimnasios que no pasaron
     vpnod losMasCercanos;
@@ -134,12 +125,12 @@ void GolozoRand(Nodo & comienzo){
     double porcAux = (double)(Gimnasios.size()+ PokeParadas.size()) * 20/100;
     int  porcentaje = ceil(porcAux);
     for (int i = 0; i < porcentaje; i++) {
-      Nodo* aux=PokeParadaMasCercana();
+      Nodo* aux=PokeParadaMasCercanaPto4();
       if (aux != NULL) {
 		losMasCercanos.push_back(aux);
       	aux->Recorrer(true);
   	  }
-      Nodo* auxg=GimMasCercano();
+      Nodo* auxg=GimMasCercanoPto4();
       if(auxg!=NULL) {
 		losMasCercanos.push_back(auxg);
       	auxg->Recorrer(true);
@@ -149,23 +140,25 @@ void GolozoRand(Nodo & comienzo){
 	  Nodo * aux= losMasCercanos[i];
       aux ->Recorrer(false);
     }
+    
     // me quedo solo con los 4 mas cercanos
     losMasCercanos = Filtro(losMasCercanos);
+	
 	proxLugar = ElegirElNodo(losMasCercanos);
-    if(proxLugar==NULL && k!=Gimnasios.size()){
-      MinActual= MAX;
-      RecorridoActual.clear();
-      break;
-      }
-      else{
-      	 proxLugar->Recorrer(true);
-      	 moverse(proxLugar);
-  		 if(proxLugar->EsGim()){
-      	 	GimRecorridos++;
-      	 	//quiero asegurarme de no gastar pociones entonces necesito
-      	 	//saber cuantas pociones necesito es suma por que gim las 
-      	 	//tiene en negativo
-      	 	PocionesNecesarias += proxLugar ->DamePociones(); 
+	if(proxLugar==NULL && gimRecorridos != Gimnasios.size()){
+		MinActual= MAX;
+		RecorridoActual.clear();
+		break;
+    }
+    if(proxLugar != NULL){
+        proxLugar->Recorrer(true);
+      	moversePto4(proxLugar);
+  		if(proxLugar->EsGim()){
+      		gimRecorridos++;
+      		//quiero asegurarme de no gastar pociones entonces necesito
+      		//saber cuantas pociones necesito es suma por que gim las 
+      		//tiene en negativo
+      	   PocionesNecesarias += proxLugar ->DamePociones(); 
     	}
     	else{
 			PPRecorridas++;
@@ -190,7 +183,7 @@ int PuntajeAnodo(Nodo & n){
   return res;
 }
 
-vpnod Filtro(vpnod & vect, int porcentaje ){
+vpnod Filtro(vpnod & vect){
   vpnod aux;
   Nodo * GimMin=NULL;
   bool hayGim = false;
@@ -228,7 +221,6 @@ void SacarPunteros(vpnod &vector,int elem){
 }
 
 Nodo* ElegirElNodo(vpnod & vect){
-<<<<<<< HEAD
 	Nodo* res = NULL;
 	vint valorNodos;
 	int suma=0;
@@ -248,29 +240,6 @@ Nodo* ElegirElNodo(vpnod & vect){
 		}
 	}
 	return res;
-=======
-  Nodo* res;
-  vint valorNodos;
-  int suma=0;
-
-  for(int i=0; i<vect.size(); i++){
-
-    int aux= vect.size()*10-i*10;
-
-    aux += PuntajeAnodo(*vect[i]);
-
-    suma+=aux;
-    valorNodos.push_back(suma);
-  }
-    int random = rand() % suma +1;
-    for (int i = 0; i < valorNodos.size(); i++) {
-      if (random <= valorNodos[i]){
-        res= vect[i];
-        break;
-      }
-    }
-    return res;
->>>>>>> c95deaf63d75a3ef67399a86e3d06451caeaa5bd
 }
 
 //si hay un shift de 42 en algun lado es por que tengo que resetear mejor
@@ -288,14 +257,7 @@ void ResetGlobalesPto4(){
 	MinActual = 0;
 }
 
-double dist(Nodo* f) {
-	double x = xactual - f->CordenadaX();
-	double y = yactual - f->CordenadaY();
-	double pre = pow(x, 2) + pow(y, 2);
-	return sqrt(pre); //esto NO devuelve un int....
-}
-
-void moverse(Nodo * lugar){
+void moversePto4(Nodo * lugar){
 
 	/*	Lo que hace esta funcion:
 		Actualizar x e y
@@ -321,20 +283,7 @@ void moverse(Nodo * lugar){
 	lugar->Recorrer(true);
 }
 
-void sacar(vnod &vector,int elem){
-
-	for(int i = 0; i<vector.size();i++){
-		int indiceAux = vector[i].DameIndice();
-		if(indiceAux == elem){
-			vector[i] = vector.back();
-			vector.pop_back();
-
-			return;
-		}
-	}
-}
-
-Nodo* GimMasCercano(){//AAAAA NO SE SI USAR PUNTEROS
+Nodo* GimMasCercanoPto4(){//AAAAA NO SE SI USAR PUNTEROS
 	Nodo * min = NULL;
 	for (int i = 0; i < Gimnasios.size(); ++i){
 		if( !Gimnasios[i].Recorrido() && moch.DamePeso()>= - Gimnasios[i].DamePociones()){//verifico que puedo vencer este gimnacio
@@ -353,7 +302,7 @@ Nodo* GimMasCercano(){//AAAAA NO SE SI USAR PUNTEROS
 
 }
 
-Nodo* PokeParadaMasCercana(){
+Nodo* PokeParadaMasCercanaPto4(){
 	Nodo* min =NULL;
 	for (int i = 0; i < PokeParadas.size(); ++i){
 		bool b=true;
@@ -380,6 +329,8 @@ Nodo * DameNodo(int indice){
 	return res;
 }
 //Pensarla bien
+
+/*
 bool NoConsumoPociones(){
 	bool NoConsumoDemas = true;
 	int pociones = p.DamePociones();
@@ -394,3 +345,4 @@ bool NoConsumoPociones(){
 	
 	return NoConsumoDemas;
 }
+*/

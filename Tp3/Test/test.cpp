@@ -8,8 +8,8 @@
 #include "../Punto1/pto1.cpp"
 #include "../Punto1/pto1A.cpp"
 //#include "../Punto2/Punto2.cpp"
-//#include "../Punto3/ej3.h"
-//#include "../Punto4/pto4.cpp"
+//#include "../Punto3/ej3.cpp"
+#include "../Punto4/pto4.cpp"
 
 
 //Funciones Auxiliares
@@ -125,6 +125,8 @@ void CorrerGeneral(int rep, vnod gim, vnod pp, Mochila moch, ofstream & res, ofs
 			for(int nroEj = 1; nroEj <= 4; nroEj++){
 				res<<nroEj<<" & "<<gimTotales << " & "<< ppTotales<<" & ";
 				Correr(rep, gim, pp, moch, res, meta, nroEj);
+			
+				cerr<<"termine el pto "<<nroEj<<" con "<<gimTotales<<" gimnasios y "<<ppTotales<<" pokeparadas"<<endl;
 			}
 			//me va a dar numeros dependiendo de que poda use
 			if(nodoValidosPodas > ppTotales+gimTotales){
@@ -137,6 +139,7 @@ void CorrerGeneral(int rep, vnod gim, vnod pp, Mochila moch, ofstream & res, ofs
 			for(int nroEj = 2; nroEj <= 4; nroEj++){
 				res<<nroEj<<" & "<<gimTotales << " & "<< ppTotales<<" & ";
 				Correr(rep, gim, pp, moch, res, meta, nroEj);
+				cerr<<"termine el pto "<<nroEj<<" con "<<gimTotales<<" gimnasios y "<<ppTotales<<" pokeparadas"<<endl;
 			}
 		}
 }
@@ -150,7 +153,7 @@ void Correr(int rep, vnod gimnasios, vnod pokeparadas, Mochila moch, ofstream & 
 		case 1:
 		foo = &pto1;
 		break;
-	/*	case 2:
+		case 2:
 		foo = &pto2;
 		break;
 		case 3:
@@ -158,7 +161,7 @@ void Correr(int rep, vnod gimnasios, vnod pokeparadas, Mochila moch, ofstream & 
 		break;
 		case 4:
 		foo = &pto4;
-		break;*/
+		break;
 		default:
 		cout<<"N invalido"<<endl;
 		res<<"\n";
@@ -233,16 +236,14 @@ void TodoEnElMismoLugar(int rep, int cantgim){
 	for (int i = 1; i <= cantgim; ++i){	
 		Nodo gim(-1, i, x, y);
 		gimnasios.push_back(gim);
-	}
-	for (int i = 1; i <= cantgim*3; ++i){
-		Nodo pokeparada(3,cantgim+i, x, y);
-		pp.push_back(pokeparada);
-
-	}
+		for (int j = 1; j <= cantgim*3; ++i){
+			Nodo pokeparada(3,cantgim+i, x, y);
+			pp.push_back(pokeparada);
+		}
 	AsignarIndices(gimnasios, pp);
 	ImprimirCasos(gimnasios, pp, casos);
 	CorrerGeneral(rep, gimnasios, pp, moch, res, podas, meta, 20, 13);
-
+	}
 }
 
 void PPdeMas(int rep, int cantgim){
@@ -271,17 +272,16 @@ void PPdeMas(int rep, int cantgim){
 		int y= rand()%50+0;	
 		Nodo gim(-1, i, x, y);
 		gimnasios.push_back(gim);
+		for (int j = 1; j <= cantgim*3; ++i){
+			int x= rand()%50+0;
+			int y= rand()%50+0;
+			Nodo pokeparada(3,cantgim+i, x, y);
+			pp.push_back(pokeparada);
+		}
+		AsignarIndices(gimnasios, pp);
+		ImprimirCasos(gimnasios, pp, casos);
+		CorrerGeneral(rep, gimnasios, pp, moch, res, podas, meta, 20, 13);
 	}
-	for (int i = 1; i <= cantgim*3; ++i){
-		int x= rand()%50+0;
-		int y= rand()%50+0;
-		Nodo pokeparada(3,cantgim+i, x, y);
-		pp.push_back(pokeparada);
-
-	}
-	AsignarIndices(gimnasios, pp);
-	ImprimirCasos(gimnasios, pp, casos);
-	CorrerGeneral(rep, gimnasios, pp, moch, res, podas, meta, 20, 13);
 }
 
 
@@ -439,25 +439,27 @@ int dameY(tuple<int,int> tupla){
 void gruposSeparados (vnod& gyms, vnod& pepes, const int &cant_gym, const int &cant_pp ){
 	auto espiral_gyms =generadorDeEspirales(0, 0);
 	auto espiral_pp   =generadorDeEspirales(2*(cant_gym+cant_pp),2*(cant_gym+cant_pp));//pongo el otro BIEN LEJOS
-for (size_t i = 0; i < cant_gym; i++) {
-	auto coordenadas = espiral_gyms();
-	gyms.push_back(Nodo(0,0,dameX(coordenadas),dameY(coordenadas)));
+	for (size_t i = 0; i < cant_gym; i++) {
+		auto coordenadas = espiral_gyms();
+		gyms.push_back(Nodo(0,0,dameX(coordenadas),dameY(coordenadas)));
+	}
 }
 
 
 int main(){
-	RectaPPgim(150, 20);
-
-	SoloPokeparadasNecesariasRecta(150, 20);
-
-	PPdeMas(150,20);
-
-	TodoEnElMismoLugar(150,20);
-
+	RectaPPgim(1, 50);
+	cerr<<"termino rectasPP"<<endl;
+	SoloPokeparadasNecesariasRecta(1, 50);
+	cerr<<"terminoSoloPPNec\n";
+	PPdeMas(1,50);
+	cerr<<"termino PPdeMas\n";
+	TodoEnElMismoLugar(1,50);
+	cerr<<"termino MismoLugar\n";
+/*
 for (size_t i = 0; i < cant_pp; i++) {
 	auto coordenadas = espiral_pp();
 	pepes.push_back(Nodo(0,0,dameX(coordenadas),dameY(coordenadas)));
-}
+}*/
 
 }
 void asignarPocionesDeFormaCreciente(vnod & gyms){
@@ -487,9 +489,11 @@ void casoEspiralPrimeroPepesPocionesCreciente(vnod& gyms, vnod& pepes, const int
 	asignarPocionesDeFormaCreciente(gyms);
 	AsignarIndices(gyms,pepes);
 }
+/*
 int main(){
-//	RectaPPgim(1, 10);
-//SoloPokeparadasNecesariasRecta(1, 30);
+RectaPPgim(1, 10);
+SoloPokeparadasNecesariasRecta(1, 30);
+
 vnod gyms;
 vnod pepes;
 casoGruposSeparadosPocionesCreciente(gyms,pepes,10,20);
@@ -499,3 +503,4 @@ pepes.clear();
 casoEspiralPrimeroPepesPocionesCreciente(gyms,pepes,10,20);
 ImprimirNod(gyms);
 }
+*/
