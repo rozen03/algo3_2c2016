@@ -4,8 +4,8 @@ PloterPodas pide como parametro un nombre caracteristico para todos los outputs 
 	gimnasio pokeparada)[no tira el mapa todavia].
 PloterTiempo pide como parametro un nombre caracteristico para todos los outputs que genere.(por ahora son la linea del tiempo de ese archivo,
 	con una linea guia que se tiene que hardcodear igual que el nombre del input)
-PloterTiempos pide como parametro un nombre caracteristico para todos los outputs que genere.(por ahora son
-	un grafico con todas las heuristicas juntas y un ultimo con todos los tiempos).
+PloterComparacion pide como parametro un nombre caracteristico para todos los outputs que genere.(por ahora son
+	un grafico con todas las heuristicas juntas y un ultimo con todos los tiempos/exeptuando el de BT).
 PloterDistancias pide como parametro un nombre caracteristico para todos los outputs que genere.(por ahora
 	son un grafico que tenga comparación de distancias con el bt o la mejor sol encontrada,
 	 uno que te diga en porcentaje cual da las mejores respuestas y un mapa con la ultima

@@ -5,7 +5,6 @@ import pandas as pd
 import seaborn as sns
 
 def main(output):
-	
 	df ="podasRectaPPNec.csv"
 	resP =output+"podas"
 	resT = output+"tiempo"
@@ -42,4 +41,4 @@ def main(output):
 	
 
 if __name__ == '__main__':
-	main(output = sys.argv[-1],show = True)
+	main(output = sys.argv[-1])
