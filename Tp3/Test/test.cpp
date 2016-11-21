@@ -114,7 +114,6 @@ void ImprimirCasos(vnod & gim, vnod & pp, ofstream & casos){
 			casos<<" & ";
 			for(int i = 0; i< pp.size();i++) casos<<"("<<pp[i].CordenadaX()<<","<<pp[i].CordenadaY()<<") ";
 			casos<<"\n";
-			casos.close();
 }
 
 void CorrerGeneral(int rep, vnod gim, vnod pp, Mochila moch, ofstream & res, ofstream & podas, ofstream & meta, int nodoValidosPto1, int nodoValidosPodas){
@@ -150,7 +149,7 @@ void Correr(int rep, vnod gimnasios, vnod pokeparadas, Mochila moch, ofstream & 
 	double (* foo)(vnod,vnod, Mochila,vint &);
 	switch(nroEj){
 
-		case 1:
+		/*case 1:
 		foo = &pto1;
 		break;
 		case 2:
@@ -158,7 +157,7 @@ void Correr(int rep, vnod gimnasios, vnod pokeparadas, Mochila moch, ofstream & 
 		break;
 		case 3:
 		foo = &pto3;
-		break;
+		break;*/
 		case 4:
 		foo = &pto4;
 		break;
@@ -236,7 +235,7 @@ void TodoEnElMismoLugar(int rep, int cantgim){
 	for (int i = 1; i <= cantgim; ++i){	
 		Nodo gim(-1, i, x, y);
 		gimnasios.push_back(gim);
-		for (int j = 1; j <= cantgim*3; ++i){
+		for (int j = 1; j <= cantgim*3; ++j){
 			Nodo pokeparada(3,cantgim+i, x, y);
 			pp.push_back(pokeparada);
 		}
@@ -272,7 +271,7 @@ void PPdeMas(int rep, int cantgim){
 		int y= rand()%50+0;	
 		Nodo gim(-1, i, x, y);
 		gimnasios.push_back(gim);
-		for (int j = 1; j <= cantgim*3; ++i){
+		for (int j = 1; j <= cantgim*3; ++j){
 			int x= rand()%50+0;
 			int y= rand()%50+0;
 			Nodo pokeparada(3,cantgim+i, x, y);
@@ -369,6 +368,28 @@ void SoloPokeparadasNecesariasRecta(int rep, int cantgim){
 		AsignarIndices(gim, pp);
 		ImprimirCasos(gim, pp, casos);
 		CorrerGeneral(rep, gim, pp, moch, res, podas, meta,20,13);
+		//Quiero cambiar el orden por que creo que asi se van a ver las podas
+		//primero desrecorro los gim y los pp
+		for(int i = 0; i<gim.size(); i++) gim[i].Recorrer(false);
+		for(int i = 0; i < pp.size(); i++)pp[i].Recorrer(false);
+		//reverso, tengo que ver como hago correrpodas, por que ahora toma 3 tipos distintos pero misma cant de pp y gim 
+		reverse(gim.begin(), gim.end());
+		reverse(pp.begin(), pp.end());
+		AsignarIndices(gim, pp);
+		
+		Mochila aux(capMoch);
+		CorrerPodas(gim, pp, aux, podas);
+		
+		//random por ahora van a haber 3 lineas con mismo gim y pp la primera es como se construyo la segunda es reverso y la tercera es random
+		for(int i = 0; i<gim.size(); i++) gim[i].Recorrer(false);
+		for(int i = 0; i < pp.size(); i++)pp[i].Recorrer(false);
+		random_shuffle(gim.begin(), gim.end());
+		random_shuffle(pp.begin(), pp.end());
+		AsignarIndices(gim, pp);
+		
+		Mochila bis(capMoch);
+		CorrerPodas(gim, pp, bis, podas);
+		
 	}
 }
 
@@ -447,13 +468,13 @@ void gruposSeparados (vnod& gyms, vnod& pepes, const int &cant_gym, const int &c
 
 
 int main(){
-	RectaPPgim(1, 50);
+	//RectaPPgim(1, 20);
 	cerr<<"termino rectasPP"<<endl;
-	SoloPokeparadasNecesariasRecta(1, 50);
+	//SoloPokeparadasNecesariasRecta(1, 20);
 	cerr<<"terminoSoloPPNec\n";
-	PPdeMas(1,50);
+	//PPdeMas(1,20);
 	cerr<<"termino PPdeMas\n";
-	TodoEnElMismoLugar(1,50);
+	TodoEnElMismoLugar(1,20);
 	cerr<<"termino MismoLugar\n";
 /*
 for (size_t i = 0; i < cant_pp; i++) {

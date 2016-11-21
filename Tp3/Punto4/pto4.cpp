@@ -51,7 +51,7 @@ void ResetGlobalesPto4();
 int main(){
     srand (time(NULL));
     ResetGlobalesPto4();
-    Lectura(Gimnasios, PokeParadas, moch);
+	Lectura(Gimnasios, PokeParadas, moch);
     for (int i=0; i < Gimnasios.size();i++) {
       Nodo aux= Gimnasios[i];
       if (aux.DamePociones()==0) {
@@ -64,8 +64,8 @@ int main(){
 	for (int i = 0; i < RecorridoGlobal.size(); ++i){
 		cout<< RecorridoGlobal[i]<<" ";
 	}
-}
-*/
+}*/
+
 double pto4(vnod gim,vnod pp, Mochila mochil,vint & sol){
 	PokeParadas = pp;
 	Gimnasios =gim;
@@ -86,22 +86,22 @@ double pto4(vnod gim,vnod pp, Mochila mochil,vint & sol){
 
 
 void grasp(){
-	srand(time(NULL));
+	srand(time(NULL));//O(?)
 	vnod entradasValidas;
-	for (int i=0; i < GimDeCero.size();i++) {
-	  Nodo aux= GimDeCero[i];
+	for (int i=0; i < Gimnasios.size();i++) {//O(n)
+	  Nodo aux= Gimnasios[i];
 	  if (aux.DamePociones()==0) {
 	    entradasValidas.push_back(aux);
 	  }
 	}
 
-	for (int i = 0; i < PokeParadas.size(); i++) {
+	for (int i = 0; i < PokeParadas.size(); i++) {//O(m)
 	  entradasValidas.push_back(PokeParadas[i]);
 	}
 	int j= entradasValidas.size();
 
-	for (int i = 0; i < j; i++) {
-	   GolozoRand(entradasValidas[i]);
+	for (int i = 0; i < j; i++) {//O(n+m)
+	   GolozoRand(entradasValidas[i]);//O(n+m)^2	
 	    BusquedaLocal(Gimnasios, PokeParadas, moch, RecorridoActual,MinActual);
 	    if (MinActual < MinGlobal) {
 	      MinGlobal = MinActual;
@@ -113,38 +113,38 @@ void grasp(){
 
 }
 
-void GolozoRand(Nodo & comienzo){
+void GolozoRand(Nodo & comienzo){//O(n+m)^2
   int gimRecorridos=0;
   int indice = comienzo.DameIndice();
   Nodo* proxLugar= DameNodo(indice);
   moversePto4(proxLugar);
-  while(gimRecorridos!=Gimnasios.size()){
+  while(gimRecorridos!=Gimnasios.size()){//O(n)
   //mientras sigan existiendo gimnasios que no pasaron
     vpnod losMasCercanos;
-    //guardamos los 4 gim y las 4 pp mas cercanas a la posicion actual
+    //guardamos los 4 gim y las 4 pp mas cercanas a la posicion actual //O(n+m) es porcentaje 20%
     double porcAux = (double)(Gimnasios.size()+ PokeParadas.size()) * 20/100;
     int  porcentaje = ceil(porcAux);
-    for (int i = 0; i < porcentaje; i++) {
-      Nodo* aux=PokeParadaMasCercanaPto4();
+    for (int i = 0; i < porcentaje; i++) {//"O(n+m)" 20%
+      Nodo* aux=PokeParadaMasCercanaPto4();//O(m)
       if (aux != NULL) {
 		losMasCercanos.push_back(aux);
       	aux->Recorrer(true);
   	  }
-      Nodo* auxg=GimMasCercanoPto4();
+      Nodo* auxg=GimMasCercanoPto4();//O(n)
       if(auxg!=NULL) {
 		losMasCercanos.push_back(auxg);
       	auxg->Recorrer(true);
   	  }
-    }
-    for (int i = 0; i < losMasCercanos.size(); i++) {
+    }//O(n+m)^2
+    for (int i = 0; i < losMasCercanos.size(); i++) {//O(n+m)
 	  Nodo * aux= losMasCercanos[i];
       aux ->Recorrer(false);
     }
     
     // me quedo solo con los 4 mas cercanos
-    losMasCercanos = Filtro(losMasCercanos);
+    losMasCercanos = Filtro(losMasCercanos);//O(n+m)
 	
-	proxLugar = ElegirElNodo(losMasCercanos);
+	proxLugar = ElegirElNodo(losMasCercanos);//O(n+m)
 	if(proxLugar==NULL && gimRecorridos != Gimnasios.size()){
 		MinActual= MAX;
 		RecorridoActual.clear();
@@ -152,7 +152,7 @@ void GolozoRand(Nodo & comienzo){
     }
     if(proxLugar != NULL){
         proxLugar->Recorrer(true);
-      	moversePto4(proxLugar);
+      	moversePto4(proxLugar);//O(1)
   		if(proxLugar->EsGim()){
       		gimRecorridos++;
       		//quiero asegurarme de no gastar pociones entonces necesito
@@ -183,13 +183,13 @@ int PuntajeAnodo(Nodo & n){
   return res;
 }
 
-vpnod Filtro(vpnod & vect){
+vpnod Filtro(vpnod & vect){//"O(n+m)" 20%
   vpnod aux;
   Nodo * GimMin=NULL;
   bool hayGim = false;
   double capacidadvect = (double) vect.size()/2;
   int mitadPorcentaje= ceil(capacidadvect );
-  for (int i = 0; i < mitadPorcentaje; i++) {
+  for (int i = 0; i < mitadPorcentaje; i++) {//"O(n+m)"20%
     Nodo* min=vect[0];
 
     if(vect[i]->EsGim() && GimMin == NULL) GimMin=vect[i];
@@ -220,7 +220,7 @@ void SacarPunteros(vpnod &vector,int elem){
 	}
 }
 
-Nodo* ElegirElNodo(vpnod & vect){
+Nodo* ElegirElNodo(vpnod & vect){//O(n+m)
 	Nodo* res = NULL;
 	vint valorNodos;
 	int suma=0;
