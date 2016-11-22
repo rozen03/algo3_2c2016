@@ -144,7 +144,7 @@ void CorrerGeneral(int rep, vnod gim, vnod pp, Mochila moch, ofstream & res, ofs
 	int ppTotales = pp.size();
 	if(nodoValidosPto1 > ppTotales+gimTotales){
 
-		for(int nroEj = 1; nroEj <= 4 nroEj++){
+		for(int nroEj = 1; nroEj <= 4; nroEj++){
 			res<<nroEj<<" & "<<gimTotales << " & "<< ppTotales<<" & ";
 			Correr(rep, gim, pp, moch, res, meta, nroEj);
 
@@ -155,21 +155,22 @@ void CorrerGeneral(int rep, vnod gim, vnod pp, Mochila moch, ofstream & res, ofs
 			CorrerPodas(gim, pp, moch, podas);
 		}
 
+	}else{
+		if(gimTotales+ppTotales < 600){
+			for(int nroEj = 2; nroEj <= 4; nroEj++){
+				res<<nroEj<<" & "<<gimTotales << " & "<< ppTotales<<" & ";
+				Correr(rep, gim, pp, moch, res, meta, nroEj);
+				cerr<<"termine el pto "<<nroEj<<" con "<<gimTotales<<" gimnasios y "<<ppTotales<<" pokeparadas"<<endl;
+			}
+		}
+		else{
+			for(int nroEj = 2; nroEj <= 3; nroEj++){
+				res<<nroEj<<" & "<<gimTotales << " & "<< ppTotales<<" & ";
+				Correr(rep, gim, pp, moch, res, meta, nroEj);
+				cerr<<"termine el pto "<<nroEj<<" con "<<gimTotales<<" gimnasios y "<<ppTotales<<" pokeparadas"<<endl;
+			}
+		}
 	}
-	//me va a dar numeros dependiendo de que poda use
-	if(nodoValidosPodas > ppTotales+gimTotales){
-		podas << gimTotales << " & "<<ppTotales << " & ";
-		CorrerPodas(gim, pp, moch, podas);
-		podas<<"\n";
-	}
-}
-else{
-	for(int nroEj = 2; nroEj <= 4; nroEj++){
-		res<<nroEj<<" & "<<gimTotales << " & "<< ppTotales<<" & ";
-		Correr(rep, gim, pp, moch, res, meta, nroEj);
-		cerr<<"termine el pto "<<nroEj<<" con "<<gimTotales<<" gimnasios y "<<ppTotales<<" pokeparadas"<<endl;
-	}
-}
 }
 
 void Correr(int rep, vnod gimnasios, vnod pokeparadas, Mochila moch, ofstream & res, ofstream & meta, int nroEj){
@@ -184,7 +185,6 @@ void Correr(int rep, vnod gimnasios, vnod pokeparadas, Mochila moch, ofstream & 
 		case 2:
 		foo = &pto2;
 		break;
-
 		case 3:
 		foo = &pto3;
 		break;
@@ -436,45 +436,6 @@ void SoloPokeparadasNecesariasDosPuntos(int rep, int cantgim){
 	}
 }
 
-/*
-void PrimeroSeVaAlasPPyDespuesGim(){}
-
-void Fibonacci(){}
-
-void Girasol(){}
-
-void LLenar(vnod & gim, vnod & pp, vector<Cuadrado> & zonaRest, int x, int y){
-
-}
-
-
-void Buscar(int & x, int & y, const vector<Cuadrado> & zonaRest, int ppNecesaria){
-
-}
-
-void PokeParadasAlLadoGimMochNoImporta(int rep, int cantgim){
-ofstream res("ResultadosPPAlLadoSinLimiteMoch.txt");
-vnod gimnasios;
-vnod pp;
-vector<Cuadrado> zonaRestringida;
-res<<"cantidad de gimnasios & cantidad de pokeparadas & distancia & resultado & ... tiempos ...& \n";
-res.close();
-for(int i = 1; i<=cantgim; i++){
-int poc =rand()% 30 + 1;
-int ppNecesarias = poc / 3;
-if(poc % 3 != 0) ppNecesarias++;
-int x, y;
-if(!zonaRestringida.empty()){
-x = abs(rand());
-y = abs(rand());
-Llenar(gimnasios, pp, zonaRestringida, x, y);
-}
-Buscar(x, y, zonaRestringida, ppNecesarias);
-Llenar(gimnasios, pp, zonaRestringida, x, y);
-Correr(rep, gimansios, pp, res);
-}
-}
-*/
 
 std::function<tuple<int,int>()> generadorDeEspirales(int a, int b){
 	int x=0;
@@ -537,46 +498,51 @@ void casoEspiralPrimeroPepesPocionesCreciente(vnod& gyms, vnod& pepes, const int
 	AsignarIndices(gyms,pepes);
 }
 void gruposSeparadosPorEspirales(int rep, int cantgim){
-	ofstream res("wa.txt");
-	ofstream meta("we.txt");
-	ofstream casos("wi.txt");
-	ofstream podas("wu.txt");
-	vnod gimnasios;
-	vnod pp;
+	ofstream res("gruposEspiralesRes.txt");
+	ofstream meta("gruposEspiralesMeta.txt");
+	ofstream casos("gruposEspiralesCasos.txt");
+	ofstream podas("gruposEspiralesPodas.txt");
+	vnod gyms;
+	vnod pepes;
 	srand(time(NULL));
-	for(int i = 0; i<=rep;i++) meta<<"valor & sol &";
-	meta<<"\n";
-	res<<"pto &i &j & d & r &";
-	for(int i = 1; i<=rep; i++)res<<"t"<<i<<" &";
-
+	Header(res, podas, casos, meta, rep);
 	Mochila moch(30);
-	casoEspiralPrimeroPepesPocionesCreciente(gimnasios,pp,3,9);
-	AsignarIndices(gimnasios, pp);
-	ImprimirCasos(gimnasios, pp, casos);
-	CorrerGeneral(rep, gimnasios, pp, moch, res, podas, meta, 20, 0);
+	casoEspiralPrimeroPepesPocionesCreciente(gyms,pepes,6,8);
+	int sumita =0;
+	for (size_t i = 1; i < 7; i++) {
+		sumita+=i;
+		vnod gimnasios;
+		for (size_t j = 0; j < i; j++){
+			gimnasios.push_back(gyms[j]);
+		}
+		vnod pp;
+		for (size_t j = 0; j <(int)(sumita/3) ; j++) {
+			pp.push_back(pepes[j]);
+		}
+
+		AsignarIndices(gimnasios, pp);
+		ImprimirCasos(gimnasios, pp, casos);
+		CorrerGeneral(rep, gimnasios, pp, moch, res, podas, meta, 20, 14);
+		gimnasios.clear();
+		pp.clear();
+	}
 }
 int main(){
+	cerr<<"empece"<<endl;
+	//RectaPPgim(1, 50);
+	cerr<<"termino rectasPP"<<endl;
 
-	//	RectaPPgim(1, 50);
-	//	cerr<<"termino rectasPP"<<endl;
-	//
-	//	SoloPokeparadasNecesariasRecta(1, 50);
-	//	cerr<<"terminoSoloPPNec\n";
-	//
-	//	PPdeMas(1,50);
-	//
-	//	cerr<<"termino PPdeMas\n";
-	//	TodoEnElMismoLugar(1,20);
-	//	cerr<<"termino MismoLugar\n";
-	//
-	//	DosPuntos(1,50);
-	//	cerr<<"termino DosPuntos\n";
+	//SoloPokeparadasNecesariasRecta(1, 50);
+	cerr<<"terminoSoloPPNec\n";
 
+//	PPdeMas(1,50);
 
-	/*
-	for (size_t i = 0; i < cant_pp; i++) {
-	auto coordenadas = espiral_pp();
-	pepes.push_back(Nodo(0,0,dameX(coordenadas),dameY(coordenadas)));
-}*/
-gruposSeparadosPorEspirales(2,0);
+	cerr<<"termino PPdeMas\n";
+//	TodoEnElMismoLugar(1,20);
+	cerr<<"termino MismoLugar\n";
+
+//	DosPuntos(1,50);
+	cerr<<"termino DosPuntos\n";
+	gruposSeparadosPorEspirales(2,14);
+	cerr<<"termino grupos separados por espirales yey"<<endl;
 }
