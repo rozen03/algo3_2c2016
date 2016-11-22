@@ -108,6 +108,7 @@ double tirarPokeParadas(vnod pokeParadas, vnod &gimnasios, Mochila mochila, vnod
         return res;
     }
     double pto3(vnod gimnasios, vnod pokeParadas, Mochila mochila, vint &solucion) {
+        cout<<"exodia"<<endl;
         sort(gimnasios.begin(), gimnasios.end(),[](Nodo a, Nodo b){return a.DamePociones()<b.DamePociones();});
         return mejorarSolucion(gimnasios,pokeParadas, mochila, solucion);
     }
