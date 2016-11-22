@@ -33,7 +33,7 @@ void sacar(vnod &vect, int ind);
 void goloso();
 void elegirPrimero();
 void solucion();
-double pto2(vnod gim, vnod pp, Mochila, vint & sol);
+double pto2(vnod gim, vnod pp, Mochila moch, vint & sol);
 
 /*
 int main(){
