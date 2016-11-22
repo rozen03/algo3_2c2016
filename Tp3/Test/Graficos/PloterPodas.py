@@ -13,14 +13,33 @@ def main(output):
 	podas['i+j'] = podas['i ']+podas['j ']
 	#lo indexo por la columna y lo guardo en podas
 	podas.set_index(podas['i+j'], inplace = True)
-	#me quedo solo con las columnas que representa las llamadas al BT
+	#me quedo solo con las columnas que representa las llamadas al BT con la lista normal
 	soloBt = pd.DataFrame(data=podas,columns=['SP ','A ','B ','C ','AB ','AC ','BC ', 'ABC '])
+	
+	#me quedo solo con las columnas que representan las llamadas al BT con la lista inversa
+	soloBti = pd.DataFrame(data=podas,columns=['SPi ','Ai ','Bi ','Ci ','ABi ','ACi ','BCi ', 'ABCi '])
+
+	#me quedo solo con las columnas que representan las llamadas al BT con la lista random
+	soloBtr = pd.DataFrame(data=podas,columns=['SPr ','Ar ','Br ','Cr ','ABr ','ACr ','BCr ', 'ABCr '])
 	
 	soloBt.plot(kind='bar')
 	plt.ylabel("cantidad de llamadas al backtracking")
 	plt.xlabel("cantidad de nodos")
-	plt.savefig(resP)
+	plt.savefig(resP+"normal")
 	plt.show()
+	
+	soloBti.plot(kind='bar')
+	plt.ylabel("cantidad de llamadas al backtracking")
+	plt.xlabel("cantidad de nodos")
+	plt.savefig(resP+"inverso")
+	plt.show()
+
+	soloBtr.plot(kind='bar')
+	plt.ylabel("cantidad de llamadas al backtracking")
+	plt.xlabel("cantidad de nodos")
+	plt.savefig(resP+"reverso")
+	plt.show()
+
 	
 	#Ahora grafico el tiempo separado a los demas
 	dt ="resultadosRectaPPNec.csv"

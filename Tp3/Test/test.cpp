@@ -501,9 +501,9 @@ void gruposSeparados (vnod& gyms, vnod& pepes, const int &cant_gym, const int &c
 
 int main(){
 
-	RectaPPgim(1, 50);
+	RectaPPgim(1, 20);
 	cerr<<"termino rectasPP"<<endl;
-	
+	/*
 	SoloPokeparadasNecesariasRecta(1, 50);
 	cerr<<"terminoSoloPPNec\n";
 	
@@ -516,7 +516,7 @@ int main(){
 	DosPuntos(1,50);
 	cerr<<"termino DosPuntos\n";
 
-
+*/
 /*
 for (size_t i = 0; i < cant_pp; i++) {
 	auto coordenadas = espiral_pp();
