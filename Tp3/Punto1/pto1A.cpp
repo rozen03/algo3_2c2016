@@ -51,15 +51,51 @@ bool puedoIrPPAB(Nodo & p);
 bool puedoIrPPAC(Nodo & p);
 bool puedoIrPPBC(Nodo & p);
 bool puedoIrPPABC(Nodo & p);
+void CorrerCaso(vnod gim, vnod pp, Mochila moch, ofstream & podas);
 void CorrerPodas(vnod gim, vnod pp, Mochila mochil, ofstream & podas);
 void Imprimir(vint sol, ofstream & podas);
+void AsignarIndices(vnod &gim, vnod &pp);
 //funciones
+
+void  AsignarIndices(vnod & gim, vnod & pp){
+	vnod gimAux;
+	vnod ppAux;
+	for(int i = 0; i< gim.size(); i++){
+		Nodo aux(gim[i], i+1);
+		gimAux.push_back(aux);
+	}
+	int n = gim.size();
+	for(int i = 0; i<pp.size(); i++){
+		Nodo aux(pp[i], n+i+1);
+		ppAux.push_back(aux);
+	}
+	gim = gimAux;
+	pp = ppAux;
+}
 
 void Imprimir(vint sol, ofstream & podas){
 	for(int i = 0; i<sol.size(); i++)podas<< sol[i]<<" ";
 }
 
-void CorrerPodas(vnod GAux, vnod PPAux, Mochila mochil, ofstream & podas){
+void CorrerPodas(vnod Gaux, vnod pp, Mochila moch, ofstream & podas){
+	podas<< Gaux.size()<<" & "<<pp.size()<<" & ";
+	CorrerCaso(Gaux, pp, moch, podas);
+	podas<<" & ";
+	reverse(Gaux.begin(), Gaux.end());
+	reverse(pp.begin(), pp.end());
+	AsignarIndices(Gaux, pp);
+	CorrerCaso(Gaux, pp, moch, podas);
+	podas<<" & ";
+	random_shuffle(Gaux.begin(), Gaux.end());
+	random_shuffle(pp.begin(), pp.end());
+	AsignarIndices(Gaux, pp);
+	CorrerCaso(Gaux, pp, moch, podas);
+	podas<<"\n";
+	
+}
+
+void CorrerCaso(vnod GAux, vnod PPAux, Mochila mochil, ofstream & podas){
+	Reset(PPAux, GAux, mochil);
 	BTSP();
 	int Cbt = CantBT;
 	double dist = MinGlobal;
