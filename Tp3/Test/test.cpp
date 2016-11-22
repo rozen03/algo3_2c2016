@@ -468,11 +468,8 @@ void gruposSeparados (vnod& gyms, vnod& pepes, const int &cant_gym, const int &c
 		auto coordenadas = espiral_gyms();
 		gyms.push_back(Nodo(0,0,dameX(coordenadas),dameY(coordenadas)));
 	}
-	for (size_t i = 0; i < cant_pp; i++) {
-		auto coordenadas = espiral_pp();
-		pepes.push_back(Nodo(0,0,dameX(coordenadas),dameY(coordenadas)));
-	}
 }
+
 void asignarPocionesDeFormaCreciente(vnod & gyms){
 	for (size_t i = 0; i < gyms.size(); i++) {
 		gyms[i].asignarCantidadPociones(i);
