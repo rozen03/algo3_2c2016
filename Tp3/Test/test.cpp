@@ -526,19 +526,19 @@ void gruposSeparadosPorEspirales(int rep, int cantgim){
 }
 int main(){
 	cerr<<"empece"<<endl;
-	//RectaPPgim(1, 50);
+	RectaPPgim(1, 50);
 	cerr<<"termino rectasPP"<<endl;
 
-	//SoloPokeparadasNecesariasRecta(1, 50);
+	SoloPokeparadasNecesariasRecta(1, 50);
 	cerr<<"terminoSoloPPNec\n";
 
-//	PPdeMas(1,50);
+	PPdeMas(1,50);
 
 	cerr<<"termino PPdeMas\n";
-//	TodoEnElMismoLugar(1,20);
+	TodoEnElMismoLugar(1,20);
 	cerr<<"termino MismoLugar\n";
 
-//	DosPuntos(1,50);
+	DosPuntos(1,50);
 	cerr<<"termino DosPuntos\n";
 	gruposSeparadosPorEspirales(2,14);
 	cerr<<"termino grupos separados por espirales yey"<<endl;
