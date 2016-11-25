@@ -2,7 +2,7 @@
 #include <iostream>
 #include <chrono>
 #include <limits>
-
+//#include "pto1.cpp"
 
 using namespace std;
 /*
@@ -44,7 +44,7 @@ void voyAB(Nodo & p);
 void voyAC(Nodo & p);
 void voyBC(Nodo & p);
 void voyABC(Nodo & p);
-bool puedoIrPPA(Nodo & p);
+bool puedoIrPPSP(Nodo & p);
 bool puedoIrPPB(Nodo & p);
 bool puedoIrPPC(Nodo & p);
 bool puedoIrPPAB(Nodo & p);
@@ -52,6 +52,7 @@ bool puedoIrPPAC(Nodo & p);
 bool puedoIrPPBC(Nodo & p);
 bool puedoIrPPABC(Nodo & p);
 void CorrerCaso(vnod gim, vnod pp, Mochila moch, ofstream & podas);
+void CorrerCasoAux(vnod GAux, vnod PPAux, Mochila mochil);
 void CorrerPodas(vnod gim, vnod pp, Mochila mochil, ofstream & podas);
 void Imprimir(vint sol, ofstream & podas);
 void AsignarIndices(vnod &gim, vnod &pp);
@@ -73,6 +74,11 @@ void  AsignarIndices(vnod & gim, vnod & pp){
 	pp = ppAux;
 }
 
+void ImprimirAux(vint sol){
+	for(int i = 0; i<sol.size(); i++)cout<< sol[i]<<" ";
+}
+
+
 void Imprimir(vint sol, ofstream & podas){
 	for(int i = 0; i<sol.size(); i++)podas<< sol[i]<<" ";
 }
@@ -91,9 +97,13 @@ void CorrerPodas(vnod Gaux, vnod pp, Mochila moch, ofstream & podas){
 	AsignarIndices(Gaux, pp);
 	CorrerCaso(Gaux, pp, moch, podas);
 	podas<<"\n";
-	
-}
+}/*
 
+int main(){
+	LecturaDatos();
+	CorrerCasoAux(Gimnasios, PokeParadas, moch);
+}
+*/
 void CorrerCaso(vnod GAux, vnod PPAux, Mochila mochil, ofstream & podas){
 	Reset(PPAux, GAux, mochil);
 	BTSP();
@@ -162,6 +172,75 @@ void CorrerCaso(vnod GAux, vnod PPAux, Mochila mochil, ofstream & podas){
 	
 }
 
+
+void CorrerCasoAux(vnod GAux, vnod PPAux, Mochila mochil){
+	Reset(PPAux, GAux, mochil);
+	BTSP();
+	int Cbt = CantBT;
+	double dist = MinGlobal;
+	vint Solbt = RecorridoGlobal;
+
+	Reset(PPAux, GAux, mochil);
+	BTA();
+	int CbtA = CantBT;
+	double distA = MinGlobal;
+	vint SolbtA = RecorridoGlobal;
+	
+	Reset(PPAux, GAux, mochil);
+	BTB();
+	int CbtB = CantBT;
+	double distB = MinGlobal;
+	vint SolbtB = RecorridoGlobal;
+	
+	Reset(PPAux, GAux, mochil);
+	BTC();
+	int CbtC = CantBT;
+	double distC = MinGlobal;
+	vint SolbtC = RecorridoGlobal;
+	
+	Reset(PPAux, GAux, mochil);
+	BTAB();
+	int CbtAB = CantBT;
+	double distAB = MinGlobal;
+	vint SolbtAB = RecorridoGlobal;
+	
+	Reset(PPAux, GAux, mochil);
+	BTAC();
+	int CbtAC = CantBT;
+	double distAC = MinGlobal;
+	vint SolbtAC = RecorridoGlobal;
+	
+	Reset(PPAux, GAux, mochil);
+	BTBC();
+	int CbtBC = CantBT;
+	double distBC = MinGlobal;
+	vint SolbtBC = RecorridoGlobal;
+	
+	Reset(PPAux, GAux, mochil);
+	BTABC();
+	int CbtABC = CantBT;
+	double distABC = MinGlobal;
+	vint SolbtABC = RecorridoGlobal;
+	
+	cout<<"SP "<< Cbt<<endl;
+	//ImprimirAux(Solbt);
+	cout<<"A "<<CbtA<<endl;
+	//ImprimirAux(SolbtA);
+	cout<<"B "<<CbtB<<endl;
+	//ImprimirAux(SolbtB);
+	cout<<"C "<<CbtC<<endl;
+	//ImprimirAux(SolbtC);
+	cout<<"AB "<<CbtAB<<endl;
+	//ImprimirAux(SolbtAB);
+	cout<<"AC "<<CbtAC<<endl;
+	//ImprimirAux(SolbtAC);
+	cout<<"BC "<<CbtBC<<endl;
+	//ImprimirAux(SolbtAC);
+	cout<<"ABC "<<CbtABC<<endl;
+	//ImprimirAux(SolbtABC);
+	cout<<endl;
+}
+
 void BTSP(){
 	CantBT++;
 	//Quiero cortar o en el caso de que ya hay una solucion mejor o cuando ya recorri todos los gimnasios.
@@ -227,7 +306,7 @@ void BTSP(){
 				//PP, si no podia ir por que ya habia ido corta por otro lado.
 				PPRecorridas++;
 				//si es posible ir a pokeparada, marco y voy y desmarco
-				if(puedoIrPP(pp)){
+				if(puedoIrPPSP(pp)){
 					voySP(pp);
 				}
 				PPRecorridas--;
@@ -238,7 +317,7 @@ void BTSP(){
 
 void BTA(){
 	CantBT++;
-	//Quiero cortar o en el caso de que ya hay una solucion mejor o cuando ya recorri todos los gimnasios.
+	//Quiero cor tar o en el caso de que ya hay una solucion mejor o cuando ya recorri todos los gimnasios.
 	if(MinActual> MinGlobal) return;
 	if(GimRecorridos == Gimnasios.size()){
 		if(MinActual < MinGlobal){
@@ -302,7 +381,7 @@ void BTA(){
 				//PP, si no podia ir por que ya habia ido corta por otro lado.
 				PPRecorridas++;
 				//si es posible ir a pokeparada, marco y voy y desmarco
-				if(puedoIrPP(pp)){
+				if(puedoIrPPSP(pp)){
 					voyA(pp);
 				}
 				PPRecorridas--;
@@ -758,6 +837,10 @@ void BTABC(){
 	}
 }
 
+
+bool puedoIrPPSP(Nodo & p){
+	return  !p.Recorrido();
+}
 
 //Idem puedoIRPP pero con Poda c
 bool puedoIrPPC(Nodo & p){

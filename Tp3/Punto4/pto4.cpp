@@ -101,9 +101,11 @@ void grasp(){
 	int j= entradasValidas.size();
 
 	for (int i = 0; i < j; i++) {//O(n+m)
-	   GolozoRand(entradasValidas[i]);//O(n+m)^2	
+	   GolozoRand(entradasValidas[i]);//O(n+m)^2
+	   cerr<<"post golozo minActual "<<MinActual<<endl;	
 	    BusquedaLocal(Gimnasios, PokeParadas, moch, RecorridoActual,MinActual);
-	    if (MinActual < MinGlobal) {
+	   cerr<<"post busquedaGlobal minActual "<<MinActual<<endl;
+	    if (MinActual < MinGlobal && MinActual >= 0) {
 	      MinGlobal = MinActual;
 	      RecorridoGlobal = RecorridoActual;
 	    }
