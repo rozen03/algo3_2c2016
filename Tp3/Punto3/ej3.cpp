@@ -21,7 +21,6 @@ double tirarPokeParadas(vnod pokeParadas, vnod &gimnasios, Mochila mochila, vnod
         while (suma < peso) {
             if (pokeParadas.empty()){
                 return -1;
-
             }
             suma += 3;
             if (suma > mochila.DameCapacidad()){
