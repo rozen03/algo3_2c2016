@@ -1,15 +1,10 @@
-#include "../clases.h"
-
+//#include "../clases.h"
+#include "ej3.h"
 using namespace std;
 typedef vector<vnod> vvnod;
 typedef vector<vint> vvint;
-void imprimirSolucion(vint& solucion){
-    cout<<"Solucion: ";
-    for (auto indice:solucion){
-        cout<<indice<< " ";
-    }
-    cout<<endl;
-}
+
+
 vvint dameBloques(vnod & gimnasios,vint solucion){
     int cantidad_de_gimnasios = gimnasios.size();
     vvint bloques(cantidad_de_gimnasios);
@@ -23,16 +18,7 @@ vvint dameBloques(vnod & gimnasios,vint solucion){
     return bloques;
 }
 
-Nodo &dameNodo(vnod gimnasios, vnod &pokeParadas,  int indice){
-    if(indice == -1){
-        cout<<"Pusiste indice == -1, por eso te explota "<<endl;
-    }
-    if(indice < gimnasios.size()){
-        return gimnasios[indice];
-    }else{
-        return pokeParadas[indice-gimnasios.size()];
-    }
-}
+
 double distancia ( vnod gimnasios,   vnod &pokeParadas,  vvint & bloques){
     auto ultimo = dameNodo(gimnasios,pokeParadas,bloques[0][0]);
     auto proximoUltimo=ultimo;
@@ -43,25 +29,6 @@ double distancia ( vnod gimnasios,   vnod &pokeParadas,  vvint & bloques){
             suma+=proximoUltimo.Distancia(ultimo);
             ultimo=proximoUltimo;
         }
-    }
-    return suma;
-}
-double distancia (vnod &gimnasios, vnod &pokeParadas,  vint & solucion){
-    auto ultimo = dameNodo(gimnasios,pokeParadas,solucion[0]);
-    auto proximoUltimo=ultimo;
-    double suma=0;
-
-    //cout<<"suma"<<endl;
-    for(auto indice:solucion){
-        //for (size_t i = 1; i < solucion.size(); i++) {
-        //    auto indice = solucion[i];
-        proximoUltimo=dameNodo(gimnasios,pokeParadas,indice);
-        suma+=proximoUltimo.Distancia(ultimo);
-        ultimo=proximoUltimo;
-        cout<<proximoUltimo.CordenadaX()<< " "<< proximoUltimo.CordenadaY()<<endl;
-        //cout<<proximoUltimo.DameIndice()<<endl;
-        //cout<<suma<<endl;
-
     }
     return suma;
 }
@@ -175,7 +142,7 @@ double mejorarPokeparadas(vnod &gimnasios, vnod &pokeParadas, Mochila &mochila, 
     int indiceAEliminar;
     vint ppEnLaNube;
     for (auto pokeParada: pokeParadas){
-        if (std::find(solucion.begin(), solucion.end(), pokeParada.DameIndice()) == solucion.end()){//si no esta en la solucion
+        if (find(solucion.begin(), solucion.end(), pokeParada.DameIndice()) == solucion.end()){//si no esta en la solucion
             ppEnLaNube.push_back(pokeParada.DameIndice());
         }
     }
@@ -185,50 +152,48 @@ double mejorarPokeparadas(vnod &gimnasios, vnod &pokeParadas, Mochila &mochila, 
             if (solucion[i] < gimnasios.size()){
                 continue;
             }
-            Nodo & prev = dameNodo(gimnasios,pokeParadas,solucion[i-1]);
-            Nodo & actual = dameNodo(gimnasios,pokeParadas,solucion[i]);
-            Nodo & post =dameNodo(gimnasios,pokeParadas,solucion[i+1]);
-            int diferenciaDeDistancia = prev.Distancia(actual) + actual.Distancia(post)  - prev.Distancia(post);
             ppEnLaNube.push_back(solucion[i]);
             for (int pokeParada : ppEnLaNube) {
-                actual = dameNodo(gimnasios,pokeParadas,pokeParada);
-                for (size_t j = 0; j < i; j++) {
-                    prev = dameNodo(gimnasios,pokeParadas,solucion[j]);
-                    post =dameNodo(gimnasios,pokeParadas,solucion[j+1]);
-                    int diferenciaDeDistanciaAProbar = prev.Distancia(actual) + actual.Distancia(post)  - prev.Distancia(post);
-                    if (diferenciaDeDistanciaAProbar<diferenciaDeDistancia){
+                for (size_t j = 1; j < i; j++) {
+
                         vint::const_iterator first = solucion.begin();
                         vint::const_iterator last = solucion.end() ;
                         vint newVec(first, last);
-                        newVec.erase(find(newVec.begin(), newVec.end(), i));
-                        newVec.insert(newVec.begin()+j+1,pokeParada);
+                        newVec.erase(newVec.begin()+ i);
+                        newVec.insert(newVec.begin()+j,pokeParada);
+                    if(distancia(gimnasios,pokeParadas,newVec)<distancia(gimnasios,pokeParadas,solucion)){
                         if(validarConMochila(gimnasios,pokeParadas,mochila,newVec)){
                             posicionAInsertar=j;
                             indiceAInsertar=pokeParada;
                             indiceAEliminar=i;
                             hayMejora=true;
-                            diferenciaDeDistancia=diferenciaDeDistanciaAProbar;
                         }
                     }
                 }
+
             }
+            ppEnLaNube.pop_back();
         }
         if(hayMejora){
-            solucion.erase(find(solucion.begin(), solucion.end(), indiceAEliminar));
-            solucion.insert(solucion.begin()+posicionAInsertar+1,indiceAInsertar);
+            solucion.erase(solucion.begin()+ indiceAEliminar);
+            solucion.insert(solucion.begin()+posicionAInsertar,indiceAInsertar);
         }
     }
     return distancia(gimnasios,pokeParadas,solucion);
 }
-double BusquedaLocal(vnod &gimnasios, vnod &pokeParadas, Mochila &mochila, vint &solucion, double valor){
+double BusquedaLocalb(vnod &gimnasios, vnod &pokeParadas, Mochila &mochila, vint &solucion, double valor){
+
     vvint bloques = dameBloques(gimnasios,solucion);
     double res_posible=mejorOrdenDeBloques( gimnasios, pokeParadas,mochila, bloques);
     vint solucion_posible;
     for (auto bloque: bloques){
         solucion_posible.insert(solucion_posible.end(),bloque.begin(),bloque.end());
     }
+
     res_posible=mejorOrdenDePokeParadas(gimnasios,pokeParadas,solucion_posible);
+
     res_posible= mejorarPokeparadas(gimnasios,pokeParadas,mochila,solucion_posible);
+
     bloques = dameBloques(gimnasios,solucion_posible);
     res_posible=mejorOrdenDeBloques(gimnasios, pokeParadas,mochila, bloques);
     solucion_posible.clear();
@@ -242,7 +207,7 @@ double BusquedaLocal(vnod &gimnasios, vnod &pokeParadas, Mochila &mochila, vint 
         return valor;
     }
 }
-double tirarPokeParadas(vnod pokeParadas, vnod gimnasios, Mochila mochila, vnod &solucion) {
+double tirarPokeParadass(vnod pokeParadas, vnod& gimnasios, Mochila& mochila, vnod &solucion) {
     int suma = 0;
     int distancia = 0;
     bool esSolucionFinal = false;
@@ -257,12 +222,14 @@ double tirarPokeParadas(vnod pokeParadas, vnod gimnasios, Mochila mochila, vnod 
         solucion.clear();
     }
     for (vnod::iterator it = gimnasios.begin(); it != gimnasios.end(); ++it) {
+
         parteDeSolucion.clear();
         int peso = -it->DamePociones();
         while (suma < peso) {
             if (pokeParadas.empty()){
                 return -1;
             }
+
             suma += 3;
             if (suma > mochila.DameCapacidad()){
                 suma = mochila.DameCapacidad();
@@ -305,33 +272,32 @@ double tirarPokeParadas(vnod pokeParadas, vnod gimnasios, Mochila mochila, vnod 
             ultimo=*it;
             iterUltimo=*it;
             suma-=peso;
-
             if (esSolucionFinal) {
                 solucion.push_back(*it);
             }
         }
         return distancia;
     }
-    double pto3(vnod gimnasios, vnod pokeParadas, Mochila mochila, vint &solucion) {
-        //    auto gimnasios(gimnasioss.begin(),gimnasioss.end());
-        //    sort(gimnasios.begin(), gimnasios.end(),[](Nodo a, Nodo b){return a.DamePociones()<b.DamePociones();});
-        //    vnod solucioNodos(1,Nodo(27,27,27,27));
-        //    auto dist =  tirarPokeParadas(pokeParadas, gimnasios,  mochila, solucioNodos);
-        //    for(auto nodo : solucioNodos){
-        //        solucion.push_back(nodo.DameIndice());
-        //        cout<<nodo.DameIndice()<<endl;
-        //    }
-        vint solucionn= {3,4,5,6,0,7,8,1,9,10,11,2};
-        return BusquedaLocal(gimnasios,pokeParadas, mochila, solucionn,distancia(gimnasios,pokeParadas,solucionn));
-        //return distancia(gimnasios,pokeParadas,solucionn);
+    double pto3b(vnod gimnasios, vnod& pokeParadas, Mochila& mochila, vint &solucion) {
+        sort(gimnasios.begin(), gimnasios.end(),[](Nodo a, Nodo b){return a.DamePociones()<b.DamePociones();});
+        vnod solucioNodos(1,Nodo(27,27,27,27));
+        auto dist =  tirarPokeParadas(pokeParadas, gimnasios,  mochila, solucioNodos);
+        if (dist ==-1){
+            cout<<"aah dio mal"<<endl;
+            return -1;
+        }
+        for(auto nodo : solucioNodos){
+            solucion.push_back(nodo.DameIndice());
+        }
+        return BusquedaLocalb(gimnasios,pokeParadas, mochila, solucion,distancia(gimnasios,pokeParadas,solucion));
     }
 
-
+/*
     int main(){
         double res=0.0;
         vnod gimnasios;
         vnod pokeParadas;
-        Mochila mochila(0);
+        Mochila mochila(30);
         gimnasios.push_back(Nodo(-12,0,0,4));
         gimnasios.push_back(Nodo(-9,1,0,8));
         gimnasios.push_back(Nodo(-6,2,0,11));
@@ -344,13 +310,21 @@ double tirarPokeParadas(vnod pokeParadas, vnod gimnasios, Mochila mochila, vnod 
         pokeParadas.push_back(Nodo(0,9,0,7));
         pokeParadas.push_back(Nodo(0,10,0,9));
         pokeParadas.push_back(Nodo(0,11,0,10));
+        //pokeParadas.push_back(Nodo(0,12,0,12));
+        //pokeParadas.push_back(Nodo(0,13,0,12));
+        //pokeParadas.push_back(Nodo(0,14,0,14));
+        //pokeParadas.push_back(Nodo(0,15,0,15));
+        //pokeParadas.push_back(Nodo(0,16,0,16));
+        //pokeParadas.push_back(Nodo(0,16,0,16));
+        //pokeParadas.push_back(Nodo(0,17,0,17));
         //Lectura(gimnasios, pokeParadas, mochila);
         //for (auto proximoUltimo:gimnasios){
-            //    cout<<proximoUltimo.CordenadaX()<< " "<< proximoUltimo.CordenadaY()<<endl;
+        //    cout<<proximoUltimo.CordenadaX()<< " "<< proximoUltimo.CordenadaY()<<endl;
         //}
         vint solucion;
-        res = pto3(gimnasios,pokeParadas,mochila,solucion);
+        res = pto3b(gimnasios,pokeParadas,mochila,solucion);
 
         imprimirSolucion(solucion);
         cout<<"res: "<<res<<endl;
     }
+*/

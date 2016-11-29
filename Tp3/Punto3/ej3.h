@@ -3,7 +3,7 @@
 
 using namespace std;
 typedef vector<vnod> vvnod;
-
+typedef vector<int> vint;
 double tirarPokeParadas(vnod pokeParadas, vnod &gimnasios, Mochila mochila, vnod &solucion);
 
 double tirarPokeParadas(vnod pokeParadas, vnod &gimnasios, Mochila mochila);
@@ -21,8 +21,15 @@ tuple<vnod, double> actualInicial(vnod gimnasios, vnod pokeParadas, Mochila &moc
 double mejorarSolucion (vnod gimnasios, vnod pokeParadas, Mochila &mochila, vint &solucion);
 
 double pto3(vnod gimnasios, vnod &pokeParadas, Mochila &mochila, vint &solucion);
+double pto3b(vnod gimnasios, vnod &pokeParadas, Mochila &mochila, vint &solucion);
 
 double BusquedaLocal(vnod &gimnasios, vnod &pokeParadas, Mochila &mochila, vint &solucion, double valor);
+double BusquedaLocalb(vnod &gimnasios, vnod &pokeParadas, Mochila &mochila, vint &solucion, double valor);
 
+double tirarPokeParadas(vnod pokeParadas, vnod &gimnasios, Mochila mochila, vnod &solucion);
+Nodo &dameNodo(vnod gimnasios, vnod &pokeParadas,  int indice);
 
+double distancia (vnod &gimnasios, vnod &pokeParadas,  vint & solucion);
+void imprimirSolucion(vnod gimnasios, vnod pokeParadas,vint& solucion);
+void imprimirSolucion(vint& solucion);
 #endif
