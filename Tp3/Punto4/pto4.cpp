@@ -1,6 +1,7 @@
 #include "../clases.h"
 #include "../Punto2/Punto2.cpp"
 #include "../Punto3/ej3.cpp"
+#include "../Punto3/ej3b.cpp"
 #include <iostream>
 #include <limits>
 #include <stdio.h>
@@ -37,6 +38,7 @@ void moversePto4(Nodo * lugar);
 Nodo* PokeParadaMasCercanaPto4();
 Nodo* GimMasCercanoPto4();
 void grasp();
+void graspb();
 void GolozoRand(Nodo & comienzo);
 int PuntajeAnodo(Nodo & n);
 vpnod Filtro(vpnod & vect);
@@ -47,7 +49,6 @@ void ResetGlobalesPto4();
 
 
 
-/*
 int main(){
     srand (time(NULL));
     ResetGlobalesPto4();
@@ -64,7 +65,7 @@ int main(){
 	for (int i = 0; i < RecorridoGlobal.size(); ++i){
 		cout<< RecorridoGlobal[i]<<" ";
 	}
-}*/
+}
 
 double pto4(vnod gim,vnod pp, Mochila mochil,vint & sol){
 	PokeParadas = pp;
@@ -84,6 +85,23 @@ double pto4(vnod gim,vnod pp, Mochila mochil,vint & sol){
 	return res;
 }
 
+double pto4b(vnod gim,vnod pp, Mochila mochil,vint & sol){
+	PokeParadas = pp;
+	Gimnasios =gim;
+	RecorridoGlobal.clear();
+	RecorridoActual.clear();
+	moch.CambiarCapacidad(mochil.DameCapacidad());
+	moch.Restaurar(0);
+	xactual = 0;
+	yactual = 0;
+	MinGlobal = MAX;
+	MinActual = 0;
+	graspb();
+	sol=RecorridoGlobal;
+	double res = MinGlobal;
+
+	return res;
+}
 
 void grasp(){
 	srand(time(NULL));//O(?)
@@ -102,9 +120,35 @@ void grasp(){
 
 	for (int i = 0; i < j; i++) {//O(n+m)
 	   GolozoRand(entradasValidas[i]);//O(n+m)^2
-	   cerr<<"post golozo minActual "<<MinActual<<endl;	
 	    BusquedaLocal(Gimnasios, PokeParadas, moch, RecorridoActual,MinActual);
-	   cerr<<"post busquedaGlobal minActual "<<MinActual<<endl;
+	    if (MinActual < MinGlobal && MinActual >= 0) {
+	      MinGlobal = MinActual;
+	      RecorridoGlobal = RecorridoActual;
+	    }
+	    RecorridoActual.clear();
+	    MinActual = 0;
+	}
+
+}
+
+void graspb(){
+	srand(time(NULL));//O(?)
+	vnod entradasValidas;
+	for (int i=0; i < Gimnasios.size();i++) {//O(n)
+	  Nodo aux= Gimnasios[i];
+	  if (aux.DamePociones()==0) {
+	    entradasValidas.push_back(aux);
+	  }
+	}
+
+	for (int i = 0; i < PokeParadas.size(); i++) {//O(m)
+	  entradasValidas.push_back(PokeParadas[i]);
+	}
+	int j= entradasValidas.size();
+
+	for (int i = 0; i < j; i++) {//O(n+m)
+	   GolozoRand(entradasValidas[i]);//O(n+m)^2
+	    BusquedaLocalb(Gimnasios, PokeParadas, moch, RecorridoActual,MinActual);
 	    if (MinActual < MinGlobal && MinActual >= 0) {
 	      MinGlobal = MinActual;
 	      RecorridoGlobal = RecorridoActual;
