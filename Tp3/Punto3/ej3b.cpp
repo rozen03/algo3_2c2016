@@ -226,8 +226,11 @@ double long mejorarPokeparadas(vnod &gimnasios, vnod &pokeParadas, Mochila &moch
 			solucion.erase(solucion.begin()+ indiceAEliminar);
 			solucion.insert(solucion.begin()+posicionAInsertar,indiceAInsertar);
 			imprimirSolucion(solucion);
-			distancia(gimnasios,pokeParadas,solucion);
-			cerr<<"Parece q no dio NAN"<<endl;
+			bool bil = validarSol(solucion);
+			if (!bil){
+				cerr<<"Parece q no dio NAN"<<endl;
+				exit(99);
+			}
 		}
 	}
 	if(!validarSol(solucion)){
