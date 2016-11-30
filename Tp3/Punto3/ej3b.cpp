@@ -224,17 +224,17 @@ double long mejorarPokeparadas(vnod &gimnasios, vnod &pokeParadas, Mochila &moch
 		}
 
 		if(hayMejora){
-			cerr<<"a ver, señor mejora"<<endl;
-			imprimirSolucion(solucion);
+			//cerr<<"a ver, señor mejora"<<endl;
+			//imprimirSolucion(solucion);
 			solucion.erase(solucion.begin()+ indiceAEliminar);
 			solucion.insert(solucion.begin()+posicionAInsertar,indiceAInsertar);
-			imprimirSolucion(solucion);
+			//imprimirSolucion(solucion);
 			bool bil = validarSol(solucion);
 			if (!bil){
 				cerr<<"dio nan pelotudo"<<endl;
 				exit(99);
 			}
-			cerr<<"Parece q no dio NAN"<<endl;
+			//cerr<<"Parece q no dio NAN"<<endl;
 		}
 	}
 	if(!validarSol(solucion)){
