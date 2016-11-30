@@ -96,7 +96,7 @@ bool validarConMochila(vnod &gimnasios, vnod &pokeParadas,Mochila &mochila,vint 
 		}
 
 	}
-	return validarSol(solucion);
+	return validarSol(gimnasios,solucion_posible);
 	//return true;
 }
 double long mejorOrdenDeBloques(vnod &gimnasios, vnod &pokeParadas,Mochila &mochila,vvint &bloques){
