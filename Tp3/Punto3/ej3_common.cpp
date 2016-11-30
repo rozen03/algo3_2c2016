@@ -1,6 +1,6 @@
 #include "ej3.h"
 using namespace std;
-double tirarPokeParadas(vnod pokeParadas, vnod &gimnasios, Mochila mochila, vnod &solucion) {
+double long tirarPokeParadas(vnod pokeParadas, vnod &gimnasios, Mochila mochila, vnod &solucion) {
     int suma = 0;
     int distancia = 0;
     bool esSolucionFinal = false;
@@ -82,10 +82,10 @@ double tirarPokeParadas(vnod pokeParadas, vnod &gimnasios, Mochila mochila, vnod
         }
     }
 
-    double distancia (vnod &gimnasios, vnod &pokeParadas,  vint & solucion){
+    double long distancia (vnod &gimnasios, vnod &pokeParadas,  vint & solucion){
         auto ultimo = dameNodo(gimnasios,pokeParadas,solucion[0]);
         auto proximoUltimo=ultimo;
-        double suma=0;
+        double long suma=0;
 
         //cout<<"suma"<<endl;
         for(auto indice:solucion){
@@ -94,7 +94,6 @@ double tirarPokeParadas(vnod pokeParadas, vnod &gimnasios, Mochila mochila, vnod
             proximoUltimo=dameNodo(gimnasios,pokeParadas,indice);
             suma+=proximoUltimo.Distancia(ultimo);
             ultimo=proximoUltimo;
-
 
         }
         return suma;

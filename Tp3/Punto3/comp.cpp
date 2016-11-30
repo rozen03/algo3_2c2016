@@ -1,5 +1,7 @@
 #include "ej3.h"
 #include <functional>
+#include <cmath>
+#include <cfloat>
 using namespace std;
 uint64_t rdtsc() {
 	unsigned int lo, hi;
@@ -29,8 +31,8 @@ int main(){
 	vnod pokeParadass;
 	Mochila mochila(30);
 	int i=0;
-	int pesos[] = {-12,-9,-6,-10,-2,-3,-20,-30,-1,-2,-27};
-	int cantidadDePP =200;
+	int pesos[] = {-12,-9,-6,-10,-2,-3,-20,-30,-1};//,-2,-27};
+	int cantidadDePP= 42;
 	auto espiral = generadorDeEspirales(0,0);
 	auto espiralPP = generadorDeEspirales(2*cantidadDePP,2*cantidadDePP);
 	/*
@@ -69,11 +71,11 @@ int main(){
 	//for (auto proximoUltimo:gimnasios){
 	//    cout<<proximoUltimo.CordenadaX()<< " "<< proximoUltimo.CordenadaY()<<endl;
 	//}
-	for (int k = 1; k <gimnasioss.size() ; k++) {
+	for (int k = gimnasioss.size()-1; k <gimnasioss.size() ; k++) {
 		vnod::const_iterator first = gimnasioss.begin();
 		vnod::const_iterator last = gimnasioss.begin() + k ;
 		vnod gimnasios(first, last);
-		for (size_t po = 35; po < pokeParadass.size(); po++) {
+		for (size_t po =pokeParadass.size()-1; po < pokeParadass.size(); po++) {
 			/* code */
 			//gimnasios.clear();
 			//gimnasios.insert(gimnasioss.begin(),gimnasioss.begin()+k);
@@ -96,7 +98,7 @@ int main(){
 				solucion.clear();
 			}
 
-			//cout<<"res a: "<<res<< "\tduracion: "<<elapsed1/rep<<endl;
+			cout<<"res a: "<<res<< "\tduracion: "<<elapsed1/rep<<endl;
 			for (size_t j = 0; j < rep; j++) {
 				start = rdtsc();
 				res2 = pto3b(gimnasios,pokeParadas,mochila,solucion);
@@ -104,7 +106,10 @@ int main(){
 				elapsed2+=took;
 				solucion.clear();
 			}
-			//cout<<"res b: "<<res2<< "\tduracion: "<<elapsed2/rep<<endl;
+			cout<<"res b: "<<res2<< "\tduracion: "<<elapsed2/rep<<endl;
+			if(!isnormal(res2)){
+				cout<<"EXOOOOOOODIAAAAAAAA"<<endl;
+			}
 			//cout<<"Porcentaje de diferencia de tiempo: "<< (elapsed2*100)/elapsed1<<'%'<<endl;
 			//cout<<"Porcentaje de diferencia de solucion: "<< (res2*100)/res<<'%'<<endl;
 			cout<<k<<"\t|\t "<<po<<"\t|\t "<<(elapsed2*100)/elapsed1<<"\t|\t "<<(res2*100)/res<<endl;
