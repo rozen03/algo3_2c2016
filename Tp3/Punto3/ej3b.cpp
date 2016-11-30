@@ -194,7 +194,9 @@ double long mejorarPokeparadas(vnod &gimnasios, vnod &pokeParadas, Mochila &moch
 			ppEnLaNube.push_back(solucion[i]);
 			for (int pokeParada : ppEnLaNube) {
 				for (size_t j = 1; j < i; j++) {
-
+					if (i==pokeParada){
+						cerr<<"son iguales pelotudo"<<endl;
+					}
 					vint::const_iterator first = solucion.begin();
 					vint::const_iterator last = solucion.end() ;
 					vint newVec(first, last);
@@ -202,6 +204,9 @@ double long mejorarPokeparadas(vnod &gimnasios, vnod &pokeParadas, Mochila &moch
 					newVec.insert(newVec.begin()+j,pokeParada);
 					if(distancia(gimnasios,pokeParadas,newVec)<distancia(gimnasios,pokeParadas,solucion)){
 						if(validarConMochila(gimnasios,pokeParadas,mochila,newVec)){
+							if(!validarSol(newVec)){
+								cerr<<"este pibe es boludo"<<endl;
+							}
 							posicionAInsertar=j;
 							indiceAInsertar=pokeParada;
 							indiceAEliminar=i;
