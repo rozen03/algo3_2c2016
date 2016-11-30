@@ -244,6 +244,10 @@ double long mejorarPokeparadas(vnod &gimnasios, vnod &pokeParadas, Mochila &moch
 	return distancia(gimnasios,pokeParadas,solucion);
 }
 double long BusquedaLocalb(vnod gimnasios, vnod pokeParadas, Mochila mochila, vint &solucion, double long valor){
+	if(!validarSol(gimnasios,solucion)){
+		cerr<<"No es mi culpa"<<endl;
+		//exit(2);
+	}
 	vint solucion_posible;
 	cerr<<"bloques 1"<<endl;
 	if(solucion.empty()){
