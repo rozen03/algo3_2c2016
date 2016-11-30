@@ -265,7 +265,7 @@ double long BusquedaLocalb(vnod gimnasios, vnod pokeParadas, Mochila mochila, vi
 	cerr<<"mejorpop"<<endl;
 	res_posible= mejorarPokeparadas(gimnasios,pokeParadas,mochila,solucion_posible);
 	imprimirSolucion(solucion_posible);
-	if(!validarSol(gimnasios,olucion_posible)){
+	if(!validarSol(gimnasios,solucion_posible)){
 		cerr<<"falle aca"<<endl;
 		exit(2);
 	}

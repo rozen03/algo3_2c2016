@@ -145,16 +145,17 @@ double long tirarPokeParadas(vnod pokeParadas, vnod &gimnasios, Mochila mochila,
 	}
 	bool validarSol(vnod& gimnasios,vint & solucion){
 		int gimns=0;
+		if (solucion[0]<= gimnasios.size()){ gimns++;}
 		for (size_t i = 1; i < solucion.size(); i++) {
 			if (solucion[i]==solucion[i-1]){
 				//cerr<<"Boludo la puta q te pario esta repetido "<< solucion[i]<<endl;
 				//exit(1);
 				return false;
 			}
-			if (solucion<= gimnasios.size()){ gimns++;}
+			if (solucion[i]<= gimnasios.size()){ gimns++;}
 		}
 
-		return gims==gimnasios.size();
+		return gimns==gimnasios.size();
 	}
 	void imprimirSolucion(vnod gimnasios, vnod pokeParadas,vint& solucion){
 		cout<<"Solucion: dist= "<<distancia(gimnasios,pokeParadas,solucion)<<" ";

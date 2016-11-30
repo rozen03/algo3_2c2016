@@ -37,4 +37,5 @@ void imprimirSolucion(vnod gimnasios, vnod pokeParadas,vint& solucion);
 void imprimirSolucion(vint& solucion);
 void imprimirSolucion(vvint& bloques);
 bool validarSol(vint & solucion);
+bool validarSol(vnod& gimnasios,vint & solucion);
 #endif
