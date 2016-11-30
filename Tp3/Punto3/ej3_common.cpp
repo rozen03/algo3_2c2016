@@ -90,6 +90,16 @@ double long tirarPokeParadas(vnod pokeParadas, vnod &gimnasios, Mochila mochila,
 		}
 		cout<<endl;
 	}
+	void imprimirSolucion(vvint& bloques){
+		cout<<"Solucion:";
+		for (auto bloque:bloques){
+			cout<<" | ";
+			for (auto indice:bloque){
+				cout<<indice<< " ";
+			}
+		}
+		cout<<endl;
+	}
 
 	double long distancia (vnod &gimnasios, vnod &pokeParadas,  vint & solucion){
 		auto ultimo = dameNodo(gimnasios,pokeParadas,solucion[0]);
@@ -98,7 +108,7 @@ double long tirarPokeParadas(vnod pokeParadas, vnod &gimnasios, Mochila mochila,
 
 		//cout<<"suma"<<endl;
 		for(auto indice:solucion){
-			if (indice==solucion[0] ||  indice ==ultimo.DameIndice()){
+			if (indice==solucion[0]){// ||  indice ==ultimo.DameIndice()){
 				continue;
 			}
 			//for (size_t i = 1; i < solucion.size(); i++) {

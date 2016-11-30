@@ -6,25 +6,45 @@ typedef vector<vint> vvint;
 
 
 vvint dameBloques(vnod & gimnasios,vint& solucion){
-	int cantidad_de_gimnasios = gimnasios.size();
+	int cantidad_de_gimnasios  = gimnasios.size();
 	vvint bloques(cantidad_de_gimnasios);
 	int indiceDeBloque=0; //indice del bloque q voy a estar pusheadndo cosas
 	for(int indice: solucion){
+		cerr<<"VOY A EXPLOTAR \t indice= "<<indice<<"\t indiceDeBloque= "<<indiceDeBloque<<" "<<gimnasios.size()<<endl;
 		bloques[indiceDeBloque].push_back(indice);
-		if(indice < cantidad_de_gimnasios){
+		cerr<<"FALSA ALARMA"<<endl;
+		if(indice <= cantidad_de_gimnasios){
 			indiceDeBloque++;
+			if(indiceDeBloque==cantidad_de_gimnasios){
+				break;
+			}
 		}
 	}
+	imprimirSolucion(bloques);
 	return bloques;
 }
 
 
 double long distancia ( vnod gimnasios,   vnod &pokeParadas,  vvint & bloques){
+	if(bloques.empty()){
+		cerr<<"Hasta aca llegue, claramente estoy  vacio como tu vieja"<<endl;
+		imprimirSolucion(bloques);
+		exit(27);
+	}
+	if(bloques[0].empty()){
+		cerr<<"Hasta aca llegue, claramente estoy  vacio como tu vieja"<<endl;
+		imprimirSolucion(bloques);
+		exit(27);
+	}
 	auto ultimo = dameNodo(gimnasios,pokeParadas,bloques[0][0]);
 	auto proximoUltimo=ultimo;
 	double long suma=0;
 	for(auto bloque:bloques){
 		for(auto indice:bloque){
+			if (indice==bloques[0][0] ||  indice ==ultimo.DameIndice()){
+				continue;
+			}
+
 			proximoUltimo=dameNodo(gimnasios,pokeParadas,indice);
 			suma+=proximoUltimo.Distancia(ultimo);
 			ultimo=proximoUltimo;
@@ -34,9 +54,13 @@ double long distancia ( vnod gimnasios,   vnod &pokeParadas,  vvint & bloques){
 }
 bool validarConMochila(vnod &gimnasios, vnod &pokeParadas,Mochila &mochila,vvint &bloques){
 	int suma=0;
+	int pre=-1;
 	//int peso = -it->DamePociones();
 	for(auto bloque:bloques){
 		for(auto indice:bloque){
+			if(pre==indice){
+				return false;
+			}
 			if (indice <gimnasios.size() ){
 				Nodo & proximoUltimo=dameNodo(gimnasios,pokeParadas,indice);
 				suma+= proximoUltimo.DamePociones();
@@ -81,14 +105,29 @@ double long mejorOrdenDeBloques(vnod &gimnasios, vnod &pokeParadas,Mochila &moch
 	int mejorSwap_i=0;
 	int mejorSwap_j=0;
 	while(hayMejora){
+
 		hayMejora=false;
 		for (size_t i = 0; i < bloques.size(); i++) {
 			for (size_t j = 0; j < bloques.size(); j++) {
 				if (i==j){
 					continue;
 				}
+				if(bloques.empty()){
+
+					cerr<<"Hasta aca llegue, claramente estoy  vacio como tu vieja"<<endl;
+					imprimirSolucion(bloques);
+					exit(27);
+				}
+				if(bloques[0].empty()){
+					cerr<<"Hasta aca llegue, claramente estoy  vacio como tu vieja"<<endl;
+					imprimirSolucion(bloques);
+					exit(27);
+				}
+				cerr<<"pre-wipi"<<endl;
 				iter_swap(bloques.begin() + i, bloques.begin() + j);
+				imprimirSolucion(bloques);
 				double long valor=distancia(gimnasios,pokeParadas,bloques);
+				cerr<<"wipi"<<endl;
 				if (valor<mejorValor && validarConMochila(gimnasios, pokeParadas,mochila,bloques)){
 					mejorValor=valor;
 					hayMejora=true;
@@ -119,7 +158,7 @@ double long mejorOrdenDePokeParadas(vnod &gimnasios, vnod &pokeParadas,vint &sol
 				}
 				iter_swap(solucion.begin() + i, solucion.begin() + j);
 				double valor=distancia(gimnasios,pokeParadas,solucion);
-				if (valor<mejorValor){
+				if (valor<mejorValor && validarSol(solucion)){
 					mejorValor=valor;
 					hayMejora=true;
 					mejorSwap_i=i;
@@ -167,7 +206,7 @@ double long mejorarPokeparadas(vnod &gimnasios, vnod &pokeParadas, Mochila &moch
 							indiceAInsertar=pokeParada;
 							indiceAEliminar=i;
 							hayMejora=true;
-						}
+						mm}
 					}
 				}
 
@@ -179,11 +218,19 @@ double long mejorarPokeparadas(vnod &gimnasios, vnod &pokeParadas, Mochila &moch
 			solucion.insert(solucion.begin()+posicionAInsertar,indiceAInsertar);
 		}
 	}
+	if(!validarSol(solucion)){
+		cerr<<"Claramente es mi culpa pelotudo"<<endl;
+		exit(99);
+	}
 	return distancia(gimnasios,pokeParadas,solucion);
 }
 double long BusquedaLocalb(vnod gimnasios, vnod pokeParadas, Mochila mochila, vint &solucion, double long valor){
 	vint solucion_posible;
 	cerr<<"bloques 1"<<endl;
+	if(solucion.empty()){
+		cerr<<"Loco, que paso aca?"<<endl;
+		return -1;
+	}
 	imprimirSolucion(gimnasios,pokeParadas,solucion);
 	vvint bloques = dameBloques(gimnasios,solucion);
 	cerr<<"llamo a mejorbloques"<<endl;
@@ -193,15 +240,18 @@ double long BusquedaLocalb(vnod gimnasios, vnod pokeParadas, Mochila mochila, vi
 		solucion_posible.insert(solucion_posible.end(),bloque.begin(),bloque.end());
 	}
 	validarSol(solucion_posible);
-cerr<<"mejorden"<<endl;
+	cerr<<"mejorden"<<endl;
 	res_posible=mejorOrdenDePokeParadas(gimnasios,pokeParadas,solucion_posible);
 	validarSol(solucion_posible);
-cerr<<"mejorpop"<<endl;
+	cerr<<"mejorpop"<<endl;
 	res_posible= mejorarPokeparadas(gimnasios,pokeParadas,mochila,solucion_posible);
+	imprimirSolucion(solucion_posible);
 	validarSol(solucion_posible);
-cerr<<"bloques 2"<<endl;
+	cerr<<"bloques 2"<<endl;
+	imprimirSolucion(gimnasios,pokeParadas,solucion_posible);
 	bloques = dameBloques(gimnasios,solucion_posible);
 	solucion_posible.clear();
+	imprimirSolucion(bloques);
 	cerr<<"llamo a mejorbloques"<<endl;
 	mejorOrdenDeBloques(gimnasios, pokeParadas,mochila, bloques);
 	cerr<<"voy a juntar todo baby"<<endl;
@@ -218,62 +268,25 @@ cerr<<"bloques 2"<<endl;
 	//imprimirSolucion(gimnasios,pokeParadas,solucion);
 	return valor;
 }
-	double  pto3b(vnod gimnasios, vnod pokeParadas, Mochila mochila, vint &solucion) {
-		cerr<<"Empece pto3b"<<endl;
-		sort(gimnasios.begin(), gimnasios.end(),[](Nodo a, Nodo b){return a.DamePociones()<b.DamePociones();});
-		vnod solucioNodos(1,Nodo(27,27,27,27));
-		auto dist =  tirarPokeParadas(pokeParadas, gimnasios,  mochila, solucioNodos);
-		if (dist ==-1){
-			cout<<"aah dio mal"<<endl;
-			return -1;
-		}
-		for(auto nodo : solucioNodos){
-			solucion.push_back(nodo.DameIndice());
-		}
-		if(!isnormal(dist)){
-			cerr<<"EXPLOTOAH"<<endl;
-		}
-		//imprimirSolucion(gimnasios,pokeParadas, solucion);
-		cerr<<"llamo a BusquedaLocalb"<<endl;
-		BusquedaLocalb(gimnasios,pokeParadas, mochila, solucion,distancia(gimnasios,pokeParadas,solucion));
-		//imprimirSolucion(gimnasios,pokeParadas, solucion);
-		cerr<<"termine pto3b"<<endl;
-		return distancia(gimnasios,pokeParadas,solucion);
+double  pto3b(vnod gimnasios, vnod pokeParadas, Mochila mochila, vint &solucion) {
+	cerr<<"Empece pto3b"<<endl;
+	sort(gimnasios.begin(), gimnasios.end(),[](Nodo a, Nodo b){return a.DamePociones()<b.DamePociones();});
+	vnod solucioNodos(1,Nodo(27,27,27,27));
+	auto dist =  tirarPokeParadas(pokeParadas, gimnasios,  mochila, solucioNodos);
+	if (dist <0){
+		cout<<"aah dio mal"<<endl;
+		return -1;
 	}
-
-	/*
-	int main(){
-	double res=0.0;
-	vnod gimnasios;
-	vnod pokeParadas;
-	Mochila mochila(30);
-	gimnasios.push_back(Nodo(-12,0,0,4));
-	gimnasios.push_back(Nodo(-9,1,0,8));
-	gimnasios.push_back(Nodo(-6,2,0,11));
-	pokeParadas.push_back(Nodo(0,3,0,0));
-	pokeParadas.push_back(Nodo(0,4,0,1));
-	pokeParadas.push_back(Nodo(0,5,0,2));
-	pokeParadas.push_back(Nodo(0,6,0,3));
-	pokeParadas.push_back(Nodo(0,7,0,5));
-	pokeParadas.push_back(Nodo(0,8,0,6));
-	pokeParadas.push_back(Nodo(0,9,0,7));
-	pokeParadas.push_back(Nodo(0,10,0,9));
-	pokeParadas.push_back(Nodo(0,11,0,10));
-	//pokeParadas.push_back(Nodo(0,12,0,12));
-	//pokeParadas.push_back(Nodo(0,13,0,12));
-	//pokeParadas.push_back(Nodo(0,14,0,14));
-	//pokeParadas.push_back(Nodo(0,15,0,15));
-	//pokeParadas.push_back(Nodo(0,16,0,16));
-	//pokeParadas.push_back(Nodo(0,16,0,16));
-	//pokeParadas.push_back(Nodo(0,17,0,17));
-	//Lectura(gimnasios, pokeParadas, mochila);
-	//for (auto proximoUltimo:gimnasios){
-	//    cout<<proximoUltimo.CordenadaX()<< " "<< proximoUltimo.CordenadaY()<<endl;
-	//}
-	vint solucion;
-	res = pto3b(gimnasios,pokeParadas,mochila,solucion);
-
-	imprimirSolucion(solucion);
-	cout<<"res: "<<res<<endl;
+	for(auto nodo : solucioNodos){
+		solucion.push_back(nodo.DameIndice());
+	}
+	if(!isnormal(dist)){
+		cerr<<"EXPLOTOAH"<<endl;
+	}
+	//imprimirSolucion(gimnasios,pokeParadas, solucion);
+	cerr<<"llamo a BusquedaLocalb"<<endl;
+	BusquedaLocalb(gimnasios,pokeParadas, mochila, solucion,distancia(gimnasios,pokeParadas,solucion));
+	//imprimirSolucion(gimnasios,pokeParadas, solucion);
+	cerr<<"termine pto3b"<<endl;
+	return distancia(gimnasios,pokeParadas,solucion);
 }
-*/

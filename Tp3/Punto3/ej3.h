@@ -5,6 +5,7 @@
 using namespace std;
 typedef vector<vnod> vvnod;
 typedef vector<int> vint;
+typedef vector<vint> vvint;
 double long tirarPokeParadas(vnod pokeParadas, vnod &gimnasios, Mochila mochila, vnod &solucion);
 
 double tirarPokeParadas(vnod pokeParadas, vnod &gimnasios, Mochila mochila);
@@ -34,5 +35,6 @@ Nodo &dameNodo(vnod gimnasios, vnod &pokeParadas,  int indice);
 double long distancia (vnod &gimnasios, vnod &pokeParadas,  vint & solucion);
 void imprimirSolucion(vnod gimnasios, vnod pokeParadas,vint& solucion);
 void imprimirSolucion(vint& solucion);
+void imprimirSolucion(vvint& bloques);
 bool validarSol(vint & solucion);
 #endif
