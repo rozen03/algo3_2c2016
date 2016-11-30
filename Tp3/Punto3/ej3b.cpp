@@ -159,7 +159,7 @@ double long mejorOrdenDePokeParadas(vnod &gimnasios, vnod &pokeParadas,vint &sol
 				}
 				iter_swap(solucion.begin() + i, solucion.begin() + j);
 				double valor=distancia(gimnasios,pokeParadas,solucion);
-				if (valor<mejorValor && validarSol(solucion)){
+				if (valor<mejorValor && validarSol(gimnasios,solucion_posible)){
 					mejorValor=valor;
 					hayMejora=true;
 					mejorSwap_i=i;
