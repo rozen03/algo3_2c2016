@@ -219,6 +219,7 @@ double long mejorarPokeparadas(vnod &gimnasios, vnod &pokeParadas, Mochila &moch
 			ppEnLaNube.pop_back();
 		}
 		if(hayMejora){
+			cerr<<"a ver, señor mejora"<<endl;
 			imprimirSolucion(solucion);
 			solucion.erase(solucion.begin()+ indiceAEliminar);
 			solucion.insert(solucion.begin()+posicionAInsertar,indiceAInsertar);
