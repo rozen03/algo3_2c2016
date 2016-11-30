@@ -150,6 +150,7 @@ double long mejorOrdenDePokeParadas(vnod &gimnasios, vnod &pokeParadas,vint &sol
 	int mejorSwap_i=0;
 	int mejorSwap_j=0;
 	while(hayMejora){
+
 		hayMejora=false;
 		for (size_t i = 0; i < solucion.size(); i++) {
 			for (size_t j = 0; j < solucion.size(); j++) {
@@ -186,6 +187,7 @@ double long mejorarPokeparadas(vnod &gimnasios, vnod &pokeParadas, Mochila &moch
 		}
 	}
 	while(hayMejora){
+		cerr<<"Es mi culpa, seguimos aca"<<endl;
 		hayMejora=false;
 		for (size_t i = 1; i < solucion.size(); i++) {
 			if (solucion[i] < gimnasios.size()){
