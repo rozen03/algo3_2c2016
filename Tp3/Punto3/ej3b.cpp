@@ -127,7 +127,7 @@ double long mejorOrdenDeBloques(vnod &gimnasios, vnod &pokeParadas,Mochila &moch
 				iter_swap(bloques.begin() + i, bloques.begin() + j);
 				//imprimirSolucion(bloques);
 				double long valor=distancia(gimnasios,pokeParadas,bloques);
-				//cerr<<"wipi"<<endl;
+				cerr<<"wipi"<<endl;
 				if (valor<mejorValor && validarConMochila(gimnasios, pokeParadas,mochila,bloques)){
 					mejorValor=valor;
 					hayMejora=true;
@@ -265,9 +265,11 @@ double long BusquedaLocalb(vnod gimnasios, vnod pokeParadas, Mochila mochila, vi
 	cerr<<"mejorpop"<<endl;
 	res_posible= mejorarPokeparadas(gimnasios,pokeParadas,mochila,solucion_posible);
 	imprimirSolucion(solucion_posible);
-	validarSol(solucion_posible);
+	if(!validarSol(gimnasios,olucion_posible)){
+		cerr<<"falle aca"<<endl;
+		exit(2);
+	}
 	cerr<<"bloques 2"<<endl;
-	imprimirSolucion(gimnasios,pokeParadas,solucion_posible);
 	bloques = dameBloques(gimnasios,solucion_posible);
 	solucion_posible.clear();
 	imprimirSolucion(bloques);
