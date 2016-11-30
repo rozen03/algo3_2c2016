@@ -219,8 +219,11 @@ double long mejorarPokeparadas(vnod &gimnasios, vnod &pokeParadas, Mochila &moch
 			ppEnLaNube.pop_back();
 		}
 		if(hayMejora){
+			imprimirSolucion(solucion);
 			solucion.erase(solucion.begin()+ indiceAEliminar);
 			solucion.insert(solucion.begin()+posicionAInsertar,indiceAInsertar);
+			imprimirSolucion(solucion);
+			distancia(gimnasios,pokeParadas,solucion);
 		}
 	}
 	if(!validarSol(solucion)){
