@@ -206,7 +206,7 @@ double long mejorarPokeparadas(vnod &gimnasios, vnod &pokeParadas, Mochila &moch
 							indiceAInsertar=pokeParada;
 							indiceAEliminar=i;
 							hayMejora=true;
-						mm}
+						}
 					}
 				}
 
