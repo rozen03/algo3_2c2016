@@ -24,7 +24,8 @@ double pto3(vnod gimnasios, vnod &pokeParadas, Mochila &mochila, vint &solucion)
 double long pto3b(vnod gimnasios, vnod &pokeParadas, Mochila &mochila, vint &solucion);
 
 double BusquedaLocal(vnod &gimnasios, vnod &pokeParadas, Mochila &mochila, vint &solucion, double valor);
-double long BusquedaLocalb(vnod &gimnasios, vnod &pokeParadas, Mochila &mochila, vint &solucion, double valor);
+//double long BusquedaLocalb(vnod &gimnasios, vnod &pokeParadas, Mochila &mochila, vint &solucion, double valor);
+double long BusquedaLocalb(vnod gimnasios, vnod pokeParadas, Mochila &mochila, vint &solucion, double long valor);
 
 //double tirarPokeParadas(vnod pokeParadas, vnod &gimnasios, Mochila mochila, vnod &solucion);
 Nodo &dameNodo(vnod gimnasios, vnod &pokeParadas,  int indice);

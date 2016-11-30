@@ -14,15 +14,15 @@ typedef vector<int> vint;
 typedef vector<Nodo > vnod;
 
 //Variables Estan todas en Clase.h
-/*
-vnod PokeParadas;
-vnod Gimnasios;
-Mochila moch(0);
+
+//vnod PokeParadas;
+//vnod Gimnasios;
+//Mochila moch;
 int xactual;
 int yactual;
 vint Recorrido;
 double distanciaRecorrida;
-*/
+
 
 //funciones
 Nodo *	GimMasCercano(); //devuelve el  gimnasio mas cercano. Si devuelve 0 es porque no se le puede ganar
@@ -52,7 +52,7 @@ double pto2(vnod gim, vnod pp, Mochila mochil, vint & sol){
 	Gimnasios = gim;
 	xactual = 0;
 	yactual = 0;
-	
+
 	//despues llamo a lo que seria solucion, pero sin los couts molestos
 	elegirPrimero();
 	goloso();
@@ -74,7 +74,7 @@ void solucion(){
 
 void elegirPrimero(){
 	//Eleccion de comienzo
-	//Idea: recorro los gimnasios. 
+	//Idea: recorro los gimnasios.
 	//Si encuentro un gimnasio con fuerza =0 lo elijo
 	//para todos los gimnasios con fuerza menor a 3, calculo
 	// la pokeparada más cercana y empiezo por esa
@@ -97,8 +97,8 @@ void elegirPrimero(){
 
 			}
 
-		}	
- 	} 
+		}
+ 	}
  	//MI CODIGO ES UN MOUNSTRO DE FRANKESTEIN D:
  	if(Recorrido.empty()){//si no encontre un gimnasio trivial
  		 //Si encontre al menos un gimansio facil, voy a la pokeparada mas cercana
@@ -108,22 +108,22 @@ void elegirPrimero(){
 			Recorrido.push_back(PokeParadas[minPoke].DameIndice());
 			moch.usarMochila(PokeParadas[minPoke].DamePociones());
 			sacar(PokeParadas,PokeParadas[minPoke].DameIndice());
- 		
- 		
 
- 
+
+
+
  	}
-	
+
 	//Fin de eleccion de comienzo
 }
 
 
 void goloso(){
-	
-	
+
+
 	Nodo* proxLugar=0;
 
-	while(!Gimnasios.empty()){//mientras sigan existiendo gimnasios que no pasaron  
+	while(!Gimnasios.empty()){//mientras sigan existiendo gimnasios que no pasaron
 		//cout <<"Gimnasios"<< Gimnasios.size()<< endl;
 		//cout <<"PokeParadaMasCercana"<< PokeParadaMasCercana.size()<< endl;
 		proxLugar = GimMasCercano();
@@ -145,13 +145,13 @@ void goloso(){
 Nodo* GimMasCercano(){//AAAAA NO SE SI USAR PUNTEROS
 	Nodo * min = 0;
 	for (int i = 0; i < Gimnasios.size(); ++i){
-		if(moch.DamePeso()>=-Gimnasios[i].DamePociones()){//verifico que puedo vencer este gimnacio 
+		if(moch.DamePeso()>=-Gimnasios[i].DamePociones()){//verifico que puedo vencer este gimnacio
 			if(min==0){
 				min = &Gimnasios[i];
 			}
 			else{
 				if(dist(min)>dist(&Gimnasios[i])){
-					min = &Gimnasios[i];		
+					min = &Gimnasios[i];
 				}
 			}
 		}
@@ -170,7 +170,7 @@ Nodo* PokeParadaMasCercana(){
 			}
 			else{
 				if(dist(min)>dist(&PokeParadas[i])){
-					min = &PokeParadas[i];		
+					min = &PokeParadas[i];
 				}
 		}
 	}
@@ -186,8 +186,8 @@ double dist(Nodo* f) {
 }
 
 void moverse(Nodo * lugar){
-	
-	/*	Lo que hace esta funcion: 
+
+	/*	Lo que hace esta funcion:
 		Actualizar x e y
 		eliminar del vector correspondiente el lugar al que voy
 		actualizar recorrido actual y distancia actual
@@ -201,29 +201,29 @@ void moverse(Nodo * lugar){
 		distanciaRecorrida += dist(lugar);
 	}
 	Recorrido.push_back(lugar->DameIndice());
-	
+
 
 	//actualizo x e y
 	xactual = lugar->CordenadaX();
 	yactual = lugar->CordenadaY();
-	
+
 	//elimino el Nodo de la lista correspondiente
 	if(lugar->EsGim()){
 		sacar(Gimnasios, lugar->DameIndice());
 	}
 	else {
-		sacar(PokeParadas, lugar->DameIndice());	
+		sacar(PokeParadas, lugar->DameIndice());
 	}
 }
 
 void sacar(vnod &vector,int elem){
-	
+
 	for(int i = 0; i<vector.size();i++){
 		int indiceAux = vector[i].DameIndice();
 		if(indiceAux == elem){
 			vector[i] = vector.back();
 			vector.pop_back();
-			
+
 			return;
 		}
 	}

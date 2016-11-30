@@ -1,7 +1,8 @@
 #include "../clases.h"
 #include "../Punto2/Punto2.cpp"
-#include "../Punto3/ej3.cpp"
-#include "../Punto3/ej3b.cpp"
+//#include "../Punto3/ej3.cpp"
+//#include "../Punto3/ej3b.cpp"
+#include "../Punto3/ej3.h"
 #include <iostream>
 #include <limits>
 #include <stdio.h>
@@ -48,7 +49,7 @@ Nodo * DameNodo(int indice);
 void ResetGlobalesPto4();
 
 
-
+/*
 int main(){
     srand (time(NULL));
     ResetGlobalesPto4();
@@ -65,7 +66,7 @@ int main(){
 	for (int i = 0; i < RecorridoGlobal.size(); ++i){
 		cout<< RecorridoGlobal[i]<<" ";
 	}
-}
+}*/
 
 double pto4(vnod gim,vnod pp, Mochila mochil,vint & sol){
 	PokeParadas = pp;
@@ -186,10 +187,10 @@ void GolozoRand(Nodo & comienzo){//O(n+m)^2
 	  Nodo * aux= losMasCercanos[i];
       aux ->Recorrer(false);
     }
-    
+
     // me quedo solo con los 4 mas cercanos
     losMasCercanos = Filtro(losMasCercanos);//O(n+m)
-	
+
 	proxLugar = ElegirElNodo(losMasCercanos);//O(n+m)
 	if(proxLugar==NULL && gimRecorridos != Gimnasios.size()){
 		MinActual= MAX;
@@ -202,9 +203,9 @@ void GolozoRand(Nodo & comienzo){//O(n+m)^2
   		if(proxLugar->EsGim()){
       		gimRecorridos++;
       		//quiero asegurarme de no gastar pociones entonces necesito
-      		//saber cuantas pociones necesito es suma por que gim las 
+      		//saber cuantas pociones necesito es suma por que gim las
       		//tiene en negativo
-      	   PocionesNecesarias += proxLugar ->DamePociones(); 
+      	   PocionesNecesarias += proxLugar ->DamePociones();
     	}
     	else{
 			PPRecorridas++;
@@ -271,7 +272,7 @@ Nodo* ElegirElNodo(vpnod & vect){//O(n+m)
 	vint valorNodos;
 	int suma=0;
 	for(int i=0; i<vect.size(); i++){
-		int aux= vect.size()*10-i*10;  
+		int aux= vect.size()*10-i*10;
 		aux += PuntajeAnodo(*vect[i]);
 		suma+=aux;
 		valorNodos.push_back(suma);
@@ -388,7 +389,7 @@ bool NoConsumoPociones(){
 	if(moch.DameCapacidad()<3) pocionesQueDa = moch.DameCapacidad();
 	int PPRestantes = PokeParadas.size() - PPRecorridas;
 	if(MochilaPost + (pocionesQueDa*PPRestantes) < PocionesNecesarias) NoConsumoDemas = false;
-	
+
 	return NoConsumoDemas;
 }
 */

@@ -8,18 +8,20 @@ using namespace std;
 
 //variables globales
 int CantBT;
+
 /* declaradas en clase.h
+*/
 vnod PokeParadas;
 vnod Gimnasios;
-Mochila moch(0);
+Mochila moch;
 int PocionesNecesarias;
 int PPRecorridas;
-int GimRecorridos;
+unsigned int GimRecorridos;
 double MinGlobal;
 double MinActual;
 vint RecorridoGlobal;
 vint RecorridoActual;
-*/
+
 
 //declaracion de funciones
 void BT();
