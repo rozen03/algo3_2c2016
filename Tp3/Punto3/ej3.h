@@ -1,6 +1,7 @@
 #ifndef __Ej3__
 #include "../clases.h"
-
+#include <cmath>
+#include <cfloat>
 using namespace std;
 typedef vector<vnod> vvnod;
 typedef vector<int> vint;
@@ -20,12 +21,12 @@ tuple<vnod, double> actualInicial(vnod gimnasios, vnod pokeParadas, Mochila &moc
 
 double mejorarSolucion (vnod gimnasios, vnod pokeParadas, Mochila &mochila, vint &solucion);
 
-double pto3(vnod gimnasios, vnod &pokeParadas, Mochila &mochila, vint &solucion);
-double long pto3b(vnod gimnasios, vnod &pokeParadas, Mochila &mochila, vint &solucion);
+double pto3(vnod gimnasios, vnod pokeParadas, Mochila mochila, vint &solucion);
+double  pto3b(vnod gimnasios, vnod pokeParadas, Mochila mochila, vint &solucion) ;
 
 double BusquedaLocal(vnod &gimnasios, vnod &pokeParadas, Mochila &mochila, vint &solucion, double valor);
 //double long BusquedaLocalb(vnod &gimnasios, vnod &pokeParadas, Mochila &mochila, vint &solucion, double valor);
-double long BusquedaLocalb(vnod gimnasios, vnod pokeParadas, Mochila &mochila, vint &solucion, double long valor);
+double long BusquedaLocalb(vnod gimnasios, vnod pokeParadas, Mochila mochila, vint &solucion, double long valor);
 
 //double tirarPokeParadas(vnod pokeParadas, vnod &gimnasios, Mochila mochila, vnod &solucion);
 Nodo &dameNodo(vnod gimnasios, vnod &pokeParadas,  int indice);
@@ -33,4 +34,5 @@ Nodo &dameNodo(vnod gimnasios, vnod &pokeParadas,  int indice);
 double long distancia (vnod &gimnasios, vnod &pokeParadas,  vint & solucion);
 void imprimirSolucion(vnod gimnasios, vnod pokeParadas,vint& solucion);
 void imprimirSolucion(vint& solucion);
+bool validarSol(vint & solucion);
 #endif

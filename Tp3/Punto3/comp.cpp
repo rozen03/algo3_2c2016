@@ -1,7 +1,6 @@
 #include "ej3.h"
 #include <functional>
-#include <cmath>
-#include <cfloat>
+
 using namespace std;
 uint64_t rdtsc() {
 	unsigned int lo, hi;
@@ -32,7 +31,7 @@ int main(){
 	Mochila mochila(30);
 	int i=0;
 	int pesos[] = {-12,-9,-6,-10,-2,-3,-20,-30,-1};//,-2,-27};
-	int cantidadDePP= 42;
+	int cantidadDePP= 80;
 	auto espiral = generadorDeEspirales(0,0);
 	auto espiralPP = generadorDeEspirales(2*cantidadDePP,2*cantidadDePP);
 	/*
