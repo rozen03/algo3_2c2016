@@ -258,10 +258,16 @@ double long BusquedaLocalb(vnod gimnasios, vnod pokeParadas, Mochila mochila, vi
 	for (auto bloque: bloques){
 		solucion_posible.insert(solucion_posible.end(),bloque.begin(),bloque.end());
 	}
-	validarSol(solucion_posible);
+	if(!validarSol(gimnasios,solucion_posible)){
+		cerr<<"falle aca"<<endl;
+		exit(2);
+	}
 	cerr<<"mejorden"<<endl;
 	res_posible=mejorOrdenDePokeParadas(gimnasios,pokeParadas,solucion_posible);
-	validarSol(solucion_posible);
+	if(!validarSol(gimnasios,solucion_posible)){
+		cerr<<"falle aca"<<endl;
+		exit(2);
+	}
 	cerr<<"mejorpop"<<endl;
 	res_posible= mejorarPokeparadas(gimnasios,pokeParadas,mochila,solucion_posible);
 	imprimirSolucion(solucion_posible);
