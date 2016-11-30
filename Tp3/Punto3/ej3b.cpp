@@ -123,11 +123,11 @@ double long mejorOrdenDeBloques(vnod &gimnasios, vnod &pokeParadas,Mochila &moch
 					imprimirSolucion(bloques);
 					exit(27);
 				}
-				cerr<<"pre-wipi"<<endl;
+				//cerr<<"pre-wipi"<<endl;
 				iter_swap(bloques.begin() + i, bloques.begin() + j);
-				imprimirSolucion(bloques);
+				//imprimirSolucion(bloques);
 				double long valor=distancia(gimnasios,pokeParadas,bloques);
-				cerr<<"wipi"<<endl;
+				//cerr<<"wipi"<<endl;
 				if (valor<mejorValor && validarConMochila(gimnasios, pokeParadas,mochila,bloques)){
 					mejorValor=valor;
 					hayMejora=true;
