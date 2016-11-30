@@ -195,7 +195,7 @@ double long mejorarPokeparadas(vnod &gimnasios, vnod &pokeParadas, Mochila &moch
 			for (int pokeParada : ppEnLaNube) {
 				for (size_t j = 1; j < i; j++) {
 					if (i==pokeParada){
-						cerr<<"son iguales pelotudo"<<endl;
+						//cerr<<"son iguales pelotudo"<<endl;
 					}
 					vint::const_iterator first = solucion.begin();
 					vint::const_iterator last = solucion.end() ;
