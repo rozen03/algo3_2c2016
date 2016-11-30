@@ -143,8 +143,8 @@ void CorrerGeneral(int rep, vnod gim, vnod pp, Mochila moch, ofstream & res, ofs
 	int gimTotales = gim.size();
 	int ppTotales = pp.size();
 	if(nodoValidosPto1 > ppTotales+gimTotales){
-
-		for(int nroEj = 1; nroEj <= 4; nroEj++){
+		//ahora no responde a cada punto 1 es pto1 2 es pto2 3 es pto3 4 es pto3b 5 pto4 6 pto4b
+		for(int nroEj = 1; nroEj <= 6; nroEj++){
 			res<<nroEj<<" & "<<gimTotales << " & "<< ppTotales<<" & ";
 			Correr(rep, gim, pp, moch, res, meta, nroEj);
 
@@ -157,14 +157,14 @@ void CorrerGeneral(int rep, vnod gim, vnod pp, Mochila moch, ofstream & res, ofs
 
 	}else{
 		if(gimTotales+ppTotales < 600){
-			for(int nroEj = 2; nroEj <= 4; nroEj++){
+			for(int nroEj = 2; nroEj <= 6; nroEj++){
 				res<<nroEj<<" & "<<gimTotales << " & "<< ppTotales<<" & ";
 				Correr(rep, gim, pp, moch, res, meta, nroEj);
 				cerr<<"termine el pto "<<nroEj<<" con "<<gimTotales<<" gimnasios y "<<ppTotales<<" pokeparadas"<<endl;
 			}
 		}
 		else{
-			for(int nroEj = 2; nroEj <= 3; nroEj++){
+			for(int nroEj = 2; nroEj <= 4; nroEj++){
 				res<<nroEj<<" & "<<gimTotales << " & "<< ppTotales<<" & ";
 				Correr(rep, gim, pp, moch, res, meta, nroEj);
 				cerr<<"termine el pto "<<nroEj<<" con "<<gimTotales<<" gimnasios y "<<ppTotales<<" pokeparadas"<<endl;
@@ -189,7 +189,13 @@ void Correr(int rep, vnod gimnasios, vnod pokeparadas, Mochila moch, ofstream & 
 		foo = &pto3;
 		break;
 		case 4:
+		foo = &pto3b;
+		break;
+		case 5:
 		foo = &pto4;
+		break;
+		case 6:
+		foo = &pto4b;
 		break;
 		default:
 		cout<<"N invalido"<<endl;
