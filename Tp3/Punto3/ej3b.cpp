@@ -228,9 +228,10 @@ double long mejorarPokeparadas(vnod &gimnasios, vnod &pokeParadas, Mochila &moch
 			imprimirSolucion(solucion);
 			bool bil = validarSol(solucion);
 			if (!bil){
-				cerr<<"Parece q no dio NAN"<<endl;
+				cerr<<"dio nan pelotudo"<<endl;
 				exit(99);
 			}
+			cerr<<"Parece q no dio NAN"<<endl;
 		}
 	}
 	if(!validarSol(solucion)){
