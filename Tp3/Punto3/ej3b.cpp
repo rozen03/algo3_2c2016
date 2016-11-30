@@ -10,9 +10,9 @@ vvint dameBloques(vnod & gimnasios,vint& solucion){
 	vvint bloques(cantidad_de_gimnasios);
 	int indiceDeBloque=0; //indice del bloque q voy a estar pusheadndo cosas
 	for(int indice: solucion){
-		cerr<<"VOY A EXPLOTAR \t indice= "<<indice<<"\t indiceDeBloque= "<<indiceDeBloque<<" "<<gimnasios.size()<<endl;
+		//cerr<<"VOY A EXPLOTAR \t indice= "<<indice<<"\t indiceDeBloque= "<<indiceDeBloque<<" "<<gimnasios.size()<<endl;
 		bloques[indiceDeBloque].push_back(indice);
-		cerr<<"FALSA ALARMA"<<endl;
+		//cerr<<"FALSA ALARMA"<<endl;
 		if(indice <= cantidad_de_gimnasios){
 			indiceDeBloque++;
 			if(indiceDeBloque==cantidad_de_gimnasios){
@@ -219,13 +219,13 @@ double long mejorarPokeparadas(vnod &gimnasios, vnod &pokeParadas, Mochila &moch
 			ppEnLaNube.pop_back();
 		}
 		if(hayMejora){
-			cerr<<"a ver, señor mejora"<<endl;
-			imprimirSolucion(solucion);
+			//cerr<<"a ver, señor mejora"<<endl;
+			//imprimirSolucion(solucion);
 			solucion.erase(solucion.begin()+ indiceAEliminar);
 			solucion.insert(solucion.begin()+posicionAInsertar,indiceAInsertar);
-			imprimirSolucion(solucion);
-			distancia(gimnasios,pokeParadas,solucion);
-			cerr<<"Parece q no dio NAN"<<endl;
+			//imprimirSolucion(solucion);
+			//distancia(gimnasios,pokeParadas,solucion);
+			//cerr<<"Parece q no dio NAN"<<endl;
 		}
 	}
 	if(!validarSol(solucion)){
