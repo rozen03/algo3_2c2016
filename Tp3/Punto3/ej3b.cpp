@@ -203,6 +203,9 @@ double long mejorarPokeparadas(vnod &gimnasios, vnod &pokeParadas, Mochila &moch
 					vint newVec(first, last);
 					newVec.erase(newVec.begin()+ i);
 					newVec.insert(newVec.begin()+j,pokeParada);
+					if(!validarSol(newVec)){
+						continue;
+					}
 					if(distancia(gimnasios,pokeParadas,newVec)<distancia(gimnasios,pokeParadas,solucion)){
 						if(validarConMochila(gimnasios,pokeParadas,mochila,newVec)){
 							if(!validarSol(newVec)){
