@@ -208,7 +208,7 @@ double long mejorarPokeparadas(vnod &gimnasios, vnod &pokeParadas, Mochila &moch
 					}
 					if(distancia(gimnasios,pokeParadas,newVec)<distancia(gimnasios,pokeParadas,solucion)){
 						if(validarConMochila(gimnasios,pokeParadas,mochila,newVec)){
-							if(!validarSol(newVec)){
+							if(!validarSol(gimnasios,newVec)){
 								cerr<<"este pibe es boludo"<<endl;
 							}
 							posicionAInsertar=j;
