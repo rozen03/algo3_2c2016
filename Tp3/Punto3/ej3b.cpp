@@ -127,7 +127,7 @@ double long mejorOrdenDeBloques(vnod &gimnasios, vnod &pokeParadas,Mochila &moch
 				iter_swap(bloques.begin() + i, bloques.begin() + j);
 				//imprimirSolucion(bloques);
 				double long valor=distancia(gimnasios,pokeParadas,bloques);
-				cerr<<"wipi"<<endl;
+				//cerr<<"wipi"<<endl;
 				if (valor<mejorValor && validarConMochila(gimnasios, pokeParadas,mochila,bloques)){
 					mejorValor=valor;
 					hayMejora=true;
@@ -224,12 +224,12 @@ double long mejorarPokeparadas(vnod &gimnasios, vnod &pokeParadas, Mochila &moch
 		}
 
 		if(hayMejora){
-			cerr<<"a ver, señor mejora"<<endl;
-			imprimirSolucion(solucion);
+			//cerr<<"a ver, señor mejora"<<endl;
+			//imprimirSolucion(solucion);
 			solucion.erase(solucion.begin()+ indiceAEliminar);
 			solucion.insert(solucion.begin()+posicionAInsertar,indiceAInsertar);
-			imprimirSolucion(solucion);
-			bool bil = validarSol(solucion);
+			//imprimirSolucion(solucion);
+			bool bil = validarSol(gimnasios,solucion);
 			if (!bil){
 				cerr<<"dio nan pelotudo"<<endl;
 				exit(99);
