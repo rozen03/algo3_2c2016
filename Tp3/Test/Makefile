@@ -1,4 +1,5 @@
 all:
+	#rm test
 	g++ -c ../Punto3/ej3.cpp -fstack-protector-all -g -std=c++11 -O3 -Ofast -fpermissive
 	g++ -c ../Punto3/ej3b.cpp -fstack-protector-all -g -std=c++11 -O3 -Ofast -fpermissive
 	g++ -c ../clases.cpp -fstack-protector-all -g -std=c++11 -O3 -Ofast -fpermissive

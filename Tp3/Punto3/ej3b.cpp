@@ -96,7 +96,7 @@ bool validarConMochila(vnod &gimnasios, vnod &pokeParadas,Mochila &mochila,vint 
 		}
 
 	}
-	return validarSol(gimnasios,solucion_posible);
+	return validarSol(gimnasios,solucion);
 	//return true;
 }
 double long mejorOrdenDeBloques(vnod &gimnasios, vnod &pokeParadas,Mochila &mochila,vvint &bloques){
@@ -159,7 +159,7 @@ double long mejorOrdenDePokeParadas(vnod &gimnasios, vnod &pokeParadas,vint &sol
 				}
 				iter_swap(solucion.begin() + i, solucion.begin() + j);
 				double valor=distancia(gimnasios,pokeParadas,solucion);
-				if (valor<mejorValor && validarSol(gimnasios,solucion_posible)){
+				if (valor<mejorValor && validarSol(gimnasios,solucion)){
 					mejorValor=valor;
 					hayMejora=true;
 					mejorSwap_i=i;
@@ -263,7 +263,7 @@ double long BusquedaLocalb(vnod gimnasios, vnod pokeParadas, Mochila mochila, vi
 		solucion_posible.insert(solucion_posible.end(),bloque.begin(),bloque.end());
 	}
 	if(!validarSol(gimnasios,solucion_posible)){
-		cerr<<"falle aca b1"<<endl;
+		cerr<<"falle aca b1make"<<endl;
 		exit(2);
 	}
 	cerr<<"mejorden"<<endl;
