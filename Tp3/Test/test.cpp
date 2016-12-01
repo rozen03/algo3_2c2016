@@ -535,8 +535,8 @@ int main(){
 	//RectaPPgim(1, 50);
 	//cerr<<"termino rectasPP"<<endl;
 
-	SoloPokeparadasNecesariasRecta(1, 50);
-	cerr<<"terminoSoloPPNec\n";
+	//SoloPokeparadasNecesariasRecta(1, 50);
+	//cerr<<"terminoSoloPPNec\n";
 
 	PPdeMas(1,50);
 

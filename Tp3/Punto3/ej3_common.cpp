@@ -118,16 +118,15 @@ double long tirarPokeParadas(vnod pokeParadas, vnod &gimnasios, Mochila mochila,
 			int x = proximoUltimo.CordenadaX() - ultimo.CordenadaX();
 			int y = proximoUltimo.CordenadaY() - ultimo.CordenadaY();
 			if(x==0 && y==0){
-				dis=0;
+				ultimo=proximoUltimo;
+				continue;
 			}else{
-				auto pre = pow(x, 2) + pow(y, 2);
-				pre= sqrt(pre);
-				if(!isnormal(pre)){
+				int puf = pow(x, 2) + pow(y, 2);
+				dis= sqrt(puf);
+				if(!isnormal(dis)){
 					dis=0;
 					ultimo=proximoUltimo;
 					continue;
-				}else{
-					dis= pre;
 				}
 			}
 			//auto dis = proximoUltimo.Distancia(ultimo);
