@@ -306,7 +306,7 @@ double long BusquedaLocalb(vnod gimnasios, vnod pokeParadas, Mochila mochila, vi
 	return valor;
 }
 double  pto3b(vnod gimnasios, vnod pokeParadas, Mochila mochila, vint &solucion) {
-	cerr<<"Empece pto3b"<<endl;
+	//cerr<<"Empece pto3b"<<endl;
 	sort(gimnasios.begin(), gimnasios.end(),[](Nodo a, Nodo b){return a.DamePociones()<b.DamePociones();});
 	vnod solucioNodos(1,Nodo(27,27,27,27));
 	auto dist =  tirarPokeParadas(pokeParadas, gimnasios,  mochila, solucioNodos);
@@ -321,10 +321,10 @@ double  pto3b(vnod gimnasios, vnod pokeParadas, Mochila mochila, vint &solucion)
 		cerr<<"EXPLOTOAH"<<endl;
 	}
 	//imprimirSolucion(gimnasios,pokeParadas, solucion);
-	cerr<<"llamo a BusquedaLocalb"<<endl;
+	//cerr<<"llamo a BusquedaLocalb"<<endl;
 	BusquedaLocalb(gimnasios,pokeParadas, mochila, solucion,distancia(gimnasios,pokeParadas,solucion));
 	//imprimirSolucion(gimnasios,pokeParadas, solucion);
-	cerr<<"termine pto3b"<<endl;
+	//cerr<<"termine pto3b"<<endl;
 	for (size_t i = 0; i < solucion.size(); i++) {
 		for (size_t j = 0; j < solucion.size(); j++) {
 			if (i!=j && solucion[i]==solucion[j]){
