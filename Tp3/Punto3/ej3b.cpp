@@ -247,7 +247,7 @@ double long BusquedaLocalb(vnod gimnasios, vnod pokeParadas, Mochila mochila, vi
 	//cerr<<"Inicial ";imprimirSolucion(gimnasios,pokeParadas,solucion);
 	//cerr<<"bloques 1"<<endl;
 	if(solucion.empty() || !validarSol(gimnasios,solucion)){
-		cerr<<"Loco, que paso aca?";imprimirSolucion(solucion);
+		//cerr<<"Loco, que paso aca?";imprimirSolucion(solucion);
 		return -1;
 	}
 	vint solucion_posible;
