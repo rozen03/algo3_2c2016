@@ -325,5 +325,15 @@ double  pto3b(vnod gimnasios, vnod pokeParadas, Mochila mochila, vint &solucion)
 	BusquedaLocalb(gimnasios,pokeParadas, mochila, solucion,distancia(gimnasios,pokeParadas,solucion));
 	//imprimirSolucion(gimnasios,pokeParadas, solucion);
 	cerr<<"termine pto3b"<<endl;
+	for (size_t i = 0; i < solucion.size(); i++) {
+		for (size_t j = 0; j < solucion.size(); j++) {
+			if (i!=j && solucion[i]==solucion[j]){
+				cerr<< "PERA UN POCO CHE, ACA TENES EL MISMO NODO EN DOS LUGARES DISTINTOS!"<<endl;
+				imprimirSolucion(solucion);
+				exit(2);
+			}
+
+		}
+	}
 	return distancia(gimnasios,pokeParadas,solucion);
 }
