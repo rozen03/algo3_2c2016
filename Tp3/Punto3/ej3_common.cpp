@@ -121,7 +121,7 @@ double long tirarPokeParadas(vnod pokeParadas, vnod &gimnasios, Mochila mochila,
 				cerr<<"Tenia dist: "<< suma<<"\t  e \t  Indice: "<<indice<<endl;
 				cerr<<"Tenia desde nodo de indice "<<ultimo.DameIndice()<< " \t con pociones: "<<ultimo.DamePociones()<<endl;
 				cerr<<"Tenia hasta nodo de indice "<<proximoUltimo.DameIndice()<< " \t con pociones: "<<proximoUltimo.DamePociones()<<endl;
-				cerr<<"desde ( "<<proximoUltimo.CordenadaX()<<","<<proximoUltimo.CordenadaY()<< ") \t hasta: "<<ultimo.CordenadaX()<<","<<ultimo.CordenadaY()<< ")"<<endl;
+				cerr<<"desde ( "<<proximoUltimo.CordenadaX()<<","<<proximoUltimo.CordenadaY()<< ") \t hasta: ("<<ultimo.CordenadaX()<<","<<ultimo.CordenadaY()<< ")"<<endl;
 				imprimirSolucion(solucion);
 				exit(1);
 				//kill(getpid(), sig)

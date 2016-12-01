@@ -3,6 +3,7 @@
 #include <iostream>
 #include <tuple>
 #include <vector>
+#include <cfloat>
 #ifndef __NODO__
 #define __NODO__
 

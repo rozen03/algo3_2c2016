@@ -532,8 +532,8 @@ void gruposSeparadosPorEspirales(int rep, int cantgim){
 }
 int main(){
 	cerr<<"empece"<<endl;
-	RectaPPgim(1, 50);
-	cerr<<"termino rectasPP"<<endl;
+	//RectaPPgim(1, 50);
+	//cerr<<"termino rectasPP"<<endl;
 
 	SoloPokeparadasNecesariasRecta(1, 50);
 	cerr<<"terminoSoloPPNec\n";

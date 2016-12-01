@@ -1,7 +1,5 @@
 #ifndef __Ej3__
 #include "../clases.h"
-#include <cmath>
-#include <cfloat>
 using namespace std;
 typedef vector<vnod> vvnod;
 typedef vector<int> vint;
