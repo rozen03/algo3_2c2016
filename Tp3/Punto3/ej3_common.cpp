@@ -124,6 +124,7 @@ double long tirarPokeParadas(vnod pokeParadas, vnod &gimnasios, Mochila mochila,
 				pre= sqrt(pre);
 				if(!isnormal(pre)){
 					dis=0;
+					ultimo=proximoUltimo;
 					continue;
 				}else{
 					dis= pre;
