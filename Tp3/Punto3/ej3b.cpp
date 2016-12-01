@@ -318,7 +318,7 @@ double  pto3b(vnod gimnasios, vnod pokeParadas, Mochila mochila, vint &solucion)
 	sort(gimnasios.begin(), gimnasios.end(),[](Nodo a, Nodo b){return a.DamePociones()<b.DamePociones();});
 	vnod solucioNodos(1,Nodo(27,27,27,27));
 	auto dist =  tirarPokeParadas(pokeParadas, gimnasios,  mochila, solucioNodos);
-	if (dist <0){
+	if (dist <0|| solucioNodos.empty()){
 		cout<<"aah dio mal"<<endl;
 		return -1;
 	}
