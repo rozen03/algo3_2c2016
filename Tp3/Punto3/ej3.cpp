@@ -79,7 +79,7 @@ double mejorarSolucion (vnod gimnasios, vnod pokeParadas, Mochila &mochila, vint
     return res;
 }
 double pto3(vnod gimnasios, vnod pokeParadas, Mochila mochila, vint &solucion) {
-	cerr<<"Todos putos"<<endl;
+	//cerr<<"Todos putos"<<endl;
     sort(gimnasios.begin(), gimnasios.end(),[](Nodo a, Nodo b){return a.DamePociones()<b.DamePociones();});
     return mejorarSolucion(gimnasios,pokeParadas, mochila, solucion);
 }

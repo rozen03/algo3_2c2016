@@ -245,12 +245,8 @@ double long mejorarPokeparadas(vnod &gimnasios, vnod &pokeParadas, Mochila &moch
 }
 double long BusquedaLocalb(vnod gimnasios, vnod pokeParadas, Mochila mochila, vint &solucion, double long valor){
 	//cerr<<"Inicial ";imprimirSolucion(gimnasios,pokeParadas,solucion);
-	if(!validarSol(gimnasios,solucion)){
-		cerr<<"No es mi culpa: ";imprimirSolucion(solucion);
-		//exit(2);
-	}
 	//cerr<<"bloques 1"<<endl;
-	if(solucion.empty()){
+	if(solucion.empty() || !validarSol(gimnasios,solucion)){
 		cerr<<"Loco, que paso aca?";imprimirSolucion(solucion);
 		return -1;
 	}
