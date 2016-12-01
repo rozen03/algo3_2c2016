@@ -105,7 +105,7 @@ double long tirarPokeParadas(vnod pokeParadas, vnod &gimnasios, Mochila mochila,
 		auto ultimo = dameNodo(gimnasios,pokeParadas,solucion[0]);
 		auto proximoUltimo=ultimo;
 		double long suma=0;
-
+		auto dis =0;
 		//cout<<"suma"<<endl;
 		for(auto indice:solucion){
 			if (indice==solucion[0]){// ||  indice ==ultimo.DameIndice()){
@@ -114,7 +114,21 @@ double long tirarPokeParadas(vnod pokeParadas, vnod &gimnasios, Mochila mochila,
 			//for (size_t i = 1; i < solucion.size(); i++) {
 			//    auto indice = solucion[i];
 			proximoUltimo=dameNodo(gimnasios,pokeParadas,indice);
-			auto dis = proximoUltimo.Distancia(ultimo);
+
+			int x = proximoUltimo.CordenadaX() - ultimo.CordenadaX();
+			int y = proximoUltimo.CordenadaY() - ultimo.CordenadaY();
+			if(x==0 && y==0){
+				dis=0;
+			}else{
+				auto pre = pow(x, 2) + pow(y, 2);
+				pre= sqrt(pre);
+				if(!isnormal(pre)){
+					dis=0;
+				}else{
+					dis= pre;
+				}
+			}
+			//auto dis = proximoUltimo.Distancia(ultimo);
 			if(!isnormal(dis)){
 
 				cerr<<"ME DIO NAN"<<endl;
