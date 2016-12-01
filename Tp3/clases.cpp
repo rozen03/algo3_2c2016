@@ -19,7 +19,7 @@ Nodo::Nodo( Nodo n, int i){
 double Nodo::Distancia(Nodo &f) {
   int x = X - f.X;
   int y = Y - f.Y;
-  if(x==0 && y==0){
+  if(X==f.X && Y==f.Y){
 	  return 0.0; //tuve que hacer esto por que parece que  sqrt(0) da NaN y me explota todo
   }
   auto pre = pow(x, 2) + pow(y, 2);
