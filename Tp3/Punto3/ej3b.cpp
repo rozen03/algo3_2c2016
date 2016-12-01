@@ -20,7 +20,7 @@ vvint dameBloques(vnod & gimnasios,vint& solucion){
 			}
 		}
 	}
-	imprimirSolucion(bloques);
+	//imprimirSolucion(bloques);
 	return bloques;
 }
 
