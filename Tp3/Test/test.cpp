@@ -533,10 +533,10 @@ int main(){
 //	SoloPokeparadasNecesariasRecta(1, 50);
 	cerr<<"terminoSoloPPNec\n";
 
-	PPdeMas(1,50);
+	PPdeMas(50,50);
 
 //	cerr<<"termino PPdeMas\n";
-	TodoEnElMismoLugar(1,20);
+	TodoEnElMismoLugar(50,30);
 	cerr<<"termino MismoLugar\n";
 
 	DosPuntos(1,50);
