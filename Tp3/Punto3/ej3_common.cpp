@@ -130,7 +130,7 @@ double long tirarPokeParadas(vnod pokeParadas, vnod &gimnasios, Mochila mochila,
 				}
 			}
 			//auto dis = proximoUltimo.Distancia(ultimo);
-			if(!isnormal(dis)){
+			/*if(!isnormal(dis)){
 
 				cerr<<"ME DIO NAN"<<endl;
 				cerr<<"Tenia dist: "<< suma<<"\t  e \t  Indice: "<<indice<<endl;
@@ -140,7 +140,7 @@ double long tirarPokeParadas(vnod pokeParadas, vnod &gimnasios, Mochila mochila,
 				imprimirSolucion(solucion);
 				exit(1);
 				//kill(getpid(), sig)
-			}
+			}*/
 
 			suma+=dis;
 			ultimo=proximoUltimo;
