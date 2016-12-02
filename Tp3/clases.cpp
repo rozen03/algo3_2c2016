@@ -23,12 +23,13 @@ double Nodo::Distancia(Nodo &f) {
 	  return 0; //tuve que hacer esto por que parece que  sqrt(0) da NaN y me explota todo
   }
   auto pre = pow(x, 2) + pow(y, 2);
-  pre= sqrt(pre);
-  if(!isnormal(pre)){
-	  return 0;
-  }else{
-	  return pre;
-  }
+  return sqrt(pre);
+  //pre= sqrt(pre);
+  //if(!isnormal(pre)){
+	//  return 0;
+  //}else{
+	 // return pre;
+  //}
 }
 void Nodo::asignarCantidadPociones(int p){
     pociones = p;

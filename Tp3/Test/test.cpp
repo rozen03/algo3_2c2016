@@ -205,7 +205,7 @@ void Correr(int rep, vnod gimnasios, vnod pokeparadas, Mochila moch, ofstream & 
 	//return;
 	valor = (double) foo(gimnasios, pokeparadas, moch, sol);
 
-	if(nroEj == 4){
+	if(nroEj > 4){
 		res <<valor<<" & ";
 		meta << valor<<" & ";
 		for(int i = 0; i< sol.size(); i++){
@@ -532,11 +532,11 @@ void gruposSeparadosPorEspirales(int rep, int cantgim){
 }
 int main(){
 	cerr<<"empece"<<endl;
-	//RectaPPgim(1, 50);
-	//cerr<<"termino rectasPP"<<endl;
+	RectaPPgim(1, 50);
+	cerr<<"termino rectasPP"<<endl;
 
-	//SoloPokeparadasNecesariasRecta(1, 50);
-	//cerr<<"terminoSoloPPNec\n";
+	SoloPokeparadasNecesariasRecta(1, 50);
+	cerr<<"terminoSoloPPNec\n";
 
 	PPdeMas(1,50);
 
