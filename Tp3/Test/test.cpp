@@ -533,13 +533,13 @@ int main(){
 //	SoloPokeparadasNecesariasRecta(1, 50);
 	cerr<<"terminoSoloPPNec\n";
 
-	PPdeMas(50,50);
+	//PPdeMas(50,50);
 
 //	cerr<<"termino PPdeMas\n";
 	TodoEnElMismoLugar(50,30);
 	cerr<<"termino MismoLugar\n";
 
-	DosPuntos(1,50);
+	DosPuntos(50,50);
 	cerr<<"termino DosPuntos\n";
 	//gruposSeparadosPorEspirales(1,1);
 	cerr<<"termino grupos separados por espirales yey"<<endl;
