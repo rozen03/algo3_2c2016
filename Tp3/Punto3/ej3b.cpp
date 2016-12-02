@@ -27,14 +27,14 @@ vvint dameBloques(vnod & gimnasios,vint& solucion){
 
 double long distancia ( vnod gimnasios,   vnod &pokeParadas,  vvint & bloques){
 	if(bloques.empty()){
-		cerr<<"Hasta aca llegue, claramente estoy  vacio como tu vieja"<<endl;
-		imprimirSolucion(bloques);
-		exit(27);
+		//cerr<<"Hasta aca llegue, claramente estoy  vacio como tu vieja"<<endl;
+		//imprimirSolucion(bloques);
+		//exit(27);
 	}
 	if(bloques[0].empty()){
-		cerr<<"Hasta aca llegue, claramente estoy  vacio como tu vieja"<<endl;
-		imprimirSolucion(bloques);
-		exit(27);
+		//cerr<<"Hasta aca llegue, claramente estoy  vacio como tu vieja"<<endl;
+		//imprimirSolucion(bloques);
+		//exit(27);
 	}
 	auto ultimo = dameNodo(gimnasios,pokeParadas,bloques[0][0]);
 	auto proximoUltimo=ultimo;
@@ -114,14 +114,14 @@ double long mejorOrdenDeBloques(vnod &gimnasios, vnod &pokeParadas,Mochila &moch
 				}
 				if(bloques.empty()){
 
-					cerr<<"Hasta aca llegue, claramente estoy  vacio como tu vieja"<<endl;
-					imprimirSolucion(bloques);
-					exit(27);
+					//cerr<<"Hasta aca llegue, claramente estoy  vacio como tu vieja"<<endl;
+					//imprimirSolucion(bloques);
+					//exit(27);
 				}
 				if(bloques[0].empty()){
-					cerr<<"Hasta aca llegue, claramente estoy  vacio como tu vieja"<<endl;
-					imprimirSolucion(bloques);
-					exit(27);
+					//cerr<<"Hasta aca llegue, claramente estoy  vacio como tu vieja"<<endl;
+					//imprimirSolucion(bloques);
+					//exit(27);
 				}
 				//cerr<<"pre-wipi"<<endl;
 				iter_swap(bloques.begin() + i, bloques.begin() + j);
@@ -231,15 +231,15 @@ double long mejorarPokeparadas(vnod &gimnasios, vnod &pokeParadas, Mochila &moch
 			//imprimirSolucion(solucion);
 			bool bil = validarSol(gimnasios,solucion);
 			if (!bil){
-				cerr<<"dio nan pelotudo"<<endl;
-				exit(99);
+				//cerr<<"dio nan pelotudo"<<endl;
+				//exit(99);
 			}
 			//cerr<<"Parece q no dio NAN"<<endl;
 		}
 	}
 	if(!validarSol(solucion)){
-		cerr<<"Claramente es mi culpa pelotudo"<<endl;
-		exit(99);
+		//cerr<<"Claramente es mi culpa pelotudo"<<endl;
+		//exit(99);
 	}
 	return distancia(gimnasios,pokeParadas,solucion);
 }
@@ -259,15 +259,15 @@ double long BusquedaLocalb(vnod gimnasios, vnod pokeParadas, Mochila mochila, vi
 		solucion_posible.insert(solucion_posible.end(),bloque.begin(),bloque.end());
 	}
 	if(!validarSol(gimnasios,solucion_posible)){
-		cerr<<"falle aca b1make"<<endl;
-		exit(2);
+		//cerr<<"falle aca b1make"<<endl;
+		//exit(2);
 	}
 	//cerr<<"bloques 1 ";	imprimirSolucion(gimnasios,pokeParadas,solucion_posible);
 	//cerr<<"mejorden"<<endl;
 	res_posible=mejorOrdenDePokeParadas(gimnasios,pokeParadas,solucion_posible);
 	if(!validarSol(gimnasios,solucion_posible)){
-		cerr<<"falle aca den"<<endl;
-		exit(2);
+		//cerr<<"falle aca den"<<endl;
+		//exit(2);
 	}
 	//cerr<<"Mejor Orden ";imprimirSolucion(gimnasios,pokeParadas,solucion_posible);
 	//cerr<<"mejorpop"<<endl;
@@ -316,22 +316,22 @@ double long BusquedaLocalc(vnod gimnasios, vnod pokeParadas, Mochila mochila, vi
 		solucion_posible.insert(solucion_posible.end(),bloque.begin(),bloque.end());
 	}
 	if(!validarSol(gimnasios,solucion_posible)){
-		cerr<<"falle aca b1make"<<endl;
-		exit(2);
+		//cerr<<"falle aca b1make"<<endl;
+		//exit(2);
 	}
 	//cerr<<"bloques 1 ";	imprimirSolucion(gimnasios,pokeParadas,solucion_posible);
 	//cerr<<"mejorden"<<endl;
 	res_posible=mejorOrdenDePokeParadas(gimnasios,pokeParadas,solucion_posible);
 	if(!validarSol(gimnasios,solucion_posible)){
-		cerr<<"falle aca den"<<endl;
-		exit(2);
+		//cerr<<"falle aca den"<<endl;
+		//exit(2);
 	}
 	//cerr<<"Mejor Orden ";imprimirSolucion(gimnasios,pokeParadas,solucion_posible);
 	//cerr<<"mejorpop"<<endl;
 	res_posible= mejorarPokeparadas(gimnasios,pokeParadas,mochila,solucion_posible);
 	if(!validarSol(gimnasios,solucion_posible)){
-		cerr<<"falle aca pop"<<endl;
-		exit(2);
+		//cerr<<"falle aca pop"<<endl;
+		//exit(2);
 	}
 	//cerr<<"Mejores Pop ";	imprimirSolucion(gimnasios,pokeParadas,solucion_posible);
 	//cerr<<"bloques 2"<<endl;
@@ -344,8 +344,9 @@ double long BusquedaLocalc(vnod gimnasios, vnod pokeParadas, Mochila mochila, vi
 		solucion_posible.insert(solucion_posible.end(),bloque.begin(),bloque.end());
 	}
 	if(!validarSol(gimnasios,solucion_posible)){
-		cerr<<"falle aca b2"<<endl;
-		exit(2);
+		//cerr<<"falle aca b2"<<endl;
+		//exit(2);
+		return -1;
 	}
 	//cerr<<"bloques 2 ";	imprimirSolucion(gimnasios,pokeParadas,solucion_posible);
 	//cerr<<"cerrando el trato"<<endl;
@@ -363,17 +364,17 @@ double  pto3b(vnod gimnasios, vnod pokeParadas, Mochila mochila, vint &solucion)
 	vnod solucioNodos(1,Nodo(27,27,27,27));
 	auto dist =  tirarPokeParadas(pokeParadas, gimnasios,  mochila, solucioNodos);
 	if (dist <0|| solucioNodos.empty()){
-		cout<<"aah dio mal"<<endl;
+		//cout<<"aah dio mal"<<endl;
 		return -1;
 	}
 	for(auto nodo : solucioNodos){
 		solucion.push_back(nodo.DameIndice());
 	}
 	if(!isnormal(dist)){
-		cerr<<"EXPLOTOAH"<<endl;
+		//cerr<<"EXPLOTOAH"<<endl;
 	}
 	if (solucion.empty()){
-		cout<<"aalgo dio mal"<<endl;
+		//cout<<"aalgo dio mal"<<endl;
 		return -1;
 	}
 	//imprimirSolucion(gimnasios,pokeParadas, solucion);
@@ -384,9 +385,10 @@ double  pto3b(vnod gimnasios, vnod pokeParadas, Mochila mochila, vint &solucion)
 	for (size_t i = 0; i < solucion.size(); i++) {
 		for (size_t j = 0; j < solucion.size(); j++) {
 			if (i!=j && solucion[i]==solucion[j]){
-				cerr<< "PERA UN POCO CHE, ACA TENES EL MISMO NODO EN DOS LUGARES DISTINTOS!"<<endl;
-				imprimirSolucion(solucion);
-				exit(2);
+				//cerr<< "PERA UN POCO CHE, ACA TENES EL MISMO NODO EN DOS LUGARES DISTINTOS!"<<endl;
+				//imprimirSolucion(solucion);
+				//exit(2);
+				return -1;
 			}
 
 		}

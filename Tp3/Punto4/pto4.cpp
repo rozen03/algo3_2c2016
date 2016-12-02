@@ -169,7 +169,7 @@ void GolozoRand(Nodo & comienzo){//O(n+m)^2
   //mientras sigan existiendo gimnasios que no pasaron
     vpnod losMasCercanos;
     //guardamos los 4 gim y las 4 pp mas cercanas a la posicion actual //O(n+m) es porcentaje 20%
-    double porcAux = (double)(Gimnasios.size()+ PokeParadas.size()) * 20/100;
+    double porcAux = (double)(Gimnasios.size()+ PokeParadas.size()) * 10/100;
     int  porcentaje = ceil(porcAux);
     for (int i = 0; i < porcentaje; i++) {//"O(n+m)" 20%
       Nodo* aux=PokeParadaMasCercanaPto4();//O(m)
