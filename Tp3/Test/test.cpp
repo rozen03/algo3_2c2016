@@ -146,6 +146,7 @@ void CorrerGeneral(int rep, vnod gim, vnod pp, Mochila moch, ofstream & res, ofs
 		//ahora no responde a cada punto 1 es pto1 2 es pto2 3 es pto3 4 es pto3b 5 pto4 6 pto4b
 		for(int nroEj = 1; nroEj <= 5; nroEj++){
 			res<<nroEj<<" & "<<gimTotales << " & "<< ppTotales<<" & ";
+			cerr<<"voy a correr el pto "<<nroEj<<" con "<<gimTotales<<" gimnasios y "<<ppTotales<<" pokeparadas"<<endl;
 			Correr(rep, gim, pp, moch, res, meta, nroEj);
 
 			cerr<<"termine el pto "<<nroEj<<" con "<<gimTotales<<" gimnasios y "<<ppTotales<<" pokeparadas"<<endl;
@@ -159,6 +160,7 @@ void CorrerGeneral(int rep, vnod gim, vnod pp, Mochila moch, ofstream & res, ofs
 		if(gimTotales+ppTotales <= 200){
 			for(int nroEj = 2; nroEj <= 5; nroEj++){
 				res<<nroEj<<" & "<<gimTotales << " & "<< ppTotales<<" & ";
+				cerr<<"voy a correr el pto "<<nroEj<<" con "<<gimTotales<<" gimnasios y "<<ppTotales<<" pokeparadas"<<endl;
 				Correr(rep, gim, pp, moch, res, meta, nroEj);
 				cerr<<"termine el pto "<<nroEj<<" con "<<gimTotales<<" gimnasios y "<<ppTotales<<" pokeparadas"<<endl;
 			}
@@ -477,7 +479,7 @@ void asignarPocionesDeFormaCreciente(vnod & gyms){
 void casoGruposSeparadosPocionesCreciente(vnod& gyms, vnod& pepes, const int &cant_gym, const int &cant_pp ){
 	gruposSeparados (gyms, pepes,cant_gym, cant_pp);
 	asignarPocionesDeFormaCreciente(gyms);
-	AsignarIndices(gyms,pepes);
+	//AsignarIndices(gyms,pepes);
 }
 void casoEspiralPrimeroPepesPocionesCreciente(vnod& gyms, vnod& pepes, const int &cant_gym, const int &cant_pp ){
 	auto espiral =generadorDeEspirales(0, 0);
@@ -491,7 +493,7 @@ void casoEspiralPrimeroPepesPocionesCreciente(vnod& gyms, vnod& pepes, const int
 		pepes.push_back(Nodo(0,0,dameX(coordenadas),dameY(coordenadas)));
 	}
 	asignarPocionesDeFormaCreciente(gyms);
-	AsignarIndices(gyms,pepes);
+	//AsignarIndices(gyms,pepes);
 }
 void gruposSeparadosPorEspirales(int rep, int cantgim){
 	ofstream res("gruposEspiralesRes.txt");
@@ -531,14 +533,14 @@ int main(){
 //	SoloPokeparadasNecesariasRecta(1, 50);
 	cerr<<"terminoSoloPPNec\n";
 
-//	PPdeMas(1,50);
+	PPdeMas(1,50);
 
 //	cerr<<"termino PPdeMas\n";
-//	TodoEnElMismoLugar(1,20);
+	TodoEnElMismoLugar(1,20);
 	cerr<<"termino MismoLugar\n";
 
-//	DosPuntos(1,50);
+	DosPuntos(1,50);
 	cerr<<"termino DosPuntos\n";
-	gruposSeparadosPorEspirales(2,14);
+	//gruposSeparadosPorEspirales(1,1);
 	cerr<<"termino grupos separados por espirales yey"<<endl;
 }
