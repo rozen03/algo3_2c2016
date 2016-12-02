@@ -162,13 +162,12 @@ void CorrerGeneral(int rep, vnod gim, vnod pp, Mochila moch, ofstream & res, ofs
 				Correr(rep, gim, pp, moch, res, meta, nroEj);
 				cerr<<"termine el pto "<<nroEj<<" con "<<gimTotales<<" gimnasios y "<<ppTotales<<" pokeparadas"<<endl;
 			}
-		}
-		else{
-			break;
+		}else{
+			//break;
 			}
 		}
 	}
-}
+
 
 void Correr(int rep, vnod gimnasios, vnod pokeparadas, Mochila moch, ofstream & res, ofstream & meta, int nroEj){
 	int valor;
@@ -526,19 +525,19 @@ void gruposSeparadosPorEspirales(int rep, int cantgim){
 }
 int main(){
 	cerr<<"empece"<<endl;
-	RectaPPgim(1, 50);
+//	RectaPPgim(1, 50);
 	cerr<<"termino rectasPP"<<endl;
 
-	SoloPokeparadasNecesariasRecta(1, 50);
+//	SoloPokeparadasNecesariasRecta(1, 50);
 	cerr<<"terminoSoloPPNec\n";
 
-	PPdeMas(1,50);
+//	PPdeMas(1,50);
 
-	cerr<<"termino PPdeMas\n";
-	TodoEnElMismoLugar(1,20);
+//	cerr<<"termino PPdeMas\n";
+//	TodoEnElMismoLugar(1,20);
 	cerr<<"termino MismoLugar\n";
 
-	DosPuntos(1,50);
+//	DosPuntos(1,50);
 	cerr<<"termino DosPuntos\n";
 	gruposSeparadosPorEspirales(2,14);
 	cerr<<"termino grupos separados por espirales yey"<<endl;
